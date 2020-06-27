@@ -1,0 +1,99 @@
+/* main, sub, point color variation */
+$colorMainDark: #252451;
+$colorMain: #513396;
+$colorMainLight: #6332D4;
+$colorSubDark: #32627F;
+$colorSub: #007B93;
+$colorSubLight: #309EB0;
+$colorPoint: #DA3F31;
+
+/* gray color variation */
+$colorBlack: #000;
+$colorGray333: #333;
+$colorGray444: #444;
+$colorGray555: #555;
+$colorGray666: #666;
+$colorGrayD8: #d8d8d8;
+$colorGrayEa: #eaeaea;
+$colorGrayF5: #f5f5f5;
+$colorWhite: #fff;
+
+/* text cololr */
+$colorPrimaryText: #222;
+$colorSecondaryText: #444;
+$colorLightText: #666;
+$colorDisabledText: #aaa;
+
+$colorBlue: #3B5FCB;
+$colorRed: #E81002;
+
+/* btn */
+$btnBorder: $colorGrayD8;
+$btnDarkGray: $colorGray555;
+$btnLightGray: $colorGrayEa;
+
+button {
+  display: inline-block;
+  height: 40px;
+  margin: 0;
+  padding: 0 16px;
+  color: $colorSecondaryText;
+  text-align: center;
+  text-decoration: none;
+  vertical-align: middle;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.btn.xLarge {height: 50px;}
+.btn.large {height: 46px;}
+.btn.small {
+  height: 36px;
+  padding: 0 8px;
+}
+.btn.xSmall {
+  height: 32px;
+  padding: 0 8px;
+}
+.btn.main {
+  background-color: $colorMain;
+  border-color: $colorMain;
+}
+.btn.main.fill {color: $colorWhite;}
+.btn.main.outLine {color: $colorMain;}
+.btn.subDark {
+  background-color: $colorSubDark;
+  border-color: $colorSubDark;
+  color: $colorWhite;
+}
+.btn.sub {
+  background-color: $colorSub;
+  border-color: $colorSub;
+  color: $colorWhite;
+}
+.btn.subLight {
+  background-color: $colorSubLight;
+  border-color: $colorSubLight;
+  color: $colorWhite;
+}
+.btn.darkGray {
+  background-color: $btnDarkGray;
+  border-color: $btnDarkGray;
+  color: $colorWhite;
+}
+.btn.lightGray {
+  background-color: $btnLightGray;
+  border-color: $btnLightGray;
+}  
+.btn.white.outLine {border-color: transparentize($colorWhite, .5);}
+.btn.fill {border: none;}
+.btn.outLine {
+  border-width: 1px;
+  border-style: solid;
+  background: none;
+}
+.btn.white.fill {
+  background-color: $colorWhite;
+  border-width: 1px;
+  border-style: solid;
+  border-color: $btnBorder;
+}
