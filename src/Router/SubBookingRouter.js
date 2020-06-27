@@ -8,7 +8,7 @@ import BookingTicket from "../Components/Organisms/Booking/BookingTicket";
 const BookingRouter = () => {
   return (
     <Switch>
-      <Route path="/booking" component={BookingSelectMovie} />
+      <Route exact path="/booking" component={BookingSelectMovie} />
       <Route path="/booking/seat" component={BookingSelectSeat} />
       <Route path="/booking/payment" component={BookingPayment} />
       <Route path="/booking/ticket" component={BookingTicket} />

@@ -1,12 +1,13 @@
 import React from "react";
 import Header from "../Organisms/Header";
 import Footer from "../Organisms/Footer";
+import BookingRouter from "../../Router/SubBookingRouter";
 
 const Booking = () => {
   return (
     <div>
       <Header />
-      부킹 서브라우터 적용해야함
+      <BookingRouter />
       <Footer />
     </div>
   );
