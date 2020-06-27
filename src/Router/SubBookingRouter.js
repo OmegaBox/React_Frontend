@@ -5,7 +5,7 @@ import BookingSelectSeat from "../Components/Organisms/Booking/BookingSelectSeat
 import BookingPayment from "../Components/Organisms/Booking/BookingPayment";
 import BookingTicket from "../Components/Organisms/Booking/BookingTicket";
 
-const BookingRouter = () => {
+const SubBookingRouter = () => {
   return (
     <Switch>
       <Route exact path="/booking" component={BookingSelectMovie} />
@@ -16,4 +16,4 @@ const BookingRouter = () => {
   );
 };
 
-export default BookingRouter;
+export default SubBookingRouter;

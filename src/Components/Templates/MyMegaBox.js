@@ -1,15 +1,12 @@
 import React from "react";
 import Header from "../Organisms/Header";
 import Footer from "../Organisms/Footer";
-import Snb from "../Organisms/MyPage/Snb";
-import BookingHistoryWrap from "../Organisms/MyPage/BookingHistoryWrap";
-
+import SubMypageRouter from "../../Router/SubMypageRouter";
 const MyMegaBox = () => {
   return (
     <div>
       <Header />
-      <Snb />
-      <BookingHistoryWrap />
+      <SubMypageRouter />
       <Footer />
     </div>
   );
