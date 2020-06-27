@@ -21,28 +21,86 @@ function ComponentSample() {
       <button className={["btn", "fill", "main", "xLarge"].join(" ")}>
         확인
       </button>
+      <span style={{ marginLeft: "30px" }}>
+        ["btn", "fill", "main", "xLarge"].join(" ")
+      </span>
+      <br />
+
       <button className={["btn", "fill", "subDark", "large"].join(" ")}>
         확인
       </button>
+      <span style={{ marginLeft: "30px" }}>
+        ["btn", "fill", "subDark", "large"].join(" ")
+      </span>
+      <br />
+
       <button className={["btn", "fill", "sub"].join(" ")}>확인</button>
+      <span style={{ marginLeft: "30px" }}>
+        ["btn", "fill", "sub"].join(" ")
+      </span>
+      <br />
+
       <button className={["btn", "fill", "subLight", "small"].join(" ")}>
         확인
       </button>
+      <span style={{ marginLeft: "30px" }}>
+        ["btn", "fill", "subLight", "small"].join(" ")
+      </span>
+      <br />
+
       <button className={["btn", "fill", "darkGray", "xSmall"].join(" ")}>
         확인
       </button>
+      <span style={{ marginLeft: "30px" }}>
+        ["btn", "fill", "darkGray", "xSmall"].join(" ")
+      </span>
+      <br />
+
       <button className={["btn", "fill", "lightGray"].join(" ")}>확인</button>
+      <span style={{ marginLeft: "30px" }}>
+        ["btn", "fill", "lightGray"].join(" ")
+      </span>
+      <br />
+
       <button className={["btn", "fill", "white"].join(" ")}>확인</button>
+      <span style={{ marginLeft: "30px" }}>
+        ["btn", "fill", "white"].join(" ")
+      </span>
+      <br />
+
       <button className={["btn", "outLine", "main"].join(" ")}>확인</button>
+      <span style={{ marginLeft: "30px" }}>
+        ["btn", "outLine", "main"].join(" ")
+      </span>
+      <br />
+
       <button className={["btn", "outLine", "white"].join(" ")}>확인</button>
+      <span style={{ marginLeft: "30px" }}>
+        ["btn", "outLine", "white"].join(" ")
+      </span>
+      <br />
+
       <button className={["btn", "outLine", "lightGray"].join(" ")}>
         확인
       </button>
+      <span style={{ marginLeft: "30px" }}>
+        ["btn", "outLine", "lightGray"].join(" ")
+      </span>
+      <br />
+
       <input type="text" className="input" />
+      <span style={{ marginLeft: "30px" }}>["input"].join(" ")</span>
+      <br />
+
       <input type="text" className={["input", "large"].join(" ")} />
+      <span style={{ marginLeft: "30px" }}>["input", "large"].join(" ")</span>
+      <br />
+
       <select>
         <option>확인</option>
       </select>
+      <span style={{ marginLeft: "30px" }}>기본태그인 option 태그</span>
+      <br />
 
       <div className="inputWrap">
         <input type="radio" name="indexColor" id="test1" />
@@ -56,6 +114,7 @@ function ComponentSample() {
           <span className="inputIcon"></span>확인
         </label>
       </div>
+
       <div className="inputWrap">
         <input type="checkbox" name="green" id="test3" />
         <label for="test3">
@@ -68,7 +127,6 @@ function ComponentSample() {
           <span className="inputIcon"></span>확인
         </label>
       </div>
-
       <select
         name="country"
         id="countrySelectBox"
