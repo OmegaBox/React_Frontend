@@ -9,6 +9,7 @@ import MainLink1 from "../Organisms/Main/MainLink1";
 import MainLink2 from "../Organisms/Main/MainLink2";
 import MainNotice from "../Organisms/Main/MainNotice";
 import MainTheater from "../Organisms/Main/MainTheater";
+import NavSample from "../Organisms/NavSample";
 
 const Main = () => {
   return (
@@ -23,6 +24,7 @@ const Main = () => {
       <MainNotice />
       <MainLink2 />
       <Footer />
+      <NavSample />
     </div>
   );
 };
