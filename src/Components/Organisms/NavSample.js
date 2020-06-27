@@ -27,6 +27,11 @@ const NavSample = () => {
           결제 페이지로
         </button>
       </Link>
+      <Link to="/stylesample">
+        <button className={["btn", "fill", "white"].join(" ")}>
+          스타일 참고 페이지
+        </button>
+      </Link>
     </div>
   );
 };
