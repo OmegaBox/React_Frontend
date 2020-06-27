@@ -2,7 +2,7 @@ import React from "react";
 import Header from "../Organisms/Header";
 import Footer from "../Organisms/Footer";
 
-const MyMegaBox = () => {
+const Booking = () => {
   return (
     <div>
       <Header />
@@ -12,4 +12,4 @@ const MyMegaBox = () => {
   );
 };
 
-export default MyMegaBox;
+export default Booking;

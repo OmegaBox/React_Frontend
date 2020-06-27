@@ -10,7 +10,7 @@ import MainLink2 from "../Organisms/Main/MainLink2";
 import MainNotice from "../Organisms/Main/MainNotice";
 import MainTheater from "../Organisms/Main/MainTheater";
 
-const MyMegaBox = () => {
+const Main = () => {
   return (
     <div>
       <Header />
@@ -27,4 +27,4 @@ const MyMegaBox = () => {
   );
 };
 
-export default MyMegaBox;
+export default Main;
