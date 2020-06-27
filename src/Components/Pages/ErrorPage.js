@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 
-const BookingPage = () => {
+const ErrorPage = () => {
   // useEffect(() => {});
 
   return <h1>에러페이지</h1>;
 };
 
-export default BookingPage;
+export default ErrorPage;
