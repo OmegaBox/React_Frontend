@@ -38,6 +38,88 @@ function ComponentSample() {
       <button className={["btn", "outLine", "lightGray"].join(" ")}>
         확인
       </button>
+      <input type="text" className="input" />
+      <input type="text" className={["input", "large"].join(" ")} />
+      <select>
+        <option>확인</option>
+      </select>
+
+      <div className="inputWrap">
+        <input type="radio" name="indexColor" id="test1" />
+        <label for="test1">
+          <span className="inputIcon"></span>확인
+        </label>
+      </div>
+      <div className="inputWrap">
+        <input type="radio" name="indexColor" id="test2" />
+        <label for="test2">
+          <span className="inputIcon"></span>확인
+        </label>
+      </div>
+      <div className="inputWrap">
+        <input type="checkbox" name="green" id="test3" />
+        <label for="test3">
+          <span className="inputIcon"></span>확인
+        </label>
+      </div>
+      <div className="inputWrap">
+        <input type="checkbox" name="green" id="test4" />
+        <label for="test4">
+          <span className="inputIcon"></span>확인
+        </label>
+      </div>
+
+      <select
+        name="country"
+        id="countrySelectBox"
+        className={["select", "large"].join(" ")}
+      >
+        <option value=""> - </option>
+        <option value="0:30">30분</option>
+        <option value="1:00">1시간</option>
+        <option value="1:30">1시간 30분</option>
+        <option value="2:00">2시간</option>
+        <option value="2:30">2시간 30분</option>
+        <option value="3:00">3시간</option>
+        <option value="3:30">3시간 30분</option>
+        <option value="4:00">4시간</option>
+        <option value="4:30">4시간 30분</option>
+        <option value="5:00">5시간</option>
+      </select>
+      <select
+        name="country"
+        id="countrySelectBox"
+        className={["select"].join(" ")}
+      >
+        <option value=""> - </option>
+        <option value="0:30">30분</option>
+        <option value="1:00">1시간</option>
+        <option value="1:30">1시간 30분</option>
+        <option value="2:00">2시간</option>
+        <option value="2:30">2시간 30분</option>
+        <option value="3:00">3시간</option>
+        <option value="3:30">3시간 30분</option>
+        <option value="4:00">4시간</option>
+        <option value="4:30">4시간 30분</option>
+        <option value="5:00">5시간</option>
+      </select>
+      <select
+        name="country"
+        id="countrySelectBox"
+        className={["select", "small"].join(" ")}
+      >
+        <option value=""> - </option>
+        <option value="0:30">30분</option>
+        <option value="1:00">1시간</option>
+        <option value="1:30">1시간 30분</option>
+        <option value="2:00">2시간</option>
+        <option value="2:30">2시간 30분</option>
+        <option value="3:00">3시간</option>
+        <option value="3:30">3시간 30분</option>
+        <option value="4:00">4시간</option>
+        <option value="4:30">4시간 30분</option>
+        <option value="5:00">5시간</option>
+      </select>
     </div>
   );
 }
