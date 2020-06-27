@@ -38,6 +38,51 @@ $border: $colorGrayD8;
 $darkBorder: $colorGray66;
 $tab: $colorGray55;
 
+/* reset */
+html {
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 10px;
+  line-height: 1.5;
+  letter-spacing: -0.0025em;
+  color: $colorSecondaryText;
+}
+body * {
+  box-sizing: border-box;
+}
+*:focus {
+  outline: 1px dotted $colorBlack;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font-size: 1.6rem;
+  line-height: 1.5;
+}
+ul, ol {list-style: none;}
+a {
+  text-decoration: none;
+  color: inherit;
+}
+img {vertical-align: top;}
+
+/* common style */
+.a11yHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  clip: rect(0, 0);
+  clip-path: polygon(0, 0);
+  overflow: hidden;
+  text-indent: -9999px;
+}
+
+.clearfix::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+button, input, select, a {cursor: pointer;}
+
 /* btn */
 $btnDarkGray: $colorGray55;
 $btnLightGray: $colorGrayEa;
@@ -106,4 +151,85 @@ button {
   border-width: 1px;
   border-style: solid;
   border-color: $border;
+}
+
+/* input text*/
+input[type="text"], input[type="date"], input[type="number"], textarea {
+  height: 32px;
+  padding: 2px 8px;
+  color: $colorSecondaryText;
+  border: 1px solid $border;
+  background-color: $colorWhite;
+}
+.input.large {
+  height: 46px;
+}
+
+/* input radio, checkbox*/
+.inputWrap {
+  position: relative;
+  margin: 10px;
+  label {
+    display: inline-block;
+    padding-left: 32px;
+    span.inputIcon {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      display: inline-block;
+      width: 24px;
+      height: 24px;
+      margin-top: -12px;
+      background-repeat: no-repeat;
+      background-position: 0;
+    }
+  }
+  input[type="radio"], input[type="checkbox"] {
+    position: absolute;
+    top: 50%;
+    left: -2px;
+    width: 20px;
+    height: 20px;
+    margin-top: -10px;
+  }
+  input[type="radio"] {
+    opacity: 0;
+  }
+  input[type="checkbox"] {
+    opacity: 1;
+  }
+  input[type="radio"] + label span.inputIcon {
+    background-image: url('https://img.megabox.co.kr/static/pc/images/common/bg/bg-radio-small.png');
+    background-position: -24px;
+  }
+  input[type="radio"]:checked + label span.inputIcon {
+    background-position: 0;
+  }
+}
+
+/* select */
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  width: 100%;
+  height: 36px;
+  padding: 2px 8px;
+  border: 1px solid $border;
+  border-radius: 4px;
+  background-image: url("https://img.megabox.co.kr/static/pc/images/common/bg/bg-select-arr.png");
+  background-repeat: no-repeat;
+  background-position: 99%;
+}
+select::-ms-expand {display: none;}
+
+.select.large {
+  height: 40px;
+}
+.select.small {
+  height: 32px;
 }
