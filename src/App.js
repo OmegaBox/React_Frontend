@@ -1,10 +1,12 @@
 import React from "react";
-import ComponentSample from "./ComponentSample";
+// import ComponentSample from "./ComponentSample";
+import MainRouter from "./Router/MainRouter";
 
 function App() {
   return (
     <div className="App">
-      <ComponentSample />
+      {/* <ComponentSample /> */}
+      <MainRouter />
     </div>
   );
 }
