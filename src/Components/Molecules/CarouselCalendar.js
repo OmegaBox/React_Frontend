@@ -28,7 +28,6 @@ const CarouselCalendar = () => {
     slidesToShow: 14,
     slidesToScroll: 1,
     arrows: true,
-    focusOnSelect: true,
     // nextArrow: <NextArrow />,
     // prevArrow: <PrevArrow />,
   };
@@ -44,7 +43,10 @@ const CarouselCalendar = () => {
               id={i}
               onClick={(e) => test(date.day, e)}
             >
-              <span className={+clickCalIndex === +i ? "dododo" : "no"}>
+              <span
+                className={+clickCalIndex === +i ? "dododo" : "no"}
+                style={{}}
+              >
                 {date.day} {date.dayOfWeek}
               </span>
             </div>
