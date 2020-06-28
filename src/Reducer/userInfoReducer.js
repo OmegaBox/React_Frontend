@@ -3,6 +3,9 @@ const ERROR = "userInfo/ERROR";
 const LOADING = "userInfo/LOADING";
 
 const initialState = {
+  loading: false,
+  error: false,
+  errorMessage: "",
   name: "홍길동",
   tier: "일반회원",
   point: 18000,
@@ -12,6 +15,8 @@ const initialState = {
     {
       ticketNumber: "T907030552868",
       title: "살아있다",
+      movieAgeGrade: 15,
+      accFavorite: 675, // 누적 좋아요
       theater: "강남",
       screeningHall: "1관",
       date: "2020-06-28",
