@@ -14,6 +14,7 @@ const initialState = {
     selectedDate: "2020-07-10",
     selectedtheather: "강남",
     selectedMovieTitle: "살아있다",
+    movieAgeGrade: "All",
     seletedTime: "19:40",
     seats: [],
     ticketType: [],
