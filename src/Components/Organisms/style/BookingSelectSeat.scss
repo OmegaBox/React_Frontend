@@ -26,3 +26,46 @@
     width: 50px;
   }
 }
+
+#bookingSeatList {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  position: relative;
+
+  * {
+    text-align: center;
+    padding: 0;
+  }
+
+  & > ul > li {
+    margin: 3px 0;
+    line-height: 14px;
+  }
+
+  #listRowName {
+    margin-right: 30px;
+    li {
+      width: 18px;
+      height: 18px;
+      font-size: .7333em;
+      border: 1px solid #ccc;
+      background-color: #fff;
+    }
+  }
+
+  #listRow {
+    .listSeat{
+      display:flex;
+      flex-flow: row wrap;
+      li {
+        width: 20px;
+        height: 18px;
+        font-size: .7333em;
+        color: #fff;
+        border: 1px solid #02bfd3;
+        background-color: #747474;
+      }
+    }
+  }
+}
