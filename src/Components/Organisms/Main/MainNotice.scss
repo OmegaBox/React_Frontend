@@ -1,4 +1,61 @@
 .mainNoticeLayout {
   height: 600px;
- 
+}
+
+.mainNotice {
+  font-size: 18px;
+  font-weight: 500;
+  width: 1250px;
+  height: 90px;
+  margin: 0 auto;
+  padding: 50px 0 0 0;
+  display: flex;
+  justify-content: space-around;
+  li {
+    width: 184px;
+    height: 90px;
+    text-align: center;
+    vertical-align: middle;
+    div {
+      margin: 0 auto;
+      margin-bottom: 10px;
+      background-repeat: no-repeat;
+    }
+  }
+}
+
+.customerIcon {
+  width: 46px;
+  height: 46px;
+  background-image: url(https://img.megabox.co.kr/static/pc/images/common/ico/ico-main-customer.png);  
+}
+
+.qestionsIcon {
+  width: 50px;
+  height: 46px;
+  background-image: url(https://img.megabox.co.kr/static/pc/images/common/ico/ico-main-faq.png);
+}
+
+.inquiryIcon {
+  width: 43px;
+  height: 43px;
+  background-image: url(https://img.megabox.co.kr/static/pc/images/common/ico/ico-main-qna.png);
+}
+
+.groupInquiryIcon {
+  width: 50px;
+  height: 38px;
+  background-image: url(https://img.megabox.co.kr/static/pc/images/common/ico/ico-main-group.png);
+}
+
+.lostInquriyIcon {
+  width: 51px;
+  height: 39px;
+  background-image: url(https://img.megabox.co.kr/static/pc/images/common/ico/ico-main-lost.png);
+}
+
+.privateIcon {
+  width: 48px;
+  height: 40px;
+  background-image: url(https://img.megabox.co.kr/static/pc/images/common/ico/ico-main-boutique.png);
 }

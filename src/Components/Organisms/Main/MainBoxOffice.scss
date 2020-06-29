@@ -2,17 +2,20 @@
   height: 830px;
   
 }
-// .mainImg {
-//   background-color: rgba(0, 0, 0, 0);
-//   width: 100%;
-//   height: 900px;
-// }
+.mainImg {
+  color: rgb(68, 68, 68);
+  width: 100%;
+  height: 900px;
+  position: absolute;
+  top: 0;
+  filter: blur(15px);
+  z-index: 3;
+}
 
 .mainBoxoffice {
   width: 1250px;
   height: 830px;
   margin: 0 auto;
-  background-color:#444;
 }
 
 .boxOffice {

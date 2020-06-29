@@ -15,5 +15,4 @@ const MainTheater = () => {
     </div>
   );
 };
-
 export default MainTheater;

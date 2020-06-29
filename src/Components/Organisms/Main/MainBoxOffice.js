@@ -6,7 +6,13 @@ import "./MainBoxOffice.scss";
 const MainBoxOffice = () => {
   return (
     <div className="mainBoxOfficeLayout">
+      <img
+        className="mainImg"
+        src="https://img.megabox.co.kr/SharedImg/2020/06/09/4ukWkF6Z9Q80RY6g3l1UWJoR4q0SrGf7_380.jpg"
+        alt="1. #살아있다_캐릭터 포스터(유아인ver).jpg"
+      />
       <div className="mainBoxoffice">
+
         <div className="boxOffice">
           박스오피스
       </div>
@@ -20,11 +26,7 @@ const MainBoxOffice = () => {
           <div>빠른예매</div>
         </div>
       </div>
-      {/* <img
-        className="mainImg"
-        src="https://img.megabox.co.kr/SharedImg/2020/06/09/4ukWkF6Z9Q80RY6g3l1UWJoR4q0SrGf7_380.jpg"
-        alt="1. #살아있다_캐릭터 포스터(유아인ver).jpg"
-      /> */}
+
     </div>
   );
 };
