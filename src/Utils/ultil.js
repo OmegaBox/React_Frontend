@@ -14,7 +14,7 @@ const getDateRangeData = (start, end) => {
 
     resultDates.push({
       dateObject: new Date(startDate),
-      dateString: startDate.getFullYear() + "." + month + "-" + stringDay,
+      dateString: startDate.getFullYear() + "-" + month + "-" + stringDay,
       dateYearMonth: startDate.getFullYear() + "." + month,
       month: month,
       day: day,
