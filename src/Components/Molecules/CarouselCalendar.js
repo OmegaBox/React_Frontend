@@ -32,7 +32,7 @@ const CarouselCalendar = () => {
   };
 
   return (
-    <div className="carouselCalendarContainer" style={{ width: "1000px" }}>
+    <div className="carouselCalendarContainer">
       <Slider {...settings}>
         {dateArray.map((date, i) => {
           let addClass = "carouselCal";
