@@ -2,9 +2,13 @@ const SUCCESS = "booking/SUCCESS";
 const ERROR = "booking/ERROR";
 const LOADING = "booking/LOADING";
 
+const SET_SELECTED_DATE = "booking/SELECTED_DATE";
+
+const setSelectedDate = (date) => ({ type: SET_SELECTED_DATE, date });
+
 const initialState = {
   selectedOption: {
-    selectedDate: "2020-07-10",
+    selectedDate: "",
     selectedtheather: ["강남", "목동"],
     selectedMovieTitle: ["살아있다", "결백"],
     seletedTime: "19:40",
@@ -22,7 +26,17 @@ const initialState = {
 };
 
 const bookingReducer = (state = initialState, action) => {
+  console.log(action);
+
   switch (action.type) {
+    case SET_SELECTED_DATE:
+      return {
+        ...state,
+        selectedOption: {
+          ...state.selectedOption,
+          selectedDate: action.date,
+        },
+      };
     case SUCCESS:
     case ERROR:
     case LOADING:
@@ -31,4 +45,4 @@ const bookingReducer = (state = initialState, action) => {
   }
 };
 
-export { bookingReducer };
+export { bookingReducer, setSelectedDate };
