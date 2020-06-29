@@ -1,3 +1,8 @@
+.carouselCalendarContainer {
+  padding: 0 30px;
+  width: 1050px;
+}
+
 .slick-arrow.slick-next::before {
   color: #000 !important;
 }
@@ -10,7 +15,15 @@
   text-align: center;
 }
 
-.dododo {
-  color: tomato !important;
-  background-color: gray;
+.selectedDay {
+  background-color: rgb(240, 240, 240);
+  border-bottom: 3px solid #6332d4;
+}
+
+button {
+  border: 0;
+  border-radius: 0 !important;
+  padding: 0 !important;
+  background-color: transparent;
+  color: none;
 }

@@ -1,25 +1,24 @@
 import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import Slider from "react-slick";
 
+import { setSelectedDate } from "../../Reducer/bookingReducer";
 import { getDateRangeData } from "../../Utils/ultil";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./style/CarouselCalendar.scss";
 
-const dateArray = getDateRangeData(Date.now(), "2020-07-20");
+const dateArray = getDateRangeData(Date.now(), "2020-07-31");
 
 const CarouselCalendar = () => {
-  const [clickCalIndex, setClickCalIndex] = useState(0);
+  const selectedOption = useSelector((state) => state.Booking.selectedOption);
 
-  const test = (value, e) => {
-    console.log(value);
-    console.log(e.currentTarget.id);
-    console.log(e);
-    setClickCalIndex(e.currentTarget.id);
+  const dispatch = useDispatch();
+
+  const test = (date, e) => {
+    dispatch(setSelectedDate(date));
   };
-
-  console.log("리페인팅", clickCalIndex);
 
   const settings = {
     dots: false,
@@ -33,23 +32,25 @@ const CarouselCalendar = () => {
   };
 
   return (
-    <div className="container" style={{ padding: "40px", width: "1100px" }}>
+    <div className="carouselCalendarContainer">
       <Slider {...settings}>
         {dateArray.map((date, i) => {
-          if (clickCalIndex === +i) console.log("일치!", i);
+          let addClass = "carouselCal";
+          addClass +=
+            selectedOption.selectedDate === date.dateString
+              ? " selectedDay"
+              : "";
+
           return (
-            <div
-              className="carouselCal"
+            <button
+              className={addClass}
               id={i}
-              onClick={(e) => test(date.day, e)}
+              onClick={(e) => test(date.dateString, e)}
             >
-              <span
-                className={+clickCalIndex === +i ? "dododo" : "no"}
-                style={{}}
-              >
+              <span style={{}}>
                 {date.day} {date.dayOfWeek}
               </span>
-            </div>
+            </button>
           );
         })}
       </Slider>
