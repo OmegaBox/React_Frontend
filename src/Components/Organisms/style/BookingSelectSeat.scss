@@ -1,0 +1,28 @@
+#BookingSelectSeat {
+  border-top: 1px solid #000;
+  h3 { display: inline-block; }
+  #BookingSeatWrap {
+    border: 1px solid #d8d9db;
+  }
+}
+
+#bookingSeatReset {
+  span{
+    padding-left: 1.5em;
+    background: url(https://img.megabox.co.kr/static/pc/images/common/ico/ico-reset-small.png) no-repeat;
+  }
+}
+
+#bookingPersonalSetting {
+  display: flex;
+  flex-direction: row wrap;
+  padding: 10px 0 10px 20px;
+  background-color: #f2f4f5;
+}
+
+.personalCounter {
+  display: inline-block;
+  select {
+    width: 50px;
+  }
+}
