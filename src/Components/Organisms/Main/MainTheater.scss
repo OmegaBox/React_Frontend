@@ -1,0 +1,43 @@
+.mainTheaterLayout {
+  width: 1250px;
+  margin: 0 auto;
+  padding: 50px 0 40px 0;
+  font-size: 35px;
+  font-weight: 400;
+  color: #351f66;
+}
+
+.theaterMenu {
+  width: 1250px;
+  height: 177px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-around;
+  li {
+    border-radius: 10px;
+    width: 170px;
+    height: 170px;
+    background-repeat: no-repeat;
+    background-size: 170px 340px;
+    box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.2);
+  }
+  li:hover {
+    background-position-y: 100%;
+  }
+}
+
+.theaterBoutique {
+  background-image: url(https://www.megabox.co.kr/static/pc/images/main/bg-main-megainfo-boutique.png);
+}
+.theaterMX {
+  background-image: url(https://www.megabox.co.kr/static/pc/images/main/bg-main-megainfo-mx.png);
+}
+.theaterComfort {
+  background-image: url(https://www.megabox.co.kr/static/pc/images/main/bg-main-megainfo-comfort.png);
+}
+.theaterKids {
+  background-image: url(https://www.megabox.co.kr/static/pc/images/main/bg-main-megainfo-kids.png);
+}
+.theaterFirstclub {
+  background-image: url(https://www.megabox.co.kr/static/pc/images/main/bg-main-megainfo-first.png);
+}

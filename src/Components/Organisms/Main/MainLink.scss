@@ -1,0 +1,33 @@
+.mainLink {
+  width: 1250px;
+  margin: 0 auto;
+  padding: 80px 0 0 0;
+  display: flex;
+  justify-content: space-around;
+  font-size: 20px;
+  text-align: center;
+  li {
+    width: 220px;
+    height: 22px;
+  }
+}
+
+.linkVIP {
+  background-image: url('https://www.megabox.co.kr/static/pc/images/common/ico/ico-vip-main.png');
+  background-position: center 2px;
+}
+
+.linkMember {
+  background-image: url('https://www.megabox.co.kr/static/pc/images/common/ico/ico-membership-main.png');
+  background-position: center 2px;
+}
+
+.linkCard {
+  background-image: url('https://www.megabox.co.kr/static/pc/images/common/ico/ico-card-main.png');
+  background-position: center 2px;
+}
+
+.linkEvent {
+  background-image: url('https://www.megabox.co.kr/static/pc/images/common/ico/ico-event-main.png');
+  background-position: center 2px;
+}

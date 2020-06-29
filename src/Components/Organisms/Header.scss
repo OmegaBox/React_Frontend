@@ -1,0 +1,60 @@
+.headerLayout {
+  width: 1250px;
+  height: 90px;
+  margin: 0 auto;
+  display: flex;
+  border-bottom: 1px;
+  background-color: navy;
+  font-size: 10px;
+  align-items: center;
+  justify-content: space-around;
+  flex-flow: nowrap;
+  color: white;
+}
+
+.mainLogo {
+  background-image: url(https://img.megabox.co.kr/static/pc/images/common/ci/logo-white.png);
+  width: 140px;
+  height: 47px;
+}
+.menuBar {
+  width: 36px;
+  height: 36px;
+  background-image: url(https://img.megabox.co.kr/static/pc/images/common/ico/ico-sitemap.png);
+}
+.menuSearch {
+  width: 36px;
+  height: 36px;
+  background-image: url(https://img.megabox.co.kr/static/pc/images/common/ico/ico-search.png);
+}
+.menuSchedule {
+  width: 36px;
+  height: 36px;
+  background-image: url(https://img.megabox.co.kr/static/pc/images/common/ico/ico-schedule.png);
+}
+.menuMypage {
+  width: 36px;
+  height: 36px;
+  background-image: url(https://img.megabox.co.kr/static/pc/images/common/ico/ico-mymega.png);
+}
+
+
+.mainLeftSide {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  font-size: 2.5em;
+  li {
+    margin-right: 25px;
+  }
+}
+
+.mainRightSide {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  font-size: 2.5em;
+  li {
+    margin-right: 25px;
+  }
+}
