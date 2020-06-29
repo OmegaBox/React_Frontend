@@ -5,9 +5,12 @@ const MainNotice = () => {
   return (
     <div>
       <div className="inforNotice">
-        <p>지점</p>
-        <p>[코엑스] [코엑스] 시사회 진행에 따른 고객 안내문</p>
-        <p></p>
+
+        <div className="wrap">
+          <p>지점</p>
+          <p className="noticeText">[코엑스] [코엑스] 시사회 진행에 따른 고객 안내문</p>
+          <p></p>
+        </div>
       </div>
       <div className="mainNoticeLayout">
         <ul className="mainNotice">

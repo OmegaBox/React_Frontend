@@ -1,3 +1,27 @@
+.inforNotice {
+  margin-top: 50px;
+  margin: 50px 0 auto;
+  border: 1px solid #e2e2e2;
+  border-width: 1px 0; 
+  
+  .wrap {
+    width: 1250px;
+    height: 60px;
+    margin: 0 auto;
+    p {
+      display: inline-block;
+      padding: 0;
+    }
+  } 
+  .noticeText {
+    margin: 0 auto;
+    background-color: yellow;
+    width: 830px;
+      
+  }
+}
+
+
 .mainNoticeLayout {
   height: 600px;
 }

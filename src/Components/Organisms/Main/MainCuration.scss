@@ -1,8 +1,23 @@
 .mainCurationLayout {
-  height: 636px;
-  margin: 0 auto;
   background-color: rgb(37, 36, 81);
+  height: 636px;
   color: #fff;
-  font-size: 20px; 
+  
 }
 
+.mainCuration {
+  background-color: blue;
+  width: 1250px;
+  margin: 0 auto;    
+  font-size: 20px; 
+  padding: 50px 0 40px 0;
+  display: flex;
+  justify-content: space-between;
+ 
+}
+
+.curationHeader {
+  display: inline;
+  margin: 0;
+  padding: 0;
+}
