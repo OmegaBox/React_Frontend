@@ -11,14 +11,18 @@ const initialState = {
     selectedDate: "",
     selectedtheather: ["강남", "목동"],
     selectedMovieTitle: ["살아있다", "결백"],
+    movieAgeGrade: "All",
     seletedTime: "19:40",
+    endTime: "",
     seletedSeat: [],
   },
   ticket: {
     selectedDate: "2020-07-10",
     selectedtheather: "강남",
     selectedMovieTitle: "살아있다",
+    movieAgeGrade: "All",
     seletedTime: "19:40",
+    endTime: "",
     seats: [],
     ticketType: [],
     price: 30000,
@@ -26,8 +30,6 @@ const initialState = {
 };
 
 const bookingReducer = (state = initialState, action) => {
-  console.log(action);
-
   switch (action.type) {
     case SET_SELECTED_DATE:
       return {
