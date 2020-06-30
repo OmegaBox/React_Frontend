@@ -140,7 +140,10 @@ const BookingHistoryWrap = () => {
         </ul>
       </section>
       <section className="useInfo">
-        <button type="button" className={["btn", "fill", "white"].join(" ")}>
+        <button
+          type="button"
+          className={["btn", "regular", "fill", "white"].join(" ")}
+        >
           이용안내
           <span className={["icon", "arrowBottom"].join(" ")}></span>
         </button>

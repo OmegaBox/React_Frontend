@@ -44,12 +44,18 @@ const EditOption = () => {
                 </li>
                 <li>
                   <span>3 순위</span>
-                  <select>
-                    <option>서울</option>
-                  </select>
-                  <select>
-                    <option>송파파크하비오</option>
-                  </select>
+                  <div className="selectWrap">
+                    <select className={["select", "large"].join(" ")}>
+                      <option>서울</option>
+                    </select>
+                    <span className={["icon", "arrowBottom"].join(" ")}></span>
+                  </div>
+                  <div className="selectWrap">
+                    <select className={["select", "large"].join(" ")}>
+                      <option>서울</option>
+                    </select>
+                    <span className={["icon", "arrowBottom"].join(" ")}></span>
+                  </div>
                 </li>
               </ul>
             </td>

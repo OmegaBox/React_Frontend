@@ -269,14 +269,19 @@ select {
 select::-ms-expand {display: none;}
 
 .selectWrap {
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin: 4px;
-  padding: 1px 4px 1px 1px;
+  padding: 1px;
   border: 1px solid $border;
   border-radius: 4px;
-  .icon {width: 32px;}
+  .icon {
+    position: absolute;
+    right: 0;
+    width: 32px;
+  }
 }
 .select.large {height: 40px;}
 .select.small {height: 32px;}

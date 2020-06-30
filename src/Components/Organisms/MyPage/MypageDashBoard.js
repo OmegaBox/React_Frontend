@@ -51,7 +51,7 @@ const MypageDashBoard = () => {
           <h4 className="titleText">나의 무비스토리</h4>
           <button
             type="button"
-            className={["btn", "regular", "white", "fill"].join(" ")}
+            className={["btn", "xSmall", "white", "fill"].join(" ")}
           >
             본 영화 등록
           </button>
