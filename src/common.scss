@@ -109,12 +109,8 @@ $btnLightGray: $colorGrayEa;
 
 button {
   display: inline-block;
-  min-width: 64px;
-  height: 40px;
-  margin: 0 4px;
-  padding: 0 16px;
   color: $colorSecondaryText;
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   text-align: center;
   text-decoration: none;
   vertical-align: middle;
@@ -123,17 +119,22 @@ button {
   background: none;
   cursor: pointer;
 }
-.btn.xLarge, .btn.large {
-  min-width: 80px;
+.btn {
+  margin: 0 4px;
+  padding: 0 16px;
 }
+.btn.xLarge, .btn.large {min-width: 80px;}
 .btn.xLarge {
   height: 50px;
   font-size: 2rem;
 }
 .btn.large {height: 46px;}
-.btn.small, .btn.xSmall {
-  min-width: 48px;
+.btn.regular {
+  min-width: 64px;
+  height: 40px;
+  font-size: 1.8rem;
 }
+.btn.small, .btn.xSmall {min-width: 48px;}
 .btn.small {
   height: 36px;
   padding: 0 8px;
@@ -203,9 +204,7 @@ input[type="text"], input[type="date"], input[type="number"], textarea {
   border: 1px solid $border;
   background-color: $colorWhite;
 }
-.input.large {
-  height: 46px;
-}
+.input.large {height: 46px;}
 input[type="text"]:hover, input[type="date"]:hover, input[type="number"]:hover, textarea:hover, input[type="text"]:focus, input[type="date"]:focus, input[type="number"]:focus, textarea:focus  {
   border-color: $darkBorder;
 }
@@ -286,4 +285,39 @@ select::-ms-expand {display: none;}
 /* typography */
 h1, h2, h3, h4, h5, h6, p {
   margin: 0;
+}
+
+/* icon */
+.icon {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background-repeat: no-repeat;
+  background-position: center;
+  &.arrowRight {
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/ico/ico-arr-right-reverse-gray.png");
+  }
+  &.arrowBottom {
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/ico/ico-arr-toggle-down.png");
+  }
+  &.like {
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/ico/ico-like.png");
+    background-position: 50% 0;
+  }
+  &.write {
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/ico/ico-pencil.png");
+  }
+  &.favorite {
+    width: 17px;
+    height: 15px;
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/ico/ico-heart-toggle-gray.png");
+    background-position: 0;
+  }
+  &.ageGrade {
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;
+    border-radius: 12px;
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-all.png");
+  }
 }
