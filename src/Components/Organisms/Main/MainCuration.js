@@ -1,5 +1,5 @@
 import React from "react";
-import './MainCuration.scss';
+import "./style/MainCuration.scss";
 
 const MainCuration = () => {
   return (

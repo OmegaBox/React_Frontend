@@ -1,5 +1,5 @@
 import React from "react";
-import "./MainBoxOffice.scss";
+import "./style/MainBoxOffice.scss";
 // import { Link } from "react-router-dom";
 // import movieReducer from "../../../Reducer/movieReducer";
 
