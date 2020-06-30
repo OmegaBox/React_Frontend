@@ -7,38 +7,81 @@ const BookingMovieList = () => {
     <div className="bookingMovieList">
       <h3>영화</h3>
       <ul className="movieLists">
-        <li>#살아있다</li>
-        <li>온워드: 단 하루의 기적</li>
-        <li>소리꾼</li>
-        <li>결백</li>
-        <li>#살아있다</li>
-        <li>온워드: 단 하루의 기적</li>
-        <li>소리꾼</li>
-        <li>결백</li>
-        <li>#살아있다</li>
-        <li>온워드: 단 하루의 기적</li>
-        <li>소리꾼</li>
-        <li>결백</li>
-        <li>#살아있다</li>
-        <li>온워드: 단 하루의 기적</li>
-        <li>소리꾼</li>
-        <li>결백</li>
-        <li>#살아있다</li>
-        <li>온워드: 단 하루의 기적</li>
-        <li>소리꾼</li>
-        <li>결백</li>
-        <li>#살아있다</li>
-        <li>온워드: 단 하루의 기적</li>
-        <li>소리꾼</li>
-        <li>결백</li>
-        <li>#살아있다</li>
-        <li>온워드: 단 하루의 기적</li>
-        <li>소리꾼</li>
-        <li>결백</li>
-        <li>#살아있다</li>
-        <li>온워드: 단 하루의 기적</li>
-        <li>소리꾼</li>
-        <li>결백</li>
+        <li>
+          <button type="button">
+            <span className="ageGrade" />
+            #살아있다
+          </button>
+        </li>
+        <li>
+          <button type="button">온워드: 단 하루의 기적</button>
+        </li>
+        <li>
+          <button type="button">소리꾼</button>
+        </li>
+        <li>
+          <button type="button">결백</button>
+        </li>
+        <li>
+          <button type="button">#살아있다</button>
+        </li>
+        <li>
+          <button type="button">온워드: 단 하루의 기적</button>
+        </li>
+        <li>
+          <button type="button">소리꾼</button>
+        </li>
+        <li>
+          <button type="button">결백</button>
+        </li>
+        <li>
+          <button type="button">#살아있다</button>
+        </li>
+        <li>
+          <button type="button">온워드: 단 하루의 기적</button>
+        </li>
+        <li>
+          <button type="button">소리꾼</button>
+        </li>
+        <li>
+          <button type="button">결백</button>
+        </li>
+        <li>
+          <button type="button">#살아있다</button>
+        </li>
+        <li>
+          <button type="button">온워드: 단 하루의 기적</button>
+        </li>
+        <li>
+          <button type="button">소리꾼</button>
+        </li>
+        <li>
+          <button type="button">결백</button>
+        </li>
+        <li>
+          <button type="button">#살아있다</button>
+        </li>
+        <li>
+          <button type="button">온워드: 단 하루의 기적</button>
+        </li>
+        <li>
+          <button type="button">소리꾼</button>
+        </li>
+        <li>
+          <button type="button">결백</button>
+        </li>
+        <li>
+          <button type="button">#살아있다</button>
+        </li>
+        <li>
+          <button type="button">온워드: 단 하루의 기적</button>
+        </li>
+        <li>
+          <button type="button">소리꾼</button>
+        </li>
+        <li>
+          <button type="button">결백</button>
+        </li>
       </ul>
       <div className="selectedMovie">
         <ul>
