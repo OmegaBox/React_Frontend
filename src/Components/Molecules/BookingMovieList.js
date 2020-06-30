@@ -9,78 +9,147 @@ const BookingMovieList = () => {
       <ul className="movieLists">
         <li>
           <button type="button">
-            <span className="ageGrade" />
+            <span className="icon ageGrade15Small" />
             #살아있다
           </button>
         </li>
         <li>
-          <button type="button">온워드: 단 하루의 기적</button>
+          <button type="button">
+            <span className="icon ageGradeSmall" />
+            온워드: 단 하루의 기적
+          </button>
         </li>
         <li>
-          <button type="button">소리꾼</button>
+          <button type="button">
+            <span className="icon ageGrade19Small" />
+            소리꾼
+          </button>
         </li>
         <li>
-          <button type="button">결백</button>
+          <button type="button">
+            <span className="icon ageGrade15Small" />
+            결백
+          </button>
         </li>
         <li>
-          <button type="button">#살아있다</button>
+          <button type="button">
+            <span className="icon ageGradeSmall" />
+            #살아있다
+          </button>
         </li>
         <li>
-          <button type="button">온워드: 단 하루의 기적</button>
+          <button type="button">
+            <span className="icon ageGradeSmall" />
+            온워드: 단 하루의 기적
+          </button>
         </li>
         <li>
-          <button type="button">소리꾼</button>
+          <button type="button">
+            <span className="icon ageGradeSmall" />
+            소리꾼
+          </button>
         </li>
         <li>
-          <button type="button">결백</button>
+          <button type="button">
+            <span className="icon ageGradeSmall" />
+            결백
+          </button>
         </li>
         <li>
-          <button type="button">#살아있다</button>
+          <button type="button">
+            <span className="icon ageGradeSmall" />
+            #살아있다
+          </button>
         </li>
         <li>
-          <button type="button">온워드: 단 하루의 기적</button>
+          <button type="button">
+            <span className="icon ageGradeSmall" />
+            온워드: 단 하루의 기적
+          </button>
         </li>
         <li>
-          <button type="button">소리꾼</button>
+          <button type="button">
+            <span className="icon ageGradeSmall" />
+            소리꾼
+          </button>
         </li>
         <li>
-          <button type="button">결백</button>
+          <button type="button">
+            <span className="icon ageGradeSmall" />
+            결백
+          </button>
         </li>
         <li>
-          <button type="button">#살아있다</button>
+          <button type="button">
+            <span className="icon ageGradeSmall" />
+            #살아있다
+          </button>
         </li>
         <li>
-          <button type="button">온워드: 단 하루의 기적</button>
+          <button type="button">
+            <span className="icon ageGradeSmall" />
+            온워드: 단 하루의 기적
+          </button>
         </li>
         <li>
-          <button type="button">소리꾼</button>
+          <button type="button">
+            <span className="icon ageGradeSmall" />
+            소리꾼
+          </button>
         </li>
         <li>
-          <button type="button">결백</button>
+          <button type="button">
+            <span className="icon ageGradeSmall" />
+            결백
+          </button>
         </li>
         <li>
-          <button type="button">#살아있다</button>
+          <button type="button">
+            <span className="icon ageGradeSmall" />
+            #살아있다
+          </button>
         </li>
         <li>
-          <button type="button">온워드: 단 하루의 기적</button>
+          <button type="button">
+            <span className="icon ageGradeSmall" />
+            온워드: 단 하루의 기적
+          </button>
         </li>
         <li>
-          <button type="button">소리꾼</button>
+          <button type="button">
+            <span className="icon ageGradeSmall" />
+            소리꾼
+          </button>
         </li>
         <li>
-          <button type="button">결백</button>
+          <button type="button">
+            <span className="icon ageGradeSmall" />
+            결백
+          </button>
         </li>
         <li>
-          <button type="button">#살아있다</button>
+          <button type="button">
+            <span className="icon ageGradeSmall" />
+            #살아있다
+          </button>
         </li>
         <li>
-          <button type="button">온워드: 단 하루의 기적</button>
+          <button type="button">
+            <span className="icon ageGradeSmall" />
+            온워드: 단 하루의 기적
+          </button>
         </li>
         <li>
-          <button type="button">소리꾼</button>
+          <button type="button">
+            <span className="icon ageGradeSmall" />
+            소리꾼
+          </button>
         </li>
         <li>
-          <button type="button">결백</button>
+          <button type="button">
+            <span className="icon ageGradeSmall" />
+            결백
+          </button>
         </li>
       </ul>
       <div className="selectedMovie">
