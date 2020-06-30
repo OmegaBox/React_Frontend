@@ -1,0 +1,52 @@
+@import "../../../common.scss";
+
+.mainBoxOfficeLayout {
+  height: 830px;
+  background: $colorBlack;
+}
+
+.mainBoxOffice {
+  width: 1250px;
+  height: 830px;
+  margin: 0 auto;
+  h2 {
+    text-align: center;
+  }
+}
+
+.boxOffice {
+  font-size: 20px;
+  padding-top: 79px;
+  color: $colorWhite;
+  text-align: center;
+  border-bottom: 3px; 
+}
+
+.mainSearchBar {
+  width: 1250px;
+  margin-top: 50px;
+  padding-top: 23px;
+  div {
+    color: $colorWhite;
+    box-sizing: border-box;
+    display: inline-block;
+    width: 275px;
+    height: 30px;
+    padding-top: 23px;
+    background: $colorBlack;
+    font-size: 20px;
+  }
+}
+.iconSchedule {
+  width: 35px;
+  height: 26px;
+  background-image: url(https://img.megabox.co.kr/static/pc/images/common/ico/ico-schedule-main.png);
+}
+
+.searchBar {
+  width: 170px;
+}
+
+.searchBtn {
+  background-image: url(https://img.megabox.co.kr/static/pc/images/common/ico/ico-search-white.png), 100%;
+}

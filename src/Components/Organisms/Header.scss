@@ -1,0 +1,99 @@
+@import "../../common.scss";
+
+.headerLayout {
+  width: 1250px;
+  height: 90px;
+  margin: 0 auto;
+  border-bottom: 1px;
+  background: $colorMainDark;
+  font-size: 10px;
+  color: $colorWhite;
+};
+
+.mainNav {
+  width: 1250px;
+  display: flex;
+  justify-content: space-between;
+  height: 90px;
+  position: relative;
+
+}
+
+.mainLogo {
+  background-image: url(https://img.megabox.co.kr/static/pc/images/common/ci/logo-white.png);
+  width: 140px;
+  height: 47px;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.mainLeftSide {
+  order: -1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 2.5em;
+  padding: 0;
+  margin: 0;
+  height: 55px;
+  width: 500px;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+}
+
+.mainRightSide {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 2.5em;
+  padding: 0;
+  margin: 0;
+  height: 55px;
+  width: 500px;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+
+.headerIcon {
+  width: 36px;
+  height: 36px;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.menuBar {
+  background-image: url(https://img.megabox.co.kr/static/pc/images/common/ico/ico-sitemap-white.png);
+}
+.menuSearch {
+  background-image: url(https://img.megabox.co.kr/static/pc/images/common/ico/ico-search-white.png);
+}
+.menuSchedule {
+  background-image: url(https://img.megabox.co.kr/static/pc/images/common/ico/ico-schedule-white.png);
+}
+.menuMypage {
+  background-image: url(https://img.megabox.co.kr/static/pc/images/common/ico/ico-mymega-white.png);
+}
+
+
+.subNav {
+  display: flex;
+  justify-content: space-between;
+  height: 22px;
+  width: 100%;
+
+  ul {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.subLeftSide li {
+  margin-right: 20px;
+} 
+
+.subRightSide li {
+  margin-left: 20px;
+}
