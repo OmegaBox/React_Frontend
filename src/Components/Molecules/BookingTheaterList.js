@@ -8,9 +8,7 @@ const BookingTheaterList = (props) => {
       <div className="theaterList">
         <ul className="region">
           <li>
-            <button className="textBold" type="button">
-              서울
-            </button>
+            <button type="button">서울</button>
           </li>
           <li>
             <button type="button">경기</button>
