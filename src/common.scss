@@ -33,10 +33,15 @@ $whiteGrayBg: $colorGrayF5;
 $lightBg: $colorGrayEa;
 $darkBg: $colorGray44;
 $deepDarkBg: $colorGray33;
+
 $ligthBorder: $colorGrayEa;
 $border: $colorGrayD8;
 $darkBorder: $colorGray66;
 $tab: $colorGray55;
+
+$textBold: 700;
+$textMedium: 500;
+$textLight: 300;
 
 .textRed {
   color: $colorRed;
@@ -385,6 +390,61 @@ p {
   }
   &.plus {
     background-image: url("https://img.megabox.co.kr/static/pc/images/reserve/bg-empty-cell-circle.png");
+  &.ageGradeSmall {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+    border-radius: 12px;
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-all.png");
+    background-size: 100%;
+  }
+  &.ageGrade12 {
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;
+    border-radius: 12px;
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-12.png");
+    background-size: 100%;
+  }
+  &.ageGrade12Small {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+    border-radius: 12px;
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-12.png");
+    background-size: 100%;
+  }
+  &.ageGrade15 {
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;
+    border-radius: 12px;
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-15.png");
+    background-size: 100%;
+  }
+  &.ageGrade15Small {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+    border-radius: 12px;
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-15.png");
+    background-size: 100%;
+  }
+  &.ageGrade19 {
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;
+    border-radius: 12px;
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-19.png");
+    background-size: 100%;
+  }
+  &.ageGrade19Small {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+    border-radius: 12px;
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-19.png");
+    background-size: 100%;
   }
 }
 
