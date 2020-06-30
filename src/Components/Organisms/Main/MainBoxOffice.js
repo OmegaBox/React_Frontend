@@ -8,9 +8,28 @@ const MainBoxOffice = () => {
     <div className="mainBoxOfficeLayout">
       <div className="mainBoxOffice">
         <h2>박스오피스</h2>
-        <div className="boxOffice">
+        <div className="mainMovieList">
+          <ul class="mainMoviesWrap">
+            <li>
+              <img
+                class="boxOfficeMoviePoster"
+                alt="살아있다"
+                src="https://img.megabox.co.kr/SharedImg/2020/06/02/xIBdAOS5lJNBe1CBXovcV1WYE9Q6DWPV_420.jpg"
+              />
+              <div className="boxOfficeBtnWrap">
+                <button className={["boxOfficeFavoriteBtn", "btn", "outLine", "lightGray", "large"].join(" ")}>
+                  <span class="icon favorite">
+                    <span class="">1000</span>
+                  </span>
+                </button>
+                <button className={["boxOfficeBookingBtn", "btn", "fill", "subDark", "large"].join(" ")}>
+                  예매
+              </button>
+              </div>
+            </li>
+          </ul>
         </div>
-        <div className="mainSearchBar">
+        <div className="boxOfficeSearchBar">
           <input
             type="text"
             className="searchBar"
@@ -24,9 +43,3 @@ const MainBoxOffice = () => {
 };
 
 export default MainBoxOffice;
-
-//  {/* <img
-//         className="mainImg"
-//         src="https://img.megabox.co.kr/SharedImg/2020/06/09/4ukWkF6Z9Q80RY6g3l1UWJoR4q0SrGf7_380.jpg"
-//         alt="1. #살아있다_캐릭터 포스터(유아인ver).jpg"
-//       /> */}
