@@ -1,30 +1,30 @@
 @import "../../common.scss";
 
 .footerLayout {
-  height: 200px;
+  padding: 50px 0;
   background: $colorGrayEa;
 }
 
 
 .footerWrap {
   display: flex;
+  flex-wrap: wrap;
   width: 1100px;
   margin: 0 auto;
-  p {background-color: red;}
+  .madeIn li {
+    margin-left: 50px;
+    width: 680px;
+    font-weight: 500;
+    line-height: 1.5em;
+  }
+  .snsIcons {
+    display: flex;
+    align-items: center;
+    li {
+      margin-right: 10px;
+    }  
+  }  
 }
-
-
-// .footerWrap {
-//   display: flex;
-//   flex-wrap: wrap;
-//   align-items: center;
-//   background-color: seagreen;
-//   width: 1100px;
-//   margin: auto;
-//   p {
-//     text-align: center;
-//   }
-// }
 
 .footerLogo {
   width: 150px;
