@@ -26,6 +26,9 @@
     border-style: solid;
     border-color: $border;
   }
+  option {
+    text-align: center;
+  }
 
   button.btn.plus, button.btn.minus {
     min-width: initial;
