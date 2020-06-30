@@ -11,6 +11,7 @@
 .bookingTheaterList > .theaterLocationList {
   display: flex;
   margin-top: 10px;
+  border: solid 1px $colorGrayEa;
 
   button {
     width: 100%;
