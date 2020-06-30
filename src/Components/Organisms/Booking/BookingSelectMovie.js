@@ -1,6 +1,7 @@
 import React from "react";
-import { CarouselCalendar } from "../../Molecules/CarouselCalendar";
-import { Calendar } from "../../Molecules/Calendar";
+import CarouselCalendar from "../../Molecules/CarouselCalendar";
+import Calendar from "../../Molecules/Calendar";
+import BookingMovieList from "../../Molecules/BookingMovieList";
 
 import "./style/BookingSelectMovie.scss";
 
@@ -12,6 +13,7 @@ const BookingSelectMovie = () => {
         <CarouselCalendar />
         <Calendar />
       </div>
+      <BookingMovieList />
     </div>
   );
 };

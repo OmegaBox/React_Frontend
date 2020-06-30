@@ -58,4 +58,4 @@ const CarouselCalendar = () => {
   );
 };
 
-export { CarouselCalendar };
+export default CarouselCalendar;
