@@ -119,7 +119,7 @@ const MyPage = () => {
               <h4 className="titleText">나의 무비스토리</h4>
               <button
                 type="button"
-                className={["btn", "xSmall", "white", "fill"].join(" ")}
+                className={["btn", "regular", "white", "fill"].join(" ")}
               >
                 본 영화 등록
               </button>
@@ -653,7 +653,7 @@ const MyPage = () => {
               </ul>
               <button
                 type="button"
-                className={["btn", "outLine", "samll", "main"].join(" ")}
+                className={["btn", "outLine", "small", "main"].join(" ")}
               >
                 본 영화 등록
               </button>
