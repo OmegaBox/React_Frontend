@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const MypageDashBoard = () => {
   return (
@@ -11,15 +12,18 @@ const MypageDashBoard = () => {
             <br />
             일반등급입니다.
           </p>
-          <a href="#" className="btnPersnalEdit">
+          <Link to="/mypage/confirmpassword" className="btnPersnalEdit">
             개인정보수정
             <span className={["icon", "arrowRight"].join(" ")}></span>
-          </a>
+          </Link>
         </article>
         <article className="point">
           <div className="subTitleWrap">
             <h4 className="titleText">총 보유 포인트</h4>
-            <a href="#" className={["icon", "arrowRight"].join(" ")}></a>
+            <Link
+              to="/mypage/confirmpassword"
+              className={["icon", "arrowRight"].join(" ")}
+            ></Link>
           </div>
           <p className="totalPoint">0 P</p>
           <p>

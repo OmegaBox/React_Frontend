@@ -268,6 +268,64 @@ table {
     }
   }
 }
+
+.popupBox.likeTheater {
+  width: 500px;
+  height: 360px;
+  .termWrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 16px;
+    border-radius: 8px;
+    background-color: $whiteGrayBg;
+    select {
+      padding: 3px 8px;
+    }
+  }
+  .selectList {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 24px;
+    li {
+      width: 90px;
+      height: 90px;
+      margin: 0 8px;
+      border: 1px solid $border;
+      border-radius: 50%;
+      background-image: url("https://img.megabox.co.kr/static/pc/images/reserve/bg-empty-cell-circle.png");
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+    li.selectComplete {
+      position: relative;
+      padding: 34px 0;
+      text-align: center;
+      background-color: $lightBg;
+      background-image: initial;
+      border: none;
+      button {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 24px;
+        height: 24px;
+        padding: 0;
+        margin: 0;
+        border-radius: 50%;
+        overflow: hidden;
+        .icon {
+          width: 22px;
+          height: 22px;
+        }
+      }
+    }
+  }
+      
+}
+
 .mypageMovieStoryInfo .subTitleWrap, .mypagePreferenceInfo .subTitleWrap {margin-bottom: 16px;}
 .mypageMovieStoryInfo .movieStoryInfoList {display: flex;}
 .mypageMovieStoryInfo li {flex-grow: 1;}
