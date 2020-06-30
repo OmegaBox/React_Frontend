@@ -308,14 +308,17 @@ select::-ms-expand {
 }
 
 .selectWrap {
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin: 4px;
-  padding: 1px 4px 1px 1px;
+  padding: 1px;
   border: 1px solid $border;
   border-radius: 4px;
   .icon {
+    position: absolute;
+    right: 0;
     width: 32px;
   }
 }
