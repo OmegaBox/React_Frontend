@@ -72,39 +72,7 @@ p.bullet::before {left: 8px;}
   font-size: 2.8rem;
   font-weight: 500;
 }
-.icon {
-  display: inline-block;
-  width: 20px;
-  height: 20px;
-  background-repeat: no-repeat;
-  background-position: center;
-  &.arrowRight {
-    background-image: url("https://img.megabox.co.kr/static/pc/images/common/ico/ico-arr-right-reverse-gray.png");
-  }
-  &.arrowBottom {
-    background-image: url("https://img.megabox.co.kr/static/pc/images/common/ico/ico-arr-toggle-down.png");
-  }
-  &.like {
-    background-image: url("https://img.megabox.co.kr/static/pc/images/common/ico/ico-like.png");
-    background-position: 50% 0;
-  }
-  &.write {
-    background-image: url("https://img.megabox.co.kr/static/pc/images/common/ico/ico-pencil.png");
-  }
-  &.favorite {
-    width: 17px;
-    height: 15px;
-    background-image: url("https://img.megabox.co.kr/static/pc/images/common/ico/ico-heart-toggle-gray.png");
-    background-position: 0;
-  }
-  &.ageGrade {
-    width: 24px;
-    height: 24px;
-    margin-right: 8px;
-    border-radius: 12px;
-    background-image: url("https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-all.png");
-  }
-}
+
 .subTitleWrap {
   display: flex;
   justify-content: space-between;
