@@ -1,14 +1,14 @@
 /* main, sub, point color variation */
 $colorMainDark: #252451;
 $colorMain: #513396;
-$colorMainLight: #6332D4;
-$colorSubDark: #32627F;
-$colorSub: #007B93;
-$colorSubLight: #309EB0;
-$colorPoint: #DA3F31;
+$colorMainLight: #6332d4;
+$colorSubDark: #32627f;
+$colorSub: #007b93;
+$colorSubLight: #309eb0;
+$colorPoint: #da3f31;
 
-$colorBlue: #3B5FCB;
-$colorRed: #E81002;
+$colorBlue: #3b5fcb;
+$colorRed: #e81002;
 
 /* gray color variation */
 $colorBlack: #000;
@@ -16,6 +16,7 @@ $colorGray33: #333;
 $colorGray44: #444;
 $colorGray55: #555;
 $colorGray66: #666;
+$colorGray77: #777;
 $colorGrayD8: #d8d8d8;
 $colorGrayEa: #eaeaea;
 $colorGrayF5: #f5f5f5;
@@ -28,22 +29,44 @@ $colorLightText: #666;
 $colorDisabledText: #aaa;
 
 /* bg, border, etc */
-$dimdBg: transparentize($colorBlack, .7);
+$dimdBg: transparentize($colorBlack, 0.7);
 $whiteGrayBg: $colorGrayF5;
 $lightBg: $colorGrayEa;
+$bg: $colorGray77;
 $darkBg: $colorGray44;
 $deepDarkBg: $colorGray33;
+
 $ligthBorder: $colorGrayEa;
 $border: $colorGrayD8;
 $darkBorder: $colorGray66;
 $tab: $colorGray55;
 
+$textBold: 700;
+$textMedium: 500;
+$textLight: 300;
+
+.textRed {
+  color: $colorRed;
+}
+.textBlue {
+  color: $colorBlue;
+}
+.textBold {
+  font-weight: 700;
+}
+.textMedium {
+  font-weight: 500;
+}
+.textLight {
+  font-weight: 300;
+}
+
 /* reset */
 html {
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
   font-size: 10px;
   line-height: 1.5;
-  letter-spacing: -0.0025em;
+  letter-spacing: -0.025em;
   color: $colorSecondaryText;
 }
 body * {
@@ -58,12 +81,19 @@ body {
   font-size: 1.6rem;
   line-height: 1.5;
 }
-ul, ol {list-style: none;}
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
 a {
   text-decoration: none;
   color: inherit;
 }
-img {vertical-align: top;}
+img {
+  vertical-align: top;
+}
 
 /* common style */
 .a11yHidden {
@@ -81,7 +111,12 @@ img {vertical-align: top;}
   display: block;
   clear: both;
 }
-button, input, select, a {cursor: pointer;}
+button,
+input,
+select,
+a {
+  cursor: pointer;
+}
 
 /* btn */
 $btnDarkGray: $colorGray55;
@@ -89,32 +124,60 @@ $btnLightGray: $colorGrayEa;
 
 button {
   display: inline-block;
-  height: 40px;
-  margin: 0;
-  padding: 0 16px;
   color: $colorSecondaryText;
+  font-size: 1.6rem;
   text-align: center;
   text-decoration: none;
   vertical-align: middle;
   border-radius: 4px;
+  border: none;
+  background: none;
   cursor: pointer;
 }
-.btn.xLarge {height: 50px;}
-.btn.large {height: 46px;}
+.btn {
+  margin: 0 4px;
+  padding: 0 16px;
+}
+.btn.xLarge,
+.btn.large {
+  min-width: 80px;
+}
+.btn.xLarge {
+  height: 50px;
+  font-size: 2rem;
+}
+.btn.large {
+  height: 46px;
+}
+.btn.regular {
+  min-width: 64px;
+  height: 40px;
+  font-size: 1.8rem;
+}
+.btn.small,
+.btn.xSmall {
+  min-width: 48px;
+}
 .btn.small {
   height: 36px;
   padding: 0 8px;
+  font-size: 1.6rem;
 }
 .btn.xSmall {
   height: 32px;
   padding: 0 8px;
+  font-size: 1.4rem;
 }
 .btn.main {
   background-color: $colorMain;
   border-color: $colorMain;
 }
-.btn.main.fill {color: $colorWhite;}
-.btn.main.outLine {color: $colorMain;}
+.btn.main.fill {
+  color: $colorWhite;
+}
+.btn.main.outLine {
+  color: $colorMain;
+}
 .btn.subDark {
   background-color: $colorSubDark;
   border-color: $colorSubDark;
@@ -130,17 +193,23 @@ button {
   border-color: $colorSubLight;
   color: $colorWhite;
 }
-.btn.darkGray {
+.btn.darkGray.fill {
   background-color: $btnDarkGray;
-  border-color: $btnDarkGray;
   color: $colorWhite;
+}
+.btn.darkGray.outLine {
+  border-color: $btnDarkGray;
 }
 .btn.lightGray {
   background-color: $btnLightGray;
   border-color: $btnLightGray;
-}  
-.btn.white.outLine {border-color: transparentize($colorWhite, .5);}
-.btn.fill {border: none;}
+}
+.btn.white.outLine {
+  border-color: transparentize($colorWhite, 0.5);
+}
+.btn.fill {
+  border: none;
+}
 .btn.outLine {
   border-width: 1px;
   border-style: solid;
@@ -152,10 +221,18 @@ button {
   border-style: solid;
   border-color: $border;
 }
+.btn.icon {
+  display: flex;
+  align-items: center;
+}
 
 /* input text*/
-input[type="text"], input[type="date"], input[type="number"], textarea {
+input[type="text"],
+input[type="date"],
+input[type="number"],
+textarea {
   height: 32px;
+  margin-right: 8px;
   padding: 2px 8px;
   color: $colorSecondaryText;
   border: 1px solid $border;
@@ -163,6 +240,16 @@ input[type="text"], input[type="date"], input[type="number"], textarea {
 }
 .input.large {
   height: 46px;
+}
+input[type="text"]:hover,
+input[type="date"]:hover,
+input[type="number"]:hover,
+textarea:hover,
+input[type="text"]:focus,
+input[type="date"]:focus,
+input[type="number"]:focus,
+textarea:focus {
+  border-color: $darkBorder;
 }
 
 /* input radio, checkbox*/
@@ -184,7 +271,8 @@ input[type="text"], input[type="date"], input[type="number"], textarea {
       background-position: 0;
     }
   }
-  input[type="radio"], input[type="checkbox"] {
+  input[type="radio"],
+  input[type="checkbox"] {
     position: absolute;
     top: 50%;
     left: -2px;
@@ -199,7 +287,7 @@ input[type="text"], input[type="date"], input[type="number"], textarea {
     opacity: 1;
   }
   input[type="radio"] + label span.inputIcon {
-    background-image: url('https://img.megabox.co.kr/static/pc/images/common/bg/bg-radio-small.png');
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/bg/bg-radio-small.png");
     background-position: -24px;
   }
   input[type="radio"]:checked + label span.inputIcon {
@@ -218,18 +306,134 @@ select {
   user-select: none;
   width: 100%;
   height: 36px;
+  margin: 0;
   padding: 2px 8px;
+  border: none;
+}
+select::-ms-expand {
+  display: none;
+}
+
+.selectWrap {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 4px;
+  padding: 1px;
   border: 1px solid $border;
   border-radius: 4px;
-  background-image: url("https://img.megabox.co.kr/static/pc/images/common/bg/bg-select-arr.png");
-  background-repeat: no-repeat;
-  background-position: 99%;
+  .icon {
+    position: absolute;
+    right: 0;
+    width: 32px;
+  }
 }
-select::-ms-expand {display: none;}
-
 .select.large {
   height: 40px;
 }
 .select.small {
   height: 32px;
+}
+
+/* typography */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+}
+
+/* icon */
+.icon {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background-repeat: no-repeat;
+  background-position: center;
+  &.arrowRight {
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/ico/ico-arr-right-reverse-gray.png");
+  }
+  &.arrowBottom {
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/ico/ico-arr-toggle-down.png");
+  }
+  &.like {
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/ico/ico-like.png");
+    background-position: 50% 0;
+  }
+  &.write {
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/ico/ico-pencil.png");
+  }
+  &.favorite {
+    width: 17px;
+    height: 15px;
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/ico/ico-heart-toggle-gray.png");
+    background-position: 0;
+  }
+  &.ageGrade {
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;
+    border-radius: 12px;
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-all.png");
+  }
+  &.ageGradeSmall {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+    border-radius: 12px;
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-all.png");
+    background-size: 100%;
+  }
+  &.ageGrade12 {
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;
+    border-radius: 12px;
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-12.png");
+    background-size: 100%;
+  }
+  &.ageGrade12Small {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+    border-radius: 12px;
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-12.png");
+    background-size: 100%;
+  }
+  &.ageGrade15 {
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;
+    border-radius: 12px;
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-15.png");
+    background-size: 100%;
+  }
+  &.ageGrade15Small {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+    border-radius: 12px;
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-15.png");
+    background-size: 100%;
+  }
+  &.ageGrade19 {
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;
+    border-radius: 12px;
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-19.png");
+    background-size: 100%;
+  }
+  &.ageGrade19Small {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+    border-radius: 12px;
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-19.png");
+    background-size: 100%;
+  }
 }

@@ -1,0 +1,33 @@
+@import '../../../../common.scss';
+
+.bookingSelectSeat {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  width: 1100px;
+  margin: 0 auto;
+
+  & > div {
+    width: 770px;
+    border-top: 1px solid $colorBlack;
+
+    h3 { 
+      display: inline-block;
+      padding: 10px 0;
+    }
+  }
+
+  .btn.bookingSeatReset {
+    float: right;
+    padding: 0 12px;
+    margin: 8px 0;
+    span{
+      padding-left: 1.5em;
+      background: url(https://img.megabox.co.kr/static/pc/images/common/ico/ico-reset-small.png) no-repeat;
+    }
+  }
+
+  .bookingSeatWrap {
+    border: 1px solid $border;
+  }
+}
