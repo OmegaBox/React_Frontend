@@ -10,11 +10,21 @@ const MainCuration = () => {
           <div className="moreCuration">큐레이션 더보기 +</div>
         </div>
         <div className="curationPoster">
-          <img
-            className="curationImg"
-            src="https://img.megabox.co.kr/SharedImg/2020/05/26/4DpEOKISeL20EXabwXkfsfaeeJW27heu_420.jpg"
-            alt="야구소녀"
-          />
+          <div>
+            <img
+              className="curationImg"
+              src="https://img.megabox.co.kr/SharedImg/2020/05/26/4DpEOKISeL20EXabwXkfsfaeeJW27heu_420.jpg"
+              alt="야구소녀"
+            />
+            <button
+              className={["btn", "outLine", "lightGray", "xLarge", "curationdetailButton"].join(" ")}>
+              상세정보
+            </button>
+            <button
+              className={["btn", "fill", "subDark", "main", "xLarge", "curationBookingButton"].join(" ")}>
+              예매
+            </button>
+          </div>
           <div className="filmSociety"></div>
           <div className="comment">
             <h2>#필름소사이어티</h2>
@@ -32,7 +42,7 @@ const MainCuration = () => {
               <figure>
                 <img src="https://img.megabox.co.kr/SharedImg/2020/06/23/4jr7i0mDwxOpILVarLlS05gmjZt8GiPp_230.jpg"
                   alt="[시네도슨트] 빈센트 반 고흐 미술관&amp;크롤러 뮐러 미술관" />
-                <figcaption>"[시네도슨트] 빈센트 반 고흐 미술관&amp;크롤러 뮐러 미술관"</figcaption>
+                <figcaption>[시네도슨트] 빈센트 반 고흐 미술관&amp;크롤러 뮐러 미술관</figcaption>
               </figure>
               <figure>
                 <img
