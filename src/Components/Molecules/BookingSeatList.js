@@ -1,5 +1,7 @@
 import React from "react";
 
+import "./style/BookingSeatList.scss";
+
 const seatInfo = {
   maxSeat: 17,
   row: 15,

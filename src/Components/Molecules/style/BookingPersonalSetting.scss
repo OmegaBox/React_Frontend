@@ -1,0 +1,13 @@
+@import "../../../common.scss";
+
+.bookingPersonalSetting {
+  display: flex;
+  flex-direction: row wrap;
+  padding: 10px 0 10px 20px;
+  background-color: $colorGrayF5;
+}
+
+.personalCounter{
+  display: inline-flex;
+  flex-flow: row nowrap;
+}

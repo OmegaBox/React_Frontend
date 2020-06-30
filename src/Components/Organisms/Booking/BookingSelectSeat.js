@@ -4,15 +4,15 @@ import BookingPersonalSetting from "../../Molecules/BookingPersonalSetting";
 import BookingSeatList from "../../Molecules/BookingSeatList";
 import BookingInfo from "../../Molecules/BookingInfo";
 
-import "../style/BookingSelectSeat.scss";
+import "./style/BookingSelectSeat.scss";
 
 const BookingSelectSeat = () => {
   return (
-    <section id="BookingSelectSeat">
+    <section className="BookingSelectSeat">
       <div>
         <h3>관람인원 선택(최대 8매 선택 가능)</h3>
         <BookingSeatReset />
-        <div id="BookingSeatWrap">
+        <div className="BookingSeatWrap">
           <BookingPersonalSetting />
           <BookingSeatList />
         </div>

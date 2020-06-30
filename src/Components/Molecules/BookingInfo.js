@@ -1,5 +1,7 @@
 import React from "react";
 
+import "./style/BookingInfo.scss";
+
 const ticket = {
   selectedDate: "2020-07-10",
   selectedtheather: "강남",

@@ -1,0 +1,31 @@
+@import "../../../common.scss";
+
+.bookingSeatList {
+  .seatRowName {
+    float: left;
+    width: 20px;
+    li {
+      width: 20px;
+      height: 20px;
+      border: 1px solid $border;
+    }
+  }
+  .seatRow {
+    float: right;
+    width: 724px;
+    li {
+      display: flex;
+    }
+    button {
+      min-width: initial;
+      width: 20px;
+      height: 20px;
+      margin: 0;
+      padding: 0;
+      border-width: 1px;
+      border-style: solid;
+      background-color: $darkBg;
+      border-radius: 0;
+    }
+  }
+}
