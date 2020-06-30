@@ -38,12 +38,28 @@ $border: $colorGrayD8;
 $darkBorder: $colorGray66;
 $tab: $colorGray55;
 
+.textRed {
+  color: $colorRed;
+}
+.textBlue {
+  color: $colorBlue;
+}
+.textBold {
+  font-weight: 700;
+}
+.textMedium {
+  font-weight: 500;
+}
+.textLight {
+  font-weight: 300;
+}
+
 /* reset */
 html {
   font-family: 'Noto Sans KR', sans-serif;
   font-size: 10px;
   line-height: 1.5;
-  letter-spacing: -0.0025em;
+  letter-spacing: -0.025em;
   color: $colorSecondaryText;
 }
 body * {
@@ -58,7 +74,11 @@ body {
   font-size: 1.6rem;
   line-height: 1.5;
 }
-ul, ol {list-style: none;}
+ul, ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
 a {
   text-decoration: none;
   color: inherit;
@@ -89,25 +109,40 @@ $btnLightGray: $colorGrayEa;
 
 button {
   display: inline-block;
+  min-width: 64px;
   height: 40px;
-  margin: 0;
+  margin: 0 4px;
   padding: 0 16px;
   color: $colorSecondaryText;
+  font-size: 1.8rem;
   text-align: center;
   text-decoration: none;
   vertical-align: middle;
   border-radius: 4px;
+  border: none;
+  background: none;
   cursor: pointer;
 }
-.btn.xLarge {height: 50px;}
+.btn.xLarge, .btn.large {
+  min-width: 80px;
+}
+.btn.xLarge {
+  height: 50px;
+  font-size: 2rem;
+}
 .btn.large {height: 46px;}
+.btn.small, .btn.xSmall {
+  min-width: 48px;
+}
 .btn.small {
   height: 36px;
   padding: 0 8px;
+  font-size: 1.6rem;
 }
 .btn.xSmall {
   height: 32px;
   padding: 0 8px;
+  font-size: 1.4rem;
 }
 .btn.main {
   background-color: $colorMain;
@@ -130,10 +165,12 @@ button {
   border-color: $colorSubLight;
   color: $colorWhite;
 }
-.btn.darkGray {
+.btn.darkGray.fill {
   background-color: $btnDarkGray;
-  border-color: $btnDarkGray;
   color: $colorWhite;
+}
+.btn.darkGray.outLine {
+  border-color: $btnDarkGray;
 }
 .btn.lightGray {
   background-color: $btnLightGray;
@@ -152,10 +189,15 @@ button {
   border-style: solid;
   border-color: $border;
 }
+.btn.icon {
+  display: flex;
+  align-items: center;
+}
 
 /* input text*/
 input[type="text"], input[type="date"], input[type="number"], textarea {
   height: 32px;
+  margin-right: 8px;
   padding: 2px 8px;
   color: $colorSecondaryText;
   border: 1px solid $border;
@@ -163,6 +205,9 @@ input[type="text"], input[type="date"], input[type="number"], textarea {
 }
 .input.large {
   height: 46px;
+}
+input[type="text"]:hover, input[type="date"]:hover, input[type="number"]:hover, textarea:hover, input[type="text"]:focus, input[type="date"]:focus, input[type="number"]:focus, textarea:focus  {
+  border-color: $darkBorder;
 }
 
 /* input radio, checkbox*/
@@ -199,7 +244,7 @@ input[type="text"], input[type="date"], input[type="number"], textarea {
     opacity: 1;
   }
   input[type="radio"] + label span.inputIcon {
-    background-image: url('https://img.megabox.co.kr/static/pc/images/common/bg/bg-radio-small.png');
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/bg/bg-radio-small.png");
     background-position: -24px;
   }
   input[type="radio"]:checked + label span.inputIcon {
@@ -218,18 +263,27 @@ select {
   user-select: none;
   width: 100%;
   height: 36px;
+  margin: 0;
   padding: 2px 8px;
-  border: 1px solid $border;
-  border-radius: 4px;
-  background-image: url("https://img.megabox.co.kr/static/pc/images/common/bg/bg-select-arr.png");
-  background-repeat: no-repeat;
-  background-position: 99%;
+  border: none;
 }
 select::-ms-expand {display: none;}
 
-.select.large {
-  height: 40px;
+.selectWrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 4px;
+  padding: 1px 4px 1px 1px;
+  border: 1px solid $border;
+  border-radius: 4px;
+  .icon {width: 32px;}
 }
-.select.small {
-  height: 32px;
+.select.large {height: 40px;}
+.select.small {height: 32px;}
+
+
+/* typography */
+h1, h2, h3, h4, h5, h6, p {
+  margin: 0;
 }
