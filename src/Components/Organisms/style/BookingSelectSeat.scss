@@ -1,3 +1,5 @@
+@import '../../../common.scss';
+
 #BookingSelectSeat {
   display: flex;
   flex-flow: row wrap;
@@ -9,7 +11,7 @@
 
   & > div {
     width: 770px;
-    border-top: 1px solid #000;
+    border-top: 1px solid $colorBlack;
   }
   #BookingSeatWrap {
     border: 1px solid #d8d9db;
@@ -37,51 +39,37 @@
   }
 }
 
-#bookingSeatList {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: center;
-  min-width: 644px;
-  margin: 30px 0;
-  padding: 40px 0;
-  background: url(https://megabox.co.kr/static/pc/images/reserve/img-theater-screen.png) no-repeat center top;
-  position: relative;
 
-  * {
-    text-align: center;
-    padding: 0;
+.bookingSeatList {
+  ul, li {
     margin: 0;
+    padding: 0;
   }
-
-  & > ul > li {
-    margin: 3px 0;
-    line-height: 14px;
-  }
-
-  #listRowName {
-    margin-right: 30px;
+  .seatRowName {
+    float: left;
+    width: 20px;
     li {
-      width: 18px;
-      height: 18px;
-      font-size: .7333em;
-      border: 1px solid #ccc;
-      background-color: #fff;
+      width: 20px;
+      height: 20px;
+      border: 1px solid $border;
     }
   }
-
-  #listRow {
-    .listSeat{
-      display:flex;
-      flex-flow: row wrap;
-      padding-right: 48px;
-      li {
-        width: 20px;
-        height: 18px;
-        font-size: .7333em;
-        color: #fff;
-        border: 1px solid #02bfd3;
-        background-color: #747474;
-      }
+  .seatRow {
+    float: right;
+    width: 724px;
+    li {
+      display: flex;
+    }
+    button {
+      min-width: initial;
+      width: 20px;
+      height: 20px;
+      margin: 0;
+      padding: 0;
+      border-width: 1px;
+      border-style: solid;
+      background-color: $darkBg;
+      border-radius: 0;
     }
   }
 }
@@ -90,7 +78,7 @@
   display: flex;
   flex-flow: column nowrap;
   width: 310px;
-  background-color: #333;
+  background-color: $colorGray33;
   border-radius: 10px;
 
   * {

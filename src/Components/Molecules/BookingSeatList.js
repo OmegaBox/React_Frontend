@@ -13,20 +13,24 @@ const SeatNums = new Array(seatInfo.maxSeat).fill(0).map((v, i) => i + 1);
 
 const BookingSeatList = () => {
   return (
-    <div id="bookingSeatList">
-      <ul id="listRowName">
+    <div className={["bookingSeatList", "clearfix"].join(" ")}>
+      <ul className="seatRowName">
         {rowNames.map((v) => (
           <li key={`rowName ${v}`}>{v}</li>
         ))}
       </ul>
-      <ul id="listRow">
+      <ul className="seatRow">
         {rowNames.map((row) => (
           <li key={`row ${row}`}>
-            <ul className="listSeat">
-              {SeatNums.map((num) => (
-                <li key={`${row}${num}`}>{num}</li>
-              ))}
-            </ul>
+            {SeatNums.map((num) => (
+              <button
+                key={`${row}${num}`}
+                value={`${row}${num}`}
+                className={["btn", "sub"].join(" ")}
+              >
+                {num}
+              </button>
+            ))}
           </li>
         ))}
       </ul>
