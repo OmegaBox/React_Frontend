@@ -1,3 +1,5 @@
+@import "../../../common.scss";
+
 .carouselCalendarContainer {
   padding: 0 30px;
   width: 1050px;
@@ -13,17 +15,28 @@
 
 .carouselCal {
   text-align: center;
+  height: 100%;
+  width: 100%;
 }
 
-.selectedDay {
+.carouselCal.selectedDay {
   background-color: rgb(240, 240, 240);
-  border-bottom: 3px solid #6332d4;
+  border-bottom: 3px solid $colorMainLight;
 }
 
-button {
+.carouselCalendarContainer button {
   border: 0;
-  border-radius: 0 !important;
-  padding: 0 !important;
+  border-radius: 0;
+  padding: 0;
+  margin: 0;
   background-color: transparent;
   color: none;
+  font-size: 1.5rem;
+  min-width: initial;
+}
+
+.slick-slide.slick-active > div {
+  height: 41px;
+  // display: flex;
+  // align-items: center;
 }
