@@ -1,11 +1,13 @@
+@import "../../common.scss";
+
 .headerLayout {
   width: 1250px;
   height: 90px;
   margin: 0 auto;
   border-bottom: 1px;
-  background-color: navy;
+  background: $colorMainDark;
   font-size: 10px;
-  color: #fff;
+  color: $colorWhite;
 };
 
 .mainNav {
@@ -21,7 +23,6 @@
   background-image: url(https://img.megabox.co.kr/static/pc/images/common/ci/logo-white.png);
   width: 140px;
   height: 47px;
-  background-color: khaki;
   position: absolute;
   top: 40%;
   left: 50%;
@@ -38,7 +39,6 @@
   margin: 0;
   height: 55px;
   width: 500px;
-  background-color: rosybrown;
   position: absolute;
   left: 0;
   bottom: 0;
@@ -53,7 +53,6 @@
   margin: 0;
   height: 55px;
   width: 500px;
-  background-color: silver;
   position: absolute;
   right: 0;
   bottom: 0;
@@ -80,7 +79,6 @@
 
 
 .subNav {
-  background-color: indianred;
   display: flex;
   justify-content: space-between;
   height: 22px;
@@ -89,9 +87,13 @@
   ul {
     display: flex;
     justify-content: space-between;
-    li {
-      justify-content: space-between;
-    }
   }
+}
 
+.subLeftSide li {
+  margin-right: 20px;
+} 
+
+.subRightSide li {
+  margin-left: 20px;
 }

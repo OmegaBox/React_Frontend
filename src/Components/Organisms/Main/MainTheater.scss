@@ -1,10 +1,12 @@
+@import "../../../common.scss";
+
 .mainTheaterLayout {
   width: 1250px;
   margin: 0 auto;
   padding: 50px 0 40px 0;
   font-size: 35px;
   font-weight: 400;
-  color: #351f66;
+  color: $colorMain;
 }
 
 .theaterMenu {

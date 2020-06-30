@@ -1,7 +1,9 @@
+@import "../../../common.scss";
+
 .inforNotice {
   margin-top: 50px;
   margin: 50px 0 auto;
-  border: 1px solid #e2e2e2;
+  border: 1px solid $colorGrayEa;
   border-width: 1px 0; 
   
   .wrap {

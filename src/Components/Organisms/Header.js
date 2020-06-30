@@ -14,9 +14,9 @@ const Header = () => {
             <ul className="mainLeftSide">
               <li className="headerIcon menuBar"><a href="#"></a></li>
               <li className="headerIcon menuSearch"><a href="#"></a></li>
-              <li><a href="#"><span>영화</span></a></li>
-              <li><a href="#"><span>예매</span></a></li>
-              <li><a href="#"><span>극장</span></a></li>
+              <li><a href="#">영화</a></li>
+              <li><a href="#">예매</a></li>
+              <li><a href="#">극장</a></li>
             </ul>
             <ul className="mainRightSide">
               <li><a href="#">이벤트</a></li>

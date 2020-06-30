@@ -1,6 +1,8 @@
+@import "../../../common.scss";
+
 .mainLinkLayout {
   height: 513px;
-  background-color: #503396;
+  background: $colorMain;
 }
 .mainLink {
   width: 1250px;
@@ -12,7 +14,7 @@
   text-align: center;
   li {
     padding: 80px 0 0 0;
-    color: #fff;
+    color: $colorWhite;
     width: 220px;
     height: 22px;
     background-repeat: no-repeat;
@@ -49,7 +51,7 @@
   width: 1250px;
   margin: 0 auto;
   padding-top: 100px;
-  color: white;
+  color: $colorWhite;
   position: relative;
   h3 {
     display: inline-block;
@@ -81,13 +83,13 @@
   background: url(https://www.megabox.co.kr/static/pc/images/theater/bg-theater-new.jpg);
   text-align: center;
   span em {
-    background-color: #01738b;
+    background: $colorSub;
     display: inline-block;    
     min-width: 75px;
     height: 25px;
     margin: 0 auto;
     line-height: 25px;
-    color: #fff;
+    color: $colorWhite;
   }
 }
 .openInforText {
