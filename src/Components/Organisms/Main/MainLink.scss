@@ -1,0 +1,105 @@
+@import "../../../common.scss";
+
+.mainLinkLayout {
+  height: 513px;
+  background: $colorMain;
+}
+.mainLink {
+  width: 1100px;
+  margin: 0 auto;
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
+  font-size: 20px;
+  text-align: center;
+  li {
+    padding: 80px 0 0 0;
+    color: $colorWhite;
+    width: 220px;
+    height: 22px;
+    background-repeat: no-repeat;
+  }
+}
+
+.linkVIP {
+  background-image: url('https://www.megabox.co.kr/static/pc/images/common/ico/ico-vip-main.png');
+  background-position: center;
+}
+
+.linkMember {
+  background-image: url('https://www.megabox.co.kr/static/pc/images/common/ico/ico-membership-main.png');
+  background-position: center;
+}
+
+.linkCard {
+  background-image: url('https://www.megabox.co.kr/static/pc/images/common/ico/ico-card-main.png');
+  background-position: center;
+}
+
+.linkEvent {
+  background-image: url('https://www.megabox.co.kr/static/pc/images/common/ico/ico-event-main.png');
+  background-position: center;
+}
+
+.linkStore {
+  background-image: url('https://www.megabox.co.kr/static/pc/images/common/ico/ico-store-main.png');
+  background-position: center;
+}
+
+
+.grandOpeningLayout {
+  width: 1100px;
+  margin: 0 auto;
+  padding-top: 100px;
+  color: $colorWhite;
+  position: relative;
+  h3 {
+    display: inline-block;
+  }
+  p strong {
+    font-size: 2em;
+    margin: 0 auto;
+  }
+  .openingTheaters {
+    display: flex;
+    position: absolute;
+    top: 100px;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    width: 727px;
+    height: 230px;   
+  }
+}
+
+.openInfor {
+  position: relative;
+  border-radius: 50%;
+  width: 204px;
+  height: 204px;
+  margin: 0 18px;
+  padding: 0;
+  font-size: 15px;
+  background: url(https://www.megabox.co.kr/static/pc/images/theater/bg-theater-new.jpg);
+  text-align: center;
+  span em {
+    background: $colorSub;
+    display: inline-block;    
+    min-width: 75px;
+    height: 25px;
+    margin: 0 auto;
+    line-height: 25px;
+    color: $colorWhite;
+  }
+}
+.openInforText {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  width: 100%;
+  height: 155px;
+  padding-top: 10px;
+}
+
+

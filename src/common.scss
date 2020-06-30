@@ -35,10 +35,15 @@ $lightBg: $colorGrayEa;
 $bg: $colorGray77;
 $darkBg: $colorGray44;
 $deepDarkBg: $colorGray33;
+
 $ligthBorder: $colorGrayEa;
 $border: $colorGrayD8;
 $darkBorder: $colorGray66;
 $tab: $colorGray55;
+
+$textBold: 700;
+$textMedium: 500;
+$textLight: 300;
 
 .textRed {
   color: $colorRed;
@@ -310,14 +315,17 @@ select::-ms-expand {
 }
 
 .selectWrap {
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin: 4px;
-  padding: 1px 4px 1px 1px;
+  padding: 1px;
   border: 1px solid $border;
   border-radius: 4px;
   .icon {
+    position: absolute;
+    right: 0;
     width: 32px;
   }
 }
@@ -371,5 +379,61 @@ p {
     margin-right: 8px;
     border-radius: 12px;
     background-image: url("https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-all.png");
+  }
+  &.ageGradeSmall {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+    border-radius: 12px;
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-all.png");
+    background-size: 100%;
+  }
+  &.ageGrade12 {
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;
+    border-radius: 12px;
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-12.png");
+    background-size: 100%;
+  }
+  &.ageGrade12Small {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+    border-radius: 12px;
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-12.png");
+    background-size: 100%;
+  }
+  &.ageGrade15 {
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;
+    border-radius: 12px;
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-15.png");
+    background-size: 100%;
+  }
+  &.ageGrade15Small {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+    border-radius: 12px;
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-15.png");
+    background-size: 100%;
+  }
+  &.ageGrade19 {
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;
+    border-radius: 12px;
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-19.png");
+    background-size: 100%;
+  }
+  &.ageGrade19Small {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+    border-radius: 12px;
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-19.png");
+    background-size: 100%;
   }
 }
