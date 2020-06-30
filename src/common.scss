@@ -366,6 +366,12 @@ p {
     background-image: url("https://img.megabox.co.kr/static/pc/images/common/ico/ico-heart-toggle-gray.png");
     background-position: 0;
   }
+  &.Mainfavorite {
+    width: 17px;
+    height: 15px;
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/ico/ico-heart-toggle-main.png");
+    background-position: 0;
+  }
   &.ageGrade {
     width: 24px;
     height: 24px;
