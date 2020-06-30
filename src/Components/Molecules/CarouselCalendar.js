@@ -58,4 +58,4 @@ const CarouselCalendar = () => {
   );
 };
 
-export default CarouselCalendar;
+export default React.memo(CarouselCalendar);
