@@ -8,7 +8,7 @@
 }
 
 .mainCuration {
-  width: 1250px;
+  width: 1100px;
   margin: 0 auto;
 }
 
@@ -31,10 +31,16 @@
   position: relative;
 }
 
+.curationPoster div button {
+  width: 142px;
+  height: 50px;
+  margin-top: 10px;
+  color: $colorWhite;
+}
+
 .curationImg {
   width: 300px;
   height: 430px;
-  margin-right: 40px;
   border-radius: 15px;
   
 }
@@ -50,12 +56,13 @@
 }
 
 .comment {
+  margin-left: 40px;
   h3 {
     font-size: 40px;
   }
 }
 .comment p {
-  font-size: 18px;
+  font-size: 15px;
 }
 
 .storySummary {
@@ -72,8 +79,8 @@
       padding: 0;
     figcaption {
       text-align: center;
-      font-size: 19px;
-      width: 200px;
+      font-size: 15px;
+      width: 170px;
       text-overflow: ellipsis;
       white-space: nowrap;
       overflow: hidden;
@@ -83,6 +90,6 @@
 
 .posterWrap figure img {
   border-radius: 5px;
-  width: 200px;
-  height: 280px;
+  width: 170px;
+  height: 244px;
 }
