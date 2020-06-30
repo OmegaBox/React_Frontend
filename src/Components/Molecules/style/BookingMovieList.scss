@@ -17,6 +17,16 @@
   scrollbar-base-color: $colorGrayEa;
   box-sizing: border-box;
   margin-top: 10px;
+
+  button {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 28px;
+    font-size: 1.3rem;
+    text-align: left;
+    font-weight: $textBold;
+  }
 }
 
 .movieLists::-webkit-scrollbar {
