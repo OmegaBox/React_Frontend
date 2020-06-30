@@ -12,23 +12,36 @@ const Header = () => {
           <nav className="mainNav">
             <h1 className="mainLogo"></h1>
             <ul className="mainLeftSide">
-              <li className="menuBar"></li>
-              <li className="menuSearch"></li>
-              <li><a href="#">영화</a></li>
-              <li><a href="#">예매</a></li>
-              <li><a href="#">극장</a></li>
+              <li className="headerIcon menuBar"><a href="#"></a></li>
+              <li className="headerIcon menuSearch"><a href="#"></a></li>
+              <li><a href="#"><span>영화</span></a></li>
+              <li><a href="#"><span>예매</span></a></li>
+              <li><a href="#"><span>극장</span></a></li>
             </ul>
             <ul className="mainRightSide">
               <li><a href="#">이벤트</a></li>
               <li><a href="#">스토어</a></li>
               <li><a href="#">혜택</a></li>
-              <li className="menuSchedule"></li>
-              <li className="menuMypage"></li>
+              <li className="headerIcon menuSchedule"></li>
+              <li className="headerIcon menuMypage"></li>
             </ul>
+            <div className="subNav">
+              <ul className="subLeftSide">
+                <li>VIP LOUNGE</li>
+                <li>멤버십</li>
+                <li>고객센터</li>
+              </ul>
+              <ul className="subRightSide">
+                <li>로그인</li>
+                <li>회원가입</li>
+                <li>빠른예매</li>
+              </ul>
+
+            </div>
           </nav>
         </div>
-      </header >
-    </div >
+      </header>
+    </div>
   );
 };
 
