@@ -8,11 +8,11 @@ import "./style/BookingSelectSeat.scss";
 
 const BookingSelectSeat = () => {
   return (
-    <section className="BookingSelectSeat">
-      <div>
+    <section className="bookingSelectSeat">
+      <div className="clearfix">
         <h3>관람인원 선택(최대 8매 선택 가능)</h3>
         <BookingSeatReset />
-        <div className="BookingSeatWrap">
+        <div className="bookingSeatWrap">
           <BookingPersonalSetting />
           <BookingSeatList />
         </div>
