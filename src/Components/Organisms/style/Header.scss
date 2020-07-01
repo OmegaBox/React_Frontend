@@ -1,17 +1,18 @@
-@import "../../common.scss";
+@import "../../../common.scss";
 
 .headerLayout {
-  width: 1100px;
-  height: 90px;
-  margin: 0 auto;
-  border-bottom: 1px;
   background: $colorMainDark;
-  font-size: 15px;
   color: $colorGrayD8;
 };
 
 .mainNav {
   position: relative;
+  width: 1100px;
+  height: 90px;
+  margin: 0 auto;
+  border-bottom: 1px;
+  font-size: 15px;
+  
 }
 
 .mainLogo {

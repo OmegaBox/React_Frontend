@@ -1,5 +1,5 @@
 import React from "react";
-import "./MainNotice.scss";
+import "./style/MainNotice.scss";
 
 const MainNotice = () => {
   return (
