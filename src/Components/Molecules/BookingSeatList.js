@@ -2,21 +2,10 @@ import React from "react";
 
 import "./style/BookingSeatList.scss";
 
-const seatInfo = {
-  maxSeat: 22,
-  row: 14,
-};
-
-const rowNames = new Array(seatInfo.row)
-  .fill(0)
-  .map((v, i) => String.fromCharCode(65 + i));
-
-const SeatNums = new Array(seatInfo.maxSeat).fill(0).map((v, i) => i + 1);
-
 const screeningHallSeatInfo = {
   hallId: 0,
-  maxSeat: 22,
-  row: 14,
+  maxSeat: 15,
+  row: 10,
   enter: [["Front", 0]],
   exit: [["Back", 3]],
   except: (seatNum, row) => {
@@ -44,6 +33,14 @@ const screeningHallSeatInfo = {
   },
 };
 
+const rowNames = new Array(screeningHallSeatInfo.row)
+  .fill(0)
+  .map((v, i) => String.fromCharCode(65 + i));
+
+const SeatNums = new Array(screeningHallSeatInfo.maxSeat)
+  .fill(0)
+  .map((v, i) => i + 1);
+
 const BookingSeatList = () => {
   return (
     <div className={["bookingSeatList", "type1"].join(" ")}>
@@ -67,7 +64,7 @@ const BookingSeatList = () => {
                 key={`${row}${num}`}
                 value={`${row}${num}`}
                 className={["btn", "subLight"].join(" ")}
-                disabled={!screeningHallSeatInfo.except(num, row)}
+                // disabled={!screeningHallSeatInfo.except(num, row)}
               >
                 {num}
               </button>

@@ -4,12 +4,15 @@ import { useSelector, useDispatch } from "react-redux";
 const BookingPersonalCounter = ({ type }) => {
   const dispatch = useDispatch();
 
+  // 해당 인원 수
   const count = useSelector((state) => state.Seat.personal[type]);
 
+  // 인원 총 원
   const AllCount = Object.values(
     useSelector((state) => state.Seat.personal)
   ).reduce((p, n) => p + n, 0);
 
+  // option 생성 배열
   const optionArray = new Array(9 - AllCount + count).fill(0).map((v, i) => i);
 
   return (

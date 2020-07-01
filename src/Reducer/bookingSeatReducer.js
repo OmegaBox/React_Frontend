@@ -1,3 +1,8 @@
+const RESET = "RESET";
+const CHANGE_COUNT = "CHANGE_COUNT";
+const SET_PRICE = "SET_PRICE";
+const SET_SELECTSEAT = "SET_SELECTSEAT";
+
 const initSeatState = {
   personal: {
     adult: 0,
@@ -14,9 +19,9 @@ const initSeatState = {
 
 const seatReducer = (state = initSeatState, action) => {
   switch (action.type) {
-    case "RESET":
+    case RESET:
       return initSeatState;
-    case "CHANGE_COUNT":
+    case CHANGE_COUNT:
       return {
         ...state,
         personal: {
@@ -24,12 +29,12 @@ const seatReducer = (state = initSeatState, action) => {
           [action.personType]: action.value,
         },
       };
-    case "SET_PRICE":
+    case SET_PRICE:
       return {
         ...state,
         price: action.price,
       };
-    case "SET_SELECTSEAT":
+    case SET_SELECTSEAT:
       return {
         ...state,
         selectedSeat: [...state.selectedSeat, action.seat],
