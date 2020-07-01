@@ -1,0 +1,52 @@
+@import '../../../../common.scss';
+
+// 좌석 배경
+$choice: url("https://img.megabox.co.kr/static/pc/images/common/bg/bg-seat-condition-choice.png");
+$finish: url("https://img.megabox.co.kr/static/pc/images/common/bg/bg-seat-condition-finish.png");
+$impossible: url("https://img.megabox.co.kr/static/pc/images/common/bg/bg-seat-condition-impossible.png");
+$socialDistance: linear-gradient(90deg, #444 0%, #444 100%);
+$common: url("https://img.megabox.co.kr/static/pc/images/common/bg/bg-seat-condition-common.png");
+$disabled: url("https://img.megabox.co.kr/static/pc/images/common/bg/bg-seat-condition-disabled.png");
+
+.bookingSelectSeat {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  width: 1100px;
+  margin: 0 auto;
+
+  & > div {
+    width: 770px;
+    border-top: 1px solid $colorBlack;
+
+    h3 { 
+      display: inline-block;
+      padding: 10px 0;
+    }
+  }
+
+  .btn.bookingSeatReset {
+    float: right;
+    padding: 0 12px;
+    margin: 8px 0;
+    span{
+      padding-left: 1.5em;
+      background: url(https://img.megabox.co.kr/static/pc/images/common/ico/ico-reset-small.png) no-repeat;
+    }
+  }
+
+  .bookingSeatWrap {
+    position: relative;
+    border: 1px solid $border;
+  }
+}
+
+.popupBox.notice {
+  width: 400px;
+  height: 195px;
+
+  p {
+    padding: 20px 20px 0;
+    font-size: 1.4rem;
+  }
+}

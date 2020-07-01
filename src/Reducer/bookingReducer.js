@@ -32,8 +32,12 @@ const initialState = {
     seletedTime: "19:40",
     endTime: "",
     seats: [],
-    ticketType: [],
-    price: 30000,
+    ticketType: {
+      adult: 0,
+      teen: 0,
+      preferential: 0,
+    },
+    price: 0,
   },
 };
 
