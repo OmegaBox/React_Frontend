@@ -5,7 +5,7 @@ const BookingTheaterList = (props) => {
   return (
     <div className="bookingTheaterList">
       <h3 className="theaterHeading">극장</h3>
-      <div className="theaterList">
+      <div className="theaterLocationList">
         <ul className="region">
           <li>
             <button type="button">서울</button>
