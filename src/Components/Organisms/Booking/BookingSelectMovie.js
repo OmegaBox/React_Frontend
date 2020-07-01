@@ -18,11 +18,7 @@ const BookingSelectMovie = () => {
       <div className="bookingInfoLists">
         <BookingMovieList />
         <BookingTheaterList />
-        <div className="bookingTimeSchedules">
-          <h3>시간</h3>
-          <CarouselTimeline />
-          <BookingMovieSchedules />
-        </div>
+        <BookingMovieSchedules />
       </div>
     </div>
   );

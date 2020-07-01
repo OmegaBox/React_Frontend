@@ -9,12 +9,10 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./style/CarouselTimeline.scss";
 
-const dateArray = getDateRangeData(Date.now(), "2020-07-31");
 const timeArray = Array.from(Array(29).keys());
 
 const CarouselTimeline = () => {
   const selectedOption = useSelector((state) => state.Booking.selectedOption);
-  console.log(selectedOption);
 
   const dispatch = useDispatch();
 

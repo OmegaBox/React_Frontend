@@ -9,7 +9,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./style/CarouselCalendar.scss";
 
-const dateArray = getDateRangeData(Date.now(), "2020-07-31");
+const dateArray = getDateRangeData("2020-06-29", "2020-07-31");
 
 const CarouselCalendar = () => {
   const selectedOption = useSelector((state) => state.Booking.selectedOption);

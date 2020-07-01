@@ -1,9 +1,17 @@
 import React from "react";
-import Slider from "react-slick";
+
 import "./style/BookingMovieSchedules.scss";
+import CarouselTimeline from "./CarouselTimeline";
+import BookingSelectTime from "./BookingSelectTime";
 
 const BookingMovieSchedules = () => {
-  return <div className="">hi</div>;
+  return (
+    <div className="bookingTimeSchedules">
+      <h3>시간</h3>
+      <CarouselTimeline />
+      <BookingSelectTime />
+    </div>
+  );
 };
 
 export default BookingMovieSchedules;
