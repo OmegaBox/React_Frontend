@@ -244,7 +244,7 @@ table {
 .mypagePersnalInfo {
   display: flex;
   justify-content: space-around;
-  padding: 24px;
+  padding: 24px 8px;
   border-radius: 8px;
   background-color: $lightBg;
   .grade,
@@ -252,11 +252,9 @@ table {
   .likeTheater {
     padding: 0 24px;
   }
-  .grade,
-  .point {
-    flex-grow: 0.5;
-    border-right: 1px solid $border;
-  }
+  .grade {flex-grow: 1;}
+  .point {flex-grow: 0.7;}
+  .grade {border-right: 1px solid $border;}
   .name {
     margin-top: 4px;
     margin-bottom: 16px;
@@ -272,6 +270,7 @@ table {
   .likeTheater .subTitleWrap {
     height: 28px;
     margin-bottom: 4px;
+    padding-left: 8px;
     .titleText {
       font-size: 1.8rem;
       color: $colorPrimaryText;
@@ -280,7 +279,7 @@ table {
   .point p {
     display: inline-block;
     width: 50%;
-    padding: 0 4px;
+    padding: 0 8px;
   }
   .point .totalPoint {
     width: 100%;
@@ -290,6 +289,8 @@ table {
     color: $colorSub;
     border-bottom: 1px solid $border;
   }
+
+  /* 선호 영화관 선택 삭제로 인한 미사용
   .likeTheater {
     flex-grow: 1;
     button {
@@ -314,9 +315,10 @@ table {
         font-weight: 700;
       }
     }
-  }
+  } */
 }
 
+/* 선호 영화관 선택 삭제로 인한 미사용
 .popupBox.likeTheater {
   width: 500px;
   height: 360px;
@@ -370,10 +372,9 @@ table {
         }
       }
     }
-  }
-      
+  }  
 }
-
+*/
 
 .mypageMovieStoryInfo .subTitleWrap, .mypagePreferenceInfo .subTitleWrap {margin-bottom: 16px;}
 .mypageMovieStoryInfo .movieStoryInfoList {display: flex;}

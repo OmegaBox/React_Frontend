@@ -1,29 +1,17 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import ModalPortal from "../../../Modules/ModalPortal";
-import PopupChoiceTheater from "../../Molecules/PopupChoiceTheater";
 import { useSelector } from "react-redux";
 
 const MypageDashBoard = () => {
-  const { name } = useSelector((state) => ({
-    name: state.userInfo.name,
-  }));
-
-  console.log(name);
-
-  const [statePopup, setStatePopup] = useState({
-    modal: false,
-  });
-  const handleOpenModal = () => {
-    setStatePopup({
-      modal: true,
-    });
-  };
-  const handleCloseModal = () => {
-    setStatePopup({
-      modal: false,
-    });
-  };
+  const { name, tier, point, scheduledPoint, expiredPoint } = useSelector(
+    (state) => ({
+      name: state.userInfo.name,
+      tier: state.userInfo.tier,
+      point: state.userInfo.point,
+      scheduledPoint: state.userInfo.scheduledPoint,
+      expiredPoint: state.userInfo.expiredPoint,
+    })
+  );
 
   return (
     <div className="mypageDashBoard">
@@ -31,9 +19,9 @@ const MypageDashBoard = () => {
       <section className="mypagePersnalInfo">
         <article className="grade">
           <p className="name">
-            김규리님은
+            {name}님은
             <br />
-            일반등급입니다.
+            {tier}입니다.
           </p>
           <Link to="/mypage/confirmpassword" className="btnPersnalEdit">
             개인정보수정
@@ -48,38 +36,16 @@ const MypageDashBoard = () => {
               className={["icon", "arrowRight"].join(" ")}
             ></Link>
           </div>
-          <p className="totalPoint">0 P</p>
+          <p className="totalPoint">{point} P</p>
           <p>
-            적립예정 <span className="textMedium">0 P</span>
+            적립예정 <span className="textMedium">{scheduledPoint} P</span>
           </p>
           <p>
             소멸예정{" "}
-            <span className={["textRed", "textMedium"].join(" ")}>0 P</span>
+            <span className={["textRed", "textMedium"].join(" ")}>
+              {expiredPoint} P
+            </span>
           </p>
-        </article>
-        <article className="likeTheater">
-          <div className="subTitleWrap">
-            <h4 className="titleText">선호극장</h4>
-            <button
-              type="button"
-              className={["btn", "xSmall"].join(" ")}
-              onClick={handleOpenModal}
-            >
-              변경
-              <span className={["icon", "arrowRight"].join(" ")}></span>
-            </button>
-
-            {statePopup.modal && (
-              <ModalPortal>
-                <PopupChoiceTheater onClose={handleCloseModal} />
-              </ModalPortal>
-            )}
-          </div>
-          <ul className="theaterList">
-            <li>송파파크하비오</li>
-            <li>강남대로(씨티)</li>
-            <li>코엑스</li>
-          </ul>
         </article>
       </section>
 
