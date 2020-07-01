@@ -320,9 +320,10 @@ select::-ms-expand {
   justify-content: space-between;
   align-items: center;
   margin: 4px;
-  padding: 1px;
   border: 1px solid $border;
   border-radius: 4px;
+  overflow: hidden;
+  background: $colorWhite;
   .icon {
     position: absolute;
     right: 0;
@@ -330,10 +331,13 @@ select::-ms-expand {
   }
 }
 .select.large {
-  height: 40px;
+  height: 38px;
+}
+.select.regular {
+  height: 30px;
 }
 .select.small {
-  height: 32px;
+  height: 28px;
 }
 
 /* typography */
@@ -373,6 +377,12 @@ p {
     background-image: url("https://img.megabox.co.kr/static/pc/images/common/ico/ico-heart-toggle-gray.png");
     background-position: 0;
   }
+  &.closed {
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/btn/btn-layer-close.png");
+  }
+  &.closedWhite {
+    background-image: url("https://img.megabox.co.kr/static/pc/images/reserve/btn-choice-dell-circle.png");
+  }
   &.favoriteOutLine {
     width: 17px;
     height: 15px;
@@ -385,6 +395,9 @@ p {
     margin-right: 8px;
     border-radius: 12px;
     background-image: url("https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-all.png");
+  }
+  &.plus {
+    background-image: url("https://img.megabox.co.kr/static/pc/images/reserve/bg-empty-cell-circle.png");
   }
   &.ageGradeSmall {
     width: 20px;
@@ -443,6 +456,7 @@ p {
     background-size: 100%;
   }
 }
+
 
 .popupWrap {
   position: fixed;
