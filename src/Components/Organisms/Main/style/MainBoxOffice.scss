@@ -5,22 +5,32 @@
   background: $colorGray33;
 }
 
-.boxOfficeHeader {
-  position: relative;
-  background-color: red;
-}
-
 .mainBoxOffice {
+  
   width: 1100px;
   height: 830px;
   margin: 0 auto;
+  
+}
+
+.mainBoxOfficeHeader {
+  position: relative;
+  padding-top: 100px;
   h2 {
-    display: inline-block;
-    margin: 80px 0 20px 0;
-    height: 24px;
+    position: absolute;
+    top: 90px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
     color: $colorWhite;
     font-size: 17px;
     border-bottom: 1px solid $colorGrayD8;
+  }
+  .boxOfficeMoreMovie {
+    position: absolute; 
+    right: 0;
+    top: 80px;
+    color: $colorGrayD8;
   }
 }
 
@@ -29,62 +39,31 @@
   justify-content: space-between;
   li {
     width: 245px;
-    height: 398px;
-  }
-  .boxOfficeMoviePoster {
-    width: 245px;
-    height: 352px;
-    border-radius: 5px;
+    .boxOfficeMoviePoster {
+      width: 245px;
+      height: 352px;
+      border-radius: 5px;
+    }
   }
 }
 
 .boxOfficeBtnWrap {
   display: flex;
   justify-content: space-between;
-  margin-top: 5px;
-}
-
-.boxOfficeBtnWrap .boxOfficeBookingBtn {
-  width: 160px;
-  height: 36px;
-  margin: 0;
-  padding: 0;
-  span {
-    background-color: burlywood;
+  margin-top: 10px;
+  .boxOfficeBookingBtn {
+    width: 160px;
+    height: 36px;
+    margin: 0;
+    padding: 0;
+  }
+  .boxOfficeFavoriteBtn {
+    width: 80px;
+    height: 36px;
+    padding: 0 5px;
+    margin: 0;
   }
 }
-.boxOfficeBtnWrap .boxOfficeFavoriteBtn {
-  background-color: brown;
-  width: 68px;
-  height: 34px;
-  padding: 0 5px 0 5px;
-  margin: 0;
-}
-
-// .boxOfficeFavoriteBtn {
-//   background-color: yellow;
-//   width: 68px;
-//   height: 34px;
-//   margin: 0;
-//   padding: 0 5px;  
-//   color: $colorWhite;
-//   .boxOfficeFavoriteScore {
-//     background-color: blue;
-//     margin-left: 7px;
-//     font-size: 17px;
-//   }
-// }
-// .boxOfficeBookingBtn {
-//   background-color: blueviolet;
-//   width: 160px;
-//   height: 36px;
-//   margin: 0;
-//   padding: 0;
-// }  
-// .mainMovieList {
-//   width: 1100px;
-//   height: 398px;
-// }
 
 .boxOffice {
   font-size: 20px;
@@ -94,11 +73,11 @@
   border-bottom: 3px; 
 }
 
-.boxOfficeSearchBarWrap {
+.boxOfficeSubBarWrap {
   display: flex;
   justify-content: space-evenly;
   width: 1100px;
-  height: 52px;
+  height: 75px;
   margin-top: 50px;
   padding-top: 23px;
   background: rgba(0,0,0,0.2);
@@ -110,24 +89,31 @@
     width: 275px;
     height: 30px;
     font-size: 15px;
-    background-color: cadetblue;
   }
 }
 
-.boxOfficeSearchBarWrap li span {
-  background-position: center;
-  background-repeat: no-repeat;
-  margin-right: 10px;
+.boxOfficeSubBarWrap .boxOfficeSearchBarWrap {
+  width: 200px; 
+  border-bottom: 1px solid $colorGray66;
 }
 
-.boxOfficeSearchBar {
+.boxOfficeSubBarWrap li span {
+  background-position: center;
+  background-repeat: no-repeat;
+  margin-right: 8px;
+}
+
+.boxOfficeSubBarWrap .boxOfficeSearchBar {
+  cursor: text;
   width: 170px;
+  border: none;
+  background-color: transparent;
 }
 
 .iconSearchBtn {
-  width: 20px;
-  height: 20px;
-  margin: 7px 0 0 5px;
+  width: 36px;
+  height: 36px;
+  margin: 7px 0;
   background-repeat: no-repeat;
   background-image: url(https://img.megabox.co.kr/static/pc/images/common/ico/ico-search-white.png);
 }
