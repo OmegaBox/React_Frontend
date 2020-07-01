@@ -26,7 +26,7 @@ const MainCuration = () => {
             </button>
           </div>
           <div className="filmSociety"></div>
-          <div className="comment">
+          <div className="curationComment">
             <h2>#필름소사이어티</h2>
             <h3>야구소녀</h3>
             <br />
