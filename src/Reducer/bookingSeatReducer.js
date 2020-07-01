@@ -37,7 +37,10 @@ const seatReducer = (state = initSeatState, action) => {
     case SET_SELECTSEAT:
       return {
         ...state,
-        selectedSeat: [...state.selectedSeat, action.seat],
+        selectedSeat:
+          state.selectedSeat.indexOf(action.selected) > -1
+            ? state.selectedSeat.filter((seat) => seat != action.selected)
+            : [...state.selectedSeat, action.selected],
       };
     default:
       return state;
