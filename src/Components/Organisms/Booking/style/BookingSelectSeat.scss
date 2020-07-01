@@ -1,5 +1,13 @@
 @import '../../../../common.scss';
 
+// 좌석 배경
+$choice: url("https://img.megabox.co.kr/static/pc/images/common/bg/bg-seat-condition-choice.png");
+$finish: url("https://img.megabox.co.kr/static/pc/images/common/bg/bg-seat-condition-finish.png");
+$impossible: url("https://img.megabox.co.kr/static/pc/images/common/bg/bg-seat-condition-impossible.png");
+$socialDistance: linear-gradient(90deg, #444 0%, #444 100%);
+$common: url("https://img.megabox.co.kr/static/pc/images/common/bg/bg-seat-condition-common.png");
+$disabled: url("https://img.megabox.co.kr/static/pc/images/common/bg/bg-seat-condition-disabled.png");
+
 .bookingSelectSeat {
   display: flex;
   flex-flow: row wrap;
@@ -28,6 +36,7 @@
   }
 
   .bookingSeatWrap {
+    position: relative;
     border: 1px solid $border;
   }
 }

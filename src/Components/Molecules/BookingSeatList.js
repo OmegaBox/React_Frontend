@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector, useDispatch } from "react-redux";
 
 import "./style/BookingSeatList.scss";
 
@@ -8,7 +9,7 @@ const screeningHallSeatInfo = {
   row: 10,
   enter: [["Front", 0]],
   exit: [["Back", 3]],
-  except: (seatNum, row) => {
+  except: (row, seatNum) => {
     const rowNum = row.charCodeAt() - 64;
     switch (true) {
       case seatNum === 1:
@@ -42,6 +43,22 @@ const SeatNums = new Array(screeningHallSeatInfo.maxSeat)
   .map((v, i) => i + 1);
 
 const BookingSeatList = () => {
+  const dispatch = useDispatch();
+
+  const [select, personal] = useSelector((state) => [
+    state.Seat.selectedSeat,
+    state.Seat.personal,
+  ]);
+
+  // 선택 좌석 수
+  const totalSeatCount = select.length;
+  // 인원 총 원
+  const totalCount = Object.values(personal).reduce((p, n) => p + n, 0);
+  // 선택 가능
+  const selectable = totalCount - totalSeatCount > 0;
+
+  console.log(select, totalSeatCount, totalCount, selectable);
+
   return (
     <div className={["bookingSeatList", "type1"].join(" ")}>
       <ul className="seatRowName">
@@ -54,16 +71,31 @@ const BookingSeatList = () => {
       <ul className="seatRow">
         {rowNames.map((row) => (
           <li key={`row ${row}`}>
-            {SeatNums.map((num) => (
-              <button
-                key={`${row}${num}`}
-                value={`${row}${num}`}
-                className={["btn", "subLight"].join(" ")}
-                // disabled={!screeningHallSeatInfo.except(num, row)}
-              >
-                {num}
-              </button>
-            ))}
+            {SeatNums.map((num) => {
+              // const except = !screeningHallSeatInfo.except(row, num);
+              const except = false;
+              const selected = select.includes(`${row}${num}`);
+              return (
+                <button
+                  key={`${row}${num}`}
+                  value={`${row}${num}`}
+                  className={
+                    ["btn", "subLight"].join(" ") +
+                    (except ? " no" : "") +
+                    (selected ? " select" : "")
+                  }
+                  disabled={except || !(selectable || selected)}
+                  onClick={(e) => {
+                    dispatch({
+                      type: "SET_SELECTSEAT",
+                      selected: e.target.value,
+                    });
+                  }}
+                >
+                  {num}
+                </button>
+              );
+            })}
           </li>
         ))}
       </ul>
