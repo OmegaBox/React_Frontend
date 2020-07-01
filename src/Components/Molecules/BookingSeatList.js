@@ -53,12 +53,7 @@ const BookingSeatList = () => {
       </ul>
       <ul className="seatRow">
         {rowNames.map((row) => (
-          <li
-            key={`row ${row}`}
-            style={{
-              gridTemplateColumns: `repeat(${seatInfo.maxSeat}, "20px")`,
-            }}
-          >
+          <li key={`row ${row}`}>
             {SeatNums.map((num) => (
               <button
                 key={`${row}${num}`}
