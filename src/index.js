@@ -9,6 +9,7 @@ import { Provider } from "react-redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 
 import { rootReducer } from "./Reducer/index";
+import "./common.scss";
 
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware()));
 
