@@ -1,10 +1,10 @@
-@import "../../../common.scss";
+@import "../../../commonVariable.scss";
 
 .bookingMovieList {
   width: 270px;
   height: 529px;
-  padding: 0 20px 17px 20px;
-  box-sizing: border-box;
+  padding: 10px 20px 17px 20px;
+  // box-sizing: border-box;
   border: solid 1px $colorGrayEa;
 }
 
@@ -15,8 +15,9 @@
   scrollbar-color: $colorGray44 $colorGrayEa;
   scrollbar-width: thin;
   scrollbar-base-color: $colorGrayEa;
-  box-sizing: border-box;
+  // box-sizing: border-box;
   margin-top: 10px;
+  border: solid 1px $colorGrayEa;
 
   button {
     display: flex;

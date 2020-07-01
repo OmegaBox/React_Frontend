@@ -1,15 +1,18 @@
-@import '../../common.scss';
+@import "../../commonVariable.scss";
 
 main {
   width: 1100px;
   margin: auto;
-  padding: 40px 0;  
+  padding: 40px 0;
 }
 
 /* mypage common style */
-a {display: inline-block;}
+a {
+  display: inline-block;
+}
 
-.bullet li, p.bullet {
+.bullet li,
+p.bullet {
   position: relative;
   padding-left: 24px;
   &::before {
@@ -23,8 +26,12 @@ a {display: inline-block;}
     background-color: $colorDisabledText;
   }
 }
-p.bullet {padding-left: 16px;}
-p.bullet::before {left: 8px;}
+p.bullet {
+  padding-left: 16px;
+}
+p.bullet::before {
+  left: 8px;
+}
 
 /* snb */
 .snb {
@@ -41,7 +48,7 @@ p.bullet::before {left: 8px;}
   }
   a {
     width: 100%;
-    padding : 10px 16px;
+    padding: 10px 16px;
     font-weight: 500;
   }
   .navList {
@@ -49,8 +56,12 @@ p.bullet::before {left: 8px;}
     border-top: none;
     border-radius: 0 0 8px 8px;
   }
-  .navList > li {border-bottom: 1px solid $border;}
-  .navList > li:last-child {border-bottom: none;}
+  .navList > li {
+    border-bottom: 1px solid $border;
+  }
+  .navList > li:last-child {
+    border-bottom: none;
+  }
   .navList > li > a {
     color: $colorPrimaryText;
     background-color: $whiteGrayBg;
@@ -58,12 +69,21 @@ p.bullet::before {left: 8px;}
   .subNavList {
     padding-top: 16px;
     padding-bottom: 16px;
-    a {padding: 0 16px 0 0;}
+    a {
+      padding: 0 16px 0 0;
+    }
   }
 }
 
 /* mypage content area common style */
-.mypageDashBoard, .bookingHistoryWrap, .pointWrap, .myMovieStoryWrap, .confirmPassword, .editUserInfo, .editPassword, .editOption {
+.mypageDashBoard,
+.bookingHistoryWrap,
+.pointWrap,
+.myMovieStoryWrap,
+.confirmPassword,
+.editUserInfo,
+.editPassword,
+.editOption {
   float: right;
   width: 840px;
 }
@@ -80,7 +100,8 @@ p.bullet::before {left: 8px;}
   height: 32px;
   margin-bottom: 16px;
 }
-.titleText, .subTitleWrap .titleText {
+.titleText,
+.subTitleWrap .titleText {
   font-size: 2.2rem;
   font-weight: 500;
   color: $colorMain;
@@ -116,7 +137,8 @@ table {
       text-align: left;
       background-color: $whiteGrayBg;
     }
-    th, td {
+    th,
+    td {
       padding: 8px;
       border-bottom: 1px solid $border;
     }
@@ -143,7 +165,9 @@ table {
   flex-grow: 1;
   display: flex;
   border: 1px solid $border;
-  li {width: 11.111%;}
+  li {
+    width: 11.111%;
+  }
   button {
     width: 100%;
     height: 100%;
@@ -164,7 +188,9 @@ table {
   text-align: center;
 }
 
-.movieList {width: 100%;}
+.movieList {
+  width: 100%;
+}
 .movieList .listNull {
   width: 100%;
   margin-top: -1px;
@@ -178,8 +204,12 @@ table {
   display: flex;
   align-items: center;
   padding: 24px 8px;
-  .info {flex-grow: 1;}
-  .poster img {width: 100%;}
+  .info {
+    flex-grow: 1;
+  }
+  .poster img {
+    width: 100%;
+  }
 }
 .movieList .info li {
   display: flex;
@@ -196,9 +226,19 @@ table {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  .mypagePersnalInfo, .mypageBookingHistory {width: 100%;}
-  .mypageMovieStoryInfo, .mypagePreferenceInfo {width: 400px;}
-  .mypageBookingHistory, .mypageMovieStoryInfo, .mypagePreferenceInfo {margin-top: 70px}
+  .mypagePersnalInfo,
+  .mypageBookingHistory {
+    width: 100%;
+  }
+  .mypageMovieStoryInfo,
+  .mypagePreferenceInfo {
+    width: 400px;
+  }
+  .mypageBookingHistory,
+  .mypageMovieStoryInfo,
+  .mypagePreferenceInfo {
+    margin-top: 70px;
+  }
 }
 /* 개인정보 */
 .mypagePersnalInfo {
@@ -207,9 +247,14 @@ table {
   padding: 24px;
   border-radius: 8px;
   background-color: $lightBg;
-  .grade, .point, .likeTheater {padding: 0 24px;} 
-  .grade, .point {
-    flex-grow: .5;
+  .grade,
+  .point,
+  .likeTheater {
+    padding: 0 24px;
+  }
+  .grade,
+  .point {
+    flex-grow: 0.5;
     border-right: 1px solid $border;
   }
   .name {
@@ -223,7 +268,8 @@ table {
     display: flex;
     align-content: center;
   }
-  .point .subTitleWrap, .likeTheater .subTitleWrap {
+  .point .subTitleWrap,
+  .likeTheater .subTitleWrap {
     height: 28px;
     margin-bottom: 4px;
     .titleText {
@@ -254,10 +300,12 @@ table {
       margin: 0;
       padding: 0;
     }
-    ul {margin-top: 8px;}
+    ul {
+      margin-top: 8px;
+    }
     li {
       padding: 4px;
-      counter-increment:number;
+      counter-increment: number;
       &::before {
         content: counter(number);
         display: inline-block;
@@ -268,9 +316,16 @@ table {
     }
   }
 }
-.mypageMovieStoryInfo .subTitleWrap, .mypagePreferenceInfo .subTitleWrap {margin-bottom: 16px;}
-.mypageMovieStoryInfo .movieStoryInfoList {display: flex;}
-.mypageMovieStoryInfo li {flex-grow: 1;}
+.mypageMovieStoryInfo .subTitleWrap,
+.mypagePreferenceInfo .subTitleWrap {
+  margin-bottom: 16px;
+}
+.mypageMovieStoryInfo .movieStoryInfoList {
+  display: flex;
+}
+.mypageMovieStoryInfo li {
+  flex-grow: 1;
+}
 .mypageMovieStoryInfo a {
   display: block;
   text-align: center;
@@ -281,33 +336,45 @@ table {
   font-size: 3rem;
   color: $colorSub;
 }
-.mypagePreferenceInfo .roundBox {padding: 18px 16px 19px;}
+.mypagePreferenceInfo .roundBox {
+  padding: 18px 16px 19px;
+}
 .mypagePreferenceInfo li {
   padding: 4px 16px 4px 24px;
   font-weight: 500;
   color: $colorSub;
 }
-.mypagePreferenceInfo .bullet li::before {top: 14px;}
+.mypagePreferenceInfo .bullet li::before {
+  top: 14px;
+}
 .mypageBookingHistory .btnMore {
   display: flex;
   align-items: center;
 }
 
 /* mypageBookingHistory 무비리스트 */
-.mypageBookingHistory .movieList {border-top: 1px solid $darkBorder;}
+.mypageBookingHistory .movieList {
+  border-top: 1px solid $darkBorder;
+}
 .mypageBookingHistory .movieItem {
   border-bottom: 1px solid $border;
   .poster {
     width: 70px;
     margin-right: 24px;
-    img {width: 100%;}
+    img {
+      width: 100%;
+    }
   }
   h5::after {
     content: ":";
     display: inline-block;
     margin-left: 8px;
   }
-  .info .paymentDate, .info .theater, .info .viewingDate {width: 100%;}
+  .info .paymentDate,
+  .info .theater,
+  .info .viewingDate {
+    width: 100%;
+  }
   .info .paymentDate {
     padding-bottom: 8px;
     font-weight: 500;
@@ -327,7 +394,11 @@ table {
 }
 
 /* 예매내역 */
-.bookingHistoryWrap .bookingHistory, .bookingHistoryWrap .bookingCancel, .bookingHistoryWrap .useInfo {width: 100%;}
+.bookingHistoryWrap .bookingHistory,
+.bookingHistoryWrap .bookingCancel,
+.bookingHistoryWrap .useInfo {
+  width: 100%;
+}
 .bookingHistoryWrap .bookingCondition {
   display: flex;
   align-items: center;
@@ -339,8 +410,11 @@ table {
     margin-left: 16px;
     button {
       margin: 0;
-      &:nth-child(1) {border-radius: 4px 0 0 4px;}
-      &:nth-child(2), &:nth-child(3) {
+      &:nth-child(1) {
+        border-radius: 4px 0 0 4px;
+      }
+      &:nth-child(2),
+      &:nth-child(3) {
         margin-left: -1px;
         border-radius: 0;
       }
@@ -365,28 +439,53 @@ table {
     position: relative;
     width: 615px;
   }
-  .info li {padding: 4px 0;}
-  .info .bookingNumber, .info .title {width: 100%;}
-  .info .theater, .info .peopleCounter, .info .viewingDate, .info .viewingSeat, .info .paymentDate, .info .viewingDate, .info .point {width: 50%;}
+  .info li {
+    padding: 4px 0;
+  }
+  .info .bookingNumber,
+  .info .title {
+    width: 100%;
+  }
+  .info .theater,
+  .info .peopleCounter,
+  .info .viewingDate,
+  .info .viewingSeat,
+  .info .paymentDate,
+  .info .viewingDate,
+  .info .point {
+    width: 50%;
+  }
   .info h5 {
     width: 80px;
     font-size: 1.4rem;
     font-weight: 600;
     text-align: right;
   }
-  .info .peopleCounter h5, .viewingSeat h5 {width: 73px;}
-  .info .point h5 {width: 90px;}
-  .info p {font-size: 1.4rem;}
+  .info .peopleCounter h5,
+  .viewingSeat h5 {
+    width: 73px;
+  }
+  .info .point h5 {
+    width: 90px;
+  }
+  .info p {
+    font-size: 1.4rem;
+  }
   .info .bookingNumber p {
     font-size: 1.6rem;
     color: $colorSub;
   }
-  .info .paymentDate, .info .point {
+  .info .paymentDate,
+  .info .point {
     padding: 8px 0;
     background-color: $whiteGrayBg;
   }
-  .info .paymentDate {border-radius: 8px 0 0 8px;}
-  .info .point {border-radius: 0 8px 8px 0;}
+  .info .paymentDate {
+    border-radius: 8px 0 0 8px;
+  }
+  .info .point {
+    border-radius: 0 8px 8px 0;
+  }
   .info .btnWrap {
     position: absolute;
     bottom: -56px;
@@ -399,13 +498,19 @@ table {
   margin-top: 64px;
   .cancelList td {
     text-align: center;
-    &:nth-child(1) {width:20%;}
+    &:nth-child(1) {
+      width: 20%;
+    }
     &:nth-child(2) {
       width: 30%;
       text-align: left;
     }
-    &:nth-child(3) {width: 15%;}
-    &:nth-child(4) {width: 23%;}
+    &:nth-child(3) {
+      width: 15%;
+    }
+    &:nth-child(4) {
+      width: 23%;
+    }
     &:nth-child(5) {
       width: 12%;
       text-align: right;
@@ -430,8 +535,12 @@ table {
       margin-top: 4px;
       margin-bottom: 24px;
     }
-    li ul {margin: 4px 0 8px;}
-    li li {padding-left: 16px;}
+    li ul {
+      margin: 4px 0 8px;
+    }
+    li li {
+      padding-left: 16px;
+    }
     li li:before {
       left: 4px;
       width: 6px;
@@ -439,7 +548,6 @@ table {
     }
   }
 }
-
 
 /* 멤버십포인트 */
 
@@ -457,7 +565,9 @@ table {
     text-align: center;
     border: 1px solid $border;
   }
-  & li:nth-child(1) {margin-left: 0;}
+  & li:nth-child(1) {
+    margin-left: 0;
+  }
   & li.active {
     background-color: $darkBg;
     color: $colorWhite;
@@ -475,18 +585,21 @@ table {
     padding: 0;
     border-radius: 0;
   }
-  button.btnPrev, button.btnNext {
+  button.btnPrev,
+  button.btnNext {
     width: 31px;
     height: 50px;
     border: 1px solid $border;
   }
   button.btnPrev {
     margin-right: -1px;
-    background: url("https://img.megabox.co.kr/static/pc/images/mypage/btn-timeline-prev.png") no-repeat center;
+    background: url("https://img.megabox.co.kr/static/pc/images/mypage/btn-timeline-prev.png")
+      no-repeat center;
   }
   button.btnNext {
     margin-left: -1px;
-    background: url("https://img.megabox.co.kr/static/pc/images/mypage/btn-timeline-next.png") no-repeat center;
+    background: url("https://img.megabox.co.kr/static/pc/images/mypage/btn-timeline-next.png")
+      no-repeat center;
   }
 }
 .timeLine .dateDivision {
@@ -502,7 +615,8 @@ table {
   }
 }
 
-.myMovieStoryWrap .timeLine .movieItem, .myMovieStoryWrap .comment .movieItem {
+.myMovieStoryWrap .timeLine .movieItem,
+.myMovieStoryWrap .comment .movieItem {
   .poster {
     width: 90px;
     margin-right: 24px;
@@ -547,7 +661,9 @@ table {
   .info .writeDate p {
     display: flex;
     align-content: center;
-    span {margin-right: 4px;}
+    span {
+      margin-right: 4px;
+    }
   }
   .info .btnWrap {
     float: right;
@@ -561,9 +677,13 @@ table {
     }
   }
 }
-.comment .movieItem {align-items: flex-start;}
+.comment .movieItem {
+  align-items: flex-start;
+}
 
-.watched .movieList li {float: left;}
+.watched .movieList li {
+  float: left;
+}
 .watched .watchedMovie {
   width: 49%;
   margin: 0 0.5%;
@@ -585,7 +705,9 @@ table {
       margin-right: 0;
       padding: 3px 0;
     }
-    .title p {font-size: 1.8rem;}
+    .title p {
+      font-size: 1.8rem;
+    }
   }
   .btnWrap {
     position: absolute;
@@ -614,20 +736,29 @@ table {
         border-width: 1px 0 0 1px;
         border-radius: 0 0 8px 0;
       }
-      .icon {margin-right: 8px;}
+      .icon {
+        margin-right: 8px;
+      }
     }
   }
 }
 
-.likeMovie .movieList li {float: left;}
+.likeMovie .movieList li {
+  float: left;
+}
 .likeMovie .wantMovie {
   width: 24%;
   margin: 0 0.5%;
 }
 .likeMovie .movieItem {
   flex-wrap: wrap;
-  .info {margin: 0;}
-  .poster, .info {width: 100%;}
+  .info {
+    margin: 0;
+  }
+  .poster,
+  .info {
+    width: 100%;
+  }
   .info .title p {
     display: flex;
     align-content: center;
@@ -647,28 +778,40 @@ table {
       flex-grow: 1;
       &:nth-child(1) {
         margin-left: 0;
-        .icon {margin-right: 8px;}
+        .icon {
+          margin-right: 8px;
+        }
       }
-      &:nth-child(2) {margin-right: 0;}
+      &:nth-child(2) {
+        margin-right: 0;
+      }
     }
   }
 }
 
 /* mypageBookingHistory 무비리스트 */
-.mypageBookingHistory .movieList {border-top: 1px solid $darkBorder;}
+.mypageBookingHistory .movieList {
+  border-top: 1px solid $darkBorder;
+}
 .mypageBookingHistory .movieItem {
   border-bottom: 1px solid $border;
   .poster {
     width: 70px;
     margin-right: 24px;
-    img {width: 100%;}
+    img {
+      width: 100%;
+    }
   }
   h5::after {
     content: ":";
     display: inline-block;
     margin-left: 8px;
   }
-  .info .paymentDate, .info .theater, .info .viewingDate {width: 100%;}
+  .info .paymentDate,
+  .info .theater,
+  .info .viewingDate {
+    width: 100%;
+  }
   .info .paymentDate {
     padding-bottom: 8px;
     font-weight: 500;
@@ -686,11 +829,6 @@ table {
     background-color: $border;
   }
 }
-
-
-
-
-
 
 /* 한줄평 */
 
@@ -732,9 +870,22 @@ table {
 }
 
 /* 개인정보 수정, 비밀번호 변경, 선택정보 수정 */
-.editUserInfo table th, .editUserInfo table td, .editPassword table th, .editPassword table td, .editOption table th, .editOption table td {padding: 16px;}
-.editUserInfo table th, .editPassword table th, .editOption table th {width: 180px;}
-.editPassword table {margin-bottom: 16px;}
+.editUserInfo table th,
+.editUserInfo table td,
+.editPassword table th,
+.editPassword table td,
+.editOption table th,
+.editOption table td {
+  padding: 16px;
+}
+.editUserInfo table th,
+.editPassword table th,
+.editOption table th {
+  width: 180px;
+}
+.editPassword table {
+  margin-bottom: 16px;
+}
 .editPassword .bullet li {
   padding-left: 16px;
   &::before {
@@ -743,17 +894,29 @@ table {
   }
 }
 
-.editUserInfo .name button {margin: 0 8px;}
-.editUserInfo .email input {width: 100%;}
-.editUserInfo .password button, .editUserInfo .memberOut button {margin: 0;}
+.editUserInfo .name button {
+  margin: 0 8px;
+}
+.editUserInfo .email input {
+  width: 100%;
+}
+.editUserInfo .password button,
+.editUserInfo .memberOut button {
+  margin: 0;
+}
 
-.editPassword input {width: 100%;}
-.editPassword .newPassword input {margin-bottom: 8px;}
+.editPassword input {
+  width: 100%;
+}
+.editPassword .newPassword input {
+  margin-bottom: 8px;
+}
 .editUserInfo .titleText {
   margin-top: 40px;
   margin-bottom: 8px;
 }
-.editOption li, .genre {
+.editOption li,
+.genre {
   display: flex;
   align-items: center;
   span {

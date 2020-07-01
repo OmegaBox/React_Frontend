@@ -1,8 +1,11 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 
+import { setSelectSeat } from "../../Reducer/bookingSeatReducer";
+
 import "./style/BookingSeatList.scss";
 
+// 가져올 상태
 const screeningHallSeatInfo = {
   hallId: 0,
   maxSeat: 15,
@@ -34,10 +37,12 @@ const screeningHallSeatInfo = {
   },
 };
 
+// 행 이름 배열
 const rowNames = new Array(screeningHallSeatInfo.row)
   .fill(0)
   .map((v, i) => String.fromCharCode(65 + i));
 
+// 좌석 번호 배열
 const SeatNums = new Array(screeningHallSeatInfo.maxSeat)
   .fill(0)
   .map((v, i) => i + 1);
@@ -56,8 +61,6 @@ const BookingSeatList = () => {
   const totalCount = Object.values(personal).reduce((p, n) => p + n, 0);
   // 선택 가능
   const selectable = totalCount - totalSeatCount > 0;
-
-  console.log(select, totalSeatCount, totalCount, selectable);
 
   return (
     <div className={["bookingSeatList", "type1"].join(" ")}>
@@ -86,10 +89,7 @@ const BookingSeatList = () => {
                   }
                   disabled={except || !(selectable || selected)}
                   onClick={(e) => {
-                    dispatch({
-                      type: "SET_SELECTSEAT",
-                      selected: e.target.value,
-                    });
+                    dispatch(setSelectSeat(e.target.value));
                   }}
                 >
                   {num}

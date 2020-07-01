@@ -1,7 +1,24 @@
-export const RESET = "RESET";
-export const CHANGE_COUNT = "CHANGE_COUNT";
-export const SET_PRICE = "SET_PRICE";
-export const SET_SELECTSEAT = "SET_SELECTSEAT";
+const RESET = "RESET";
+const CHANGE_COUNT = "CHANGE_COUNT";
+const SET_PRICE = "SET_PRICE";
+const SET_SELECTSEAT = "SET_SELECTSEAT";
+
+export const resetSeat = () => ({
+  type: RESET,
+});
+export const changePersonalCount = (type, value) => ({
+  type: CHANGE_COUNT,
+  personType: type,
+  value: value,
+});
+export const setPrice = (price) => ({
+  type: SET_PRICE,
+  price: price,
+});
+export const setSelectSeat = (seat) => ({
+  type: SET_SELECTSEAT,
+  selected: seat,
+});
 
 const initSeatState = {
   personal: {

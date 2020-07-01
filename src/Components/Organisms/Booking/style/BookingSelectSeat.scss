@@ -40,3 +40,13 @@ $disabled: url("https://img.megabox.co.kr/static/pc/images/common/bg/bg-seat-con
     border: 1px solid $border;
   }
 }
+
+.popupBox.notice {
+  width: 400px;
+  height: 195px;
+
+  p {
+    padding: 20px 20px 0;
+    font-size: 1.4rem;
+  }
+}

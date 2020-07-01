@@ -1,16 +1,17 @@
-@import "../../../common.scss";
+@import "../../../commonVariable.scss";
 
 .bookingTheaterList {
   width: 350px;
   height: 530px;
-  box-sizing: border-box;
-  padding: 0 20px 20px 20px;
+  // box-sizing: border-box;
+  padding: 10px 20px 20px 20px;
   border: solid 1px $colorGrayEa;
 }
 
-.theaterList {
+.bookingTheaterList > .theaterLocationList {
   display: flex;
   margin-top: 10px;
+  border: solid 1px $colorGrayEa;
 
   button {
     width: 100%;
@@ -33,7 +34,7 @@
   scrollbar-color: $colorGray44 $colorGrayEa;
   scrollbar-width: thin;
   scrollbar-base-color: $colorGrayEa;
-  box-sizing: border-box;
+  // box-sizing: border-box;
 }
 
 .localRegion::-webkit-scrollbar {
@@ -53,7 +54,7 @@
   width: 308px;
   height: 100px;
   margin-top: 10px;
-  box-sizing: border-box;
+  // box-sizing: border-box;
 
   li {
     position: relative;
