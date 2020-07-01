@@ -1,5 +1,5 @@
 import React from "react";
-import './MainTheater.scss';
+import "./style/MainTheater.scss";
 
 const MainTheater = () => {
   return (

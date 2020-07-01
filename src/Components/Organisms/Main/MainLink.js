@@ -1,5 +1,5 @@
 import React from "react";
-import "./MainLink.scss";
+import "./style/MainLink.scss";
 
 const MainLink = () => {
   return (
