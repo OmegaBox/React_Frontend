@@ -46,27 +46,33 @@
       background-position: 0 0;
       background-repeat: no-repeat;
 
+      &.path {
+        margin-right: 16px;
+      }
+
+      &.handicapped {
+        background-image: $disabled;
+      }
+
       &[ disabled ] {
-        background-image: $impossible;
         cursor: default;
+      }
+      
+      &[ disabled ]:not(.booking) {
+        background-image: $impossible;
       }
 
       &.no {
         opacity: 0;
       }
 
+      &.booking {
+        background-image: $finish;
+      }
+
       &.select,
       &:not([ disabled ]):hover {
         background-image: $choice;
-      }
-    }
-  }
-
-  &.type1 {
-    .seatRow {
-      button:nth-child(6),
-      button:nth-child(12) {
-        margin-right: 16px;
       }
     }
   }

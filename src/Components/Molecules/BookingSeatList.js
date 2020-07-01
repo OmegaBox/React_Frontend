@@ -10,6 +10,7 @@ const screeningHallSeatInfo = {
   hallId: 0,
   maxSeat: 15,
   row: 10,
+  path: [6, 12],
   enter: [["Front", 0]],
   exit: [["Back", 3]],
   except: (row, seatNum) => {
@@ -35,7 +36,10 @@ const screeningHallSeatInfo = {
         return true;
     }
   },
+  handicapped: ["A1", "A2", "A3"],
 };
+
+const booking = ["A1", "B10", "C4"];
 
 // 행 이름 배열
 const rowNames = new Array(screeningHallSeatInfo.row)
@@ -63,7 +67,7 @@ const BookingSeatList = () => {
   const selectable = totalCount - totalSeatCount > 0;
 
   return (
-    <div className={["bookingSeatList", "type1"].join(" ")}>
+    <div className="bookingSeatList">
       <ul className="seatRowName">
         {rowNames.map((v) => (
           <li key={`rowName ${v}`} className="textBold">
@@ -85,7 +89,12 @@ const BookingSeatList = () => {
                   className={
                     ["btn", "subLight"].join(" ") +
                     (except ? " no" : "") +
-                    (selected ? " select" : "")
+                    (selected ? " select" : "") +
+                    (booking.includes(`${row}${num}`) ? " booking" : "") +
+                    (screeningHallSeatInfo.path.includes(num) ? " path" : "") +
+                    (screeningHallSeatInfo.handicapped.includes(`${row}${num}`)
+                      ? " handicapped"
+                      : "")
                   }
                   disabled={except || !(selectable || selected)}
                   onClick={(e) => {
