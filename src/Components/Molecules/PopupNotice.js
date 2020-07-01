@@ -1,13 +1,13 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 
-import { CLOSE_MODAL } from "../../Reducer/bookingSeatReducer";
+import { closeModal } from "../../Reducer/utilModalReducer";
 
-const PopupSeatSelect = ({ text = "", onEvent = null }) => {
+const PopupNotice = ({ text = "", onEvent = null, popupSize = {} }) => {
   const dispatch = useDispatch();
   return (
     <div className={["popupWrap"].join(" ")}>
-      <div className={["popupBox", "notice"].join(" ")}>
+      <div className={["popupBox", "notice"].join(" ")} style={popupSize}>
         <h2>알림</h2>
         <p>{text}</p>
         <div className="btnWrap">
@@ -16,9 +16,7 @@ const PopupSeatSelect = ({ text = "", onEvent = null }) => {
               type="button"
               className={["btn", "small", "main", "outLine"].join(" ")}
               onClick={() => {
-                dispatch({
-                  type: CLOSE_MODAL,
-                });
+                dispatch(closeModal());
               }}
             >
               취소
@@ -29,9 +27,7 @@ const PopupSeatSelect = ({ text = "", onEvent = null }) => {
             className={["btn", "small", "main", "fill"].join(" ")}
             onClick={() => {
               if (onEvent) onEvent();
-              dispatch({
-                type: CLOSE_MODAL,
-              });
+              dispatch(closeModal());
             }}
           >
             확인
@@ -42,4 +38,4 @@ const PopupSeatSelect = ({ text = "", onEvent = null }) => {
   );
 };
 
-export default PopupSeatSelect;
+export default PopupNotice;

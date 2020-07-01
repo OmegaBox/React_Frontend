@@ -1,6 +1,8 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 
+import { setSelectSeat } from "../../Reducer/bookingSeatReducer";
+
 import "./style/BookingSeatList.scss";
 
 // 가져올 상태
@@ -60,8 +62,6 @@ const BookingSeatList = () => {
   // 선택 가능
   const selectable = totalCount - totalSeatCount > 0;
 
-  // console.log(select, totalSeatCount, totalCount, selectable);
-
   return (
     <div className={["bookingSeatList", "type1"].join(" ")}>
       <ul className="seatRowName">
@@ -89,10 +89,7 @@ const BookingSeatList = () => {
                   }
                   disabled={except || !(selectable || selected)}
                   onClick={(e) => {
-                    dispatch({
-                      type: "SET_SELECTSEAT",
-                      selected: e.target.value,
-                    });
+                    dispatch(setSelectSeat(e.target.value));
                   }}
                 >
                   {num}

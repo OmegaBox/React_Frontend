@@ -1,9 +1,24 @@
-export const RESET = "RESET";
-export const CHANGE_COUNT = "CHANGE_COUNT";
-export const SET_PRICE = "SET_PRICE";
-export const SET_SELECTSEAT = "SET_SELECTSEAT";
-export const OPEN_MODAL = "OPEN_MODAL";
-export const CLOSE_MODAL = "CLOSE_MODAL";
+const RESET = "RESET";
+const CHANGE_COUNT = "CHANGE_COUNT";
+const SET_PRICE = "SET_PRICE";
+const SET_SELECTSEAT = "SET_SELECTSEAT";
+
+export const resetSeat = () => ({
+  type: RESET,
+});
+export const changePersonalCount = (type, value) => ({
+  type: CHANGE_COUNT,
+  personType: type,
+  value: value,
+});
+export const setPrice = (price) => ({
+  type: SET_PRICE,
+  price: price,
+});
+export const setSelectSeat = (seat) => ({
+  type: SET_SELECTSEAT,
+  selected: seat,
+});
 
 const initSeatState = {
   personal: {
@@ -19,16 +34,7 @@ const initSeatState = {
   selectedSeat: [],
 };
 
-const initSeatModal = {
-  modal: false,
-  text: "",
-  event: null,
-};
-
-const seatReducer = (
-  state = { ...initSeatState, ...initSeatModal },
-  action
-) => {
+const seatReducer = (state = initSeatState, action) => {
   switch (action.type) {
     case RESET:
       return initSeatState;
@@ -52,18 +58,6 @@ const seatReducer = (
           state.selectedSeat.indexOf(action.selected) > -1
             ? state.selectedSeat.filter((seat) => seat != action.selected)
             : [...state.selectedSeat, action.selected],
-      };
-    case OPEN_MODAL:
-      return {
-        ...state,
-        modal: true,
-        text: action.text,
-        event: action.event || null,
-      };
-    case CLOSE_MODAL:
-      return {
-        ...state,
-        ...initSeatModal,
       };
     default:
       return state;

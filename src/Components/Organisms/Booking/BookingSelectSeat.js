@@ -6,14 +6,14 @@ import BookingSeatReset from "../../Molecules/BookingSeatReset";
 import BookingPersonalSetting from "../../Molecules/BookingPersonalSetting";
 import BookingSeatList from "../../Molecules/BookingSeatList";
 import BookingInfo from "../../Molecules/BookingInfo";
-import PopupSeatSelect from "../../Molecules/PopupSeatSelect";
+import PopupNotice from "../../Molecules/PopupNotice";
 
 import "./style/BookingSelectSeat.scss";
 
 const BookingSelectSeat = () => {
-  const [modal, text, event] = useSelector((state) => {
-    const seat = state.Seat;
-    return [seat.modal, seat.text, seat.event];
+  const [modal, text, event, w, h] = useSelector((state) => {
+    const Modal = state.Modal;
+    return [Modal.modal, Modal.text, Modal.event, Modal.width, Modal.height];
   });
   return (
     <section className="bookingSelectSeat">
@@ -28,7 +28,14 @@ const BookingSelectSeat = () => {
       <BookingInfo />
       {modal && (
         <ModalPortal>
-          <PopupSeatSelect text={text} onEvent={event} />
+          <PopupNotice
+            text={text}
+            onEvent={event}
+            popupSize={{
+              width: w,
+              height: h,
+            }}
+          />
         </ModalPortal>
       )}
     </section>

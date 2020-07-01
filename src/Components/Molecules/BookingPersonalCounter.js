@@ -2,10 +2,10 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import {
-  RESET,
-  CHANGE_COUNT,
-  OPEN_MODAL,
+  resetSeat,
+  changePersonalCount,
 } from "../../Reducer/bookingSeatReducer";
+import { openModal } from "../../Reducer/utilModalReducer";
 
 const BookingPersonalCounter = ({ type }) => {
   const dispatch = useDispatch();
@@ -19,17 +19,21 @@ const BookingPersonalCounter = ({ type }) => {
     .fill(0)
     .map((v, i) => i);
 
+  // reset 이벤트
+  const resetEvent = () => {
+    dispatch(resetSeat());
+  };
+
   // reset popup 열기
   const openResetPopup = () => {
-    dispatch({
-      type: OPEN_MODAL,
-      text: "선택하신 좌석을 모두 취소하고 다시 선택하시겠습니까?",
-      event: () => {
-        dispatch({
-          type: RESET,
-        });
-      },
-    });
+    dispatch(
+      openModal(
+        "400px",
+        "195px",
+        "선택하신 좌석을 모두 취소하고 다시 선택하시겠습니까?",
+        resetEvent
+      )
+    );
   };
 
   return (
@@ -40,11 +44,9 @@ const BookingPersonalCounter = ({ type }) => {
           if (totalCount <= bookingCount) {
             openResetPopup();
           } else {
-            dispatch({
-              type: CHANGE_COUNT,
-              personType: `${type}`,
-              value: count <= 0 ? 0 : count - 1,
-            });
+            dispatch(
+              changePersonalCount(`${type}`, count <= 0 ? 0 : count - 1)
+            );
           }
         }}
       >
@@ -57,11 +59,7 @@ const BookingPersonalCounter = ({ type }) => {
           if (totalCount - count + +e.target.value < bookingCount) {
             openResetPopup();
           } else {
-            dispatch({
-              type: CHANGE_COUNT,
-              personType: `${type}`,
-              value: +e.target.value,
-            });
+            dispatch(changePersonalCount(`${type}`, +e.target.value));
           }
         }}
       >
@@ -74,11 +72,9 @@ const BookingPersonalCounter = ({ type }) => {
       <button
         className={["btn", "fill", "white", "xSmall", "plus"].join(" ")}
         onClick={() => {
-          dispatch({
-            type: "CHANGE_COUNT",
-            personType: `${type}`,
-            value: totalCount >= 8 ? count : count + 1,
-          });
+          dispatch(
+            changePersonalCount(`${type}`, totalCount >= 8 ? count : count + 1)
+          );
         }}
       >
         +
