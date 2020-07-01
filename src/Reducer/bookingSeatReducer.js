@@ -1,7 +1,7 @@
-const RESET = "RESET";
-const CHANGE_COUNT = "CHANGE_COUNT";
-const SET_PRICE = "SET_PRICE";
-const SET_SELECTSEAT = "SET_SELECTSEAT";
+export const RESET = "RESET";
+export const CHANGE_COUNT = "CHANGE_COUNT";
+export const SET_PRICE = "SET_PRICE";
+export const SET_SELECTSEAT = "SET_SELECTSEAT";
 
 const initSeatState = {
   personal: {

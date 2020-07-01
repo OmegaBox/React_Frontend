@@ -72,7 +72,8 @@ const BookingSeatList = () => {
         {rowNames.map((row) => (
           <li key={`row ${row}`}>
             {SeatNums.map((num) => {
-              const except = !screeningHallSeatInfo.except(row, num);
+              // const except = !screeningHallSeatInfo.except(row, num);
+              const except = false;
               const selected = select.includes(`${row}${num}`);
               return (
                 <button

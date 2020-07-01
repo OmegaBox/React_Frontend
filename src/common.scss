@@ -437,3 +437,40 @@ p {
     background-size: 100%;
   }
 }
+
+.popupWrap {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: 0;
+  padding: 0;
+  background-color: $dimdBg;
+  .popupBox {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    background: $colorWhite;
+    h2 {
+      padding: 16px 20px;
+      font-size: 1.8rem;
+      font-weight: 500;
+      color: $colorWhite;
+      background-color: $colorMain;
+    }
+    .btn.closed {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      min-width: initial;
+      padding: 0 8px;
+    }
+    .popupContent {
+      padding: 16px 20px 0;
+    }
+  }
+}
