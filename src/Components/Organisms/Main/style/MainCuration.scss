@@ -1,0 +1,92 @@
+@import "../../../../commonVariable.scss";
+
+.mainCurationLayout {
+  background: $colorMainDark;
+  min-height: 840px;
+  color: $colorWhite;
+}
+
+.mainCuration {
+  width: 1100px;
+  margin: 0 auto;
+}
+
+.mainHeader {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+  height: 30px;
+  padding: 50px 0 40px 0;
+  font-size: 20px;
+  font-weight: 400;
+  div {
+    color: $colorGray66;
+  }
+}
+
+.curationPoster {
+  display: flex;
+  align-items: flex-start;
+  position: relative;
+}
+
+.curationPoster div button {
+  width: 142px;
+  height: 50px;
+  margin-top: 10px;
+  color: $colorWhite;
+}
+
+.curationImg {
+  width: 300px;
+  height: 430px;
+  border-radius: 15px;
+}
+
+.filmSociety {
+  width: 123px;
+  height: 125px;
+  background-image: url(https://www.megabox.co.kr/static/pc/images/main/bg-bage-curation-film.png);
+  background-repeat: no-repeat;
+  position: absolute;
+  top: -10px;
+  left: -10px;
+}
+
+.curationComment {
+  margin-left: 40px;
+  h3 {
+    font-size: 40px;
+  }
+}
+.comment p {
+  font-size: 15px;
+}
+
+.storySummary {
+  border-top: $colorGrayF5 1px solid;
+  padding: 15px;
+}
+
+.posterWrap {
+  display: flex;
+  justify-content: space-around;
+  figure {
+    margin: 7px 0 0 0;
+    padding: 0;
+    figcaption {
+      text-align: center;
+      font-size: 15px;
+      width: 170px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+  }
+}
+
+.posterWrap figure img {
+  border-radius: 5px;
+  width: 170px;
+  height: 244px;
+}

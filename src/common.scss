@@ -1,42 +1,49 @@
-/* main, sub, point color variation */
-$colorMainDark: #252451;
-$colorMain: #513396;
-$colorMainLight: #6332d4;
-$colorSubDark: #32627f;
-$colorSub: #007b93;
-$colorSubLight: #309eb0;
-$colorPoint: #da3f31;
+// /* main, sub, point color variation */
+// $colorMainDark: #252451;
+// $colorMain: #513396;
+// $colorMainLight: #6332d4;
+// $colorSubDark: #32627f;
+// $colorSub: #007b93;
+// $colorSubLight: #309eb0;
+// $colorPoint: #da3f31;
 
-$colorBlue: #3b5fcb;
-$colorRed: #e81002;
+// $colorBlue: #3b5fcb;
+// $colorRed: #e81002;
 
-/* gray color variation */
-$colorBlack: #000;
-$colorGray33: #333;
-$colorGray44: #444;
-$colorGray55: #555;
-$colorGray66: #666;
-$colorGrayD8: #d8d8d8;
-$colorGrayEa: #eaeaea;
-$colorGrayF5: #f5f5f5;
-$colorWhite: #fff;
+// /* gray color variation */
+// $colorBlack: #000;
+// $colorGray33: #333;
+// $colorGray44: #444;
+// $colorGray55: #555;
+// $colorGray66: #666;
+// $colorGrayD8: #d8d8d8;
+// $colorGrayEa: #eaeaea;
+// $colorGrayF5: #f5f5f5;
+// $colorWhite: #fff;
 
-/* text cololr */
-$colorPrimaryText: #222;
-$colorSecondaryText: #444;
-$colorLightText: #666;
-$colorDisabledText: #aaa;
+// /* text cololr */
+// $colorPrimaryText: #222;
+// $colorSecondaryText: #444;
+// $colorLightText: #666;
+// $colorDisabledText: #aaa;
 
-/* bg, border, etc */
-$dimdBg: transparentize($colorBlack, 0.7);
-$whiteGrayBg: $colorGrayF5;
-$lightBg: $colorGrayEa;
-$darkBg: $colorGray44;
-$deepDarkBg: $colorGray33;
-$ligthBorder: $colorGrayEa;
-$border: $colorGrayD8;
-$darkBorder: $colorGray66;
-$tab: $colorGray55;
+// /* bg, border, etc */
+// $dimdBg: transparentize($colorBlack, 0.7);
+// $whiteGrayBg: $colorGrayF5;
+// $lightBg: $colorGrayEa;
+// $darkBg: $colorGray44;
+// $deepDarkBg: $colorGray33;
+
+// $ligthBorder: $colorGrayEa;
+// $border: $colorGrayD8;
+// $darkBorder: $colorGray66;
+// $tab: $colorGray55;
+
+// $textBold: 700;
+// $textMedium: 500;
+// $textLight: 300;
+
+@import "./commonVariable.scss";
 
 .textRed {
   color: $colorRed;
@@ -313,9 +320,10 @@ select::-ms-expand {
   justify-content: space-between;
   align-items: center;
   margin: 4px;
-  padding: 1px;
   border: 1px solid $border;
   border-radius: 4px;
+  overflow: hidden;
+  background: $colorWhite;
   .icon {
     position: absolute;
     right: 0;
@@ -323,10 +331,13 @@ select::-ms-expand {
   }
 }
 .select.large {
-  height: 40px;
+  height: 38px;
+}
+.select.regular {
+  height: 30px;
 }
 .select.small {
-  height: 32px;
+  height: 28px;
 }
 
 /* typography */
@@ -366,11 +377,120 @@ p {
     background-image: url("https://img.megabox.co.kr/static/pc/images/common/ico/ico-heart-toggle-gray.png");
     background-position: 0;
   }
+  &.closed {
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/btn/btn-layer-close.png");
+  }
+  &.closedWhite {
+    background-image: url("https://img.megabox.co.kr/static/pc/images/reserve/btn-choice-dell-circle.png");
+  }
+  &.favoriteOutLine {
+    width: 17px;
+    height: 15px;
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/ico/ico-heart-toggle-main.png");
+    background-position: 0;
+  }
   &.ageGrade {
     width: 24px;
     height: 24px;
     margin-right: 8px;
     border-radius: 12px;
     background-image: url("https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-all.png");
+  }
+  &.plus {
+    background-image: url("https://img.megabox.co.kr/static/pc/images/reserve/bg-empty-cell-circle.png");
+  }
+  &.ageGradeSmall {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+    border-radius: 12px;
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-all.png");
+    background-size: 100%;
+  }
+  &.ageGrade12 {
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;
+    border-radius: 12px;
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-12.png");
+    background-size: 100%;
+  }
+  &.ageGrade12Small {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+    border-radius: 12px;
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-12.png");
+    background-size: 100%;
+  }
+  &.ageGrade15 {
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;
+    border-radius: 12px;
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-15.png");
+    background-size: 100%;
+  }
+  &.ageGrade15Small {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+    border-radius: 12px;
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-15.png");
+    background-size: 100%;
+  }
+  &.ageGrade19 {
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;
+    border-radius: 12px;
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-19.png");
+    background-size: 100%;
+  }
+  &.ageGrade19Small {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+    border-radius: 12px;
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-19.png");
+    background-size: 100%;
+  }
+}
+
+
+.popupWrap {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: 0;
+  padding: 0;
+  background-color: $dimdBg;
+  .popupBox {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    background: $colorWhite;
+    h2 {
+      padding: 16px 20px;
+      font-size: 1.8rem;
+      font-weight: 500;
+      color: $colorWhite;
+      background-color: $colorMain;
+    }
+    .btn.closed {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      min-width: initial;
+      padding: 0 8px;
+    }
+    .popupContent {
+      padding: 16px 20px 0;
+    }
   }
 }

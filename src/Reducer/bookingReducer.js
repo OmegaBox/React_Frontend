@@ -3,8 +3,10 @@ const ERROR = "booking/ERROR";
 const LOADING = "booking/LOADING";
 
 const SET_SELECTED_DATE = "booking/SELECTED_DATE";
+const SET_SELECTED_HOUR = "booking/SELECTED_HOUR";
 
 const setSelectedDate = (date) => ({ type: SET_SELECTED_DATE, date });
+const setSelectedHour = (hour) => ({ type: SET_SELECTED_HOUR, hour });
 
 const initialState = {
   selectedOption: {
@@ -13,7 +15,8 @@ const initialState = {
     selectedMovieTitle: ["살아있다", "결백"],
     movieAgeGrade: "All",
     screenHall: "2관",
-    seletedTime: "19:40",
+    selectedHour: "19",
+    selectedTime: "19:40",
     endTime: "",
     seletedSeat: [],
   },
@@ -41,6 +44,14 @@ const bookingReducer = (state = initialState, action) => {
           selectedDate: action.date,
         },
       };
+    case SET_SELECTED_HOUR:
+      return {
+        ...state,
+        selectedOption: {
+          ...state.selectedOption,
+          selectedHour: action.hour,
+        },
+      };
     case SUCCESS:
     case ERROR:
     case LOADING:
@@ -49,4 +60,4 @@ const bookingReducer = (state = initialState, action) => {
   }
 };
 
-export { bookingReducer, setSelectedDate };
+export { bookingReducer, setSelectedDate, setSelectedHour };

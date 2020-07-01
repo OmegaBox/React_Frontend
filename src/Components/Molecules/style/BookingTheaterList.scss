@@ -1,0 +1,80 @@
+@import "../../../commonVariable.scss";
+
+.bookingTheaterList {
+  width: 350px;
+  height: 530px;
+  // box-sizing: border-box;
+  padding: 10px 20px 20px 20px;
+  border: solid 1px $colorGrayEa;
+}
+
+.bookingTheaterList > .theaterLocationList {
+  display: flex;
+  margin-top: 10px;
+  border: solid 1px $colorGrayEa;
+
+  button {
+    width: 100%;
+    height: 28px;
+    font-size: 1.3rem;
+    text-align: left;
+    font-weight: $textBold;
+  }
+}
+
+.region {
+  width: 154.5px;
+  border-right: solid 1px $colorGrayEa;
+}
+
+.localRegion {
+  width: 154.5px;
+  height: 370px;
+  overflow-y: scroll;
+  scrollbar-color: $colorGray44 $colorGrayEa;
+  scrollbar-width: thin;
+  scrollbar-base-color: $colorGrayEa;
+  // box-sizing: border-box;
+}
+
+.localRegion::-webkit-scrollbar {
+  width: 5px;
+  background-color: $colorGrayEa;
+  border-radius: 5rem;
+}
+
+.localRegion::-webkit-scrollbar-thumb {
+  background-color: $colorGray44;
+  border-radius: 5rem;
+}
+
+.seletedTheater {
+  display: flex;
+  justify-content: space-around;
+  width: 308px;
+  height: 100px;
+  margin-top: 10px;
+  // box-sizing: border-box;
+
+  li {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90px;
+    height: 90px;
+    background-color: $colorGrayEa;
+    border-radius: 50%;
+
+    button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 24px;
+      height: 24px;
+      background-color: white;
+      border: $border 1px solid;
+      border-radius: 50%;
+    }
+  }
+}

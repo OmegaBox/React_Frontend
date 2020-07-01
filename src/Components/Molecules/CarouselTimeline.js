@@ -2,17 +2,18 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Slider from "react-slick";
 
-import { setSelectedDate } from "../../Reducer/bookingReducer";
+import { setSelectedDate, setSelectedHour } from "../../Reducer/bookingReducer";
 import { getDateRangeData } from "../../Utils/ultil";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import "./style/CarouselCalendar.scss";
+import "./style/CarouselTimeline.scss";
 
-const dateArray = getDateRangeData("2020-06-29", "2020-07-31");
+const timeArray = Array.from(Array(29).keys());
 
-const CarouselCalendar = () => {
+const CarouselTimeline = () => {
   const selectedOption = useSelector((state) => state.Booking.selectedOption);
+  const nowHour = new Date().getHours();
 
   const dispatch = useDispatch();
 
@@ -20,7 +21,7 @@ const CarouselCalendar = () => {
     dots: false,
     infinite: false,
     speed: 250,
-    slidesToShow: 14,
+    slidesToShow: 10,
     slidesToScroll: 1,
     arrows: true,
     // nextArrow: <NextArrow />,
@@ -28,24 +29,22 @@ const CarouselCalendar = () => {
   };
 
   return (
-    <div className="carouselCalendarContainer">
+    <div className="carouselTimelineContainer">
       <Slider {...settings}>
-        {dateArray.map((date, i) => {
-          let addClass = "carouselCal";
+        {timeArray.map((time, i) => {
+          let addClass = "carouselTimeline";
           addClass +=
-            selectedOption.selectedDate === date.dateString
-              ? " selectedDay"
-              : "";
+            +selectedOption.selectedHour === +time ? " selectedTime" : "";
+          addClass += +time < +nowHour ? " disabledTimeline" : "";
 
           return (
             <button
               className={addClass}
               id={i}
-              onClick={() => dispatch(setSelectedDate(date.dateString))}
+              onClick={() => dispatch(setSelectedHour(time))}
+              disabled={+time < +nowHour}
             >
-              <span style={{}}>
-                {date.day} {date.dayOfWeek}
-              </span>
+              <span>{time}</span>
             </button>
           );
         })}
@@ -54,4 +53,4 @@ const CarouselCalendar = () => {
   );
 };
 
-export default React.memo(CarouselCalendar);
+export default React.memo(CarouselTimeline);
