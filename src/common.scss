@@ -1,47 +1,49 @@
-/* main, sub, point color variation */
-$colorMainDark: #252451;
-$colorMain: #513396;
-$colorMainLight: #6332d4;
-$colorSubDark: #32627f;
-$colorSub: #007b93;
-$colorSubLight: #309eb0;
-$colorPoint: #da3f31;
+// /* main, sub, point color variation */
+// $colorMainDark: #252451;
+// $colorMain: #513396;
+// $colorMainLight: #6332d4;
+// $colorSubDark: #32627f;
+// $colorSub: #007b93;
+// $colorSubLight: #309eb0;
+// $colorPoint: #da3f31;
 
-$colorBlue: #3b5fcb;
-$colorRed: #e81002;
+// $colorBlue: #3b5fcb;
+// $colorRed: #e81002;
 
-/* gray color variation */
-$colorBlack: #000;
-$colorGray33: #333;
-$colorGray44: #444;
-$colorGray55: #555;
-$colorGray66: #666;
-$colorGrayD8: #d8d8d8;
-$colorGrayEa: #eaeaea;
-$colorGrayF5: #f5f5f5;
-$colorWhite: #fff;
+// /* gray color variation */
+// $colorBlack: #000;
+// $colorGray33: #333;
+// $colorGray44: #444;
+// $colorGray55: #555;
+// $colorGray66: #666;
+// $colorGrayD8: #d8d8d8;
+// $colorGrayEa: #eaeaea;
+// $colorGrayF5: #f5f5f5;
+// $colorWhite: #fff;
 
-/* text cololr */
-$colorPrimaryText: #222;
-$colorSecondaryText: #444;
-$colorLightText: #666;
-$colorDisabledText: #aaa;
+// /* text cololr */
+// $colorPrimaryText: #222;
+// $colorSecondaryText: #444;
+// $colorLightText: #666;
+// $colorDisabledText: #aaa;
 
-/* bg, border, etc */
-$dimdBg: transparentize($colorBlack, 0.7);
-$whiteGrayBg: $colorGrayF5;
-$lightBg: $colorGrayEa;
-$darkBg: $colorGray44;
-$deepDarkBg: $colorGray33;
+// /* bg, border, etc */
+// $dimdBg: transparentize($colorBlack, 0.7);
+// $whiteGrayBg: $colorGrayF5;
+// $lightBg: $colorGrayEa;
+// $darkBg: $colorGray44;
+// $deepDarkBg: $colorGray33;
 
-$ligthBorder: $colorGrayEa;
-$border: $colorGrayD8;
-$darkBorder: $colorGray66;
-$tab: $colorGray55;
+// $ligthBorder: $colorGrayEa;
+// $border: $colorGrayD8;
+// $darkBorder: $colorGray66;
+// $tab: $colorGray55;
 
-$textBold: 700;
-$textMedium: 500;
-$textLight: 300;
+// $textBold: 700;
+// $textMedium: 500;
+// $textLight: 300;
+
+@import "./commonVariable.scss";
 
 .textRed {
   color: $colorRed;
@@ -380,6 +382,12 @@ p {
   }
   &.closedWhite {
     background-image: url("https://img.megabox.co.kr/static/pc/images/reserve/btn-choice-dell-circle.png");
+  }
+  &.favoriteOutLine {
+    width: 17px;
+    height: 15px;
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/ico/ico-heart-toggle-main.png");
+    background-position: 0;
   }
   &.ageGrade {
     width: 24px;

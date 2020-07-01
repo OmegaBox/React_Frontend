@@ -2,8 +2,15 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import ModalPortal from "../../../Modules/ModalPortal";
 import PopupChoiceTheater from "../../Molecules/PopupChoiceTheater";
+import { useSelector } from "react-redux";
 
 const MypageDashBoard = () => {
+  const { name } = useSelector((state) => ({
+    name: state.userInfo.name,
+  }));
+
+  console.log(name);
+
   const [statePopup, setStatePopup] = useState({
     modal: false,
   });
