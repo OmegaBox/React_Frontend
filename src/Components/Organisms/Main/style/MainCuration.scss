@@ -1,4 +1,4 @@
-@import "../../../common.scss";
+@import "../../../../common.scss";
 
 .mainCurationLayout {
   background: $colorMainDark;
@@ -54,7 +54,7 @@
   left: -10px;  
 }
 
-.comment {
+.curationComment {
   margin-left: 40px;
   h3 {
     font-size: 40px;
