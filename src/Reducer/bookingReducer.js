@@ -5,15 +5,17 @@ const LOADING = "booking/LOADING";
 const SET_SELECTED_DATE = "booking/SELECTED_DATE";
 const SET_SELECTED_HOUR = "booking/SELECTED_HOUR";
 const SET_SELECTED_REGION = "booking/SELECTED_REGION";
+const SET_SELECTED_THEATER = "booking/SELECTED_THEATER";
 
 const setSelectedDate = (date) => ({ type: SET_SELECTED_DATE, date });
 const setSelectedHour = (hour) => ({ type: SET_SELECTED_HOUR, hour });
 const setSelectRegion = (region) => ({ type: SET_SELECTED_REGION, region });
+const setSelectTheater = (theater) => ({ type: SET_SELECTED_THEATER, theater });
 
 const initialState = {
   selectedOption: {
     selectedDate: "",
-    selectedRegion: "서울",
+    selectedRegion: "",
     selectedtheather: [],
     selectedMovieTitle: ["살아있다", "결백"],
     movieAgeGrade: "All",
@@ -59,6 +61,14 @@ const bookingReducer = (state = initialState, action) => {
           selectedHour: action.hour,
         },
       };
+    case SET_SELECTED_REGION:
+      return {
+        ...state,
+        selectedOption: {
+          ...state.selectedOption,
+          selectedRegion: action.region,
+        },
+      };
     case SUCCESS:
     case ERROR:
     case LOADING:
@@ -67,4 +77,10 @@ const bookingReducer = (state = initialState, action) => {
   }
 };
 
-export { bookingReducer, setSelectedDate, setSelectedHour, setSelectRegion };
+export {
+  bookingReducer,
+  setSelectedDate,
+  setSelectedHour,
+  setSelectRegion,
+  setSelectTheater,
+};

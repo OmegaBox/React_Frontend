@@ -2,6 +2,10 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import "./style/BookingTheaterList.scss";
+import {
+  setSelectRegion,
+  setSelectTheater,
+} from "../../Reducer/bookingReducer";
 
 const theaterList = [
   {
@@ -144,9 +148,11 @@ const BookingTheaterList = (props) => {
 
   const selectedRegion = theaterList.filter((theater) => {
     return theater.region === selectedOption.selectedRegion;
-  });
+  })[0];
 
-  console.log(selectedOption, selectedRegion);
+  // const selectedTheaters = theaterList.filter((theater) => {
+  //   return theater.region === selectedOption.selectedtheather.includes();
+  // });
 
   return (
     <div className="bookingTheaterList">
@@ -156,19 +162,28 @@ const BookingTheaterList = (props) => {
           {theaterList.map((theater) => {
             return (
               <li>
-                <button type="button">{theater.region}</button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    dispatch(setSelectRegion(theater.region));
+                  }}
+                >
+                  {theater.region}
+                </button>
               </li>
             );
           })}
         </ul>
         <ul className="localRegion">
-          {selectedRegion[0].theaters.map((theater) => {
-            return (
-              <li>
-                <button type="button">{theater}</button>
-              </li>
-            );
-          })}
+          {selectedRegion
+            ? selectedRegion.theaters.map((theater) => {
+                return (
+                  <li>
+                    <button type="button">{theater}</button>
+                  </li>
+                );
+              })
+            : ""}
         </ul>
       </div>
       <ul className="seletedTheater">
