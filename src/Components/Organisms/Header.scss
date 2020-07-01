@@ -1,4 +1,4 @@
-@import "../../common.scss";
+@import "../../commonVariable.scss";
 
 .headerLayout {
   width: 1100px;
@@ -8,7 +8,7 @@
   background: $colorMainDark;
   font-size: 15px;
   color: $colorGrayD8;
-};
+}
 
 .mainNav {
   position: relative;
@@ -37,7 +37,7 @@
 
 .subLeftSide li {
   margin-right: 20px;
-} 
+}
 
 .subRightSide li {
   margin-left: 20px;
@@ -47,13 +47,15 @@
   display: flex;
   justify-content: space-between;
   margin-top: 20px;
-  .leftIcon, .rightIcon {
+  .leftIcon,
+  .rightIcon {
     width: 73px;
     li {
       display: inline-block;
     }
   }
-  .mainLeftSide, .mainRightSide {
+  .mainLeftSide,
+  .mainRightSide {
     display: flex;
     justify-content: space-around;
     width: 260px;

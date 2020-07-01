@@ -13,6 +13,7 @@ const timeArray = Array.from(Array(29).keys());
 
 const CarouselTimeline = () => {
   const selectedOption = useSelector((state) => state.Booking.selectedOption);
+  const nowHour = new Date().getHours();
 
   const dispatch = useDispatch();
 
@@ -33,14 +34,15 @@ const CarouselTimeline = () => {
         {timeArray.map((time, i) => {
           let addClass = "carouselTimeline";
           addClass +=
-            // +selectedOption.selectedTime.split(":")[0] === +time
             +selectedOption.selectedHour === +time ? " selectedTime" : "";
+          addClass += +time < +nowHour ? " disabledTimeline" : "";
 
           return (
             <button
               className={addClass}
               id={i}
               onClick={() => dispatch(setSelectedHour(time))}
+              disabled={+time < +nowHour}
             >
               <span>{time}</span>
             </button>

@@ -1,4 +1,4 @@
-@import "../../../common.scss";
+@import "../../../commonVariable.scss";
 
 .carouselTimelineContainer {
   margin-top: 10px;
@@ -27,6 +27,12 @@
   color: white;
 }
 
+.carouselTimelineContainer .carouselTimeline.disabledTimeline {
+  background-color: white;
+  color: $colorGrayD8;
+  cursor: auto;
+}
+
 .carouselTimelineContainer .carouselCalendarContainer button {
   border: 0;
   border-radius: 0;
@@ -39,7 +45,7 @@
 }
 
 .carouselTimelineContainer .slick-slide.slick-active > div {
-  height: 30px;
+  height: 32px;
   // display: flex;
   // align-items: center;
 }
