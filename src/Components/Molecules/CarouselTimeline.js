@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Slider from "react-slick";
 
-import { setSelectedDate } from "../../Reducer/bookingReducer";
+import { setSelectedDate, setSelectedHour } from "../../Reducer/bookingReducer";
 import { getDateRangeData } from "../../Utils/ultil";
 
 import "slick-carousel/slick/slick.css";
@@ -15,10 +15,6 @@ const CarouselTimeline = () => {
   const selectedOption = useSelector((state) => state.Booking.selectedOption);
 
   const dispatch = useDispatch();
-
-  const test = (date, e) => {
-    dispatch(setSelectedDate(date));
-  };
 
   const settings = {
     dots: false,
@@ -44,7 +40,7 @@ const CarouselTimeline = () => {
             <button
               className={addClass}
               id={i}
-              // onClick={(e) => test(date.dateString, e)}
+              onClick={() => dispatch(setSelectedHour(time))}
             >
               <span>{time}</span>
             </button>

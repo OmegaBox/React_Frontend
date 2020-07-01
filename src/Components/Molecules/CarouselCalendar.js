@@ -16,10 +16,6 @@ const CarouselCalendar = () => {
 
   const dispatch = useDispatch();
 
-  const test = (date, e) => {
-    dispatch(setSelectedDate(date));
-  };
-
   const settings = {
     dots: false,
     infinite: false,
@@ -45,7 +41,7 @@ const CarouselCalendar = () => {
             <button
               className={addClass}
               id={i}
-              onClick={(e) => test(date.dateString, e)}
+              onClick={() => dispatch(setSelectedDate(date.dateString))}
             >
               <span style={{}}>
                 {date.day} {date.dayOfWeek}

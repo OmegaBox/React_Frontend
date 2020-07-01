@@ -22,6 +22,9 @@
       display: block;
     }
   }
+  li:hover {
+    background-color: $colorGrayD8;
+  }
 }
 
 .BookingSelectTimeContainer {
