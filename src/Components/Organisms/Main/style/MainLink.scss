@@ -1,4 +1,4 @@
-@import "../../../../common.scss";
+@import "../../../../commonVariable.scss";
 
 .mainLinkLayout {
   height: 513px;
@@ -22,30 +22,29 @@
 }
 
 .linkVIP {
-  background-image: url('https://www.megabox.co.kr/static/pc/images/common/ico/ico-vip-main.png');
+  background-image: url("https://www.megabox.co.kr/static/pc/images/common/ico/ico-vip-main.png");
   background-position: center;
 }
 
 .linkMember {
-  background-image: url('https://www.megabox.co.kr/static/pc/images/common/ico/ico-membership-main.png');
+  background-image: url("https://www.megabox.co.kr/static/pc/images/common/ico/ico-membership-main.png");
   background-position: center;
 }
 
 .linkCard {
-  background-image: url('https://www.megabox.co.kr/static/pc/images/common/ico/ico-card-main.png');
+  background-image: url("https://www.megabox.co.kr/static/pc/images/common/ico/ico-card-main.png");
   background-position: center;
 }
 
 .linkEvent {
-  background-image: url('https://www.megabox.co.kr/static/pc/images/common/ico/ico-event-main.png');
+  background-image: url("https://www.megabox.co.kr/static/pc/images/common/ico/ico-event-main.png");
   background-position: center;
 }
 
 .linkStore {
-  background-image: url('https://www.megabox.co.kr/static/pc/images/common/ico/ico-store-main.png');
+  background-image: url("https://www.megabox.co.kr/static/pc/images/common/ico/ico-store-main.png");
   background-position: center;
 }
-
 
 .grandOpeningLayout {
   width: 1100px;
@@ -68,7 +67,7 @@
     margin: 0;
     padding: 0;
     width: 727px;
-    height: 230px;   
+    height: 230px;
   }
 }
 
@@ -84,7 +83,7 @@
   text-align: center;
   span em {
     background: $colorSub;
-    display: inline-block;    
+    display: inline-block;
     min-width: 75px;
     height: 25px;
     margin: 0 auto;
@@ -101,5 +100,3 @@
   height: 155px;
   padding-top: 10px;
 }
-
-
