@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 import "./style/BookingSeatList.scss";
 
+// 가져올 상태
 const screeningHallSeatInfo = {
   hallId: 0,
   maxSeat: 15,
@@ -34,10 +35,12 @@ const screeningHallSeatInfo = {
   },
 };
 
+// 행 이름 배열
 const rowNames = new Array(screeningHallSeatInfo.row)
   .fill(0)
   .map((v, i) => String.fromCharCode(65 + i));
 
+// 좌석 번호 배열
 const SeatNums = new Array(screeningHallSeatInfo.maxSeat)
   .fill(0)
   .map((v, i) => i + 1);
@@ -57,7 +60,7 @@ const BookingSeatList = () => {
   // 선택 가능
   const selectable = totalCount - totalSeatCount > 0;
 
-  console.log(select, totalSeatCount, totalCount, selectable);
+  // console.log(select, totalSeatCount, totalCount, selectable);
 
   return (
     <div className={["bookingSeatList", "type1"].join(" ")}>

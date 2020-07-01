@@ -1,5 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
+
 import BookingPersonalCounter from "./BookingPersonalCounter.js";
 
 import "./style/BookingPersonalSetting.scss";
