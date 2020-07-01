@@ -4,14 +4,6 @@ import { Link } from "react-router-dom";
 
 
 const MainBoxOffice = () => {
-
-  const initialState = {
-
-  }
-
-  const mainBoxOfficeReducer = (state = initialState, action) => {
-
-  }
   return (
     <div className="mainBoxOfficeLayout">
       <div className="mainBoxOffice">
