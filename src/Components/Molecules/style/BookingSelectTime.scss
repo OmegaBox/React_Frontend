@@ -1,0 +1,97 @@
+@import "../../../common.scss";
+
+.BookingSelectTimeContainer {
+  box-sizing: border-box;
+  height: 430px;
+  overflow-y: scroll;
+
+  li {
+    display: flex;
+    border: solid 1px $ligthBorder;
+
+    width: 100%;
+    height: 66px;
+    // background-color: yellowgreen;
+    cursor: pointer;
+    padding: 0 15px;
+
+    strong {
+      display: block;
+    }
+    span {
+      display: block;
+    }
+  }
+}
+
+.BookingSelectTimeContainer {
+  scrollbar-color: $colorGray44 $colorGrayEa;
+  scrollbar-width: thin;
+  scrollbar-base-color: $colorGrayEa;
+}
+
+.BookingSelectTimeContainer::-webkit-scrollbar {
+  width: 5px;
+  background-color: $colorGrayEa;
+  border-radius: 5rem;
+}
+
+.BookingSelectTimeContainer::-webkit-scrollbar-thumb {
+  background-color: $colorGray44;
+  border-radius: 5rem;
+}
+
+.screeningTime {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  // background-color: tomato;
+  width: 60px;
+  height: 66px;
+  strong {
+    font-size: 1.8rem;
+  }
+  span {
+    font-size: 1.3rem;
+  }
+}
+
+.screeningMovieTitle {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  // background-color: orangered;
+  width: 100%;
+  height: 66px;
+  padding-left: 20px;
+  font-size: 1.5rem;
+
+  strong {
+    font-weight: $textBold;
+  }
+  span {
+    font-size: 1.2rem;
+  }
+}
+
+.screeningTheaterAndHall {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: right;
+
+  // background-color: silver;
+  width: 50px;
+  font-size: 1.2rem;
+  .bookingSeats {
+    display: flex;
+  }
+}
+
+.availableSeats {
+  color: $colorSub;
+  font-weight: $textBold;
+}

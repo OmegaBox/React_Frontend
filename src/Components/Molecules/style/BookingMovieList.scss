@@ -3,7 +3,7 @@
 .bookingMovieList {
   width: 270px;
   height: 529px;
-  padding: 0 20px 17px 20px;
+  padding: 10px 20px 17px 20px;
   box-sizing: border-box;
   border: solid 1px $colorGrayEa;
 }
@@ -17,6 +17,7 @@
   scrollbar-base-color: $colorGrayEa;
   box-sizing: border-box;
   margin-top: 10px;
+  border: solid 1px $colorGrayEa;
 
   button {
     display: flex;
