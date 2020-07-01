@@ -4,13 +4,14 @@
   width: 350px;
   height: 530px;
   box-sizing: border-box;
-  padding: 0 20px 20px 20px;
+  padding: 10px 20px 20px 20px;
   border: solid 1px $colorGrayEa;
 }
 
-.theaterList {
+.bookingTheaterList > .theaterLocationList {
   display: flex;
   margin-top: 10px;
+  border: solid 1px $colorGrayEa;
 
   button {
     width: 100%;
