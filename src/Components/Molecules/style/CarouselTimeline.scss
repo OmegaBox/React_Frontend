@@ -1,0 +1,45 @@
+@import "../../../common.scss";
+
+.carouselTimelineContainer {
+  margin-top: 10px;
+  padding: 0 30px;
+  width: 478px;
+  border-top: 1px solid $ligthBorder;
+  border-bottom: 1px solid $ligthBorder;
+}
+
+.slick-arrow.slick-next::before {
+  color: #000 !important;
+}
+
+.slick-arrow.slick-prev::before {
+  color: #000 !important;
+}
+
+.carouselTimeline {
+  text-align: center;
+  height: 100%;
+  width: 100%;
+}
+
+.carouselTimeline.selectedTime {
+  background-color: $colorGray33;
+  color: white;
+}
+
+.carouselCalendarContainer button {
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+  margin: 0;
+  background-color: transparent;
+  color: none;
+  font-size: 1.7rem;
+  min-width: initial;
+}
+
+.slick-slide.slick-active > div {
+  height: 30px;
+  // display: flex;
+  // align-items: center;
+}

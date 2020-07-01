@@ -7,11 +7,11 @@ import { getDateRangeData } from "../../Utils/ultil";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import "./style/CarouselCalendar.scss";
+import "./style/CarouselTimeline.scss";
 
-const dateArray = getDateRangeData("2020-06-29", "2020-07-31");
+const timeArray = Array.from(Array(29).keys());
 
-const CarouselCalendar = () => {
+const CarouselTimeline = () => {
   const selectedOption = useSelector((state) => state.Booking.selectedOption);
 
   const dispatch = useDispatch();
@@ -24,7 +24,7 @@ const CarouselCalendar = () => {
     dots: false,
     infinite: false,
     speed: 250,
-    slidesToShow: 14,
+    slidesToShow: 10,
     slidesToScroll: 1,
     arrows: true,
     // nextArrow: <NextArrow />,
@@ -32,24 +32,21 @@ const CarouselCalendar = () => {
   };
 
   return (
-    <div className="carouselCalendarContainer">
+    <div className="carouselTimelineContainer">
       <Slider {...settings}>
-        {dateArray.map((date, i) => {
-          let addClass = "carouselCal";
+        {timeArray.map((time, i) => {
+          let addClass = "carouselTimeline";
           addClass +=
-            selectedOption.selectedDate === date.dateString
-              ? " selectedDay"
-              : "";
+            // +selectedOption.selectedTime.split(":")[0] === +time
+            +selectedOption.selectedHour === +time ? " selectedTime" : "";
 
           return (
             <button
               className={addClass}
               id={i}
-              onClick={(e) => test(date.dateString, e)}
+              // onClick={(e) => test(date.dateString, e)}
             >
-              <span style={{}}>
-                {date.day} {date.dayOfWeek}
-              </span>
+              <span>{time}</span>
             </button>
           );
         })}
@@ -58,4 +55,4 @@ const CarouselCalendar = () => {
   );
 };
 
-export default React.memo(CarouselCalendar);
+export default React.memo(CarouselTimeline);
