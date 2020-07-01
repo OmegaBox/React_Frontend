@@ -1,4 +1,6 @@
 import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+
 import "./style/BookingTheaterList.scss";
 
 const theaterList = [
@@ -137,139 +139,36 @@ const theaterList = [
 ];
 
 const BookingTheaterList = (props) => {
+  const selectedOption = useSelector((state) => state.Booking.selectedOption);
+  const dispatch = useDispatch();
+
+  const selectedRegion = theaterList.filter((theater) => {
+    return theater.region === selectedOption.selectedRegion;
+  });
+
+  console.log(selectedOption, selectedRegion);
+
   return (
     <div className="bookingTheaterList">
       <h3 className="theaterHeading">극장</h3>
       <div className="theaterLocationList">
         <ul className="region">
-          <li>
-            <button type="button">서울</button>
-          </li>
-          <li>
-            <button type="button">경기</button>
-          </li>
-          <li>
-            <button type="button">인천</button>
-          </li>
-          <li>
-            <button type="button">대전/충청/세종</button>
-          </li>
-          <li>
-            <button type="button">부산/대구/경상</button>
-          </li>
-          <li>
-            <button type="button">광주/전라</button>
-          </li>
-          <li>
-            <button type="button">강원</button>
-          </li>
-          <li>
-            <button type="button">제주</button>
-          </li>
+          {theaterList.map((theater) => {
+            return (
+              <li>
+                <button type="button">{theater.region}</button>
+              </li>
+            );
+          })}
         </ul>
         <ul className="localRegion">
-          <li>
-            <button type="button">강남</button>
-          </li>
-          <li>
-            <button type="button">강남대로(씨티)</button>
-          </li>
-          <li>
-            <button type="button">강동</button>
-          </li>
-          <li>
-            <button type="button">군자</button>
-          </li>
-          <li>
-            <button type="button">동대문</button>
-          </li>
-          <li>
-            <button type="button">강남</button>
-          </li>
-          <li>
-            <button type="button">강남대로(씨티)</button>
-          </li>
-          <li>
-            <button type="button">강동</button>
-          </li>
-          <li>
-            <button type="button">군자</button>
-          </li>
-          <li>
-            <button type="button">동대문</button>
-          </li>
-          <li>
-            <button type="button">강남</button>
-          </li>
-          <li>
-            <button type="button">강남대로(씨티)</button>
-          </li>
-          <li>
-            <button type="button">강동</button>
-          </li>
-          <li>
-            <button type="button">군자</button>
-          </li>
-          <li>
-            <button type="button">동대문</button>
-          </li>
-          <li>
-            <button type="button">강남</button>
-          </li>
-          <li>
-            <button type="button">강남대로(씨티)</button>
-          </li>
-          <li>
-            <button type="button">강동</button>
-          </li>
-          <li>
-            <button type="button">군자</button>
-          </li>
-          <li>
-            <button type="button">동대문</button>
-          </li>
-          <li>
-            <button type="button">강남</button>
-          </li>
-          <li>
-            <button type="button">강남대로(씨티)</button>
-          </li>
-          <li>
-            <button type="button">강동</button>
-          </li>
-          <li>
-            <button type="button">군자</button>
-          </li>
-          <li>
-            <button type="button">동대문</button>
-          </li>
-          <li>
-            <button type="button">강남</button>
-          </li>
-          <li>
-            <button type="button">강남대로(씨티)</button>
-          </li>
-          <li>
-            <button type="button">강동</button>
-          </li>
-          <li>
-            <button type="button">군자</button>
-          </li>
-          <li>
-            <button type="button">동대문</button>
-          </li>
-          <li>
-            <button type="button">강남</button>
-          </li>
-          <li>
-            <button type="button">강남대로(씨티)</button>
-          </li>
-          <li>
-            <button type="button">강동</button>
-          </li>
-          <li>
-            <button type="button">군자</button>
-          </li>
+          {selectedRegion[0].theaters.map((theater) => {
+            return (
+              <li>
+                <button type="button">{theater}</button>
+              </li>
+            );
+          })}
         </ul>
       </div>
       <ul className="seletedTheater">
