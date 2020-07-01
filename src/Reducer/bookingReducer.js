@@ -9,9 +9,28 @@ const setSelectedDate = (date) => ({ type: SET_SELECTED_DATE, date });
 const setSelectedHour = (hour) => ({ type: SET_SELECTED_HOUR, hour });
 
 const initialState = {
+  theaterList: [
+    {
+      region: "서울",
+      theaters: [
+        "강남",
+        "강남대로(씨티)",
+        "강동",
+        "군자",
+        "동대문",
+        "마곡",
+        "목동",
+        "상봉",
+        "상암월드컵경기장",
+        "성수",
+        "센트럴",
+        "송파파크하비오",
+      ],
+    },
+  ],
   selectedOption: {
     selectedDate: "",
-    selectedtheather: ["강남", "목동"],
+    selectedtheather: [],
     selectedMovieTitle: ["살아있다", "결백"],
     movieAgeGrade: "All",
     screenHall: "2관",
