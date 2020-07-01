@@ -1,4 +1,4 @@
-@import "../../../common.scss";
+@import "../../../commonVariable.scss";
 
 .BookingSelectTimeContainer {
   // box-sizing: border-box;
@@ -21,6 +21,9 @@
     span {
       display: block;
     }
+  }
+  li:hover {
+    background-color: $colorGrayD8;
   }
 }
 

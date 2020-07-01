@@ -1,10 +1,9 @@
-@import "../../common.scss";
+@import "../../commonVariable.scss";
 
 .footerLayout {
   padding: 50px 0;
   background: $colorGrayEa;
 }
-
 
 .footerWrap {
   display: flex;
@@ -22,8 +21,8 @@
     align-items: center;
     li {
       margin-right: 10px;
-    }  
-  }  
+    }
+  }
 }
 
 .footerLogo {
