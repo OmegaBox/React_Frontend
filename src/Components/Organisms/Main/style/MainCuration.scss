@@ -1,4 +1,4 @@
-@import "../../../../common.scss";
+@import "../../../../commonVariable.scss";
 
 .mainCurationLayout {
   background: $colorMainDark;
@@ -17,7 +17,7 @@
   margin-bottom: 30px;
   height: 30px;
   padding: 50px 0 40px 0;
-  font-size: 20px; 
+  font-size: 20px;
   font-weight: 400;
   div {
     color: $colorGray66;
@@ -41,7 +41,6 @@
   width: 300px;
   height: 430px;
   border-radius: 15px;
-  
 }
 
 .filmSociety {
@@ -51,7 +50,7 @@
   background-repeat: no-repeat;
   position: absolute;
   top: -10px;
-  left: -10px;  
+  left: -10px;
 }
 
 .curationComment {
@@ -69,13 +68,12 @@
   padding: 15px;
 }
 
-
 .posterWrap {
-    display: flex;
-    justify-content: space-around;
-    figure { 
-      margin: 7px 0 0 0;
-      padding: 0;
+  display: flex;
+  justify-content: space-around;
+  figure {
+    margin: 7px 0 0 0;
+    padding: 0;
     figcaption {
       text-align: center;
       font-size: 15px;

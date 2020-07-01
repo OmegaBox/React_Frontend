@@ -1,4 +1,4 @@
-@import "../../../../common.scss";
+@import "../../../../commonVariable.scss";
 
 .mainBoxOfficeLayout {
   height: 830px;
@@ -6,11 +6,9 @@
 }
 
 .mainBoxOffice {
-  
   width: 1100px;
   height: 830px;
   margin: 0 auto;
-  
 }
 
 .mainBoxOfficeHeader {
@@ -27,7 +25,7 @@
     border-bottom: 1px solid $colorGrayD8;
   }
   .boxOfficeMoreMovie {
-    position: absolute; 
+    position: absolute;
     right: 0;
     top: 80px;
     color: $colorGrayD8;
@@ -70,7 +68,7 @@
   padding-top: 79px;
   color: $colorWhite;
   text-align: center;
-  border-bottom: 3px; 
+  border-bottom: 3px;
 }
 
 .boxOfficeSubBarWrap {
@@ -80,7 +78,7 @@
   height: 75px;
   margin-top: 50px;
   padding-top: 23px;
-  background: rgba(0,0,0,0.2);
+  background: rgba(0, 0, 0, 0.2);
   li {
     display: flex;
     justify-content: center;
@@ -93,7 +91,7 @@
 }
 
 .boxOfficeSubBarWrap .boxOfficeSearchBarWrap {
-  width: 200px; 
+  width: 200px;
   border-bottom: 1px solid $colorGray66;
 }
 
