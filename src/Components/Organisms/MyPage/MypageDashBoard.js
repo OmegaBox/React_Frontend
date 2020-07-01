@@ -1,7 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import ModalPortal from "../../../Modules/ModalPortal";
+import PopupChoiceTheater from "../../Molecules/PopupChoiceTheater";
 
 const MypageDashBoard = () => {
+  const [statePopup, setStatePopup] = useState({
+    modal: false,
+  });
+  const handleOpenModal = () => {
+    setStatePopup({
+      modal: true,
+    });
+  };
+  const handleCloseModal = () => {
+    setStatePopup({
+      modal: false,
+    });
+  };
+
   return (
     <div className="mypageDashBoard">
       <h3 className="a11yHidden">마이페이지 정보</h3>
@@ -21,7 +37,7 @@ const MypageDashBoard = () => {
           <div className="subTitleWrap">
             <h4 className="titleText">총 보유 포인트</h4>
             <Link
-              to="/mypage/confirmpassword"
+              to="/mypage/point"
               className={["icon", "arrowRight"].join(" ")}
             ></Link>
           </div>
@@ -37,10 +53,20 @@ const MypageDashBoard = () => {
         <article className="likeTheater">
           <div className="subTitleWrap">
             <h4 className="titleText">선호극장</h4>
-            <button type="button" className={["btn", "xSmall"].join(" ")}>
+            <button
+              type="button"
+              className={["btn", "xSmall"].join(" ")}
+              onClick={handleOpenModal}
+            >
               변경
               <span className={["icon", "arrowRight"].join(" ")}></span>
             </button>
+
+            {statePopup.modal && (
+              <ModalPortal>
+                <PopupChoiceTheater onClose={handleCloseModal} />
+              </ModalPortal>
+            )}
           </div>
           <ul className="theaterList">
             <li>송파파크하비오</li>

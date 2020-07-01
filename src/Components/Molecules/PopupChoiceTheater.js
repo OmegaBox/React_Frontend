@@ -1,11 +1,14 @@
 import React from "react";
 
-const PopupChoiceTheater = () => {
+const PopupChoiceTheater = ({ onClose }) => {
   return (
     <div className="popupWrap">
       <div className={["popupBox", "likeTheater"].join(" ")}>
         <h2>선호극장 관리</h2>
-        <button className={["btn", "xSmall", "closed"].join(" ")}>
+        <button
+          className={["btn", "xSmall", "closed"].join(" ")}
+          onClick={onClose}
+        >
           <span className={["icon", "closed"].join(" ")}></span>
         </button>
         <div className="popupContent">
@@ -75,6 +78,7 @@ const PopupChoiceTheater = () => {
           <button
             type="button"
             className={["btn", "small", "main", "outLine"].join(" ")}
+            onClick={onClose}
           >
             취소
           </button>
