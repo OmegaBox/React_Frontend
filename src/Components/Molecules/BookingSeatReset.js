@@ -19,8 +19,8 @@ const BookingSeatReset = () => {
         dispatch(
           openModal(
             "400px",
-            "195px",
-            "선택하신 좌석을 모두 취소하고 다시 선택하시겠습니까?",
+            "185px",
+            `선택하신 좌석을 모두 취소하고 다시 선택하시겠습니까?`,
             resetEvent
           )
         );
