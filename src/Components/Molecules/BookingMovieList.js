@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { setSelectRegion, selectTheater } from "../../Reducer/bookingReducer";
 
+import { movieApi } from "../../Api/api";
+
 import "./style/BookingMovieList.scss";
 
 const BookingMovieList = () => {
@@ -17,6 +19,9 @@ const BookingMovieList = () => {
         {movies.map((moive) => {
           let iconClassName = "icon";
           switch (movies.grade) {
+            case "청소년관람불가":
+              iconClassName += " ageGrade19Small";
+              break;
             case "15세이상관람가":
               iconClassName += " ageGrade15Small";
               break;
