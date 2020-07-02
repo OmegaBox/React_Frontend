@@ -5,7 +5,7 @@ import {
   resetSeat,
   changePersonalCount,
 } from "../../Reducer/bookingSeatReducer";
-import { openModal } from "../../Reducer/utilModalReducer";
+import { openModal } from "../../Reducer/modalReducer";
 
 const BookingPersonalCounter = ({ type }) => {
   const dispatch = useDispatch();
@@ -53,7 +53,7 @@ const BookingPersonalCounter = ({ type }) => {
         -
       </button>
       <select
-        className={["select", "small", "count"].join(" ")}
+        className={["select", "count"].join(" ")}
         value={count}
         onChange={(e) => {
           if (totalCount - count + +e.target.value < bookingCount) {

@@ -15,12 +15,14 @@
 }
 
 .bookingPersonalCounter{
-  display: inline-block;
+  display: inline-flex;
+  flex-flow: row nowrap;
+  align-items: stretch;
   margin-left: 10px;
 
   select.count {
-    display: inline-block;
     width: 42px;
+    height: inherit;
     text-align: center;
     border-width: 1px 0 1px;
     border-style: solid;
