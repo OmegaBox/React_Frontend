@@ -1,9 +1,44 @@
-import React from "react";
+import React, { useState, useReducer, useEffect } from "react";
 import "./style/MainBoxOffice.scss";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import { reducer, initialState } from "../../../Reducer/movieReducer";
+
+
 
 
 const MainBoxOffice = () => {
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  useEffect(() => {
+    const mainBoxOfficeMovies = async () => {
+      try {
+        dispatch({ type: "LOADING" });
+        let moviesData = await movies.getMainBoxOffice();
+        if (moviesData.status === 200) {
+          dispatch({ type: "SUCCESS", data: moviesData.data.results });
+        } else {
+          dispatch({
+            type: "ERROR",
+            error: {
+              state: true,
+              message: moviesData.statusText,
+            },
+          });
+        }
+      } catch (error) {
+        dispatch({
+          type: "ERROR",
+          error: {
+            state: true,
+            message: error.message,
+          },
+        });
+      }
+    };
+
+    mainBoxOfficeMovies();;
+  }, []);
+
   return (
     <div className="mainBoxOfficeLayout">
       <div className="mainBoxOffice">
@@ -13,7 +48,17 @@ const MainBoxOffice = () => {
         </div>
         <div className="mainMovieList">
           <ul class="mainMoviesWrap">
-            <li>
+
+            {/* <ul className="boxOfficeMoviePoster">
+              {state.movieState.map(
+                ({
+                  id,
+
+                })
+              )}
+
+            </ul> */}
+            {/* <li>
               <img
                 class="boxOfficeMoviePoster"
                 alt="살아있다"
@@ -28,7 +73,7 @@ const MainBoxOffice = () => {
                   예매
               </button>
               </div>
-            </li>
+            </li> */}
           </ul>
         </div>
         <ul className="boxOfficeSubBarWrap">
