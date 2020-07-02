@@ -6,49 +6,86 @@ import { setSelectSeat } from "../../Reducer/bookingSeatReducer";
 import "./style/BookingSeatList.scss";
 
 // 가져올 상태
-const screeningHallSeatInfo = {
-  hallId: 0,
-  maxSeat: 15,
-  row: 10,
-  path: [6, 12],
-  enter: [["Front", 0]],
-  exit: [["Back", 3]],
-  except: (row, seatNum) => {
-    const rowNum = row.charCodeAt() - 64;
-    switch (true) {
-      case seatNum === 1:
-        return rowNum !== 1 && rowNum < 9;
-      case seatNum > 1 && seatNum < 7:
-        return rowNum < 9;
-      case seatNum === 7 || seatNum === 8:
-        return rowNum > 9;
-      case seatNum === 9 || seatNum === 10:
-        return rowNum !== 9;
-      case seatNum > 10 && seatNum < 15:
-        return rowNum !== 9 && rowNum !== 14;
-      case seatNum === 15 || seatNum === 16:
-        return rowNum !== 9;
-      case seatNum === 21:
-        return rowNum !== 14;
-      case seatNum === 22:
-        return rowNum > 1 && rowNum < 8;
-      default:
-        return true;
-    }
+const screeningHallSeatInfo = [
+  {
+    hallId: 0,
+    maxSeat: 15,
+    row: 10,
+    path: [6, 12],
+    enter: [],
+    exit: [],
+    except: () => false,
+    handicapped: ["A1", "A2", "A3"],
   },
-  handicapped: ["A1", "A2", "A3"],
-};
+  {
+    hallId: 1,
+    maxSeat: 22,
+    row: 14,
+    path: [6, 16],
+    enter: [],
+    exit: [],
+    except: (row, seatNum) => {
+      const rowNum = row.charCodeAt() - 64;
+      switch (true) {
+        case seatNum === 1:
+          return rowNum === 1 || rowNum >= 9;
+        case seatNum > 1 && seatNum < 7:
+          return rowNum >= 9;
+        case seatNum === 7 || seatNum === 8:
+          return rowNum <= 9;
+        case seatNum === 9 || seatNum === 10:
+          return rowNum === 9;
+        case seatNum > 10 && seatNum < 15:
+          return rowNum === 9 || rowNum === 14;
+        case seatNum === 15 || seatNum === 16:
+          return rowNum === 9;
+        case seatNum === 21:
+          return rowNum === 14;
+        case seatNum === 22:
+          return rowNum === 1 || rowNum >= 8;
+        default:
+          return false;
+      }
+    },
+    handicapped: ["A2", "A3", "A4"],
+  },
+  {
+    hallId: 2,
+    maxSeat: 12,
+    row: 8,
+    path: [4, 8],
+    enter: [],
+    exit: [],
+    except: (row, seatNum) => {
+      const rowNum = row.charCodeAt() - 64;
+      switch (true) {
+        case seatNum < 4:
+          return rowNum > 4 + seatNum;
+        case seatNum === 5 || seatNum === 8:
+          return rowNum === 8;
+        case seatNum > 9:
+          return rowNum > 17 - seatNum;
+        default:
+          return false;
+      }
+    },
+    handicapped: ["A11", "A12", "H6", "H7"],
+  },
+];
 
 // 예매된 좌석
 const booking = ["A1", "B10", "C4"];
 
+// 홀 타입
+const hallType = 0;
+
 // 행 이름 배열
-const rowNames = new Array(screeningHallSeatInfo.row)
+const rowNames = new Array(screeningHallSeatInfo[hallType].row)
   .fill(0)
   .map((v, i) => String.fromCharCode(65 + i));
 
 // 좌석 번호 배열
-const seatNums = new Array(screeningHallSeatInfo.maxSeat)
+const seatNums = new Array(screeningHallSeatInfo[hallType].maxSeat)
   .fill(0)
   .map((v, i) => i + 1);
 
@@ -86,8 +123,7 @@ const BookingSeatList = () => {
         {rowNames.map((row) => (
           <li key={`row ${row}`}>
             {seatNums.map((num) => {
-              // const except = !screeningHallSeatInfo.except(row, num);
-              const except = false;
+              const except = screeningHallSeatInfo[hallType].except(row, num);
               const selected = select.includes(`${row}${num}`);
               const social = socialDistance(row, num);
               return (
@@ -96,10 +132,14 @@ const BookingSeatList = () => {
                   value={`${row}${num}`}
                   className={
                     ["btn", "subLight"].join(" ") +
-                    (screeningHallSeatInfo.path.includes(num) ? " path" : "") +
+                    (screeningHallSeatInfo[hallType].path.includes(num)
+                      ? " path"
+                      : "") +
                     (selected ? " select" : "") +
                     (except ? " no" : "") +
-                    (screeningHallSeatInfo.handicapped.includes(`${row}${num}`)
+                    (screeningHallSeatInfo[hallType].handicapped.includes(
+                      `${row}${num}`
+                    )
                       ? " handicapped"
                       : "") +
                     (booking.includes(`${row}${num}`) ? " booking" : "") +
