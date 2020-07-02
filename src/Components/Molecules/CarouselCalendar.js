@@ -9,16 +9,12 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./style/CarouselCalendar.scss";
 
-const dateArray = getDateRangeData(Date.now(), "2020-07-31");
+const dateArray = getDateRangeData("2020-06-29", "2020-07-31");
 
 const CarouselCalendar = () => {
   const selectedOption = useSelector((state) => state.Booking.selectedOption);
 
   const dispatch = useDispatch();
-
-  const test = (date, e) => {
-    dispatch(setSelectedDate(date));
-  };
 
   const settings = {
     dots: false,
@@ -32,7 +28,7 @@ const CarouselCalendar = () => {
   };
 
   return (
-    <div className="carouselCalendarContainer" style={{ width: "1000px" }}>
+    <div className="carouselCalendarContainer">
       <Slider {...settings}>
         {dateArray.map((date, i) => {
           let addClass = "carouselCal";
@@ -45,7 +41,7 @@ const CarouselCalendar = () => {
             <button
               className={addClass}
               id={i}
-              onClick={(e) => test(date.dateString, e)}
+              onClick={() => dispatch(setSelectedDate(date.dateString))}
             >
               <span style={{}}>
                 {date.day} {date.dayOfWeek}
@@ -58,4 +54,4 @@ const CarouselCalendar = () => {
   );
 };
 
-export { CarouselCalendar };
+export default React.memo(CarouselCalendar);

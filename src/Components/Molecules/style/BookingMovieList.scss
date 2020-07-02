@@ -1,0 +1,57 @@
+@import "../../../commonVariable.scss";
+
+.bookingMovieList {
+  width: 270px;
+  height: 529px;
+  padding: 10px 20px 17px 20px;
+  // box-sizing: border-box;
+  border: solid 1px $colorGrayEa;
+}
+
+.movieLists {
+  width: 229px;
+  height: 370px;
+  overflow-y: scroll;
+  scrollbar-color: $colorGray44 $colorGrayEa;
+  scrollbar-width: thin;
+  scrollbar-base-color: $colorGrayEa;
+  // box-sizing: border-box;
+  margin-top: 10px;
+  border: solid 1px $colorGrayEa;
+
+  button {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 28px;
+    font-size: 1.3rem;
+    text-align: left;
+    font-weight: $textBold;
+  }
+}
+
+.movieLists::-webkit-scrollbar {
+  width: 5px;
+  background-color: $colorGrayEa;
+  border-radius: 5rem;
+}
+
+.movieLists::-webkit-scrollbar-thumb {
+  background-color: $colorGray44;
+  border-radius: 5rem;
+}
+
+.selectedMovie {
+  width: 230px;
+  margin-top: 10px;
+  ul {
+    display: flex;
+    justify-content: space-around;
+
+    li {
+      width: 63px;
+      height: 90px;
+      background-color: tomato;
+    }
+  }
+}

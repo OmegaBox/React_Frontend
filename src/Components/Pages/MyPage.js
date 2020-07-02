@@ -1,10 +1,14 @@
 import React from "react";
 import MyMegaBox from "../Templates/MyMegaBox";
 
-const MyPage = () => {
-  // useEffect(() => {});
+import "./mypage.scss";
 
-  return <MyMegaBox />;
+const MyPage = () => {
+  return (
+    <>
+      <MyMegaBox />
+    </>
+  );
 };
 
 export default MyPage;

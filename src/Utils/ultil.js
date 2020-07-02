@@ -27,4 +27,24 @@ const getDateRangeData = (start, end) => {
   return resultDates;
 };
 
-export { getDateRangeData };
+const transformDateFormat = (date) => {
+  const week = ["일", "월", "화", "수", "목", "금", "토"];
+  const dateObject = new Date(date);
+
+  let month = dateObject.getMonth() + 1;
+  month = month < 10 ? "0" + month : month;
+
+  let day = dateObject.getDate();
+  const stringDay = day < 10 ? "0" + day : day;
+
+  return {
+    dateObject: dateObject,
+    dateString: dateObject.getFullYear() + "-" + month + "-" + stringDay,
+    dateYearMonth: dateObject.getFullYear() + "." + month,
+    month: month,
+    day: day,
+    dayOfWeek: week[new Date(dateObject).getDay()],
+  };
+};
+
+export { getDateRangeData, transformDateFormat };
