@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 
 import { resetSeat } from "../../Reducer/bookingSeatReducer";
-import { openModal } from "../../Reducer/utilModalReducer";
+import { openModal } from "../../Reducer/modalReducer";
 
 const BookingSeatReset = () => {
   const dispatch = useDispatch();
