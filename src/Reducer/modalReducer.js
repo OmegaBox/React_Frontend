@@ -15,8 +15,8 @@ export const closeModal = () => ({
 
 const initModal = {
   modal: false,
-  width: "100%",
-  height: "100%",
+  width: "400px",
+  height: "185px",
   text: "",
   event: null,
 };
