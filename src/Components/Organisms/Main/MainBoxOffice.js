@@ -66,7 +66,7 @@ const MainBoxOffice = () => {
                   ].join(" ")}
                 >
                   <span className="icon favoriteOutLine"></span>
-                  <span className="boxOfficeFavoriteScore">1000</span>
+                  <span className="boxOfficeFavoriteScore">999</span>
                 </button>
                 <button
                   className={[
