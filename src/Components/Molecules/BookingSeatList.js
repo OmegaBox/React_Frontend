@@ -5,7 +5,7 @@ import { setSelectSeat } from "../../Reducer/bookingSeatReducer";
 
 import "./style/BookingSeatList.scss";
 
-// 가져올 상태
+// 홀 정보 배열
 const screeningHallSeatInfo = [
   {
     hallId: 0,
@@ -47,7 +47,7 @@ const screeningHallSeatInfo = [
           return false;
       }
     },
-    handicapped: ["A2", "A3", "A4"],
+    handicapped: ["A2", "A3", "A20", "A21", "A4", "N7"],
   },
   {
     hallId: 2,
@@ -73,11 +73,11 @@ const screeningHallSeatInfo = [
   },
 ];
 
+// 홀 타입
+const hallType = 2;
+
 // 예매된 좌석
 const booking = ["A1", "B10", "C4"];
-
-// 홀 타입
-const hallType = 0;
 
 // 행 이름 배열
 const rowNames = new Array(screeningHallSeatInfo[hallType].row)
