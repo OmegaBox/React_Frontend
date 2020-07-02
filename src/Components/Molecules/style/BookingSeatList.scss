@@ -2,13 +2,15 @@
 @import "../../Organisms/Booking/style/BookingSelectSeat.scss";
 
 .bookingSeatList {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
   margin: 30px 0;
   padding: 50px 0;
   text-align: center;
   background: url(https://megabox.co.kr/static/pc/images/reserve/img-theater-screen.png) no-repeat center top;
 
   .seatRowName {
-    display: inline-block;
     width: 24px;
     margin-right: 20px;
 
@@ -23,7 +25,6 @@
   }
 
   .seatRow {
-    display: inline-block;
     padding-right: 44px;
     
     li {
@@ -55,20 +56,24 @@
       }
 
       &[ disabled ] {
+        background-image: $impossible;
         cursor: default;
       }
       
-      &[ disabled ]:not(.booking) {
-        background-image: $impossible;
+      &.social[ disabled ] {
+        font-size: 0;
+        border: 0;
+        background-image: $socialDistance;
+        z-index: -1;
       }
 
       &.no {
         opacity: 0;
       }
 
-      &.booking {
-        background-image: $finish;
-      }
+      // &.booking {
+      //   background-image: $finish;
+      // }
 
       &.select,
       &:not([ disabled ]):hover {

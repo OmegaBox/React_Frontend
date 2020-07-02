@@ -39,6 +39,7 @@ const screeningHallSeatInfo = {
   handicapped: ["A1", "A2", "A3"],
 };
 
+// 예매된 좌석
 const booking = ["A1", "B10", "C4"];
 
 // 행 이름 배열
@@ -47,9 +48,15 @@ const rowNames = new Array(screeningHallSeatInfo.row)
   .map((v, i) => String.fromCharCode(65 + i));
 
 // 좌석 번호 배열
-const SeatNums = new Array(screeningHallSeatInfo.maxSeat)
+const seatNums = new Array(screeningHallSeatInfo.maxSeat)
   .fill(0)
   .map((v, i) => i + 1);
+
+// 띄어앉기 석 로직
+const socialDistance = (row, seatNum) => {
+  const rowNum = row.charCodeAt() - 64;
+  return rowNum % 3 === seatNum % 3;
+};
 
 const BookingSeatList = () => {
   const dispatch = useDispatch();
@@ -78,25 +85,27 @@ const BookingSeatList = () => {
       <ul className="seatRow">
         {rowNames.map((row) => (
           <li key={`row ${row}`}>
-            {SeatNums.map((num) => {
+            {seatNums.map((num) => {
               // const except = !screeningHallSeatInfo.except(row, num);
               const except = false;
               const selected = select.includes(`${row}${num}`);
+              const social = socialDistance(row, num);
               return (
                 <button
                   key={`${row}${num}`}
                   value={`${row}${num}`}
                   className={
                     ["btn", "subLight"].join(" ") +
-                    (except ? " no" : "") +
-                    (selected ? " select" : "") +
-                    (booking.includes(`${row}${num}`) ? " booking" : "") +
                     (screeningHallSeatInfo.path.includes(num) ? " path" : "") +
+                    (selected ? " select" : "") +
+                    (except ? " no" : "") +
                     (screeningHallSeatInfo.handicapped.includes(`${row}${num}`)
                       ? " handicapped"
-                      : "")
+                      : "") +
+                    (booking.includes(`${row}${num}`) ? " booking" : "") +
+                    (social ? " social" : "")
                   }
-                  disabled={except || !(selectable || selected)}
+                  disabled={except || social || !(selectable || selected)}
                   onClick={(e) => {
                     dispatch(setSelectSeat(e.target.value));
                   }}

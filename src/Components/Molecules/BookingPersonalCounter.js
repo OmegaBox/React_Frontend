@@ -53,7 +53,7 @@ const BookingPersonalCounter = ({ type }) => {
         -
       </button>
       <select
-        className={["select", "small", "count"].join(" ")}
+        className={["select", "count"].join(" ")}
         value={count}
         onChange={(e) => {
           if (totalCount - count + +e.target.value < bookingCount) {
