@@ -1,8 +1,16 @@
 @import "../../../commonVariable.scss";
 
+.selectedInfoDarker {
+  background-color: $colorGray66;
+}
+.selectedInfoDarker > button > span {
+  // background-color: $colorGray66;
+  color: white;
+}
+
 .bookingMovieList {
   width: 270px;
-  height: 529px;
+  height: 530px;
   padding: 10px 20px 17px 20px;
   // box-sizing: border-box;
   border: solid 1px $colorGrayEa;
@@ -10,7 +18,7 @@
 
 .movieLists {
   width: 229px;
-  height: 370px;
+  height: 372px;
   overflow-y: scroll;
   scrollbar-color: $colorGray44 $colorGrayEa;
   scrollbar-width: thin;
@@ -41,17 +49,36 @@
   border-radius: 5rem;
 }
 
-.selectedMovie {
+.selectedMoviePosterBox {
   width: 230px;
+  height: 100px;
   margin-top: 10px;
   ul {
     display: flex;
     justify-content: space-around;
+    height: 100%;
 
     li {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
       width: 63px;
       height: 90px;
-      background-color: tomato;
+      font-size: 3rem;
+    }
+    button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 20px;
+      height: 20px;
+      background: url(https://img.megabox.co.kr/static/pc/images/reserve/btn-choice-dell.png);
+    }
+
+    img {
+      width: 63px;
+      height: 90px;
     }
   }
 }

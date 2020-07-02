@@ -4,14 +4,17 @@ const SUCCESS = "booking/SUCCESS";
 const ERROR = "booking/ERROR";
 const LOADING = "booking/LOADING";
 
+const SET_SELECTED_MOVIE = "booking/SELECTED_MOVIE";
 const SET_SELECTED_DATE = "booking/SELECTED_DATE";
 const SET_SELECTED_HOUR = "booking/SELECTED_HOUR";
 const SET_SELECTED_REGION = "booking/SELECTED_REGION";
 const SET_SELECTED_THEATERS = "booking/SELECTED_THEATER";
 
+const SELECT_MOVIE = "booking/SELECT_MOVIE";
 const SELECT_THEATER = "booking/SELECT_THEATER";
 const GET_SCHEDULES = "booking/GET_SCHEDULES";
 
+const setSelectedMovies = (movies) => ({ type: SET_SELECTED_MOVIE, movies });
 const setSelectedDate = (date) => ({ type: SET_SELECTED_DATE, date });
 const setSelectedHour = (hour) => ({ type: SET_SELECTED_HOUR, hour });
 const setSelectRegion = (region) => ({ type: SET_SELECTED_REGION, region });
@@ -20,7 +23,29 @@ const setSelectTheaters = (theaters) => ({
   theaters,
 });
 
+const selectMovie = (movie) => ({ type: SELECT_MOVIE, movie });
 const selectTheater = (theater) => ({ type: SELECT_THEATER, theater });
+
+function* selectMovieSaga(action) {
+  let selectedMovies = yield select();
+  selectedMovies = selectedMovies.Booking.selectedOption.selectedMovies;
+
+  let newSelectedMovies = [];
+
+  // 이미 리스트에 있다면 상태에서 빼고, 없다면 넣는다. 3개이상 못들어간다.
+  if (selectedMovies.find((movie) => movie.title === action.movie.title)) {
+    newSelectedMovies = selectedMovies.filter(
+      (movie) => movie.title !== action.movie.title
+    );
+  } else {
+    if (selectedMovies.length === 3) return;
+
+    newSelectedMovies = selectedMovies.slice();
+    newSelectedMovies.push(action.movie);
+  }
+
+  yield put(setSelectedMovies(newSelectedMovies));
+}
 
 function* selectTheaterSaga(action) {
   let selectedTheaters = yield select();
@@ -44,6 +69,7 @@ function* selectTheaterSaga(action) {
 }
 
 function* bookingSaga() {
+  yield takeLatest(SELECT_MOVIE, selectMovieSaga);
   yield takeLatest(SELECT_THEATER, selectTheaterSaga);
 }
 
@@ -52,7 +78,7 @@ const initialState = {
     selectedDate: "",
     selectedRegion: "",
     selectedTheathers: [],
-    selectedMovieTitle: ["살아있다", "결백"],
+    selectedMovies: [],
     movieAgeGrade: "All",
     screenHall: "2관",
     selectedHour: "19",
@@ -77,39 +103,6 @@ const initialState = {
     price: 0,
   },
   movies: [
-    {
-      id: 1,
-      name_kor: "테스트 영화",
-      name_eng: "test movie 1",
-      running_time: "90",
-      genre: null,
-      rank: 9999,
-      acc_audience: 1234,
-      reservation_rate: 0.1,
-      open_date: "2020-06-28",
-      grade: "청소년관람불가",
-      description: "테스트 영화",
-      poster:
-        "https://caloculator-s3.s3.ap-northeast-2.amazonaws.com/media/posters/django_unchained.jpg",
-      trailer:
-        "https://caloculator-s3.s3.ap-northeast-2.amazonaws.com/media/trailers/DJANGO_UNCHAINED_-_Official_International_Trailer-_iH0UBYDI4g.mp4",
-    },
-    {
-      id: 2,
-      name_kor: "테스트2",
-      name_eng: "test2",
-      running_time: "100",
-      genre: null,
-      rank: 9998,
-      acc_audience: 12345,
-      reservation_rate: 0.1,
-      open_date: "2020-07-01",
-      grade: "전체관람가",
-      description: "test2",
-      poster:
-        "https://caloculator-s3.s3.ap-northeast-2.amazonaws.com/media/posters/django_unchained.jpg",
-      trailer: null,
-    },
     {
       id: 3,
       name_kor: "#살아있다",
@@ -275,6 +268,14 @@ const initialState = {
 
 const bookingReducer = (state = initialState, action) => {
   switch (action.type) {
+    case SET_SELECTED_MOVIE:
+      return {
+        ...state,
+        selectedOption: {
+          ...state.selectedOption,
+          selectedMovies: action.movies,
+        },
+      };
     case SET_SELECTED_DATE:
       return {
         ...state,
@@ -318,9 +319,9 @@ const bookingReducer = (state = initialState, action) => {
 export {
   bookingReducer,
   bookingSaga,
+  selectMovie,
+  selectTheater,
   setSelectedDate,
   setSelectedHour,
   setSelectRegion,
-  setSelectTheaters,
-  selectTheater,
 };

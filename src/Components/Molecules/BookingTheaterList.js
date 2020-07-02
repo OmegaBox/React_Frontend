@@ -168,13 +168,15 @@ const BookingTheaterList = (props) => {
                 ? "selectedInfoLighter"
                 : "";
             return (
-              <li
-                className={className}
-                onClick={() => {
-                  dispatch(setSelectRegion(theater.region));
-                }}
-              >
-                <span>{theater.region}</span>
+              <li className={className}>
+                <button
+                  type="button"
+                  onClick={() => {
+                    dispatch(setSelectRegion(theater.region));
+                  }}
+                >
+                  <span>{theater.region}</span>
+                </button>
               </li>
             );
           })}
@@ -187,11 +189,10 @@ const BookingTheaterList = (props) => {
                   ? " selectedTheater"
                   : "";
                 return (
-                  <li
-                    className={calssName}
-                    onClick={() => dispatch(selectTheater(theater))}
-                  >
-                    <span>{theater}</span>
+                  <li className={calssName}>
+                    <button onClick={() => dispatch(selectTheater(theater))}>
+                      <span>{theater}</span>
+                    </button>
                   </li>
                 );
               })
@@ -212,11 +213,15 @@ const BookingTheaterList = (props) => {
               );
             })}
             {unSelectedTheaters.map((theater) => {
-              return <li>+</li>;
+              return (
+                <li>
+                  <span className="bigPlusMark">+</span>
+                </li>
+              );
             })}
           </>
         ) : (
-          <div className="emptyList">
+          <div className="emptySeletedList">
             <span>전체극장</span>
             <span>목록에서 극장을 선택하세요.</span>
           </div>
