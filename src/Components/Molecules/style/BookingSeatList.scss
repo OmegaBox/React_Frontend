@@ -1,0 +1,84 @@
+@import "../../../common.scss";
+@import "../../Organisms/Booking/style/BookingSelectSeat.scss";
+
+.bookingSeatList {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  margin: 30px 0;
+  padding: 50px 0;
+  text-align: center;
+  background: url(https://megabox.co.kr/static/pc/images/reserve/img-theater-screen.png) no-repeat center top;
+
+  .seatRowName {
+    width: 24px;
+    margin-right: 20px;
+
+    li {
+      height: 24px;
+      margin: 2px 0;
+      font-size: 1.1rem;
+      line-height: 20px;
+      text-align: center;
+      border: 1px solid $border;
+    }
+  }
+
+  .seatRow {
+    padding-right: 44px;
+    
+    li {
+      display: flex;
+      margin: 2px 0;
+    }
+
+    button {
+      min-width: initial;
+      width: 28px;
+      height: 24px;
+      margin: 0 0 0 -1px;
+      padding: 0;
+      font-size: 1.2rem;
+      border-width: 1px;
+      border-style: solid;
+      border-radius: 0;
+      background-image: $common;
+      background-size: 100% 100%;
+      background-position: 0 0;
+      background-repeat: no-repeat;
+
+      &.path {
+        margin-right: 16px;
+      }
+
+      &.handicapped {
+        background-image: $disabled;
+      }
+
+      &[ disabled ] {
+        background-image: $impossible;
+        cursor: default;
+      }
+      
+      &.social[ disabled ] {
+        font-size: 0;
+        border: 0;
+        background-image: $socialDistance;
+        z-index: -1;
+      }
+
+      &.no {
+        opacity: 0;
+      }
+
+      // &.booking {
+      //   background-image: $finish;
+      // }
+
+      &.select,
+      &:not([ disabled ]):hover {
+        background-image: $choice;
+      }
+    }
+  }
+}

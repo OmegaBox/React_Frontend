@@ -1,10 +1,17 @@
 import React from "react";
 import "./style/MainBoxOffice.scss";
 import { Link } from "react-router-dom";
-// import movieReducer from "../../../Reducer/movieReducer";
 
 
 const MainBoxOffice = () => {
+
+  const initialState = {
+
+  }
+
+  const mainBoxOfficeReducer = (state = initialState, action) => {
+
+  }
   return (
     <div className="mainBoxOfficeLayout">
       <div className="mainBoxOffice">
