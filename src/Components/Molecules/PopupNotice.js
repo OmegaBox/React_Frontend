@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 
-import { closeModal } from "../../Reducer/utilModalReducer";
+import { closeModal } from "../../Reducer/modalReducer";
 
 const PopupNotice = ({ text = "", onEvent = null, popupSize = {} }) => {
   const dispatch = useDispatch();
@@ -9,7 +9,18 @@ const PopupNotice = ({ text = "", onEvent = null, popupSize = {} }) => {
     <div className={["popupWrap"].join(" ")}>
       <div className={["popupBox", "notice"].join(" ")} style={popupSize}>
         <h2>알림</h2>
-        <p>{text}</p>
+        <button
+          className={["btn", "xSmall", "closed"].join(" ")}
+          onClick={() => {
+            dispatch(closeModal());
+          }}
+        >
+          {" "}
+          <span className={["icon", "closed"].join(" ")}></span>
+        </button>
+        <div className="popupContent">
+          <p>{text}</p>
+        </div>
         <div className="btnWrap">
           {onEvent && (
             <button

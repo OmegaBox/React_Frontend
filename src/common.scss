@@ -475,22 +475,36 @@ p {
     right: 0;
     margin: auto;
     background: $colorWhite;
+    border-radius: 2px;
+    .btnWrap {
+      position: absolute;
+      bottom: 24px;
+      padding: 0;
+    }
     h2 {
-      padding: 16px 20px;
+      padding: 12px 20px;
       font-size: 1.8rem;
       font-weight: 500;
       color: $colorWhite;
       background-color: $colorMain;
+      border-radius: 2px 2px 0 0;
     }
+
     .btn.closed {
       position: absolute;
-      top: 12px;
-      right: 12px;
+      top: 10px;
+      right: 4px;
       min-width: initial;
       padding: 0 8px;
     }
     .popupContent {
-      padding: 16px 20px 0;
+      padding: 24px 20px;
+      font-size: 1.8rem;
+      text-align: center;
+      p {
+        padding: 0;
+        font-size: inherit;
+      }
     }
   }
 }

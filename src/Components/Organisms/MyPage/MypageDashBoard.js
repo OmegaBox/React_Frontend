@@ -2,7 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
+import BookingCancel from "../../Molecules/BookingCancel";
+import PopupNotice from "../../Molecules/PopupNotice";
+import ModalPortal from "../../../Modules/ModalPortal";
 const MypageDashBoard = () => {
+  /* 개인정보 데이터 */
   const { name, tier, point, scheduledPoint, expiredPoint } = useSelector(
     (state) => ({
       name: state.userInfo.name,
@@ -12,6 +16,15 @@ const MypageDashBoard = () => {
       expiredPoint: state.userInfo.expiredPoint,
     })
   );
+
+  const { bookingHistory } = useSelector((state) => ({
+    bookingHistory: state.userInfo.bookingHistory,
+  }));
+
+  const [modal, text, event, w, h] = useSelector((state) => {
+    const Modal = state.modal;
+    return [Modal.modal, Modal.text, Modal.event, Modal.width, Modal.height];
+  });
 
   return (
     <div className="mypageDashBoard">
@@ -98,52 +111,74 @@ const MypageDashBoard = () => {
       <section className="mypageBookingHistory">
         <div className="subTitleWrap">
           <h4 className="titleText">나의 예매내역</h4>
-          <a href="#" className={["btnMore", "btn", "xSmall"].join(" ")}>
+          <Link
+            to="/mypage/bookinghistory"
+            className={["btnMore", "btn", "xSmall"].join(" ")}
+          >
             더보기
             <span className={["icon", "arrowRight"].join(" ")}></span>
-          </a>
+          </Link>
         </div>
         <ul className="movieList">
-          <li className="listNull">리스트가 없습니다.</li>
-          <li>
-            <article className="movieItem">
-              <div className="poster">
-                <img
-                  src="https://img.megabox.co.kr/SharedImg/2020/05/26/4DpEOKISeL20EXabwXkfsfaeeJW27heu_230.jpg"
-                  alt=""
-                />
-              </div>
-              <ul className={["info", "clearfix"].join(" ")}>
-                <li className="paymentDate">
-                  <h5>결제일시</h5>
-                  <p>2020.06.30 14:20</p>
-                </li>
-                <li className="bookingNumber">
-                  <h5 className="a11yHidden">예매번호</h5>
-                  <p>2020-156-5456</p>
-                </li>
-                <li className="title">
-                  <h5 className="a11yHidden">영화명</h5>
-                  <p>결백</p>
-                </li>
-                <li className="theater">
-                  <h5 className="a11yHidden">극장/상영관</h5>
-                  <p>강남/4관</p>
-                </li>
-                <li className="viewingDate">
-                  <h5 className="a11yHidden">관람일시</h5>
-                  <p>2020.06.30 14:20</p>
-                </li>
-              </ul>
-              <button
-                type="button"
-                className={["btn", "xSmall", "outLine", "lightGray"].join(" ")}
-              >
-                예매취소
-              </button>
-            </article>
-          </li>
+          {bookingHistory.length ? (
+            bookingHistory.map((booking) => (
+              <li>
+                <article className="movieItem">
+                  <div className="poster">
+                    <img
+                      src={booking.poster}
+                      alt={[booking.title, "포스터"].join(" ")}
+                    />
+                  </div>
+                  <ul className={["info", "clearfix"].join(" ")}>
+                    <li className="paymentDate">
+                      <h5>결제일시</h5>
+                      <p>
+                        {booking.paymentDate} ({booking.paymentTime})
+                      </p>
+                    </li>
+                    <li className="bookingNumber">
+                      <h5 className="a11yHidden">예매번호</h5>
+                      <p>{booking.ticketNumber}</p>
+                    </li>
+                    <li className="title">
+                      <h5 className="a11yHidden">영화명</h5>
+                      <p>{booking.title}</p>
+                    </li>
+                    <li className="theater">
+                      <h5 className="a11yHidden">극장/상영관</h5>
+                      <p>
+                        {booking.theater} / {booking.screeningHall}
+                      </p>
+                    </li>
+                    <li className="viewingDate">
+                      <h5 className="a11yHidden">관람일시</h5>
+                      <p>
+                        {booking.date} {booking.time}
+                      </p>
+                    </li>
+                  </ul>
+                  <BookingCancel />
+                </article>
+              </li>
+            ))
+          ) : (
+            <li className="listNull">리스트가 없습니다.</li>
+          )}
         </ul>
+
+        {modal && (
+          <ModalPortal>
+            <PopupNotice
+              text={text}
+              onEvent={event}
+              popupSize={{
+                width: w,
+                height: h,
+              }}
+            />
+          </ModalPortal>
+        )}
       </section>
     </div>
   );

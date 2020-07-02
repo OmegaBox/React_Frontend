@@ -15,13 +15,13 @@ export const closeModal = () => ({
 
 const initModal = {
   modal: false,
-  width: "100%",
-  height: "100%",
+  width: "400px",
+  height: "185px",
   text: "",
   event: null,
 };
 
-const utilModalReducer = (state = initModal, action) => {
+const modalReducer = (state = initModal, action) => {
   switch (action.type) {
     case OPEN_MODAL:
       return {
@@ -42,4 +42,4 @@ const utilModalReducer = (state = initModal, action) => {
   }
 };
 
-export default utilModalReducer;
+export default modalReducer;
