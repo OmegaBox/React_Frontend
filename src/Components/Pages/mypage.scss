@@ -244,7 +244,7 @@ table {
 .mypagePersnalInfo {
   display: flex;
   justify-content: space-around;
-  padding: 24px;
+  padding: 24px 8px;
   border-radius: 8px;
   background-color: $lightBg;
   .grade,
@@ -252,11 +252,9 @@ table {
   .likeTheater {
     padding: 0 24px;
   }
-  .grade,
-  .point {
-    flex-grow: 0.5;
-    border-right: 1px solid $border;
-  }
+  .grade {flex-grow: 1;}
+  .point {flex-grow: 0.7;}
+  .grade {border-right: 1px solid $border;}
   .name {
     margin-top: 4px;
     margin-bottom: 16px;
@@ -272,6 +270,7 @@ table {
   .likeTheater .subTitleWrap {
     height: 28px;
     margin-bottom: 4px;
+    padding-left: 8px;
     .titleText {
       font-size: 1.8rem;
       color: $colorPrimaryText;
@@ -280,7 +279,7 @@ table {
   .point p {
     display: inline-block;
     width: 50%;
-    padding: 0 4px;
+    padding: 0 8px;
   }
   .point .totalPoint {
     width: 100%;
@@ -290,6 +289,8 @@ table {
     color: $colorSub;
     border-bottom: 1px solid $border;
   }
+
+  /* 선호 영화관 선택 삭제로 인한 미사용
   .likeTheater {
     flex-grow: 1;
     button {
@@ -314,18 +315,70 @@ table {
         font-weight: 700;
       }
     }
+  } */
+}
+
+/* 선호 영화관 선택 삭제로 인한 미사용
+.popupBox.likeTheater {
+  width: 500px;
+  height: 360px;
+  .termWrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 16px;
+    border-radius: 8px;
+    background-color: $whiteGrayBg;
+    select {
+      padding: 3px 8px;
+    }
   }
+  .selectList {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 24px;
+    li {
+      width: 90px;
+      height: 90px;
+      margin: 0 8px;
+      border: 1px solid $border;
+      border-radius: 50%;
+      background-image: url("https://img.megabox.co.kr/static/pc/images/reserve/bg-empty-cell-circle.png");
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+    li.selectComplete {
+      position: relative;
+      padding: 34px 0;
+      text-align: center;
+      background-color: $lightBg;
+      background-image: initial;
+      border: none;
+      button {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 24px;
+        height: 24px;
+        padding: 0;
+        margin: 0;
+        border-radius: 50%;
+        overflow: hidden;
+        .icon {
+          width: 22px;
+          height: 22px;
+        }
+      }
+    }
+  }  
 }
-.mypageMovieStoryInfo .subTitleWrap,
-.mypagePreferenceInfo .subTitleWrap {
-  margin-bottom: 16px;
-}
-.mypageMovieStoryInfo .movieStoryInfoList {
-  display: flex;
-}
-.mypageMovieStoryInfo li {
-  flex-grow: 1;
-}
+*/
+
+.mypageMovieStoryInfo .subTitleWrap, .mypagePreferenceInfo .subTitleWrap {margin-bottom: 16px;}
+.mypageMovieStoryInfo .movieStoryInfoList {display: flex;}
+.mypageMovieStoryInfo li {flex-grow: 1;}
 .mypageMovieStoryInfo a {
   display: block;
   text-align: center;

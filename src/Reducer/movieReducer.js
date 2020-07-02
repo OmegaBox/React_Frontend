@@ -2,6 +2,7 @@ const SUCCESS = "movie/SUCCESS";
 const ERROR = "movie/ERROR";
 const LOADING = "movie/LOADING";
 
+
 const initialState = {
   page: 0,
   loading: false,
@@ -42,7 +43,7 @@ const movieReducer = (state = initialState, action) => {
     case LOADING:
     default:
       return state;
-  }
+  };
 };
 
 export { movieReducer };

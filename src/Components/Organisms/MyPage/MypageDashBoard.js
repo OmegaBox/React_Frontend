@@ -1,79 +1,108 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import BookingCancel from "../../Molecules/BookingCancel";
+import PopupNotice from "../../Molecules/PopupNotice";
+import ModalPortal from "../../../Modules/ModalPortal";
 
 const MypageDashBoard = () => {
+  /* 개인정보 데이터 */
+  const { name, tier, point, scheduledPoint, expiredPoint } = useSelector(
+    (state) => ({
+      name: state.userInfo.name,
+      tier: state.userInfo.tier,
+      point: state.userInfo.point,
+    })
+  );
+  const pointTypeConversion = () => {
+    let totalPoint = Array.from(String(point));
+    totalPoint.splice(-3, 0, ",");
+    totalPoint = totalPoint.join("");
+    return totalPoint;
+  };
+  /* 예매내역 */
+  const { bookingHistory } = useSelector((state) => ({
+    bookingHistory: state.userInfo.bookingHistory,
+  }));
+
+  /* 한줄평 작성 */
+  const { commentMovies } = useSelector((state) => ({
+    commentMovies: state.userInfo.commentMovies,
+  }));
+
+  /* 본 영화 */
+  const { watchedMovies } = useSelector((state) => ({
+    watchedMovies: state.userInfo.watchedMovies,
+  }));
+
+  /* 보고싶은영화 */
+  const { favoriteMovies } = useSelector((state) => ({
+    favoriteMovies: state.userInfo.favoriteMovies,
+  }));
+
+  /* 모달 팝업 */
+  const [modal, text, event, w, h] = useSelector((state) => {
+    const Modal = state.modal;
+    return [Modal.modal, Modal.text, Modal.event, Modal.width, Modal.height];
+  });
+
   return (
     <div className="mypageDashBoard">
       <h3 className="a11yHidden">마이페이지 정보</h3>
       <section className="mypagePersnalInfo">
         <article className="grade">
           <p className="name">
-            김규리님은
+            {name}님은
             <br />
-            일반등급입니다.
+            {tier}입니다.
           </p>
-          <a href="#" className="btnPersnalEdit">
+          <Link to="/mypage/confirmpassword" className="btnPersnalEdit">
             개인정보수정
             <span className={["icon", "arrowRight"].join(" ")}></span>
-          </a>
+          </Link>
         </article>
         <article className="point">
           <div className="subTitleWrap">
             <h4 className="titleText">총 보유 포인트</h4>
-            <a href="#" className={["icon", "arrowRight"].join(" ")}></a>
+            <Link
+              to="/mypage/point"
+              className={["icon", "arrowRight"].join(" ")}
+            ></Link>
           </div>
-          <p className="totalPoint">0 P</p>
+          <p className="totalPoint">{pointTypeConversion(point)} P</p>
           <p>
-            적립예정 <span className="textMedium">0 P</span>
+            적립예정 <span className="textMedium">500 P</span>
           </p>
           <p>
             소멸예정{" "}
-            <span className={["textRed", "textMedium"].join(" ")}>0 P</span>
+            <span className={["textRed", "textMedium"].join(" ")}>1,200 P</span>
           </p>
-        </article>
-        <article className="likeTheater">
-          <div className="subTitleWrap">
-            <h4 className="titleText">선호극장</h4>
-            <button type="button" className={["btn", "xSmall"].join(" ")}>
-              변경
-              <span className={["icon", "arrowRight"].join(" ")}></span>
-            </button>
-          </div>
-          <ul className="theaterList">
-            <li>송파파크하비오</li>
-            <li>강남대로(씨티)</li>
-            <li>코엑스</li>
-          </ul>
         </article>
       </section>
 
       <section className="mypageMovieStoryInfo">
         <div className="subTitleWrap">
           <h4 className="titleText">나의 무비스토리</h4>
-          <button
-            type="button"
-            className={["btn", "xSmall", "white", "fill"].join(" ")}
-          >
-            본 영화 등록
-          </button>
+          <Link
+            to="/mypage/myMovieStory"
+            className={["icon", "arrowRight"].join(" ")}
+          ></Link>
         </div>
         <ul className={["roundBox", "movieStoryInfoList"].join(" ")}>
           <li>
-            <a href="#">
-              <span className="amount">0</span>
-              본영화
-            </a>
+            <Link to="/mypage/myMovieStory">
+              <span className="amount">{watchedMovies.length}</span>본영화
+            </Link>
           </li>
           <li>
-            <a href="#">
-              <span className="amount">0</span>
-              한줄평
-            </a>
+            <Link to="/mypage/myMovieStory">
+              <span className="amount">{commentMovies.length}</span>한줄평
+            </Link>
           </li>
           <li>
-            <a href="#">
-              <span className="amount">0</span>
-              보고싶어
-            </a>
+            <Link to="/mypage/myMovieStory">
+              <span className="amount">{favoriteMovies.length}</span>보고싶어
+            </Link>
           </li>
         </ul>
       </section>
@@ -95,52 +124,74 @@ const MypageDashBoard = () => {
       <section className="mypageBookingHistory">
         <div className="subTitleWrap">
           <h4 className="titleText">나의 예매내역</h4>
-          <a href="#" className={["btnMore", "btn", "xSmall"].join(" ")}>
+          <Link
+            to="/mypage/bookinghistory"
+            className={["btnMore", "btn", "xSmall"].join(" ")}
+          >
             더보기
             <span className={["icon", "arrowRight"].join(" ")}></span>
-          </a>
+          </Link>
         </div>
         <ul className="movieList">
-          <li className="listNull">리스트가 없습니다.</li>
-          <li>
-            <article className="movieItem">
-              <div className="poster">
-                <img
-                  src="https://img.megabox.co.kr/SharedImg/2020/05/26/4DpEOKISeL20EXabwXkfsfaeeJW27heu_230.jpg"
-                  alt=""
-                />
-              </div>
-              <ul className={["info", "clearfix"].join(" ")}>
-                <li className="paymentDate">
-                  <h5>결제일시</h5>
-                  <p>2020.06.30 14:20</p>
-                </li>
-                <li className="bookingNumber">
-                  <h5 className="a11yHidden">예매번호</h5>
-                  <p>2020-156-5456</p>
-                </li>
-                <li className="title">
-                  <h5 className="a11yHidden">영화명</h5>
-                  <p>결백</p>
-                </li>
-                <li className="theater">
-                  <h5 className="a11yHidden">극장/상영관</h5>
-                  <p>강남/4관</p>
-                </li>
-                <li className="viewingDate">
-                  <h5 className="a11yHidden">관람일시</h5>
-                  <p>2020.06.30 14:20</p>
-                </li>
-              </ul>
-              <button
-                type="button"
-                className={["btn", "xSmall", "outLine", "lightGray"].join(" ")}
-              >
-                예매취소
-              </button>
-            </article>
-          </li>
+          {bookingHistory.length ? (
+            bookingHistory.map((booking) => (
+              <li>
+                <article className="movieItem">
+                  <div className="poster">
+                    <img
+                      src={booking.poster}
+                      alt={[booking.title, "포스터"].join(" ")}
+                    />
+                  </div>
+                  <ul className={["info", "clearfix"].join(" ")}>
+                    <li className="paymentDate">
+                      <h5>결제일시</h5>
+                      <p>
+                        {booking.paymentDate} ({booking.paymentTime})
+                      </p>
+                    </li>
+                    <li className="bookingNumber">
+                      <h5 className="a11yHidden">예매번호</h5>
+                      <p>{booking.ticketNumber}</p>
+                    </li>
+                    <li className="title">
+                      <h5 className="a11yHidden">영화명</h5>
+                      <p>{booking.title}</p>
+                    </li>
+                    <li className="theater">
+                      <h5 className="a11yHidden">극장/상영관</h5>
+                      <p>
+                        {booking.theater} / {booking.screeningHall}
+                      </p>
+                    </li>
+                    <li className="viewingDate">
+                      <h5 className="a11yHidden">관람일시</h5>
+                      <p>
+                        {booking.date} {booking.time}
+                      </p>
+                    </li>
+                  </ul>
+                  <BookingCancel />
+                </article>
+              </li>
+            ))
+          ) : (
+            <li className="listNull">리스트가 없습니다.</li>
+          )}
         </ul>
+
+        {modal && (
+          <ModalPortal>
+            <PopupNotice
+              text={text}
+              onEvent={event}
+              popupSize={{
+                width: w,
+                height: h,
+              }}
+            />
+          </ModalPortal>
+        )}
       </section>
     </div>
   );
