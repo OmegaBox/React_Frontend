@@ -155,6 +155,7 @@ const BookingTheaterList = (props) => {
   // console.log(expectedSelectedTheaters);
 
   const selectedTheaters = selectedOption.selectedTheathers;
+  const unSelectedTheaters = new Array(3 - selectedTheaters.length).fill(0);
 
   return (
     <div className="bookingTheaterList">
@@ -173,7 +174,7 @@ const BookingTheaterList = (props) => {
                   dispatch(setSelectRegion(theater.region));
                 }}
               >
-                {theater.region}
+                <span>{theater.region}</span>
               </li>
             );
           })}
@@ -190,22 +191,36 @@ const BookingTheaterList = (props) => {
                     className={calssName}
                     onClick={() => dispatch(selectTheater(theater))}
                   >
-                    {theater}
+                    <span>{theater}</span>
                   </li>
                 );
               })
             : ""}
         </ul>
       </div>
-      <ul className="seletedTheater">
-        {selectedTheaters.map((theater) => {
-          return <li>{theater}</li>;
-        })}
-        {/* <li>
-          강남<button type="button">X</button>
-        </li>
-        <li></li>
-        <li></li> */}
+      <ul className="seletedTheaterLists">
+        {unSelectedTheaters.length !== 3 ? (
+          <>
+            {selectedTheaters.map((theater) => {
+              return (
+                <li>
+                  <span>{theater}</span>
+                  <button onClick={() => dispatch(selectTheater(theater))}>
+                    x
+                  </button>
+                </li>
+              );
+            })}
+            {unSelectedTheaters.map((theater) => {
+              return <li>+</li>;
+            })}
+          </>
+        ) : (
+          <div className="emptyList">
+            <span>전체극장</span>
+            <span>목록에서 극장을 선택하세요.</span>
+          </div>
+        )}
       </ul>
     </div>
   );
