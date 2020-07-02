@@ -1,3 +1,5 @@
+import { select, put, call, takeLatest } from "redux-saga/effects";
+
 const SUCCESS = "booking/SUCCESS";
 const ERROR = "booking/ERROR";
 const LOADING = "booking/LOADING";
@@ -5,18 +7,51 @@ const LOADING = "booking/LOADING";
 const SET_SELECTED_DATE = "booking/SELECTED_DATE";
 const SET_SELECTED_HOUR = "booking/SELECTED_HOUR";
 const SET_SELECTED_REGION = "booking/SELECTED_REGION";
-const SET_SELECTED_THEATER = "booking/SELECTED_THEATER";
+const SET_SELECTED_THEATERS = "booking/SELECTED_THEATER";
+
+const SELECT_THEATER = "booking/SELECT_THEATER";
+const GET_SCHEDULES = "booking/GET_SCHEDULES";
 
 const setSelectedDate = (date) => ({ type: SET_SELECTED_DATE, date });
 const setSelectedHour = (hour) => ({ type: SET_SELECTED_HOUR, hour });
 const setSelectRegion = (region) => ({ type: SET_SELECTED_REGION, region });
-const setSelectTheater = (theater) => ({ type: SET_SELECTED_THEATER, theater });
+const setSelectTheaters = (theaters) => ({
+  type: SET_SELECTED_THEATERS,
+  theaters,
+});
+
+const selectTheater = (theater) => ({ type: SELECT_THEATER, theater });
+
+function* selectTheaterSaga(action) {
+  let selectedTheaters = yield select();
+  selectedTheaters = selectedTheaters.Booking.selectedOption.selectedTheathers;
+
+  let newSelectedTheaters = [];
+
+  // 이미 리스트에 있다면 상태에서 빼고, 없다면 넣는다. 3개이상 못들어간다.
+  if (selectedTheaters.includes(action.theater)) {
+    newSelectedTheaters = selectedTheaters.filter(
+      (theater) => theater !== action.theater
+    );
+  } else {
+    if (selectedTheaters.length === 3) return;
+
+    newSelectedTheaters = selectedTheaters.slice();
+    newSelectedTheaters.push(action.theater);
+  }
+
+  yield put(setSelectTheaters(newSelectedTheaters));
+}
+
+function* bookingSaga() {
+  yield takeLatest(SELECT_THEATER, selectTheaterSaga);
+}
 
 const initialState = {
   selectedOption: {
     selectedDate: "",
     selectedRegion: "",
-    selectedtheather: [],
+    selectedTheathers: [],
     selectedMovieTitle: ["살아있다", "결백"],
     movieAgeGrade: "All",
     screenHall: "2관",
@@ -69,6 +104,14 @@ const bookingReducer = (state = initialState, action) => {
           selectedRegion: action.region,
         },
       };
+    case SET_SELECTED_THEATERS:
+      return {
+        ...state,
+        selectedOption: {
+          ...state.selectedOption,
+          selectedTheathers: action.theaters,
+        },
+      };
     case SUCCESS:
     case ERROR:
     case LOADING:
@@ -79,8 +122,10 @@ const bookingReducer = (state = initialState, action) => {
 
 export {
   bookingReducer,
+  bookingSaga,
   setSelectedDate,
   setSelectedHour,
   setSelectRegion,
-  setSelectTheater,
+  setSelectTheaters,
+  selectTheater,
 };

@@ -2,10 +2,7 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import "./style/BookingTheaterList.scss";
-import {
-  setSelectRegion,
-  setSelectTheater,
-} from "../../Reducer/bookingReducer";
+import { setSelectRegion, selectTheater } from "../../Reducer/bookingReducer";
 
 const theaterList = [
   {
@@ -150,9 +147,14 @@ const BookingTheaterList = (props) => {
     return theater.region === selectedOption.selectedRegion;
   })[0];
 
-  // const selectedTheaters = theaterList.filter((theater) => {
-  //   return theater.region === selectedOption.selectedtheather.includes();
-  // });
+  // const expectedSelectedTheaters = theaterList
+  //   .filter((theater) => {
+  //     return selectedOption.selectedRegion.includes(theater.region);
+  //   })
+  //   .map((theater) => theater.theaters);
+  // console.log(expectedSelectedTheaters);
+
+  const selectedTheaters = selectedOption.selectedTheathers;
 
   return (
     <div className="bookingTheaterList">
@@ -160,26 +162,35 @@ const BookingTheaterList = (props) => {
       <div className="theaterLocationList">
         <ul className="region">
           {theaterList.map((theater) => {
+            const className =
+              theater.region === selectedOption.selectedRegion
+                ? "selectedInfoLighter"
+                : "";
             return (
-              <li>
-                <button
-                  type="button"
-                  onClick={() => {
-                    dispatch(setSelectRegion(theater.region));
-                  }}
-                >
-                  {theater.region}
-                </button>
+              <li
+                className={className}
+                onClick={() => {
+                  dispatch(setSelectRegion(theater.region));
+                }}
+              >
+                {theater.region}
               </li>
             );
           })}
         </ul>
-        <ul className="localRegion">
+        <ul className="localRegionTheater">
           {selectedRegion
             ? selectedRegion.theaters.map((theater) => {
+                let calssName = "theater";
+                calssName += selectedTheaters.includes(theater)
+                  ? " selectedTheater"
+                  : "";
                 return (
-                  <li>
-                    <button type="button">{theater}</button>
+                  <li
+                    className={calssName}
+                    onClick={() => dispatch(selectTheater(theater))}
+                  >
+                    {theater}
                   </li>
                 );
               })
@@ -187,11 +198,14 @@ const BookingTheaterList = (props) => {
         </ul>
       </div>
       <ul className="seletedTheater">
-        <li>
+        {selectedTheaters.map((theater) => {
+          return <li>{theater}</li>;
+        })}
+        {/* <li>
           강남<button type="button">X</button>
         </li>
         <li></li>
-        <li></li>
+        <li></li> */}
       </ul>
     </div>
   );
