@@ -5,7 +5,7 @@ import {
   resetSeat,
   changePersonalCount,
 } from "../../Reducer/bookingSeatReducer";
-import { openModal } from "../../Reducer/utilModalReducer";
+import { openModal } from "../../Reducer/modalReducer";
 
 const BookingPersonalCounter = ({ type }) => {
   const dispatch = useDispatch();

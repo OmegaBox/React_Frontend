@@ -12,7 +12,7 @@ import "./style/BookingSelectSeat.scss";
 
 const BookingSelectSeat = () => {
   const [modal, text, event, w, h] = useSelector((state) => {
-    const Modal = state.Modal;
+    const Modal = state.modal;
     return [Modal.modal, Modal.text, Modal.event, Modal.width, Modal.height];
   });
   return (

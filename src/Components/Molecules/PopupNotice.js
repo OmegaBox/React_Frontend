@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 
-import { closeModal } from "../../Reducer/utilModalReducer";
+import { closeModal } from "../../Reducer/modalReducer";
 
 const PopupNotice = ({ text = "", onEvent = null, popupSize = {} }) => {
   const dispatch = useDispatch();
