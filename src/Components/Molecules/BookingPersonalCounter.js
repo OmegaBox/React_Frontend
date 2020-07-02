@@ -5,7 +5,7 @@ import {
   resetSeat,
   changePersonalCount,
 } from "../../Reducer/bookingSeatReducer";
-import { openModal } from "../../Reducer/modalReducer";
+import { openModal, setSize } from "../../Reducer/modalReducer";
 
 const BookingPersonalCounter = ({ type }) => {
   const dispatch = useDispatch();
@@ -26,6 +26,7 @@ const BookingPersonalCounter = ({ type }) => {
 
   // reset popup 열기
   const openResetPopup = () => {
+    dispatch(setSize(null, "210px"));
     dispatch(
       openModal(
         "선택하신 좌석을 모두 취소하고 다시 선택하시겠습니까?",

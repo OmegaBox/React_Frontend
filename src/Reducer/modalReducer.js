@@ -20,8 +20,8 @@ export const setSize = (width, height) => ({
 
 const initModal = {
   modal: false,
-  width: "100%",
-  height: "100%",
+  width: "400px",
+  height: "185px",
   text: "",
   event: null,
 };
@@ -43,8 +43,8 @@ const modalReducer = (state = initModal, action) => {
     case SET_SIZE:
       return {
         ...state,
-        width: action.width,
-        height: action.height,
+        width: action.width || "400px",
+        height: action.height || "185px",
       };
     default:
       return state;
