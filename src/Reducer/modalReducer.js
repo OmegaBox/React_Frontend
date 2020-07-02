@@ -21,7 +21,7 @@ const initModal = {
   event: null,
 };
 
-const utilModalReducer = (state = initModal, action) => {
+const modalReducer = (state = initModal, action) => {
   switch (action.type) {
     case OPEN_MODAL:
       return {
@@ -42,4 +42,4 @@ const utilModalReducer = (state = initModal, action) => {
   }
 };
 
-export default utilModalReducer;
+export default modalReducer;

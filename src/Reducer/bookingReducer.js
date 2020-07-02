@@ -22,7 +22,7 @@ const initialState = {
   },
   ticket: {
     selectedDate: "2020-07-10",
-    selectedtheather: "강남",
+    selectedTheather: "강남",
     selectedMovieTitle: "살아있다",
     movieAgeGrade: "All",
     screenHall: "2관",
