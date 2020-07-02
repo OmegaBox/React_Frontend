@@ -1,18 +1,23 @@
 import React from "react";
+import { useSelector } from "react-redux";
 
 import "./style/BookingInfo.scss";
 
 const ticket = {
   selectedDate: "2020-07-10",
-  selectedtheather: "강남",
+  selectedTheather: "강남",
   selectedMovieTitle: "살아있다",
-  movieAgeGrade: "19",
+  movieAgeGrade: "All",
   screenHall: "2관",
   seletedTime: "19:40",
-  endTime: "21:40",
+  endTime: "",
   seats: [],
-  ticketType: [],
-  price: 30000,
+  ticketType: {
+    adult: 0,
+    teen: 0,
+    preferential: 0,
+  },
+  price: 0,
 };
 
 const seatBox = new Array(8).fill("-");
@@ -44,14 +49,13 @@ const BookingInfo = () => {
   return (
     <section className="bookingInfo">
       <ul className="bookingInfoList">
-        <li className="bookingMovieTitle">
-          <span className={`age${ticket.movieAgeGrade}`}>
-            {ticket.selectedMovieTitle}
-          </span>
+        <li className={["bookingMovieTitle"].join(" ")}>
+          <span className={`icon ageGrade${15}Small`} />
+          <span>{ticket.selectedMovieTitle}</span>
         </li>
         <li className="bookingDetailInfo">
           <div>
-            <span>{ticket.selectedtheather}</span>
+            <span>{ticket.selectedTheather}</span>
             <br />
             <span>{ticket.screenHall}</span>
             <br />

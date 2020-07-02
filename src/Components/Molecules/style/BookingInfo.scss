@@ -1,4 +1,5 @@
 @import "../../../common.scss";
+@import "../../Organisms/Booking/style/BookingSelectSeat.scss";
 
 .bookingInfo {
   display: flex;
@@ -6,11 +7,6 @@
   width: 310px;
   background-color: $colorGray33;
   border-radius: 10px;
-
-  * {
-    padding: 0;
-    margin: 0;
-  }
 
   // 영화 선택 정보
   .bookingInfoList {
@@ -30,34 +26,14 @@
       border-bottom: 0;
       border-bottom: 1px solid #434343;
     }
-  }
 
-  .bookingMovieTitle {
-    span {
-      padding-left: 1.5em;
-      font-size: 1.1em;
-      font-weight: 400;
-      color: #fff;
-    }
-    
-    span.ageAll {
-      background: url("https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-all.png") 0px center / auto 80% no-repeat;
-    }
-
-    span.age7 {
-      background: url("https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-7.png") 0px center / auto 80% no-repeat;
-    }
-
-    span.age12 {
-      background: url("https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-12.png") 0px center / auto 80% no-repeat;
-    }
-
-    span.age15 {
-      background: url("https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-15.png") 0px center / auto 80% no-repeat;
-    }
-
-    span.age19 {
-      background: url("https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-19.png") 0px center / auto 80% no-repeat;
+    &.bookingMovieTitle {
+      display: flex;
+      flex-flow: row nowrap;
+      justify-content: unset;
+      font-size: 1.6rem;
+      line-height: 1.2;
+      vertical-align: top;
     }
   }
 
@@ -97,30 +73,30 @@
     }
 
     li:nth-child(1) {
-      background: url("https://img.megabox.co.kr/static/pc/images/common/bg/bg-seat-condition-choice.png") 0px 0px / auto 100% no-repeat;
+      background: $choice 0px 0px / auto 100% no-repeat;
     }
 
     li:nth-child(2) {
-      background: url("https://img.megabox.co.kr/static/pc/images/common/bg/bg-seat-condition-finish.png") 0px 0px / auto 100%  no-repeat;
+      background: $finish 0px 0px / auto 100%  no-repeat;
     }
 
     li:nth-child(3) {
-      background: url("https://img.megabox.co.kr/static/pc/images/common/bg/bg-seat-condition-impossible.png") 0px 0px / auto 100%  no-repeat;
+      background: $impossible 0px 0px / auto 100%  no-repeat;
     }
 
     li:nth-child(4) {
-      background-image: linear-gradient(90deg, #444 0%, #444 100%);
+      background-image: $socialDistance;
       background-position: 0 0, 25px 25px;
       background-size: $liHeight $liHeight;
       background-repeat: no-repeat;
     }
 
     li:nth-child(5) {
-      background: url("https://img.megabox.co.kr/static/pc/images/common/bg/bg-seat-condition-common.png") 0px 0px / auto 100%  no-repeat;
+      background: $common 0px 0px / auto 100%  no-repeat;
     }
 
     li:nth-child(6) {
-      background: url("https://img.megabox.co.kr/static/pc/images/common/bg/bg-seat-condition-disabled.png") 0px 0px / auto 100%  no-repeat;
+      background: $disabled 0px 0px / auto 100%  no-repeat;
     }
   }
 
