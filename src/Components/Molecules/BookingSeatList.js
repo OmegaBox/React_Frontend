@@ -11,7 +11,7 @@ const screeningHallSeatInfo = [
     hallId: 0,
     maxSeat: 15,
     row: 10,
-    path: [6, 12],
+    path: [4, 12],
     enter: [],
     exit: [],
     except: () => false,
