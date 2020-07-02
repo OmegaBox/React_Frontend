@@ -3,6 +3,7 @@ const ERROR = "userInfo/ERROR";
 const LOADING = "userInfo/LOADING";
 
 const initialState = {
+  id: 0,
   name: "홍길동",
   tier: "일반회원",
   point: 18000,
@@ -10,6 +11,7 @@ const initialState = {
   expiredPoint: 1200,
   bookingHistory: [
     {
+      id: 0,
       ticketNumber: "T907030552868",
       title: "살아있다",
       movieAgeGrade: 15,
@@ -24,11 +26,32 @@ const initialState = {
       poster:
         "https://img.megabox.co.kr/SharedImg/2020/06/02/xIBdAOS5lJNBe1CBXovcV1WYE9Q6DWPV_420.jpg",
       paymentDate: "2020-06-27",
+      paymentTime: "15:30",
+      scheduledPoint: 0,
+    },
+    {
+      id: 0,
+      ticketNumber: "T907030552868",
+      title: "오메가박스",
+      movieAgeGrade: 15,
+      accFavorite: 675, // 누적 좋아요
+      theater: "우리집",
+      screeningHall: "특별관",
+      date: "2020-07-01",
+      time: "10:30",
+      round: 1,
+      attendance: 1, // 관람인원
+      seats: ["K열 14"],
+      poster:
+        "https://img.megabox.co.kr/SharedImg/2020/06/02/xIBdAOS5lJNBe1CBXovcV1WYE9Q6DWPV_420.jpg",
+      paymentDate: "2020-06-27",
+      paymentTime: "15:30",
       scheduledPoint: 0,
     },
   ],
   favoriteMovies: [
     {
+      id: 0,
       title: "결백",
       openDate: "2020-06-10",
       movieAgeGrade: 15,
@@ -42,6 +65,7 @@ const initialState = {
   ],
   commentMovies: [
     {
+      id: 0,
       title: "결백",
       rating: 8,
       hashTag: "OST", // 연출, 스토리, 영상미, 배우, OST
@@ -52,6 +76,7 @@ const initialState = {
   ],
   watchedMovies: [
     {
+      id: 0,
       title: "결백",
       theater: "강남",
       screeningHall: "1관",
@@ -62,6 +87,7 @@ const initialState = {
   ],
   cancelMovies: [
     {
+      id: 0,
       title: "다크나이트",
       theater: "강남",
       date: "2020-06-28",
