@@ -1,16 +1,21 @@
 const OPEN_MODAL = "OPEN_MODAL";
 const CLOSE_MODAL = "CLOSE_MODAL";
+const SET_SIZE = "SET_SIZE";
 
-export const openModal = (width, height, text, event) => ({
+export const openModal = (text, event) => ({
   type: OPEN_MODAL,
-  width,
-  height,
   text,
   event,
 });
 
 export const closeModal = () => ({
   type: CLOSE_MODAL,
+});
+
+export const setSize = (width, height) => ({
+  type: SET_SIZE,
+  width,
+  height,
 });
 
 const initModal = {
@@ -27,8 +32,6 @@ const modalReducer = (state = initModal, action) => {
       return {
         ...state,
         modal: true,
-        width: action.width,
-        height: action.height,
         text: action.text,
         event: action.event || null,
       };
@@ -36,6 +39,12 @@ const modalReducer = (state = initModal, action) => {
       return {
         ...state,
         ...initModal,
+      };
+    case SET_SIZE:
+      return {
+        ...state,
+        width: action.width || "400px",
+        height: action.height || "185px",
       };
     default:
       return state;

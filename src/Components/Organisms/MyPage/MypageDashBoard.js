@@ -1,10 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-
 import BookingCancel from "../../Molecules/BookingCancel";
 import PopupNotice from "../../Molecules/PopupNotice";
 import ModalPortal from "../../../Modules/ModalPortal";
+
 const MypageDashBoard = () => {
   /* 개인정보 데이터 */
   const { name, tier, point, scheduledPoint, expiredPoint } = useSelector(
@@ -12,15 +12,35 @@ const MypageDashBoard = () => {
       name: state.userInfo.name,
       tier: state.userInfo.tier,
       point: state.userInfo.point,
-      scheduledPoint: state.userInfo.scheduledPoint,
-      expiredPoint: state.userInfo.expiredPoint,
     })
   );
-
+  const pointTypeConversion = () => {
+    let totalPoint = Array.from(String(point));
+    totalPoint.splice(-3, 0, ",");
+    totalPoint = totalPoint.join("");
+    return totalPoint;
+  };
+  /* 예매내역 */
   const { bookingHistory } = useSelector((state) => ({
     bookingHistory: state.userInfo.bookingHistory,
   }));
 
+  /* 한줄평 작성 */
+  const { commentMovies } = useSelector((state) => ({
+    commentMovies: state.userInfo.commentMovies,
+  }));
+
+  /* 본 영화 */
+  const { watchedMovies } = useSelector((state) => ({
+    watchedMovies: state.userInfo.watchedMovies,
+  }));
+
+  /* 보고싶은영화 */
+  const { favoriteMovies } = useSelector((state) => ({
+    favoriteMovies: state.userInfo.favoriteMovies,
+  }));
+
+  /* 모달 팝업 */
   const [modal, text, event, w, h] = useSelector((state) => {
     const Modal = state.modal;
     return [Modal.modal, Modal.text, Modal.event, Modal.width, Modal.height];
@@ -49,15 +69,13 @@ const MypageDashBoard = () => {
               className={["icon", "arrowRight"].join(" ")}
             ></Link>
           </div>
-          <p className="totalPoint">{point} P</p>
+          <p className="totalPoint">{pointTypeConversion(point)} P</p>
           <p>
-            적립예정 <span className="textMedium">{scheduledPoint} P</span>
+            적립예정 <span className="textMedium">500 P</span>
           </p>
           <p>
             소멸예정{" "}
-            <span className={["textRed", "textMedium"].join(" ")}>
-              {expiredPoint} P
-            </span>
+            <span className={["textRed", "textMedium"].join(" ")}>1,200 P</span>
           </p>
         </article>
       </section>
@@ -65,31 +83,26 @@ const MypageDashBoard = () => {
       <section className="mypageMovieStoryInfo">
         <div className="subTitleWrap">
           <h4 className="titleText">나의 무비스토리</h4>
-          <button
-            type="button"
-            className={["btn", "xSmall", "white", "fill"].join(" ")}
-          >
-            본 영화 등록
-          </button>
+          <Link
+            to="/mypage/myMovieStory"
+            className={["icon", "arrowRight"].join(" ")}
+          ></Link>
         </div>
         <ul className={["roundBox", "movieStoryInfoList"].join(" ")}>
           <li>
-            <a href="#">
-              <span className="amount">0</span>
-              본영화
-            </a>
+            <Link to="/mypage/myMovieStory">
+              <span className="amount">{watchedMovies.length}</span>본영화
+            </Link>
           </li>
           <li>
-            <a href="#">
-              <span className="amount">0</span>
-              한줄평
-            </a>
+            <Link to="/mypage/myMovieStory">
+              <span className="amount">{commentMovies.length}</span>한줄평
+            </Link>
           </li>
           <li>
-            <a href="#">
-              <span className="amount">0</span>
-              보고싶어
-            </a>
+            <Link to="/mypage/myMovieStory">
+              <span className="amount">{favoriteMovies.length}</span>보고싶어
+            </Link>
           </li>
         </ul>
       </section>
