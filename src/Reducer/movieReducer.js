@@ -2,6 +2,7 @@ const SUCCESS = "movie/SUCCESS";
 const ERROR = "movie/ERROR";
 const LOADING = "movie/LOADING";
 
+
 const initialState = {
   page: 0,
   loading: false,
@@ -38,24 +39,8 @@ const initialState = {
 const movieReducer = (state = initialState, action) => {
   switch (action.type) {
     case SUCCESS:
-      return {
-        ...state,
-        movie: action.movie,
-        loading: false,
-      };
     case ERROR:
-      return {
-        ...state,
-        error: false,
-        errorMessage: action.errorMessage,
-        loading: false,
-      };
-
     case LOADING:
-      return {
-        ...state,
-        loading: true,
-      };
     default:
       return state;
   };

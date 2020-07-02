@@ -1,13 +1,14 @@
 import React, { useState, useReducer, useEffect } from "react";
 import "./style/MainBoxOffice.scss";
-import { Link, useParams } from "react-router-dom";
-import { reducer, initialState } from "../../../Reducer/movieReducer";
+import { useSelector, useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 
 
 
+const MainBoxOffice = ({ }) => {
 
-const MainBoxOffice = () => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  useSelector((state) => state.initMovie)
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const mainBoxOfficeMovies = async () => {
@@ -48,17 +49,7 @@ const MainBoxOffice = () => {
         </div>
         <div className="mainMovieList">
           <ul class="mainMoviesWrap">
-
-            {/* <ul className="boxOfficeMoviePoster">
-              {state.movieState.map(
-                ({
-                  id,
-
-                })
-              )}
-
-            </ul> */}
-            {/* <li>
+            <li>
               <img
                 class="boxOfficeMoviePoster"
                 alt="살아있다"
@@ -73,7 +64,7 @@ const MainBoxOffice = () => {
                   예매
               </button>
               </div>
-            </li> */}
+            </li>
           </ul>
         </div>
         <ul className="boxOfficeSubBarWrap">
@@ -87,7 +78,7 @@ const MainBoxOffice = () => {
           <li><span className="iconBoxOffice" /><span className="boxOfficeSearchBarText">박스오피스</span></li>
           <li><span className="iconBoxOfficeBooking" /><span className="boxOfficeSearchBarText">빠른예매</span></li>
         </ul>
-      </div>
+      </div >
     </div >
   );
 };
