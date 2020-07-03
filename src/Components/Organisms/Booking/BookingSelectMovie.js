@@ -6,10 +6,12 @@ import BookingTheaterList from "../../Molecules/BookingTheaterList";
 import BookingMovieSchedules from "../../Molecules/BookingMovieSchedules";
 
 import "./style/BookingSelectMovie.scss";
+import BookingFastTitle from "../../Atoms/BookingFastTitle";
 
 const BookingSelectMovie = () => {
   return (
     <div className="bookingSelectMovieContainer">
+      <BookingFastTitle />
       <div className="calendarsContainer">
         <CarouselCalendar />
         <Calendar />
