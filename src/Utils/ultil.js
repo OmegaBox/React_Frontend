@@ -1,4 +1,5 @@
 const getToday = () => new Date().toISOString().slice(0, 10);
+const getCurrentHour = () => new Date().getHours();
 
 // start와 end 까지의 모든 날짜를 다양한 형태의 문자열 형식을 가진 객체로 만들어준다
 const getDateRangeData = (start, end) => {
@@ -50,4 +51,4 @@ const transformDateFormat = (date) => {
   };
 };
 
-export { getToday, getDateRangeData, transformDateFormat };
+export { getToday, getCurrentHour, getDateRangeData, transformDateFormat };
