@@ -1,7 +1,14 @@
 import React from "react";
+import "./style/MovieInforWrap.scss"
 
 const MovieInforWrap = () => {
-  return <div>무비 인포 랩 등</div>;
+  return (
+    <div>
+      <div className="movieDetailInforLayout">
+        ㅎㅎㅎ
+      </div>
+    </div>
+  );
 };
 
 export default MovieInforWrap;
