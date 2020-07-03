@@ -6,10 +6,10 @@ import { Link } from "react-router-dom";
 
 
 const MainBoxOffice = () => {
-  useSelector((state) => state.initMovie);
+  const movieBox = useSelector((state) => state.Movie.movies);
   const dispatch = useDispatch();
   useEffect(() => {
-    const initMovie = async () => {
+    const Movie = async () => {
       try {
         dispatch({ type: "LOADING" });
         const test = await movieApi.getMovies();
@@ -35,8 +35,9 @@ const MainBoxOffice = () => {
         });
       }
     };
-    initMovie();
+    Movie();
   }, []);
+  console.log(movieBox);
 
   return (
     <div className="mainBoxOfficeLayout">
@@ -49,38 +50,58 @@ const MainBoxOffice = () => {
         </div>
         <div className="mainMovieList">
           <ul className="mainMoviesWrap">
-            <li>
-              <img
-                className="boxOfficeMoviePoster"
-                alt="영화이미지"
-                src="https://img.megabox.co.kr/SharedImg/2020/06/02/xIBdAOS5lJNBe1CBXovcV1WYE9Q6DWPV_420.jpg"
-              />
-              <div className="boxOfficeBtnWrap">
-                <button
-                  className={[
-                    "boxOfficeFavoriteBtn",
-                    "btn",
-                    "outLine",
-                    "lightGray",
-                    "small",
-                  ].join(" ")}
-                >
-                  <span className="icon favoriteOutLine"></span>
-                  <span className="boxOfficeFavoriteScore">999</span>
-                </button>
-                <button
-                  className={[
-                    "boxOfficeBookingBtn",
-                    "btn",
-                    "fill",
-                    "subLight",
-                    "small",
-                  ].join(" ")}
-                >
-                  예매
-                </button>
-              </div>
-            </li>
+            {movieBox.map((v, i) => (
+              <li key={i}>
+                <p className="mainRank">1</p>
+                <img
+                  className="boxOfficeMoviePoster"
+                  alt="영화이미지"
+                  src="https://img.megabox.co.kr/SharedImg/2020/06/02/xIBdAOS5lJNBe1CBXovcV1WYE9Q6DWPV_420.jpg"
+                />
+                <div className="boxOfficeMovieInforWrap">
+                  <div className="boxOfficeMovieSummary">
+                    <p>원인불명 증세의 사람들의 공격에 통제 불능에 빠진 도시. </p>
+                    <p>
+                      영문도 모른 채 잠에서 깬 ‘준우’(유아인)는 아무도 없는 집에 혼자 고립된 것을 알게 된다.
+                      <br />
+                      영문도 모른 채 잠에서 깬 ‘준우’(유아인)는 아무도 없는 집에 혼자 고립된 것을 알게 된다.
+                    </p>
+                  </div>
+                  <div className="boxOfficeMovieScore">
+                    <div>
+                      <p>관람평</p>
+                      <strong>6.9</strong>
+                    </div>
+                  </div>
+                </div>
+                <div className="boxOfficeBtnWrap">
+                  <button
+                    className={[
+                      "boxOfficeFavoriteBtn",
+                      "btn",
+                      "outLine",
+                      "lightGray",
+                      "small",
+                    ].join(" ")}
+                  >
+                    <span className="icon favoriteOutLine"></span>
+                    <span className="boxOfficeFavoriteScore">{100}</span>
+                  </button>
+                  <button
+                    className={[
+                      "boxOfficeBookingBtn",
+                      "btn",
+                      "fill",
+                      "subLight",
+                      "small",
+                    ].join(" ")}
+                  >
+                    예매
+                  </button>
+                </div>
+              </li>
+            ))
+            }
           </ul>
         </div>
         <ul className="boxOfficeSubBarWrap">
@@ -100,10 +121,10 @@ const MainBoxOffice = () => {
             <span className="iconBoxOffice" />
             <span className="boxOfficeSearchBarText">박스오피스</span>
           </li>
-          <li>
+          <Link to="/Booking"><li>
             <span className="iconBoxOfficeBooking" />
             <span className="boxOfficeSearchBarText">빠른예매</span>
-          </li>
+          </li></Link>
         </ul>
       </div>
     </div>

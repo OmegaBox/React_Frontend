@@ -27,9 +27,9 @@ const initSeatState = {
     preferential: 0,
   },
   price: {
-    adult: 0,
-    teen: 0,
-    preferential: 0,
+    adult: 7000,
+    teen: 3500,
+    preferential: 3500,
   },
   selectedSeat: [],
 };
@@ -57,7 +57,11 @@ const seatReducer = (state = initSeatState, action) => {
         selectedSeat:
           state.selectedSeat.indexOf(action.selected) > -1
             ? state.selectedSeat.filter((seat) => seat != action.selected)
-            : [...state.selectedSeat, action.selected],
+            : [...state.selectedSeat, action.selected].sort(
+                (a, b) =>
+                  a[0].charCodeAt() - b[0].charCodeAt() ||
+                  +a.slice(1) - +b.slice(1)
+              ),
       };
     default:
       return state;
