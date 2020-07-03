@@ -47,4 +47,16 @@ const transformDateFormat = (date) => {
   };
 };
 
-export { getDateRangeData, transformDateFormat };
+const numWithComma = (numStr) => {
+  if (numStr.length <= 3) return numStr;
+  const arr = [...numStr];
+  let counter = 1;
+  while (true) {
+    if (3 * counter >= numStr.length) break;
+    arr.splice(-3 * counter - counter + 1, 0, ",");
+    counter += 1;
+  }
+  return arr.join("");
+};
+
+export { getDateRangeData, transformDateFormat, numWithComma };

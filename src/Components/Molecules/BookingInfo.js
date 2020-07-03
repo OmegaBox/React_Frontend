@@ -1,6 +1,8 @@
 import React from "react";
 import { useSelector } from "react-redux";
 
+import { numWithComma } from "../../Utils/ultil";
+
 import "./style/BookingInfo.scss";
 
 const ticket = {
@@ -78,18 +80,6 @@ const BookingInfo = () => {
   });
 
   let totalPriceString = totalPrice.toString();
-
-  const numWithComma = (numStr) => {
-    if (numStr.length <= 3) return numStr;
-    const arr = [...numStr];
-    let counter = 1;
-    while (true) {
-      if (3 * counter >= numStr.length) break;
-      arr.splice(-3 * counter - counter + 1, 0, ",");
-      counter += 1;
-    }
-    return arr;
-  };
 
   // 인원 총 원
   const totalCount = personalTypeCounts.reduce((p, n) => p + n, 0);
