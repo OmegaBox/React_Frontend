@@ -1,4 +1,6 @@
 import { select, put, call, takeLatest } from "redux-saga/effects";
+import { getToday, getCurrentHour, transformDateFormat } from "../Utils/ultil";
+import { movieApi } from "../Api/api";
 
 const SUCCESS = "booking/SUCCESS";
 const ERROR = "booking/ERROR";
@@ -12,8 +14,13 @@ const SET_SELECTED_THEATERS = "booking/SELECTED_THEATER";
 
 const SELECT_MOVIE = "booking/SELECT_MOVIE";
 const SELECT_THEATER = "booking/SELECT_THEATER";
-const GET_SCHEDULES = "booking/GET_SCHEDULES";
 
+// const GET_SCHEDULES = "booking/GET_SCHEDULES";
+const GET_SCHEDULES_SUCCESS = "booking/GET_SCHEDULES_SUCCESS";
+const GET_SCHEDULES_LOADING = "booking/GET_SCHEDULES_LOADING";
+const GET_SCHEDULES_ERROR = "booking/GET_SCHEDULES_ERROR";
+
+// 단순 상태 변환용 액션들
 const setSelectedMovies = (movies) => ({ type: SET_SELECTED_MOVIE, movies });
 const setSelectedDate = (date) => ({ type: SET_SELECTED_DATE, date });
 const setSelectedHour = (hour) => ({ type: SET_SELECTED_HOUR, hour });
@@ -23,12 +30,27 @@ const setSelectTheaters = (theaters) => ({
   theaters,
 });
 
+// 외부 api로 정보 가져오는 Thunk
+const getSchedules = () => async (dispatch, state) => {
+  const selectedOption = state().Booking.selectedOption;
+
+  // const res = await movieApi.getSchedules({
+  //   date: selectedOption.selectedDate,
+  //   theater: 1,
+  // });
+  // console.log(res);
+};
+
+// 사가 진입용 액션들
 const selectMovie = (movie) => ({ type: SELECT_MOVIE, movie });
 const selectTheater = (theater) => ({ type: SELECT_THEATER, theater });
 
+// 영화 선택용 미들웨어 Saga
 function* selectMovieSaga(action) {
-  let selectedMovies = yield select();
-  selectedMovies = selectedMovies.Booking.selectedOption.selectedMovies;
+  const state = yield select();
+  const selectedMovies = state.Booking.selectedOption.selectedMovies;
+  const selectedDate = state.Booking.selectedOption.selectedDate;
+  const selectedTheathers = state.Booking.selectedOption.selectedTheathers;
 
   let newSelectedMovies = [];
 
@@ -44,9 +66,13 @@ function* selectMovieSaga(action) {
     newSelectedMovies.push(action.movie);
   }
 
-  yield put(setSelectedMovies(newSelectedMovies));
+  if (selectedDate === "") yield put(setSelectedDate(getToday())); // 날짜 선택
+  yield put(setSelectedHour(getCurrentHour())); // 현재 시간을 선택
+  yield put(setSelectedMovies(newSelectedMovies)); // 영화 선택
+  if (selectedTheathers.length) yield put(getSchedules()); // 영화 가져오기
 }
 
+// 영화관 선택용 미들웨어 Saga
 function* selectTheaterSaga(action) {
   let selectedTheaters = yield select();
   selectedTheaters = selectedTheaters.Booking.selectedOption.selectedTheathers;
@@ -65,6 +91,7 @@ function* selectTheaterSaga(action) {
     newSelectedTheaters.push(action.theater);
   }
 
+  yield put(setSelectedHour(getCurrentHour())); // 현재 시간을 선택
   yield put(setSelectTheaters(newSelectedTheaters));
 }
 
@@ -74,6 +101,16 @@ function* bookingSaga() {
 }
 
 const initialState = {
+  canSelectTheaters: {
+    서울: 20,
+    경기: 26,
+    인천: 6,
+    "대전/충청/세종": 15,
+    "부산/대구/경상": 25,
+    "광주/전라": 9,
+    강원: 4,
+    제주: 1,
+  },
   selectedOption: {
     selectedDate: "",
     selectedRegion: "",
