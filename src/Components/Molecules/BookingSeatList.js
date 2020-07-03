@@ -123,6 +123,7 @@ const BookingSeatList = () => {
         {rowNames.map((row) => (
           <li key={`row ${row}`}>
             {seatNums.map((num) => {
+              const booked = booking.includes(`${row}${num}`);
               const except = screeningHallSeatInfo[hallType].except(row, num);
               const selected = select.includes(`${row}${num}`);
               const social = socialDistance(row, num);
@@ -142,10 +143,12 @@ const BookingSeatList = () => {
                     )
                       ? " handicapped"
                       : "") +
-                    (booking.includes(`${row}${num}`) ? " booking" : "") +
+                    (booked ? " booking" : "") +
                     (social ? " social" : "")
                   }
-                  disabled={except || social || !(selectable || selected)}
+                  disabled={
+                    booked || except || social || !(selectable || selected)
+                  }
                   onClick={(e) => {
                     dispatch(setSelectSeat(e.target.value));
                   }}
