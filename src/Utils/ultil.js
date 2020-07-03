@@ -1,3 +1,5 @@
+const getToday = () => new Date().toISOString().slice(0, 10);
+
 const getDateRangeData = (start, end) => {
   //param1은 시작일, param2는 종료일이다.
   const week = ["일", "월", "화", "수", "목", "금", "토"];
@@ -47,4 +49,4 @@ const transformDateFormat = (date) => {
   };
 };
 
-export { getDateRangeData, transformDateFormat };
+export { getToday, getDateRangeData, transformDateFormat };
