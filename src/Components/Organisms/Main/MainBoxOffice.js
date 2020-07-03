@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { movieApi } from "../../../Api/api";
 import "./style/MainBoxOffice.scss";
 import { useSelector, useDispatch } from "react-redux";
@@ -43,7 +43,15 @@ const MainBoxOffice = () => {
     Movie();
   }, []);
 
-  console.log(movieBox);
+  // const [searchInputState, setSearchInputState] = useState('');
+
+  // const changeSearchInput = (e) => {
+  //   setSearchInputState(e.target.value);
+  // };
+  // const initSearchInput = () => {
+  //   setSearchInputState('');
+  // };
+
   return (
     <div className="mainBoxOfficeLayout">
       <div className="mainBoxOffice">
@@ -114,6 +122,8 @@ const MainBoxOffice = () => {
             <form>
               <input
                 type="text"
+                // value={searchInputState}
+                // onChange={changeSearchInput}
                 className="boxOfficeSearchBar"
                 placeholder="영화명을 입력해주세요."
                 title="영화 검색"
