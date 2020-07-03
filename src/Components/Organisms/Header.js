@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
-/* eslint-disable jsx-a11y/heading-has-content */
 import React from "react";
 import "./style/Header.scss";
 import logo from "../../images/omegaWhite.png"
