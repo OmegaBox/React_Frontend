@@ -58,13 +58,20 @@ const MainBoxOffice = () => {
                   alt="영화이미지"
                   src="https://img.megabox.co.kr/SharedImg/2020/06/02/xIBdAOS5lJNBe1CBXovcV1WYE9Q6DWPV_420.jpg"
                 />
-                <div className="boxOfficeMovieSummaryWrap">
+                <div className="boxOfficeMovieInforWrap">
                   <div className="boxOfficeMovieSummary">
                     <p>원인불명 증세의 사람들의 공격에 통제 불능에 빠진 도시. </p>
                     <p>
                       영문도 모른 채 잠에서 깬 ‘준우’(유아인)는 아무도 없는 집에 혼자 고립된 것을 알게 된다.
+                      <br />
                       영문도 모른 채 잠에서 깬 ‘준우’(유아인)는 아무도 없는 집에 혼자 고립된 것을 알게 된다.
-                  </p>
+                    </p>
+                  </div>
+                  <div className="boxOfficeMovieScore">
+                    <div>
+                      <p>관람평</p>
+                      <strong>6.9</strong>
+                    </div>
                   </div>
                 </div>
                 <div className="boxOfficeBtnWrap">
@@ -78,7 +85,7 @@ const MainBoxOffice = () => {
                     ].join(" ")}
                   >
                     <span className="icon favoriteOutLine"></span>
-                    <span className="boxOfficeFavoriteScore">{999}</span>
+                    <span className="boxOfficeFavoriteScore">{100}</span>
                   </button>
                   <button
                     className={[
@@ -114,10 +121,10 @@ const MainBoxOffice = () => {
             <span className="iconBoxOffice" />
             <span className="boxOfficeSearchBarText">박스오피스</span>
           </li>
-          <li>
+          <Link to="/Booking"><li>
             <span className="iconBoxOfficeBooking" />
             <span className="boxOfficeSearchBarText">빠른예매</span>
-          </li>
+          </li></Link>
         </ul>
       </div>
     </div>
