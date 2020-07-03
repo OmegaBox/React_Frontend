@@ -18,7 +18,7 @@ const MainLink = () => {
           <span>이벤트</span>
         </li>
         <li className="linkStore">
-          스토어
+          <span>스토어</span>
         </li>
       </ul>
       <div className="grandOpeningLayout">

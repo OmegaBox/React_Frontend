@@ -50,7 +50,10 @@ const MainBoxOffice = () => {
         <div className="mainBoxOfficeHeader">
           <h2>박스오피스</h2>
           <Link to="/">
-            <span className="boxOfficeMoreMovie">더 많은 영화보기 +</span>
+            <div className="boxOfficeMoreMovieWrap">
+              <div className="boxOfficeMoreMovie">더 많은 영화보기 </div>
+              <div className="icon moreMovieIcon"></div>
+            </div>
           </Link>
         </div>
         <div className="mainMovieList">
@@ -72,7 +75,7 @@ const MainBoxOffice = () => {
                     <div className="boxOfficeMovieScore">
                       <div>
                         <p>관람평</p>
-                        <strong>6.9</strong>
+                        <strong>{}</strong>
                       </div>
                     </div>
                   </div>
@@ -108,12 +111,15 @@ const MainBoxOffice = () => {
         </div>
         <ul className="boxOfficeSubBarWrap">
           <li className="boxOfficeSearchBarWrap">
-            <input
-              type="text"
-              className="boxOfficeSearchBar"
-              placeholder="영화명을 입력해주세요."
-            />
-            <button type="button" className="iconSearchBtn"></button>
+            <form>
+              <input
+                type="text"
+                className="boxOfficeSearchBar"
+                placeholder="영화명을 입력해주세요."
+                title="영화 검색"
+              />
+              <button type="button" className="iconSearchBtn"></button>
+            </form>
           </li>
           <li>
             <span className="iconSchedule" />
@@ -129,6 +135,8 @@ const MainBoxOffice = () => {
               <span className="boxOfficeSearchBarText">빠른예매</span>
             </li>
           </Link>
+
+
         </ul>
       </div>
     </div>
