@@ -1,7 +1,7 @@
 const getToday = () => new Date().toISOString().slice(0, 10);
 
+// start와 end 까지의 모든 날짜를 다양한 형태의 문자열 형식을 가진 객체로 만들어준다
 const getDateRangeData = (start, end) => {
-  //param1은 시작일, param2는 종료일이다.
   const week = ["일", "월", "화", "수", "목", "금", "토"];
   const resultDates = [];
   const startDate = new Date(start);
@@ -29,6 +29,7 @@ const getDateRangeData = (start, end) => {
   return resultDates;
 };
 
+// 특정 날짜만 다양한 형태의 문자열을 가진 객체로 바꾼다
 const transformDateFormat = (date) => {
   const week = ["일", "월", "화", "수", "목", "금", "토"];
   const dateObject = new Date(date);
