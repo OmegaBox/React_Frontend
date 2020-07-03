@@ -3,41 +3,46 @@ import { movieApi } from "../../../Api/api";
 import "./style/MainBoxOffice.scss";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-
+import {
+  setLoadingState,
+  setSuccessState,
+} from "../../../Reducer/movieReducer";
 
 const MainBoxOffice = () => {
-  const movieBox = useSelector((state) => state.Movie.movies);
+  let movieBox = useSelector((state) => state.Movie.movies);
+  movieBox = movieBox.filter((_, i) => i < 4);
   const dispatch = useDispatch();
-  useEffect(() => {
-    const Movie = async () => {
-      try {
-        dispatch({ type: "LOADING" });
-        const test = await movieApi.getMovies();
-        console.log(test);
-        if (test.status === 200) {
-          dispatch({ type: "SUCCESS", data: test.data.results });
-        } else {
-          dispatch({
-            type: "ERROR",
-            error: {
-              state: true,
-              message: test.statusText,
-            },
-          });
-        }
-      } catch (error) {
+
+  const Movie = async () => {
+    try {
+      dispatch(setLoadingState());
+      const test = await movieApi.getMovies();
+
+      if (test.status === 200) {
+        dispatch(setSuccessState(test.data));
+      } else {
         dispatch({
           type: "ERROR",
           error: {
             state: true,
-            message: error.message,
+            message: test.statusText,
           },
         });
       }
-    };
+    } catch (error) {
+      dispatch({
+        type: "ERROR",
+        error: {
+          state: true,
+          message: error.message,
+        },
+      });
+    }
+  };
+
+  useEffect(() => {
     Movie();
   }, []);
-  console.log(movieBox);
 
   return (
     <div className="mainBoxOfficeLayout">
@@ -60,11 +65,15 @@ const MainBoxOffice = () => {
                 />
                 <div className="boxOfficeMovieInforWrap">
                   <div className="boxOfficeMovieSummary">
-                    <p>원인불명 증세의 사람들의 공격에 통제 불능에 빠진 도시. </p>
                     <p>
-                      영문도 모른 채 잠에서 깬 ‘준우’(유아인)는 아무도 없는 집에 혼자 고립된 것을 알게 된다.
+                      원인불명 증세의 사람들의 공격에 통제 불능에 빠진 도시.{" "}
+                    </p>
+                    <p>
+                      영문도 모른 채 잠에서 깬 ‘준우’(유아인)는 아무도 없는 집에
+                      혼자 고립된 것을 알게 된다.
                       <br />
-                      영문도 모른 채 잠에서 깬 ‘준우’(유아인)는 아무도 없는 집에 혼자 고립된 것을 알게 된다.
+                      영문도 모른 채 잠에서 깬 ‘준우’(유아인)는 아무도 없는 집에
+                      혼자 고립된 것을 알게 된다.
                     </p>
                   </div>
                   <div className="boxOfficeMovieScore">
@@ -100,8 +109,7 @@ const MainBoxOffice = () => {
                   </button>
                 </div>
               </li>
-            ))
-            }
+            ))}
           </ul>
         </div>
         <ul className="boxOfficeSubBarWrap">
@@ -121,10 +129,12 @@ const MainBoxOffice = () => {
             <span className="iconBoxOffice" />
             <span className="boxOfficeSearchBarText">박스오피스</span>
           </li>
-          <Link to="/Booking"><li>
-            <span className="iconBoxOfficeBooking" />
-            <span className="boxOfficeSearchBarText">빠른예매</span>
-          </li></Link>
+          <Link to="/Booking">
+            <li>
+              <span className="iconBoxOfficeBooking" />
+              <span className="boxOfficeSearchBarText">빠른예매</span>
+            </li>
+          </Link>
         </ul>
       </div>
     </div>
