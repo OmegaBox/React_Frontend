@@ -14,7 +14,7 @@
     flex-flow: column nowrap;
     flex-grow: 1;
     width: 100%;
-    padding: 15px 20px 10px;
+    padding: 15px 20px 20px;
   }
 
   .bookingInfoList > li {
@@ -53,7 +53,7 @@
   .bookingSeatInfo {
     display: flex;
     flex-flow: row nowrap;
-    border: 1px solid #434343;
+    border: 1px solid $colorGray44;
     border-radius: 10px;
   }
 
@@ -106,7 +106,7 @@
     padding: 10px 14px;
     font-size: .9em;
     text-align: center;
-    border-left: 1px solid #434343;
+    border-left: 1px solid $colorGray44;
   }
 
   .selectedSeat {
@@ -120,43 +120,70 @@
       height: 35px;
       margin-bottom: 8px;
       line-height: 34px;
-      border: 1px solid #5c5c5c;
+      border: 1px solid $colorGray55;
+      
+      &.selectedYet {
+        border: 0;
+        background-color: $colorGray55;
+      }
+
+      &.selected {
+        border: 0;
+        background-color: $colorMain;
+      }
     }
+  }
+
+  .personalType {
+    margin-top: auto;
   }
 
   .bookingTotalPrice{
     display: flex;
     flex-flow: row nowrap;
-    margin-top: auto;
+
+    span {
+      font-size: 1.5rem;
+      color: $colorWhite;
+      line-height: 4rem;
+    }
 
     span:first-child {
       margin-right: auto;
+    }
+
+    span.totalPrice {
+      margin-right: 5px;
+      font-size: 2.5rem;
+      color: $colorSubLight;
+      line-height: 3.9rem;
     }
   }
 
   // 이전 다음 버튼
   button {
     width: 50%;
+    margin: 0;
     font-size: 1.2em;
     font-weight: 400;
     border: 0;
 
     &.pre {
-      color: #fff;
+      color: $colorWhite;
       border-radius: 0 0 0 10px;
-      background-color: #53565b;
+      background-color: $btnDarkGray;
     }
 
     &.next {
-      color: #aaa;
-      background-color: #e0e0e0;
+      color: $colorDisabledText;
+      background-color: $colorGrayEa;
       border-radius: 0 0 10px 0;
       cursor: default;
     }
 
     &.next[ disabled ] {
-      color: #fff;
-      background-color: #329eb1;
+      color: $colorWhite;
+      background-color: $colorSubLight;
       cursor: pointer;
     }
   }
