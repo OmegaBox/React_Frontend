@@ -33,6 +33,7 @@
 }
 
 .mainMoviesWrap {
+  position: relative;
   display: flex;
   justify-content: space-between;
   li {
@@ -43,6 +44,44 @@
       border-radius: 5px;
     }
   }
+  .mainRank {
+    position: absolute;
+    width: 245px;
+    height: 150px;
+    padding: 10px 0 0 15px;
+    font-style: italic;
+    font-size: 2em;
+    color: $colorWhite;
+    text-shadow: 2px 2px 2px rgba(0,0,0,0.8);
+    background: url('https://www.megabox.co.kr/static/pc/images/main/bg-main-movie-rank.png') no-repeat 0 0;
+  }
+}
+
+
+.boxOfficeMovieSummaryWrap {
+  position: absolute;
+  top: 0;
+  background-color: rgba(0,0,0,0.8);
+  width: 245px;
+  height: 352px;
+  opacity: 0; 
+  transition: opacity .5s ease-out;
+}
+
+.boxOfficeMovieSummary {
+  width: 195px;
+  height: 152px;
+  margin: 35px auto 0 auto;
+  color: $colorWhite;
+  font-size: 15px;
+  line-height: 1.5;
+  overflow: hidden;
+  
+  
+}
+.boxOfficeMovieSummaryWrap:hover {
+  opacity: 1;
+
 }
 
 .boxOfficeBtnWrap {
@@ -61,6 +100,10 @@
     padding: 0 5px;
     margin: 0;
   }
+}
+.boxOfficeFavoriteScore {
+  color: $colorWhite;
+  margin-left: 7px;
 }
 
 .boxOffice {
