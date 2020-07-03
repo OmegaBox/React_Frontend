@@ -1,6 +1,5 @@
 import React from "react";
 
-import "../../commonVariable.scss";
 import "./style/BookingFastTitle.scss";
 
 const BookingFastTitle = () => {

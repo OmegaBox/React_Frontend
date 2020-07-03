@@ -141,18 +141,14 @@ const theaterList = [
 
 const BookingTheaterList = (props) => {
   const selectedOption = useSelector((state) => state.Booking.selectedOption);
+  const canSelectTheaters = useSelector(
+    (state) => state.Booking.canSelectTheaters
+  );
   const dispatch = useDispatch();
 
   const selectedRegion = theaterList.filter((theater) => {
     return theater.region === selectedOption.selectedRegion;
   })[0];
-
-  // const expectedSelectedTheaters = theaterList
-  //   .filter((theater) => {
-  //     return selectedOption.selectedRegion.includes(theater.region);
-  //   })
-  //   .map((theater) => theater.theaters);
-  // console.log(expectedSelectedTheaters);
 
   const selectedTheaters = selectedOption.selectedTheathers;
   const unSelectedTheaters = new Array(3 - selectedTheaters.length).fill(0);
@@ -175,7 +171,9 @@ const BookingTheaterList = (props) => {
                     dispatch(setSelectRegion(theater.region));
                   }}
                 >
-                  <span>{theater.region}</span>
+                  <span>
+                    {theater.region}({canSelectTheaters[theater.region]})
+                  </span>
                 </button>
               </li>
             );
