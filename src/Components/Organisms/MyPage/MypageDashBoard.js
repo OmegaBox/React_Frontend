@@ -7,14 +7,12 @@ import ModalPortal from "../../../Modules/ModalPortal";
 
 const MypageDashBoard = () => {
   /* 개인정보 데이터 */
-  const { name, tier, point, scheduledPoint, expiredPoint } = useSelector(
-    (state) => ({
-      name: state.userInfo.name,
-      tier: state.userInfo.tier,
-      point: state.userInfo.point,
-    })
-  );
-  const pointTypeConversion = () => {
+  const { name, tier, point } = useSelector((state) => ({
+    name: state.userInfo.name,
+    tier: state.userInfo.tier,
+    point: state.userInfo.point,
+  }));
+  const pointTypeConversion = (point) => {
     let totalPoint = Array.from(String(point));
     totalPoint.splice(-3, 0, ",");
     totalPoint = totalPoint.join("");
@@ -135,7 +133,7 @@ const MypageDashBoard = () => {
         <ul className="movieList">
           {bookingHistory.length ? (
             bookingHistory.map((booking) => (
-              <li>
+              <li key={booking.id}>
                 <article className="movieItem">
                   <div className="poster">
                     <img
@@ -171,12 +169,18 @@ const MypageDashBoard = () => {
                       </p>
                     </li>
                   </ul>
-                  <BookingCancel />
+                  <BookingCancel
+                    classSet={["btn", "xSmall", "outLine", "lightGray"].join(
+                      " "
+                    )}
+                  />
                 </article>
               </li>
             ))
           ) : (
-            <li className="listNull">리스트가 없습니다.</li>
+            <li className="listNull" key={bookingHistory.length}>
+              리스트가 없습니다.
+            </li>
           )}
         </ul>
 
