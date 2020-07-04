@@ -113,8 +113,8 @@ const initialState = {
   },
   selectedOption: {
     selectedDate: "",
-    // selectedRegion: "",
-    selectedTheathers: [],
+    selectedRegion: "", // 선택한 지역
+    selectedTheaters: [], // 선택한 영화관들
     selectedMovies: [],
     movieAgeGrade: "All",
     screenHall: "2관",

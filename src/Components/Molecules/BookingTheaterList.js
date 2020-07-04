@@ -150,7 +150,7 @@ const BookingTheaterList = (props) => {
     return theater.region === selectedOption.selectedRegion;
   })[0]; // 선택한 지역
 
-  const selectedTheaters = selectedOption.selectedTheathers; // 선택한 영화관들
+  const selectedTheaters = selectedOption.selectedTheaters; // 선택한 영화관들
   const unSelectedTheaters = new Array(3 - selectedTheaters.length).fill(0);
 
   return (
