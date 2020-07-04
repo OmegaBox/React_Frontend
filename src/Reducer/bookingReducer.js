@@ -94,7 +94,6 @@ function* selectTheaterSaga(action) {
     newSelectedTheaters = selectedTheaters.slice();
 
     newSelectedTheaters.push(action.theater);
-    console.log(newSelectedTheaters);
   }
 
   yield put(setSelectedHour(getCurrentHour())); // 현재 시간을 선택
@@ -121,6 +120,15 @@ const initialState = {
     selectedDate: "",
     selectedRegion: "", // 선택한 지역
     selectedTheaters: [], // 선택한 영화관들
+    nearbyTheaters: [
+      {
+        name: "강남",
+        location: {
+          lat: 37.498227,
+          lng: 127.026375,
+        },
+      },
+    ], // 가까운 영화관
     selectedMovies: [],
     movieAgeGrade: "All",
     screenHall: "2관",
@@ -344,8 +352,6 @@ const bookingReducer = (state = initialState, action) => {
         },
       };
     case SET_SELECTED_THEATERS:
-      console.log("여긴 액션", action.theaters);
-
       return {
         ...state,
         selectedOption: {

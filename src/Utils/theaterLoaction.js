@@ -1,3 +1,87 @@
+export const getLocation = () => {
+  if (navigator.geolocation) {
+    // GPS를 지원하면
+    return new Promise((resolve) => {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          // console.info(
+          //   `re:${position.coords.latitude} ${position.coords.longitude}`
+          // );
+          resolve({
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          });
+        },
+        (error) => {
+          console.error(error);
+          resolve({
+            lat: 37.498227,
+            lng: 127.026375,
+          });
+        },
+        {
+          enableHighAccuracy: false,
+          maximumAge: 0,
+          timeout: Infinity,
+        }
+      );
+    }).then((coords) => {
+      // console.log(`coords:${JSON.stringify(coords)}`);
+      return coords;
+    });
+  }
+  console.info("GPS를 지원하지 않습니다");
+  return {
+    lat: 37.498227,
+    lng: 127.026375,
+  };
+};
+
+export const getDistanceFromLatLonInKm = (location1, location2) => {
+  const lat1 = location1.lat;
+  const lng1 = location1.lng;
+  const lat2 = location2.lat;
+  const lng2 = location1.lng;
+
+  const deg2rad = (deg) => {
+    return deg * (Math.PI / 180);
+  };
+  const r = 6371; //지구의 반지름(km)
+  const dLat = deg2rad(lat2 - lat1);
+  const dLon = deg2rad(lng2 - lng1);
+  const a =
+    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.cos(deg2rad(lat1)) *
+      Math.cos(deg2rad(lat2)) *
+      Math.sin(dLon / 2) *
+      Math.sin(dLon / 2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  const d = r * c; // Distance in km
+  return Math.round(d * 1000);
+};
+
+export const findNearbyTheaters = async () => {
+  const curLoc = await getLocation();
+
+  const theaterDistances = [];
+  for (let i = 0; i < theaterLoaction.length; i++) {
+    const theaters = theaterLoaction[i].theaters;
+    for (let j = 0; j < theaters.length; j++) {
+      const name = theaterLoaction[i].theaters[j].name;
+      const theaterLoc = theaterLoaction[i].theaters[j].location;
+      const distance = getDistanceFromLatLonInKm(curLoc, theaterLoc);
+
+      theaterDistances.push({ name, location: theaterLoc, distance });
+    }
+  }
+
+  const closest3 = theaterDistances
+    .sort((a, b) => a.distance - b.distance)
+    .slice(0, 3);
+
+  return closest3;
+};
+
 export const theaterLoaction = [
   {
     region: "서울",
@@ -26,8 +110,8 @@ export const theaterLoaction = [
       {
         name: "군자",
         location: {
-          lat: 37.5417438,
-          lng: 127.044786,
+          lat: 37.555783,
+          lng: 127.078387,
         },
       },
       {
@@ -68,8 +152,8 @@ export const theaterLoaction = [
       {
         name: "성수",
         location: {
-          lat: 37.5417438,
-          lng: 127.044786,
+          lat: 37.54192,
+          lng: 127.044878,
         },
       },
       {
@@ -344,8 +428,8 @@ export const theaterLoaction = [
       {
         name: "송도",
         location: {
-          lat: 37.5417438,
-          lng: 127.044786,
+          lat: 37.37898,
+          lng: 126.662837,
         },
       },
       {
@@ -358,8 +442,8 @@ export const theaterLoaction = [
       {
         name: "인천논현",
         location: {
-          lat: 37.5417438,
-          lng: 127.044786,
+          lat: 37.39737,
+          lng: 126.727379,
         },
       },
       {

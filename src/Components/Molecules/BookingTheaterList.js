@@ -3,16 +3,32 @@ import { useSelector, useDispatch } from "react-redux";
 
 import "./style/BookingTheaterList.scss";
 import { setSelectRegion, selectTheater } from "../../Reducer/bookingReducer";
-import { theaterLoaction } from "../../Utils/theaterLoaction";
+import {
+  theaterLoaction,
+  getDistanceFromLatLonInKm,
+  findNearbyTheaters,
+} from "../../Utils/theaterLoaction";
 
 const BookingTheaterList = (props) => {
+  findNearbyTheaters();
+
   const selectedOption = useSelector((state) => state.Booking.selectedOption);
   const canSelectTheaters = useSelector(
     (state) => state.Booking.canSelectTheaters
   ); // 선택 가능한 지역별 영화관 수
+
   const dispatch = useDispatch();
 
-  const selectedRegion = theaterLoaction.filter((theater) => {
+  const theaterLocs = theaterLoaction.slice();
+  const nearbyTheaters = selectedOption.nearbyTheaters; // 가까운 영화관들
+  if (!theaterLocs.find((theater) => theater.region === "가까운 영화관")) {
+    theaterLocs.unshift({
+      region: "가까운 영화관",
+      theaters: nearbyTheaters,
+    });
+  }
+
+  const selectedRegion = theaterLocs.filter((theater) => {
     return theater.region === selectedOption.selectedRegion;
   })[0]; // 선택한 지역
 
@@ -24,7 +40,7 @@ const BookingTheaterList = (props) => {
       <h3 className="theaterHeading">극장</h3>
       <div className="theaterLocationList">
         <ul className="region">
-          {theaterLoaction.map((theater) => {
+          {theaterLocs.map((theater) => {
             const className =
               theater.region === selectedOption.selectedRegion
                 ? "selectedInfoLighter"
@@ -38,7 +54,10 @@ const BookingTheaterList = (props) => {
                   }}
                 >
                   <span>
-                    {theater.region}({canSelectTheaters[theater.region]})
+                    {theater.region}
+                    {theater.region !== "가까운 영화관"
+                      ? `(${canSelectTheaters[theater.region]})`
+                      : ""}
                   </span>
                 </button>
               </li>
