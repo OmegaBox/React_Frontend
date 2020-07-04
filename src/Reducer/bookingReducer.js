@@ -113,7 +113,7 @@ const initialState = {
   },
   selectedOption: {
     selectedDate: "",
-    selectedRegion: "",
+    // selectedRegion: "",
     selectedTheathers: [],
     selectedMovies: [],
     movieAgeGrade: "All",

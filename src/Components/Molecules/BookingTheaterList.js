@@ -143,14 +143,14 @@ const BookingTheaterList = (props) => {
   const selectedOption = useSelector((state) => state.Booking.selectedOption);
   const canSelectTheaters = useSelector(
     (state) => state.Booking.canSelectTheaters
-  );
+  ); // 선택 가능한 지역별 영화관 수
   const dispatch = useDispatch();
 
   const selectedRegion = theaterList.filter((theater) => {
     return theater.region === selectedOption.selectedRegion;
-  })[0];
+  })[0]; // 선택한 지역
 
-  const selectedTheaters = selectedOption.selectedTheathers;
+  const selectedTheaters = selectedOption.selectedTheathers; // 선택한 영화관들
   const unSelectedTheaters = new Array(3 - selectedTheaters.length).fill(0);
 
   return (
