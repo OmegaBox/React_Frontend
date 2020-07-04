@@ -16,10 +16,8 @@ const BookingTheaterList = (props) => {
     return theater.region === selectedOption.selectedRegion;
   })[0]; // 선택한 지역
 
-  console.log("선택한지역", selectedRegion);
-
   const selectedTheaters = selectedOption.selectedTheaters; // 선택한 영화관들
-  const unSelectedTheaters = new Array(3 - selectedTheaters.length).fill(0);
+  const unSelectedTheaters = new Array(3 - selectedTheaters.length).fill(0); // 선택하지 않은 영화관 체크용 빈배열
 
   return (
     <div className="bookingTheaterList">

@@ -5,8 +5,8 @@ export const theaterLoaction = [
       {
         name: "강남",
         location: {
-          lat: 37.5417438,
-          lng: 127.044786,
+          lat: 37.498227,
+          lng: 127.026375,
         },
       },
       {

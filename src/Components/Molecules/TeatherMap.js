@@ -1,8 +1,18 @@
 import React from "react";
 import { RenderAfterNavermapsLoaded, NaverMap, Marker } from "react-naver-maps";
+import { useSelector } from "react-redux";
 
 const TheaterMap = () => {
-  const navermaps = window.naver.maps;
+  const selectedTheaters = useSelector(
+    (state) => state.Booking.selectedOption.selectedTheaters
+  );
+  const lastSelectedTheater = selectedTheaters[selectedTheaters.length - 1];
+  const lat = lastSelectedTheater
+    ? lastSelectedTheater.location.lat
+    : 37.5417438;
+  const lng = lastSelectedTheater
+    ? lastSelectedTheater.location.lng
+    : 127.044786;
 
   return (
     <div style={{ width: "458px", height: "372px" }}>
@@ -17,12 +27,15 @@ const TheaterMap = () => {
             width: "100%", // 네이버지도 가로 길이
             height: "100%", // 네이버지도 세로 길이
           }}
-          defaultCenter={new navermaps.LatLng(37.5417438, 127.044786)} // 지도 초기 위치
+          center={{ lat, lng }} // 지도 초기 위치
           defaultZoom={18} // 지도 초기 확대 배율
         >
           <Marker
             key={1}
-            position={new navermaps.LatLng(37.5417438, 127.044786)}
+            title={
+              lastSelectedTheater ? lastSelectedTheater.name + " 메가박스" : ""
+            }
+            position={{ lat, lng }}
             animation={2}
             onClick={() => {
               alert("여기는 N서울타워입니다.");
