@@ -50,7 +50,7 @@ function* selectMovieSaga(action) {
   const state = yield select();
   const selectedMovies = state.Booking.selectedOption.selectedMovies;
   const selectedDate = state.Booking.selectedOption.selectedDate;
-  const selectedTheathers = state.Booking.selectedOption.selectedTheathers;
+  const selectedTheaters = state.Booking.selectedOption.selectedTheaters;
 
   let newSelectedMovies = [];
 
@@ -69,26 +69,32 @@ function* selectMovieSaga(action) {
   if (selectedDate === "") yield put(setSelectedDate(getToday())); // 날짜 선택
   yield put(setSelectedHour(getCurrentHour())); // 현재 시간을 선택
   yield put(setSelectedMovies(newSelectedMovies)); // 영화 선택
-  if (selectedTheathers.length) yield put(getSchedules()); // 영화 가져오기
+  if (selectedTheaters.length) yield put(getSchedules()); // 영화 가져오기
 }
 
 // 영화관 선택용 미들웨어 Saga
 function* selectTheaterSaga(action) {
-  let selectedTheaters = yield select();
-  selectedTheaters = selectedTheaters.Booking.selectedOption.selectedTheathers;
+  const state = yield select();
+  const selectedTheaters = state.Booking.selectedOption.selectedTheaters;
 
   let newSelectedTheaters = [];
 
   // 이미 리스트에 있다면 상태에서 빼고, 없다면 넣는다. 3개이상 못들어간다.
-  if (selectedTheaters.includes(action.theater)) {
+  if (
+    selectedTheaters.find(
+      (selectedTheater) => selectedTheater.name === action.theater.name
+    )
+  ) {
     newSelectedTheaters = selectedTheaters.filter(
-      (theater) => theater !== action.theater
+      (selectedTheater) => selectedTheater.name !== action.theater.name
     );
   } else {
     if (selectedTheaters.length === 3) return;
 
     newSelectedTheaters = selectedTheaters.slice();
+
     newSelectedTheaters.push(action.theater);
+    console.log(newSelectedTheaters);
   }
 
   yield put(setSelectedHour(getCurrentHour())); // 현재 시간을 선택
@@ -338,11 +344,13 @@ const bookingReducer = (state = initialState, action) => {
         },
       };
     case SET_SELECTED_THEATERS:
+      console.log("여긴 액션", action.theaters);
+
       return {
         ...state,
         selectedOption: {
           ...state.selectedOption,
-          selectedTheathers: action.theaters,
+          selectedTheaters: action.theaters,
         },
       };
     case SUCCESS:
