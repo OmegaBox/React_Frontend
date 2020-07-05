@@ -1,16 +1,29 @@
-import React from "react";
+import React, { useEffect, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import "./style/BookingTheaterList.scss";
-import { setSelectRegion, selectTheater } from "../../Reducer/bookingReducer";
+import {
+  setSelectRegion,
+  selectTheater,
+  setNearbyTheaters,
+} from "../../Reducer/bookingReducer";
 import {
   theaterLoaction,
-  getDistanceFromLatLonInKm,
   findNearbyTheaters,
 } from "../../Utils/theaterLoaction";
 
-const BookingTheaterList = (props) => {
-  findNearbyTheaters();
+const BookingTheaterList = () => {
+  // async function dispatchNearby() {
+  //   dispatch(setNearbyTheaters(await findNearbyTheaters()));
+  // }
+
+  const dispatchNearby = useCallback(async () =>
+    dispatch(setNearbyTheaters(await findNearbyTheaters()))
+  );
+
+  useEffect(() => {
+    dispatchNearby();
+  }, [dispatchNearby]);
 
   const selectedOption = useSelector((state) => state.Booking.selectedOption);
   const canSelectTheaters = useSelector(
@@ -21,6 +34,7 @@ const BookingTheaterList = (props) => {
 
   const theaterLocs = theaterLoaction.slice();
   const nearbyTheaters = selectedOption.nearbyTheaters; // 가까운 영화관들
+
   if (!theaterLocs.find((theater) => theater.region === "가까운 영화관")) {
     theaterLocs.unshift({
       region: "가까운 영화관",

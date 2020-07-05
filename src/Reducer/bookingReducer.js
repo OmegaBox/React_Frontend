@@ -11,6 +11,7 @@ const SET_SELECTED_DATE = "booking/SELECTED_DATE";
 const SET_SELECTED_HOUR = "booking/SELECTED_HOUR";
 const SET_SELECTED_REGION = "booking/SELECTED_REGION";
 const SET_SELECTED_THEATERS = "booking/SELECTED_THEATER";
+const SET_NEARBY_THEATERS = "booking/NEARBY_THEATERS";
 
 const SELECT_MOVIE = "booking/SELECT_MOVIE";
 const SELECT_THEATER = "booking/SELECT_THEATER";
@@ -27,6 +28,10 @@ const setSelectedHour = (hour) => ({ type: SET_SELECTED_HOUR, hour });
 const setSelectRegion = (region) => ({ type: SET_SELECTED_REGION, region });
 const setSelectTheaters = (theaters) => ({
   type: SET_SELECTED_THEATERS,
+  theaters,
+});
+const setNearbyTheaters = (theaters) => ({
+  type: SET_NEARBY_THEATERS,
   theaters,
 });
 
@@ -117,7 +122,7 @@ const initialState = {
     제주: 1,
   },
   selectedOption: {
-    selectedDate: "",
+    selectedDate: "2020-07-01",
     selectedRegion: "", // 선택한 지역
     selectedTheaters: [], // 선택한 영화관들
     nearbyTheaters: [
@@ -359,6 +364,14 @@ const bookingReducer = (state = initialState, action) => {
           selectedTheaters: action.theaters,
         },
       };
+    case SET_NEARBY_THEATERS:
+      return {
+        ...state,
+        selectedOption: {
+          ...state.selectedOption,
+          nearbyTheaters: action.theaters,
+        },
+      };
     case SUCCESS:
     case ERROR:
     case LOADING:
@@ -375,4 +388,5 @@ export {
   setSelectedDate,
   setSelectedHour,
   setSelectRegion,
+  setNearbyTheaters,
 };
