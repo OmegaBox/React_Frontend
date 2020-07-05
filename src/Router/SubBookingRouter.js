@@ -5,12 +5,13 @@ import BookingSelectTimeAndTheater from "../Components/Organisms/Booking/Booking
 import BookingSelectSeat from "../Components/Organisms/Booking/BookingSelectSeat";
 import BookingPayment from "../Components/Organisms/Booking/BookingPayment";
 import BookingTicket from "../Components/Organisms/Booking/BookingTicket";
+import BookingSelectMovie from "../Components/Organisms/Booking/BookingSelectMovie";
 
 const SubBookingRouter = () => {
   return (
     <Switch>
-      <Route exact path="/booking" component={BookingSelectTimeAndTheater} />
-      <Route path="/booking/title" component={BookingSelectTitleAndSchedules} />
+      <Route exact path="/booking" component={BookingSelectMovie} />
+      {/* <Route path="/booking/title" component={BookingSelectTitleAndSchedules} /> */}
       <Route path="/booking/seat" component={BookingSelectSeat} />
       <Route path="/booking/payment" component={BookingPayment} />
       <Route path="/booking/ticket" component={BookingTicket} />

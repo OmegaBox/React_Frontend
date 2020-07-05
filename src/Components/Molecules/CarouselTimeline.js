@@ -12,7 +12,6 @@ const timeArray = Array.from(Array(29).keys());
 
 const CarouselTimeline = () => {
   const selectedOption = useSelector((state) => state.Booking.selectedOption);
-  console.log("실랙티드옵션", selectedOption);
 
   let refSlider = null;
   let nowIndex = false;
