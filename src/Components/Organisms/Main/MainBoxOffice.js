@@ -83,7 +83,7 @@ const MainBoxOffice = () => {
                     <div className="boxOfficeMovieScore">
                       <div>
                         <p>관람평</p>
-                        <strong>{}</strong>
+                        <strong>{v.average_point}</strong>
                       </div>
                     </div>
                   </div>
