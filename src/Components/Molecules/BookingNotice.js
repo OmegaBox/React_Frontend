@@ -1,7 +1,9 @@
 import React from "react";
 
+// import "./style/bookingNotice.scss";
+
 const BookingNotice = () => (
-  <div>
+  <div className={["bookingNotice"].join(" ")}>
     <span>상영안내</span>
     <ul>
       <li>쾌적한 관람 환경을 위해 상영시간 이전에 입장 부탁드립니다.</li>
