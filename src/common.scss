@@ -370,6 +370,9 @@ p {
   &.arrowBottom {
     background-image: url("https://img.megabox.co.kr/static/pc/images/common/ico/ico-arr-toggle-down.png");
   }
+  &.arrowRightWhite {
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/ico/ico-arr-right-white.png");
+  }
   &.like {
     background-image: url("https://img.megabox.co.kr/static/pc/images/common/ico/ico-like.png");
     background-position: 50% 0;
@@ -440,6 +443,8 @@ p {
     background-image: url("https://img.megabox.co.kr/static/pc/images/common/ico/ico-person.png");
     background-position: 0 4px;
   }
+  &.btnMore {background-image: url("https://img.megabox.co.kr/static/pc/images/movie/btn-alert.png");}
+  &.reply {background-image: url("https://img.megabox.co.kr/static/pc/images/common/ico/ico-reply.png");}
 }
 
 
