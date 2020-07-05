@@ -16,4 +16,17 @@ export const movieApi = {
 
     return undefined;
   },
+  getScreeningRegions: (date, title) => {
+    const call = `theaters/schedules/regions/${date}/${
+      title ? "?movie=" + title : ""
+    }
+    `;
+    return axios.get(call);
+  },
+  getScreeningTheaters: (date, title) => {
+    const call = `theaters/schedules/${date}/${title ? "?movie=" + title : ""}
+    `;
+
+    return axios.get(call);
+  },
 };

@@ -12,6 +12,8 @@ const SET_SELECTED_HOUR = "booking/SELECTED_HOUR";
 const SET_SELECTED_REGION = "booking/SELECTED_REGION";
 const SET_SELECTED_THEATERS = "booking/SELECTED_THEATER";
 const SET_NEARBY_THEATERS = "booking/NEARBY_THEATERS";
+const SET_CAN_SELECT_REGIONS = "booking/SET_CAN_SELECT_REGIONS";
+const SET_CAN_SELECT_THEATERS = "booking/SET_CAN_SELECT_THEATERS";
 
 const SELECT_MOVIE = "booking/SELECT_MOVIE";
 const SELECT_THEATER = "booking/SELECT_THEATER";
@@ -34,6 +36,14 @@ const setNearbyTheaters = (theaters) => ({
   type: SET_NEARBY_THEATERS,
   theaters,
 });
+const setCanSelectRegions = (regions) => ({
+  type: SET_CAN_SELECT_REGIONS,
+  regions,
+});
+const setCanSelectTheaters = (theaters) => ({
+  type: SET_CAN_SELECT_THEATERS,
+  theaters,
+});
 
 // 외부 api로 정보 가져오는 Thunk
 const getSchedules = () => async (dispatch, state) => {
@@ -44,6 +54,38 @@ const getSchedules = () => async (dispatch, state) => {
   //   theater: 1,
   // });
   // console.log(res);
+};
+
+// 날짜 or 날짜 & 타이틀로 상영 가능한 지역과 영화관 정보 가져오는 Thunk
+const getTheatersCanBooking = (title) => async (dispatch, state) => {
+  const selectedOption = state().Booking.selectedOption;
+  const selectedDate = transformDateFormat(selectedOption.selectedDate)
+    .dateStringNoDash;
+
+  try {
+    const resRegions = await movieApi.getScreeningRegions(
+      selectedDate,
+      title ? title : ""
+    );
+    const resTheaters = await movieApi.getScreeningTheaters(
+      selectedDate,
+      title ? title : ""
+    );
+
+    if (resRegions.status === 200 && resTheaters.status === 200) {
+      const canSelectRegions = {};
+      for (let i = 0; i < resRegions.data.length; i++) {
+        canSelectRegions[resRegions.data[i].region_name] =
+          resRegions.data[i].region_count;
+      }
+      dispatch(setCanSelectRegions(canSelectRegions));
+      dispatch(setCanSelectTheaters(resTheaters.data));
+    } else {
+      console.log("에러 발생");
+    }
+  } catch (e) {
+    console.log("에러 발생", e);
+  }
 };
 
 // 사가 진입용 액션들
@@ -111,29 +153,23 @@ function* bookingSaga() {
 }
 
 const initialState = {
-  canSelectTheaters: {
-    서울: 20,
-    경기: 26,
-    인천: 6,
-    "대전/충청/세종": 15,
-    "부산/대구/경상": 25,
-    "광주/전라": 9,
-    강원: 4,
-    제주: 1,
+  canSelectRegions: {
+    "가까운 영화관": 3,
+    서울: 0,
+    경기: 0,
+    인천: 0,
+    "대전/충청/세종": 0,
+    "부산/대구/경상": 0,
+    "광주/전라": 0,
+    강원: 0,
+    제주: 0,
   },
+  canSelectTheaters: [],
   selectedOption: {
     selectedDate: "2020-07-01",
     selectedRegion: "", // 선택한 지역
     selectedTheaters: [], // 선택한 영화관들
-    nearbyTheaters: [
-      {
-        name: "강남",
-        location: {
-          lat: 37.498227,
-          lng: 127.026375,
-        },
-      },
-    ], // 가까운 영화관
+    nearbyTheaters: [], // 가까운 영화관
     selectedMovies: [],
     movieAgeGrade: "All",
     screenHall: "2관",
@@ -372,6 +408,19 @@ const bookingReducer = (state = initialState, action) => {
           nearbyTheaters: action.theaters,
         },
       };
+    case SET_CAN_SELECT_REGIONS:
+      return {
+        ...state,
+        canSelectRegions: {
+          ...state.canSelectRegions,
+          ...action.regions,
+        },
+      };
+    case SET_CAN_SELECT_THEATERS:
+      return {
+        ...state,
+        canSelectTheaters: action.theaters,
+      };
     case SUCCESS:
     case ERROR:
     case LOADING:
@@ -389,4 +438,6 @@ export {
   setSelectedHour,
   setSelectRegion,
   setNearbyTheaters,
+  getSchedules,
+  getTheatersCanBooking,
 };
