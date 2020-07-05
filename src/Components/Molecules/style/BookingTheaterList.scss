@@ -5,7 +5,7 @@
 }
 
 .bookingTheaterList {
-  width: 350px;
+  width: 500px;
   height: 530px;
   // box-sizing: border-box;
   padding: 10px 20px 20px 20px;
@@ -32,13 +32,13 @@
   }
 
   .region {
-    width: 154.5px;
+    width: 250px;
     border-right: solid 1px $colorGrayEa;
   }
 }
 
 .localRegionTheater {
-  width: 154.5px;
+  width: 250px;
   height: 370px;
   overflow-y: scroll;
   scrollbar-color: $colorGray44 $colorGrayEa;
@@ -67,7 +67,7 @@
 .seletedTheaterLists {
   display: flex;
   justify-content: space-around;
-  width: 308px;
+  width: 460px;
   height: 100px;
   margin-top: 10px;
   font-size: 1.3rem;

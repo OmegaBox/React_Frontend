@@ -11,6 +11,7 @@ const SET_SELECTED_DATE = "booking/SELECTED_DATE";
 const SET_SELECTED_HOUR = "booking/SELECTED_HOUR";
 const SET_SELECTED_REGION = "booking/SELECTED_REGION";
 const SET_SELECTED_THEATERS = "booking/SELECTED_THEATER";
+const SET_NEARBY_THEATERS = "booking/NEARBY_THEATERS";
 
 const SELECT_MOVIE = "booking/SELECT_MOVIE";
 const SELECT_THEATER = "booking/SELECT_THEATER";
@@ -27,6 +28,10 @@ const setSelectedHour = (hour) => ({ type: SET_SELECTED_HOUR, hour });
 const setSelectRegion = (region) => ({ type: SET_SELECTED_REGION, region });
 const setSelectTheaters = (theaters) => ({
   type: SET_SELECTED_THEATERS,
+  theaters,
+});
+const setNearbyTheaters = (theaters) => ({
+  type: SET_NEARBY_THEATERS,
   theaters,
 });
 
@@ -50,7 +55,7 @@ function* selectMovieSaga(action) {
   const state = yield select();
   const selectedMovies = state.Booking.selectedOption.selectedMovies;
   const selectedDate = state.Booking.selectedOption.selectedDate;
-  const selectedTheathers = state.Booking.selectedOption.selectedTheathers;
+  const selectedTheaters = state.Booking.selectedOption.selectedTheaters;
 
   let newSelectedMovies = [];
 
@@ -69,25 +74,30 @@ function* selectMovieSaga(action) {
   if (selectedDate === "") yield put(setSelectedDate(getToday())); // 날짜 선택
   yield put(setSelectedHour(getCurrentHour())); // 현재 시간을 선택
   yield put(setSelectedMovies(newSelectedMovies)); // 영화 선택
-  if (selectedTheathers.length) yield put(getSchedules()); // 영화 가져오기
+  if (selectedTheaters.length) yield put(getSchedules()); // 영화 가져오기
 }
 
 // 영화관 선택용 미들웨어 Saga
 function* selectTheaterSaga(action) {
-  let selectedTheaters = yield select();
-  selectedTheaters = selectedTheaters.Booking.selectedOption.selectedTheathers;
+  const state = yield select();
+  const selectedTheaters = state.Booking.selectedOption.selectedTheaters;
 
   let newSelectedTheaters = [];
 
   // 이미 리스트에 있다면 상태에서 빼고, 없다면 넣는다. 3개이상 못들어간다.
-  if (selectedTheaters.includes(action.theater)) {
+  if (
+    selectedTheaters.find(
+      (selectedTheater) => selectedTheater.name === action.theater.name
+    )
+  ) {
     newSelectedTheaters = selectedTheaters.filter(
-      (theater) => theater !== action.theater
+      (selectedTheater) => selectedTheater.name !== action.theater.name
     );
   } else {
     if (selectedTheaters.length === 3) return;
 
     newSelectedTheaters = selectedTheaters.slice();
+
     newSelectedTheaters.push(action.theater);
   }
 
@@ -112,9 +122,18 @@ const initialState = {
     제주: 1,
   },
   selectedOption: {
-    selectedDate: "",
-    selectedRegion: "",
-    selectedTheathers: [],
+    selectedDate: "2020-07-01",
+    selectedRegion: "", // 선택한 지역
+    selectedTheaters: [], // 선택한 영화관들
+    nearbyTheaters: [
+      {
+        name: "강남",
+        location: {
+          lat: 37.498227,
+          lng: 127.026375,
+        },
+      },
+    ], // 가까운 영화관
     selectedMovies: [],
     movieAgeGrade: "All",
     screenHall: "2관",
@@ -342,7 +361,15 @@ const bookingReducer = (state = initialState, action) => {
         ...state,
         selectedOption: {
           ...state.selectedOption,
-          selectedTheathers: action.theaters,
+          selectedTheaters: action.theaters,
+        },
+      };
+    case SET_NEARBY_THEATERS:
+      return {
+        ...state,
+        selectedOption: {
+          ...state.selectedOption,
+          nearbyTheaters: action.theaters,
         },
       };
     case SUCCESS:
@@ -361,4 +388,5 @@ export {
   setSelectedDate,
   setSelectedHour,
   setSelectRegion,
+  setNearbyTheaters,
 };
