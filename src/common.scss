@@ -446,6 +446,14 @@ p {
   &.btnMore {background-image: url("https://img.megabox.co.kr/static/pc/images/movie/btn-alert.png");}
   &.reply {background-image: url("https://img.megabox.co.kr/static/pc/images/common/ico/ico-reply.png");}
   &.info {background-image: url("https://img.megabox.co.kr/static/pc/images/common/ico/ico-tooltip-gray.png");}
+
+  &.moreMovieIcon {
+    width: 16px;
+    height: 16px;
+    margin: -1px 0 0 7px;
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/ico/ico-more-cross-gray.png");
+    background-repeat: no-repeat;
+  }  
 }
 
 

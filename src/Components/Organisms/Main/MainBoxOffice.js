@@ -52,6 +52,10 @@ const MainBoxOffice = () => {
   //   setSearchInputState('');
   // };
 
+  const favoriteToggle = () => {
+
+  }
+
   return (
     <div className="mainBoxOfficeLayout">
       <div className="mainBoxOffice">
@@ -98,7 +102,7 @@ const MainBoxOffice = () => {
                       ].join(" ")}
                     >
                       <span className="icon favoriteOutLine"></span>
-                      <span className="boxOfficeFavoriteScore">{100}</span>
+                      <span className="boxOfficeFavoriteScore">{v.acc_favorite}</span>
                     </button>
                     <button
                       className={[
