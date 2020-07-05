@@ -48,15 +48,30 @@ const setCanSelectTheaters = (theaters) => ({
 // 외부 api로 정보 가져오는 Thunk
 const getSchedules = () => async (dispatch, state) => {
   const selectedOption = state().Booking.selectedOption;
+  const selectedTheaters = selectedOption.selectedTheaters;
+  const selectedDate = selectedOption.selectedDate;
 
-  // const res = await movieApi.getSchedules({
-  //   date: selectedOption.selectedDate,
-  //   theater: 1,
-  // });
-  // console.log(res);
+  let schedules = [];
+  try {
+    for (let i = 0; i < selectedTheaters.length; i++) {
+      const res = await movieApi.getSchedules({
+        date: selectedDate,
+        theaterId: selectedTheaters[i].theater_id,
+      });
+      if (res.status === 200) {
+        schedules = [...schedules, ...res.data];
+      } else {
+        console.log("status 에러발생");
+      }
+    }
+    dispatch({ type: GET_SCHEDULES_SUCCESS, payload: schedules });
+    console.log(schedules);
+  } catch (e) {
+    console.log("에러발생", e);
+  }
 };
 
-// 날짜 or 날짜 & 타이틀로 상영 가능한 지역과 영화관 정보 가져오는 Thunk
+// 사가로 바꿀것 -> 날짜 or 날짜 & 타이틀로 상영 가능한 지역과 영화관 정보 가져오는 Thunk
 const getTheatersCanBooking = (title) => async (dispatch, state) => {
   const selectedOption = state().Booking.selectedOption;
   const selectedDate = transformDateFormat(selectedOption.selectedDate)
@@ -113,10 +128,10 @@ function* selectMovieSaga(action) {
     newSelectedMovies.push(action.movie);
   }
 
-  if (selectedDate === "") yield put(setSelectedDate(getToday())); // 날짜 선택
+  if (selectedDate === "") yield put(setSelectedDate("2020-07-01")); // 날짜 선택
   yield put(setSelectedHour(getCurrentHour())); // 현재 시간을 선택
   yield put(setSelectedMovies(newSelectedMovies)); // 영화 선택
-  if (selectedTheaters.length) yield put(getSchedules()); // 영화 가져오기
+  if (selectedTheaters.length) yield put(getSchedules()); // 상영관 선택을 했다면 스케쥴 가져오기
 }
 
 // 영화관 선택용 미들웨어 Saga
@@ -144,7 +159,8 @@ function* selectTheaterSaga(action) {
   }
 
   yield put(setSelectedHour(getCurrentHour())); // 현재 시간을 선택
-  yield put(setSelectTheaters(newSelectedTheaters));
+  yield put(setSelectTheaters(newSelectedTheaters)); // 상영관 선택 처리
+  yield put(getSchedules());
 }
 
 function* bookingSaga() {
@@ -165,6 +181,7 @@ const initialState = {
     제주: 0,
   },
   canSelectTheaters: [],
+  schedules: [],
   selectedOption: {
     selectedDate: "2020-07-01",
     selectedRegion: "", // 선택한 지역
@@ -360,6 +377,11 @@ const initialState = {
 
 const bookingReducer = (state = initialState, action) => {
   switch (action.type) {
+    case GET_SCHEDULES_SUCCESS:
+      return {
+        ...state,
+        schedules: action.payload,
+      };
     case SET_SELECTED_MOVIE:
       return {
         ...state,

@@ -70,9 +70,6 @@ const BookingTheaterList = () => {
                 ? "selectedInfoLighter"
                 : "";
 
-            if (theater.region === "가까운 영화관") {
-              console.log(theater.region);
-            }
             return (
               <li className={className}>
                 <button
@@ -102,6 +99,8 @@ const BookingTheaterList = () => {
                 const CanSelected = canSelectTheaters.find(
                   (th) => th.name === theater.name
                 );
+
+                if (CanSelected) theater.theater_id = CanSelected.theater_id;
 
                 let className = "theater";
                 className += isSelected ? " selectedTheater" : "";
