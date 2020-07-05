@@ -48,11 +48,10 @@
 
   .btn.btnCheckDouble {
     position: absolute;
-    top: 50%;
+    top: 0;
     right: 0;
     padding-top: 11px;
     padding-bottom: 16px;
-    margin-top: -27px;
     font-size: 1.3rem;
     font-weight: $textBold;
 
@@ -67,4 +66,8 @@
 .btnSignUp.btn {
   width: 100%;
   margin:0;
+}
+
+.rules {
+  font-size: 1.2rem;
 }

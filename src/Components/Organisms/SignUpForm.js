@@ -1,8 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 
 import "./style/SignUpForm.scss";
 
+import { regExp } from "../../Utils/ultil";
+
 const SignUpForm = () => {
+  const [inputState, inputDispatch] = useState({
+    id: "",
+    pw: "",
+    email: "",
+  });
+  const changeInput = (e) => {
+    inputDispatch({
+      ...inputState,
+      [e.target.name]: e.target.value.split(" ").join(""),
+    });
+  };
+
+  // 중복 체크
+  const [checkDouble, doubleDispatch] = useState(false);
+
+  // 정규식 체크
+  const checkRegExp = (e) => {
+    console.log(inputState[e.target.name]);
+    console.log(regExp[e.target.name].test(inputState[e.target.name]));
+  };
+
   return (
     <div className="signWrap">
       <section className="signUpSec">
@@ -22,8 +45,12 @@ const SignUpForm = () => {
         <div className="idWrap">
           <input
             className={["input", "large"].join(" ")}
+            name="id"
             type="text"
             placeholder="아이디"
+            onChange={changeInput}
+            onBlur={checkRegExp}
+            value={inputState.id}
           />
           <button
             className={["btnCheckDouble", "btn"].join(" ")}
@@ -34,13 +61,21 @@ const SignUpForm = () => {
         </div>
         <input
           className={["input", "large"].join(" ")}
+          name="pw"
           type="password"
           placeholder="비밀번호"
+          onChange={changeInput}
+          onBlur={checkRegExp}
+          value={inputState.pw}
         />
         <input
           className={["input", "large"].join(" ")}
+          name="email"
           type="email"
           placeholder="이메일"
+          onChange={changeInput}
+          onBlur={checkRegExp}
+          value={inputState.email}
         />
         <button
           className={["btnSignUp", "btn", "darkGray", "fill", "large"].join(
