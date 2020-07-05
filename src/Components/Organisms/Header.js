@@ -36,7 +36,7 @@ const Header = () => {
                 <li className="headerIcon menuSearch"></li>
               </ul>
               <ul className="mainMenu mainLeftSide">
-                <li><a href="#">영화</a></li>
+                <li><Link to="/wholeMovieList">영화</Link></li>
                 <li><Link to="/Booking">예매</Link></li>
                 <li>극장</li>
               </ul>
