@@ -1,0 +1,12 @@
+@import "../../../commonVariable.scss";
+
+.BookingScheduleInfo {
+  width: 310px;
+  height: 530px;
+  border: 1px solid $colorGrayEa;
+  padding: 10px 0;
+
+  h3 {
+    padding-left: 20px;
+  }
+}
