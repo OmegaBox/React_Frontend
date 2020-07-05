@@ -90,6 +90,11 @@
       }
     }
     .rating {color: $colorSubLight}
+    &.acc .title {
+      display: flex;
+      align-items: center;
+      span {margin-left: 4px;}
+    }
   }
 }
 .movieVisual .posterButton button {

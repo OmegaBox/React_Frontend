@@ -46,9 +46,9 @@ const MovieDetailWrap = () => {
                 <span className="smallTxt">위 (25.5%)</span>
               </div>
             </li>
-            <li>
+            <li className="acc">
               <h4 className="title">
-                누적관객수<span></span>
+                누적관객수<span className={["icon", "info"].join(" ")}></span>
               </h4>
               <div className="accCumlative">
                 <span className={["icon", "accCumlative"].join(" ")}></span>
