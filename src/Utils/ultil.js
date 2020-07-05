@@ -61,7 +61,7 @@ const numWithComma = (numStr) => {
 
 const regExp = {
   id: /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z]){6,12}/,
-  password: /^([!@.]?[A-Za-z0-9]){6,18}$/,
+  password: /^([!@.]+[A-Za-z0-9]){6,18}$/,
   email: /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@([0-9a-zA-Z]+)([-_.]?[0-9a-zA-Z]{2})*\.[a-zA-Z]{2,3}$/,
 };
 
