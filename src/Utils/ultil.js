@@ -74,9 +74,10 @@ const numWithComma = (numStr) => {
 };
 
 const regExp = {
-  id: /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z]){6,12}/,
-  password: /^([!@.]+[A-Za-z0-9]){6,18}$/,
-  email: /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@([0-9a-zA-Z]+)([-_.]?[0-9a-zA-Z]{2})*\.[a-zA-Z]{2,3}$/,
+  id: /^[0-9a-zA-Z_]{6,}$/,
+  pw: /((?=.*[0-9a-zA-Z])(?=.*[!@#$%^&*]).{8,})/,
+  tell: /^(010|0)(\d{8})/g,
+  email: /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@([0-9a-zA-Z]+)([-_\.]?[a-zA-Z]{2})*\.[a-zA-Z]{2,3}$/,
 };
 
 export {
@@ -85,4 +86,5 @@ export {
   getDateRangeData,
   transformDateFormat,
   numWithComma,
+  regExp,
 };
