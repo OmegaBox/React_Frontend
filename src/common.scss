@@ -133,7 +133,12 @@ button {
   border: none;
   background: none;
   cursor: pointer;
+  
+  &:hover {
+    text-decoration: none;
+  }
 }
+
 .btn {
   margin: 0 4px;
   padding: 0 16px;

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 
+import "../../common.scss";
 import "./style/SignUpForm.scss";
 
 import { regExp } from "../../Utils/ultil";
@@ -26,23 +27,22 @@ const SignUpForm = () => {
     console.log(regExp[e.target.name].test(inputState[e.target.name]));
   };
 
+  const signon = false;
+
   return (
     <div className="signWrap">
       <section className="signUpSec">
         <h2>회원가입</h2>
         <p className="textInfo">서비스를 이용하려면 가입하세요.</p>
         <button
-          className={[
-            "btnGoogleSignUp",
-            "btn",
-            "darkGray",
-            "fill",
-            "large",
-          ].join(" ")}
+          className={["btnGoogleSignUp", "btn", "white", "fill", "large"].join(
+            " "
+          )}
         >
           구글 회원 가입
         </button>
         <div className="idWrap">
+          <label>아이디</label>
           <input
             className={["input", "large"].join(" ")}
             name="id"
@@ -59,29 +59,61 @@ const SignUpForm = () => {
             중복확인
           </button>
         </div>
-        <input
-          className={["input", "large"].join(" ")}
-          name="pw"
-          type="password"
-          placeholder="비밀번호"
-          onChange={changeInput}
-          onBlur={checkRegExp}
-          value={inputState.pw}
-        />
-        <input
-          className={["input", "large"].join(" ")}
-          name="email"
-          type="email"
-          placeholder="이메일"
-          onChange={changeInput}
-          onBlur={checkRegExp}
-          value={inputState.email}
-        />
+        <div>
+          <label>비밀번호</label>
+          <input
+            className={["input", "large"].join(" ")}
+            name="pw"
+            type="password"
+            placeholder="비밀번호"
+            onChange={changeInput}
+            onBlur={checkRegExp}
+            value={inputState.pw}
+          />
+        </div>
+        <div>
+          <label>생년월일</label>
+          <input
+            className={["input", "large"].join(" ")}
+            name="birth"
+            type="date"
+            placeholder="생년월일"
+            // value={"2020-07-06"}
+            // onChange={changeInput}
+            // onBlur={checkRegExp}
+            // value={inputState.birth}
+          />
+        </div>
+        <div>
+          <label>전화번호</label>
+          <input
+            className={["input", "large"].join(" ")}
+            name="tell"
+            type="number"
+            placeholder="전화번호"
+            // onChange={changeInput}
+            // onBlur={checkRegExp}
+            // value={inputState.tell}
+          />
+        </div>
+        <div>
+          <label>이메일</label>
+          <input
+            className={["input", "large"].join(" ")}
+            name="email"
+            type="email"
+            placeholder="이메일"
+            onChange={changeInput}
+            onBlur={checkRegExp}
+            value={inputState.email}
+          />
+        </div>
         <button
-          className={["btnSignUp", "btn", "darkGray", "fill", "large"].join(
-            " "
-          )}
-          disabled={true}
+          className={
+            ["btnSignUp", "btn", "large"].join(" ") +
+            (signon ? " lightGray" : " main fill")
+          }
+          disabled={signon}
         >
           회원가입
         </button>
