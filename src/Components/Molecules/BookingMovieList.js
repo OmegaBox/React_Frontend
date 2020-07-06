@@ -51,7 +51,11 @@ const BookingMovieList = () => {
                 type="button"
                 onClick={() =>
                   dispatch(
-                    selectMovie({ title: movie.name_kor, poster: movie.poster })
+                    selectMovie({
+                      title: movie.name_kor,
+                      poster: movie.poster,
+                      id: movie.id,
+                    })
                   )
                 }
               >

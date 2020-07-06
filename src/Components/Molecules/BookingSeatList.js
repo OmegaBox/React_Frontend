@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { setSelectSeat } from "../../Reducer/bookingSeatReducer";
 
 import "./style/BookingSeatList.scss";
+import { movieApi } from "../../Api/api";
 
 // 홀 정보 배열
 const screeningHallSeatInfo = [
@@ -102,6 +103,12 @@ const BookingSeatList = () => {
     state.Seat.selectedSeat,
     state.Seat.personal,
   ]);
+  const test = async () => {
+    const dd = await movieApi.getSeats(1);
+    console.log("좌석정보", dd);
+  };
+
+  test();
 
   // 선택 좌석 수
   const totalSeatCount = select.length;
