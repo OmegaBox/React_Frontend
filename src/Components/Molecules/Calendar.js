@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setSelectedDate } from "../../Reducer/bookingReducer";
+import { selectDate } from "../../Reducer/bookingReducer";
 
 import Flatpickr from "react-flatpickr";
 import "flatpickr/dist/themes/material_green.css";
@@ -44,7 +44,7 @@ const Calendar = () => {
         }}
         value={selectedOption.selectedDate}
         onChange={(date) => {
-          dispatch(setSelectedDate(transformDateFormat(date).dateString));
+          dispatch(selectDate(transformDateFormat(date).dateString));
         }}
       />
     </div>
