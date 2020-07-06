@@ -60,7 +60,6 @@ const MainBoxOffice = () => {
         <div className="mainMovieList">
           <ul className="mainMoviesWrap">
             {movieBox.map((v, i) => {
-              console.log(v);
               return (
                 <li key={i}>
                   <p className="mainRank">{v.rank}</p>

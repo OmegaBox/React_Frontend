@@ -10,10 +10,10 @@ const MainLink = () => {
         </li>
         <li className="linkMember">
           <span>멤버십</span>
-          </li>
+        </li>
         <li className="linkCard">
           <span>할인카드안내</span>
-          </li>
+        </li>
         <li className="linkEvent">
           <span>이벤트</span>
         </li>
