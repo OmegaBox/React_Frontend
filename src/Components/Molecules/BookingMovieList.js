@@ -46,7 +46,7 @@ const BookingMovieList = () => {
             : "";
 
           return (
-            <li className={selectedClassName}>
+            <li key={`movieList${movie.id}`} className={selectedClassName}>
               <button
                 type="button"
                 onClick={() =>

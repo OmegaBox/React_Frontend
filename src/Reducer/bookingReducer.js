@@ -129,51 +129,56 @@ const getTheatersCanBooking = (movies = []) => async (dispatch, state) => {
       JSON.stringify(newRegionTheaterLog.searchOption)
   );
 
-  console.log("과거 로그 확인", pastLog);
+  if (pastLog) {
+    dispatch(setCanSelectRegions(pastLog.canSelectRegions));
+    dispatch(setCanSelectTheaters(pastLog.canSelectTheaters));
+  } else {
+    try {
+      const resRegions = await movieApi.getScreeningRegions(
+        selectedDate,
+        movies.length ? movies : ""
+      );
+      const resTheaters = await movieApi.getScreeningTheaters(
+        selectedDate,
+        movies.length ? movies : ""
+      );
 
-  try {
-    const resRegions = await movieApi.getScreeningRegions(
-      selectedDate,
-      movies.length ? movies : ""
-    );
-    const resTheaters = await movieApi.getScreeningTheaters(
-      selectedDate,
-      movies.length ? movies : ""
-    );
+      if (resRegions.status === 200 && resTheaters.status === 200) {
+        const canSelectRegions = {
+          "가까운 영화관": 3,
+          서울: 0,
+          경기: 0,
+          인천: 0,
+          "대전/충청/세종": 0,
+          "부산/대구/경상": 0,
+          "광주/전라": 0,
+          강원: 0,
+          제주: 0,
+        };
+        for (let i = 0; i < resRegions.data.results.length; i++) {
+          canSelectRegions[resRegions.data.results[i].region_name] =
+            resRegions.data.results[i].region_count;
+        }
+        dispatch(setCanSelectRegions(canSelectRegions));
+        dispatch(setCanSelectTheaters(resTheaters.data.results));
 
-    if (resRegions.status === 200 && resTheaters.status === 200) {
-      const canSelectRegions = {
-        "가까운 영화관": 3,
-        서울: 0,
-        경기: 0,
-        인천: 0,
-        "대전/충청/세종": 0,
-        "부산/대구/경상": 0,
-        "광주/전라": 0,
-        강원: 0,
-        제주: 0,
-      };
-      for (let i = 0; i < resRegions.data.results.length; i++) {
-        canSelectRegions[resRegions.data.results[i].region_name] =
-          resRegions.data.results[i].region_count;
+        // 로그로 기록하기
+        newRegionTheaterLog.canSelectRegions = canSelectRegions;
+        newRegionTheaterLog.canSelectTheaters = resTheaters.data.results;
+        dispatch({
+          type: SET_REGION_THEATER_LOG,
+          payload: newRegionTheaterLog,
+        });
+      } else {
+        console.log("에러 발생");
       }
-      dispatch(setCanSelectRegions(canSelectRegions));
-      dispatch(setCanSelectTheaters(resTheaters.data.results));
-
-      // 로그로 기록하기
-      newRegionTheaterLog.canSelectRegions = canSelectRegions;
-      newRegionTheaterLog.canSelectTheaters = resTheaters.data.results;
-      dispatch({ type: SET_REGION_THEATER_LOG, payload: newRegionTheaterLog });
-    } else {
-      console.log("에러 발생");
+    } catch (e) {
+      console.log("에러 발생", e);
     }
-  } catch (e) {
-    console.log("에러 발생", e);
   }
 
   // 만약 이미 선택한 상영관이 선택 불가능하게 바뀌었을 경우 선택을 취소해준다
   const canSelectTheaters = state().Booking.canSelectTheaters;
-  console.log("에러 시작 직전이야", canSelectTheaters);
 
   const newSelectedTheaters = canSelectTheaters.filter((theater) =>
     selectedTheaters.find((th) => th.name === theater.name)
