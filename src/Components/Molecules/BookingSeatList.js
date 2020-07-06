@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { setSelectSeat } from "../../Reducer/bookingSeatReducer";
+
+import { movieApi } from "../../Api/api";
 
 import "./style/BookingSeatList.scss";
 
@@ -110,6 +112,10 @@ const BookingSeatList = () => {
   // 선택 가능
   const selectable = totalCount - totalSeatCount > 0;
 
+  useEffect(() => {
+    const seatDate = movieApi.getSeats(1);
+    console.log(seatDate);
+  }, []);
   return (
     <div className="bookingSeatList">
       <ul className="seatRowName">
