@@ -2,62 +2,90 @@
 @import "../../../commonVariable.scss";
 
 .signWrap{
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  margin: 0;
-  padding: 0;
+  padding: 40px;
+  background: $whiteGrayBg;
 }
 
 .signUpSec {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
   width: 427px;
-  height: 632px;
-  padding: 50px 30px 145px;
+  padding: 32px 40px 50px;
   margin: auto;
   border: 1px solid $border;
-  border-radius: 4px;
-  background-color: $lightBg;
+  border-radius: 8px;
+  background-color: $colorWhite;
   text-align: center;
+
+  & div.inputWrap {
+    position: relative;
+    margin: 0 0 28px;
+  }
+
+  & .inputWrap label {
+    width: 100%;
+    margin-bottom: 4px;
+    padding: 0;
+    font-size: 1.6rem;
+    font-weight: 500;
+    color: $colorMain;
+    text-align: left;
+  }
 
   & input.input {
     width: 100%;
     margin-right: 0;
-    margin-bottom: 10px;
     font-size: 1.5rem;
+  }
+  .alertText {
+    position: absolute;
+    bottom: -20px;
+    left: 4px;
+    font-size: 1.2rem;
+    color: $colorRed;
   }
 }
 
 .textInfo {
-  margin: 33px 0 40px;
+  margin: 25px 0 30px;
 }
 
 .btnGoogleSignUp.btn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   width: 100%;
-  margin:0 0 40px;
+  margin:0 0 20px;
+  padding: 0;
+  span {
+    flex-grow: 1;
+    text-align: center;
+  }
+  .logo {
+    flex-grow: 0;
+    display: inline-block;
+    width: 45px;
+    height: 45px;
+    background: url("../../../images/google_logo.png") no-repeat center;
+    background-size: 50%;
+    border-right: 1px solid $border;
+  }
 }
 
 .idWrap {
-  position: relative;
+  input#id.input {
+    padding-right: 72px;
+  }
 
   .btn.btnCheckDouble {
     position: absolute;
-    top: 50%;
+    bottom: 0;
     right: 0;
-    padding-top: 11px;
-    padding-bottom: 16px;
-    margin-top: -27px;
+    padding: 11px 10px 16px;
+    margin: 0;
     font-size: 1.3rem;
     font-weight: $textBold;
 
     &[disabled] {
-      color: $colorLightText;
+      color: $colorDisabledText;
       font-weight: $textMedium;
       cursor: default;
     }
@@ -66,5 +94,20 @@
 
 .btnSignUp.btn {
   width: 100%;
-  margin:0;
+  margin: 20px 0 0;
+
+  &:hover{
+    text-decoration: none;
+  }
+
+  &[disabled] {
+    color: $colorDisabledText !important;
+    background-color: $btnLightGray;
+    border-color: $btnLightGray;
+    cursor: default;
+  }
+}
+
+.rules {
+  font-size: 1.2rem;
 }
