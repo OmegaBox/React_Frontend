@@ -29,12 +29,7 @@ export const movieApi = {
 
     return axios.get(call);
   },
-  getSeats: async (scheduleId) => {
-    const res = await axios.get(`theaters/schedules/${scheduleId}/seats/`);
-    return {
-      status: res.status,
-      statusText: res.statusText,
-      data: res.data,
-    };
+  getSeats: (scheduleId) => {
+    return axios.get(`theaters/schedules/${scheduleId}/seats/`);
   },
 };
