@@ -23,16 +23,16 @@ const BookingMovieList = () => {
         {movies.map((movie) => {
           let iconClassName = "icon";
           switch (movie.grade) {
-            case "청소년관람불가":
+            case "청소년관람불가" || "18+":
               iconClassName += " ageGrade19Small";
               break;
-            case "15세이상관람가":
+            case "15세이상관람가" || "15+":
               iconClassName += " ageGrade15Small";
               break;
-            case "12세이상관람가":
+            case "12세이상관람가" || "12+":
               iconClassName += " ageGrade12Small";
               break;
-            case "전체관람가":
+            case "전체관람가" || "all":
             default:
               iconClassName += " ageGradeSmall";
               break;

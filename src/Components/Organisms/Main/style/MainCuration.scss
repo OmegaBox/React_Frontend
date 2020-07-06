@@ -14,14 +14,23 @@
 .mainHeader {
   display: flex;
   justify-content: space-between;
+  position: relative;
   margin-bottom: 30px;
   height: 30px;
   padding: 50px 0 40px 0;
   font-size: 20px;
   font-weight: 400;
   div {
-    color: $colorGray66;
+    color: $colorDisabledText;
+    line-height: 16px;
+    font-size: 15px;
   }
+}
+.moreCurationWrap {
+  display: flex;
+  position: absolute;
+  top: 70px;
+  right: 0;
 }
 
 .curationPoster {
