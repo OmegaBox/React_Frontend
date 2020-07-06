@@ -77,12 +77,12 @@ const WholeMovieListWrap = () => {
             <li key={i}>
               <p className="mainRank">{v.rank}</p>
               <img
-                className="boxOfficeMoviePoster"
+                className="wholeMoviePoster"
                 alt="영화이미지"
                 src="https://img.megabox.co.kr/SharedImg/2020/06/02/xIBdAOS5lJNBe1CBXovcV1WYE9Q6DWPV_420.jpg"
               />
-              <div className="boxOfficeMovieInforWrap">
-                <div className="boxOfficeMovieSummary">
+              <div className="wholeMovieInforWrap">
+                <div className="wholeMovieSummary">
                   <p>{v.description}</p>
                 </div>
                 <div className="boxOfficeMovieScore">
@@ -102,10 +102,10 @@ const WholeMovieListWrap = () => {
                 <span className="movieListOpeningDay">개봉일{v.open_date}</span>
               </div>
 
-              <div className="boxOfficeBtnWrap">
+              <div className="wholeBtnWrap">
                 <button
                   className={[
-                    "boxOfficeFavoriteBtn",
+                    "wholeFavoriteBtn",
                     "btn",
                     "outLine",
                     "lightGray",
@@ -113,11 +113,11 @@ const WholeMovieListWrap = () => {
                   ].join(" ")}
                 >
                   <span className="icon favorite"></span>
-                  <span className="boxOfficeFavoriteScore">{v.acc_favorite}</span>
+                  <span className="wholeFavoriteScore">{v.acc_favorite}</span>
                 </button>
                 <button
                   className={[
-                    "boxOfficeBookingBtn",
+                    "wholeBookingBtn",
                     "btn",
                     "fill",
                     "subLight",
