@@ -1,6 +1,86 @@
-import React from "react";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import BookingCancel from "../../Molecules/BookingCancel";
+import PopupNotice from "../../Molecules/PopupNotice";
+import ModalPortal from "../../../Modules/ModalPortal";
 
 const BookingHistoryWrap = () => {
+  /* 예매내역 */
+  const { bookingHistory } = useSelector((state) => ({
+    bookingHistory: state.userInfo.bookingHistory,
+  }));
+
+  const { cancelMovies } = useSelector((state) => ({
+    cancelMovies: state.userInfo.cancelMovies,
+  }));
+  const priceTypeConversion = (price) => {
+    let totalPoint = Array.from(String(price));
+    totalPoint.splice(-3, 0, ",");
+    totalPoint = totalPoint.join("");
+    return totalPoint;
+  };
+
+  const [useInfo, setUseInfo] = useState({ open: false });
+
+  const openUseInfo = () => {
+    setUseInfo({
+      open: !useInfo.open,
+    });
+  };
+
+  /* 모달 팝업 */
+  const [modal, text, event, w, h] = useSelector((state) => {
+    const Modal = state.modal;
+    return [Modal.modal, Modal.text, Modal.event, Modal.width, Modal.height];
+  });
+
+  const now = new Date();
+
+  const getSelectTerm = (now, term) => {
+    let _now = new Date(now);
+    let year = now.getFullYear();
+    let month = now.getMonth();
+    let date = now.getDate();
+    let selectTerm = "";
+
+    if (term === 7) {
+      year =
+        now.getMonth() === 0 && now.getDate() <= 7
+          ? now.getFullYear() - 1
+          : now.getFullYear();
+      month =
+        now.getDate() <= 7
+          ? now.getMonth()
+            ? now.getMonth()
+            : 12
+          : now.getMonth() + 1;
+      _now.setDate(now.getDate() - term);
+      date = _now.getDate();
+    } else {
+      year = now.getMonth() < term ? now.getFullYear() - 1 : now.getFullYear();
+      _now.setMonth(now.getMonth() - term);
+      month = _now.getMonth() + 1;
+      date = now.getDate();
+    }
+    selectTerm = `${year}/${month < 10 ? "0" + month : month}/${
+      date < 10 ? "0" + date : date
+    }`;
+    console.log(selectTerm);
+    return selectTerm;
+  };
+  const [_bookingHistory, set_BookingHistory] = useState(bookingHistory);
+  console.log(_bookingHistory);
+
+  const selectTerm = (now, term) => {
+    set_BookingHistory(
+      bookingHistory.filter(
+        (booking) =>
+          Date.parse(getSelectTerm(now, term)) < Date.parse(booking.paymentDate)
+      )
+    );
+  };
+
   return (
     <div className="bookingHistoryWrap">
       <h3 className="mypageTitle">예매내역</h3>
@@ -11,93 +91,117 @@ const BookingHistoryWrap = () => {
             <button
               type="button"
               className={["btn", "small", "fill", "white"].join(" ")}
+              onClick={() => selectTerm(now, 7)}
             >
               1주일
             </button>
             <button
               type="button"
               className={["btn", "small", "fill", "white"].join(" ")}
+              onClick={() => selectTerm(now, 1)}
             >
               1개월
             </button>
             <button
               type="button"
               className={["btn", "small", "fill", "white"].join(" ")}
+              onClick={() => selectTerm(now, 3)}
             >
               3개월
             </button>
             <button
               type="button"
               className={["btn", "small", "fill", "white"].join(" ")}
+              onClick={() => selectTerm(now, 6)}
             >
               6개월
             </button>
           </div>
         </div>
         <p className="listCounter">
-          총<span>0</span>건
+          총<span>{_bookingHistory.length}</span>건
         </p>
         <ul className="movieList">
-          <li className="listNull">리스트가 없습니다.</li>
-          <li>
-            <article className="movieItem">
-              <div className="poster">
-                <img
-                  src="https://img.megabox.co.kr/SharedImg/2020/05/26/4DpEOKISeL20EXabwXkfsfaeeJW27heu_230.jpg"
-                  alt=""
-                />
-              </div>
-              <ul className={["info", "clearfix"].join(" ")}>
-                <li className="bookingNumber">
-                  <h5>예매번호</h5>
-                  <p>2020-156-5456</p>
-                </li>
-                <li className="title">
-                  <h5>영화명</h5>
-                  <p>결백</p>
-                </li>
-                <li className="theater">
-                  <h5>극장/상영관</h5>
-                  <p>강남/4관</p>
-                </li>
-                <li className="peopleCounter">
-                  <h5>관람인원</h5>
-                  <p>성인 1명</p>
-                </li>
-                <li className="viewingDate">
-                  <h5>관람일시</h5>
-                  <p>2020.06.30 14:20</p>
-                </li>
-                <li className="viewingSeat">
-                  <h5>관람좌석</h5>
-                  <p>B열 10</p>
-                </li>
-                <li className="paymentDate">
-                  <h5>결제일시</h5>
-                  <p>2020.06.30 14:20</p>
-                </li>
-                <li className="point">
-                  <h5>적립예정포인트</h5>
-                  <p>600p</p>
-                </li>
-                <li className="btnWrap">
-                  <button
-                    type="button"
-                    className={["btn", "fill", "small", "main"].join(" ")}
-                  >
-                    교환권출력
-                  </button>
-                  <button
-                    type="button"
-                    className={["btn", "fill", "small", "darkGray"].join(" ")}
-                  >
-                    예매취소
-                  </button>
-                </li>
-              </ul>
-            </article>
-          </li>
+          {bookingHistory.length ? (
+            _bookingHistory.map((booking) => (
+              <li key={booking.id}>
+                <article className="movieItem">
+                  <div className="poster">
+                    <img
+                      src={booking.poster}
+                      alt={[booking.title, "포스터"].join(" ")}
+                    />
+                  </div>
+                  <ul className={["info", "clearfix"].join(" ")}>
+                    <li className="bookingNumber">
+                      <h5>예매번호</h5>
+                      <p>{booking.ticketNumber}</p>
+                    </li>
+                    <li className="title">
+                      <h5>영화명</h5>
+                      <p>{booking.title}</p>
+                    </li>
+                    <li className="theater">
+                      <h5>극장/상영관</h5>
+                      <p>
+                        {booking.theater} / {booking.screeningHall}
+                      </p>
+                    </li>
+                    <li className="peopleCounter">
+                      <h5>관람인원</h5>
+                      <p>{booking.attendance}</p>
+                    </li>
+                    <li className="viewingDate">
+                      <h5>관람일시</h5>
+                      <p>
+                        {booking.date} ({booking.time})
+                      </p>
+                    </li>
+                    <li className="viewingSeat">
+                      <h5>관람좌석</h5>
+                      <p>{booking.seats}</p>
+                    </li>
+                    <li className="paymentDate">
+                      <h5>결제일시</h5>
+                      <p>
+                        {booking.paymentDate} ({booking.paymentTime})
+                      </p>
+                    </li>
+                    <li className="btnWrap">
+                      <button
+                        type="button"
+                        className={["btn", "fill", "small", "main"].join(" ")}
+                      >
+                        교환권출력
+                      </button>
+                      <BookingCancel
+                        classSet={["btn", "fill", "small", "darkGray"].join(
+                          " "
+                        )}
+                      />
+                    </li>
+                  </ul>
+                </article>
+              </li>
+            ))
+          ) : (
+            <li className="listNull" key={bookingHistory.length}>
+              리스트가 없습니다.
+            </li>
+          )}
         </ul>
+        {modal && (
+          <ModalPortal>
+            <PopupNotice
+              text={text}
+              onEvent={event}
+              popupSize={{
+                width: w,
+                height: h,
+              }}
+            />
+          </ModalPortal>
+        )}
       </section>
       <section className="bookingCancel">
         <div className="subTitleWrap">
@@ -117,25 +221,30 @@ const BookingHistoryWrap = () => {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>2020.06.26 (23:16)</td>
-              <td>결백</td>
-              <td>코엑스</td>
-              <td>2020.06.30 (화) 21:00</td>
-              <td>10,000원</td>
-            </tr>
-            <tr>
-              <td>2020.06.26 (23:16)</td>
-              <td>결백</td>
-              <td>코엑스</td>
-              <td>2020.06.30 (화) 21:00</td>
-              <td>10,000원</td>
-            </tr>
+            {cancelMovies.length ? (
+              cancelMovies.map((cancelMovie) => (
+                <tr key={cancelMovie.id}>
+                  <td>
+                    {cancelMovie.cancelDate} ({cancelMovie.cancelTime})
+                  </td>
+                  <td>{cancelMovie.title}</td>
+                  <td>{cancelMovie.theater}</td>
+                  <td>
+                    {cancelMovie.date} {cancelMovie.time}
+                  </td>
+                  <td>{priceTypeConversion(cancelMovie.price)}원</td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="5">취소내역이 없습니다.</td>
+              </tr>
+            )}
           </tbody>
         </table>
         <ul className="paging">
           <li>
-            <a href="#">1</a>
+            <Link to="">1</Link>
           </li>
         </ul>
       </section>
@@ -143,11 +252,16 @@ const BookingHistoryWrap = () => {
         <button
           type="button"
           className={["btn", "regular", "fill", "white"].join(" ")}
+          onClick={openUseInfo}
         >
           이용안내
           <span className={["icon", "arrowBottom"].join(" ")}></span>
         </button>
-        <div className="explanation">
+        <div
+          className={
+            useInfo.open ? ["explanation", "open"].join(" ") : "explanation"
+          }
+        >
           <h4>[예매안내]</h4>
           <ul className="bullet">
             <li>

@@ -32,13 +32,23 @@
   }
 
   .region {
-    width: 154.5px;
+    width: 250px;
     border-right: solid 1px $colorGrayEa;
+
+    li.disabled {
+      button {
+        cursor: default;
+      }
+
+      span {
+        color: $colorGrayEa;
+      }
+    }
   }
 }
 
 .localRegionTheater {
-  width: 154.5px;
+  width: 250px;
   height: 370px;
   overflow-y: scroll;
   scrollbar-color: $colorGray44 $colorGrayEa;
@@ -49,6 +59,14 @@
     background-color: $colorGray66;
     span {
       color: white;
+    }
+  }
+  .theater.disabled {
+    span {
+      color: $colorGrayEa;
+    }
+    button {
+      cursor: default;
     }
   }
 }
@@ -67,7 +85,7 @@
 .seletedTheaterLists {
   display: flex;
   justify-content: space-around;
-  width: 308px;
+  width: 100%;
   height: 100px;
   margin-top: 10px;
   font-size: 1.3rem;

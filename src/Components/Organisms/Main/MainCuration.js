@@ -7,7 +7,10 @@ const MainCuration = () => {
       <div className="mainCuration">
         <div className="mainHeader">
           <h2>큐레이션</h2>
-          <div className="moreCuration">큐레이션 더보기 +</div>
+          <div className="moreCurationWrap">
+            <div className="moreCuration">큐레이션 더보기</div>
+            <div className="icon moreMovieIcon"></div>
+          </div>
         </div>
         <div className="curationPoster">
           <div>
