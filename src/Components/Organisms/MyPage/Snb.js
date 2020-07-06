@@ -12,27 +12,27 @@ const Snb = () => {
           <Link to="/mypage/bookinghistory">예매/구매내역</Link>
         </li>
         <li>
-          <a href="#">영화/스토어 관람권</a>
+          <Link to="">영화/스토어 관람권</Link>
           <ul className={["subNavList", "bullet"].join(" ")}>
             <li>
-              <a href="#">영화관람권</a>
+              <Link to="">영화관람권</Link>
             </li>
             <li>
-              <a href="#">스토어 교환권</a>
+              <Link to="">스토어 교환권</Link>
             </li>
           </ul>
         </li>
         <li>
-          <a href="#">할인/제휴쿠폰</a>
+          <Link to="">할인/제휴쿠폰</Link>
         </li>
         <li>
           <Link to="/mypage/point">멤버십 포인트</Link>
           <ul className={["subNavList", "bullet"].join(" ")}>
             <li>
-              <a href="#">포인트 이용내역</a>
+              <Link to="">포인트 이용내역</Link>
             </li>
             <li>
-              <a href="#">멤버십 카드관리</a>
+              <Link to="">멤버십 카드관리</Link>
             </li>
           </ul>
         </li>
@@ -40,13 +40,13 @@ const Snb = () => {
           <Link to="/mypage/mymoviestory">나의 무비스토리</Link>
         </li>
         <li>
-          <a href="#">나의 이벤트 응모내역</a>
+          <Link to="">나의 이벤트 응모내역</Link>
         </li>
         <li>
-          <a href="#">나의 문의내역</a>
+          <Link to="">나의 문의내역</Link>
         </li>
         <li>
-          <a href="#">자주쓰는 카드 관리</a>
+          <Link to="">자주쓰는 카드 관리</Link>
         </li>
         <li>
           <Link to="/mypage/confirmpassword">회원정보</Link>

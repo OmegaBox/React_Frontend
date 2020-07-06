@@ -1,6 +1,10 @@
+const getToday = () => new Date().toISOString().slice(0, 10);
+const getCurrentHour = () => new Date().getHours();
+
+// start와 end 까지의 모든 날짜를 다양한 형태의 문자열 형식을 가진 객체로 만들어준다
 const getDateRangeData = (start, end) => {
-  //param1은 시작일, param2는 종료일이다.
   const week = ["일", "월", "화", "수", "목", "금", "토"];
+  const dateObject = new Date(start);
   const resultDates = [];
   const startDate = new Date(start);
   const endDate = new Date(end);
@@ -13,8 +17,14 @@ const getDateRangeData = (start, end) => {
     const stringDay = day < 10 ? "0" + day : day;
 
     resultDates.push({
-      dateObject: new Date(startDate),
+      dateObject: dateObject,
       dateString: startDate.getFullYear() + "-" + month + "-" + stringDay,
+      dateStringNoDash: (
+        dateObject.getFullYear() +
+        month +
+        stringDay +
+        ""
+      ).slice(2),
       dateYearMonth: startDate.getFullYear() + "." + month,
       month: month,
       day: day,
@@ -27,6 +37,7 @@ const getDateRangeData = (start, end) => {
   return resultDates;
 };
 
+// 특정 날짜만 다양한 형태의 문자열을 가진 객체로 바꾼다
 const transformDateFormat = (date) => {
   const week = ["일", "월", "화", "수", "목", "금", "토"];
   const dateObject = new Date(date);
@@ -40,6 +51,9 @@ const transformDateFormat = (date) => {
   return {
     dateObject: dateObject,
     dateString: dateObject.getFullYear() + "-" + month + "-" + stringDay,
+    dateStringNoDash: (dateObject.getFullYear() + month + stringDay + "").slice(
+      2
+    ),
     dateYearMonth: dateObject.getFullYear() + "." + month,
     month: month,
     day: day,
@@ -65,4 +79,11 @@ const regExp = {
   email: /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@([0-9a-zA-Z]+)([-_.]?[a-zA-Z]{2})*\.[a-zA-Z]{2,3}$/,
 };
 
-export { getDateRangeData, transformDateFormat, numWithComma, regExp };
+export {
+  getToday,
+  getCurrentHour,
+  getDateRangeData,
+  transformDateFormat,
+  numWithComma,
+  regExp,
+};

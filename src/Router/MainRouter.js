@@ -7,6 +7,7 @@ import LoginAndSignUpPage from "../Components/Pages/LoginAndSignUpPage";
 import NotFoundPage from "../Components/Pages/NotFoundPage";
 import ComponentSample from "../ComponentSample";
 import MovieDetailPage from "../Components/Pages/MovieDetailPage";
+import WholeMovieLIstPage from "../Components/Pages/WholeMovieListPage"
 
 const MainRouter = () => {
   return (
@@ -14,6 +15,7 @@ const MainRouter = () => {
       <Route exact path="/" component={MainPage} />
       <Route path="/booking" component={BookingPage} />
       <Route path="/movieDetail" component={MovieDetailPage} />
+      <Route path="/wholeMovieList" component={WholeMovieLIstPage} />
       <Route path="/mypage" component={MyPage} />
       <Route path={["/login", "/signup"]} component={LoginAndSignUpPage} />
       <Route path="/stylesample" component={ComponentSample} />
