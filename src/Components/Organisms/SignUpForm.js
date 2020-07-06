@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import "../../common.scss";
 import "./style/SignUpForm.scss";
 
-import { regExp } from "../../Utils/ultil";
+import { getToday, regExp } from "../../Utils/ultil";
 
 const SignUpForm = () => {
   const [inputState, inputDispatch] = useState({
@@ -41,13 +41,14 @@ const SignUpForm = () => {
         >
           구글 회원 가입
         </button>
-        <div className="idWrap">
-          <label>아이디</label>
+        <div className={["idWrap", "inputWrap"].join(" ")}>
+          <label for="id">아이디</label>
           <input
             className={["input", "large"].join(" ")}
+            id="id"
             name="id"
             type="text"
-            placeholder="아이디"
+            placeholder="대/소문자, 숫자, 특수문자(-_.) 조합 6자리 이상"
             onChange={changeInput}
             onBlur={checkRegExp}
             value={inputState.id}
@@ -58,51 +59,56 @@ const SignUpForm = () => {
           >
             중복확인
           </button>
+          <div className="notice">아이디를 규칙에 맞게 입력해주세요</div>
         </div>
-        <div>
-          <label>비밀번호</label>
+        <div className={["pwWrap", "inputWrap"].join(" ")}>
+          <label for="pw">비밀번호</label>
           <input
             className={["input", "large"].join(" ")}
+            id="pw"
             name="pw"
             type="password"
-            placeholder="비밀번호"
+            placeholder="특수문자(!@#$%^&*)를 포함한 8자리 이상"
             onChange={changeInput}
             onBlur={checkRegExp}
             value={inputState.pw}
           />
         </div>
-        <div>
-          <label>생년월일</label>
+        <div className={["birthWrap", "inputWrap"].join(" ")}>
+          <label for="birth">생년월일</label>
           <input
             className={["input", "large"].join(" ")}
+            id="birth"
             name="birth"
             type="date"
             placeholder="생년월일"
-            // value={"2020-07-06"}
+            value={getToday()}
             // onChange={changeInput}
             // onBlur={checkRegExp}
             // value={inputState.birth}
           />
         </div>
-        <div>
-          <label>전화번호</label>
+        <div className={["tellWrap", "inputWrap"].join(" ")}>
+          <label for="tell">전화번호</label>
           <input
             className={["input", "large"].join(" ")}
+            id="tell"
             name="tell"
-            type="number"
-            placeholder="전화번호"
+            type="text"
+            placeholder=" - 를 제외하고 입력하세요."
             // onChange={changeInput}
             // onBlur={checkRegExp}
             // value={inputState.tell}
           />
         </div>
-        <div>
-          <label>이메일</label>
+        <div className={["emailWrap", "inputWrap"].join(" ")}>
+          <label for="email">이메일</label>
           <input
             className={["input", "large"].join(" ")}
+            id="email"
             name="email"
             type="email"
-            placeholder="이메일"
+            placeholder="이메일 ex) omagabox@omaga.co.kr"
             onChange={changeInput}
             onBlur={checkRegExp}
             value={inputState.email}

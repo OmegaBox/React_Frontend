@@ -2,36 +2,45 @@
 @import "../../../commonVariable.scss";
 
 .signWrap{
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  margin: 0;
-  padding: 0;
+  padding: 40px;
   background: $whiteGrayBg;
 }
 
 .signUpSec {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
   width: 427px;
-  height: 650px;
-  padding: 50px 30px;
+  padding: 43px 30px 50px;
   margin: auto;
   border: 1px solid $border;
-  border-radius: 4px;
+  border-radius: 8px;
   background-color: $colorWhite;
   text-align: center;
 
+  & div.inputWrap {
+    position: relative;
+    margin: 0 0 28px;
+  }
+
+  & .inputWrap label {
+    width: 100%;
+    margin-bottom: 4px;
+    padding: 0;
+    font-size: 1.6rem;
+    font-weight: 500;
+    color: $colorMain;
+    text-align: left;
+  }
+
   & input.input {
-    width: 70%;
+    width: 100%;
     margin-right: 0;
-    margin-bottom: 10px;
     font-size: 1.5rem;
+  }
+  .notice {
+    position: absolute;
+    bottom: -20px;
+    left: 4px;
+    font-size: 1.2rem;
+    color: $colorRed;
   }
 }
 
@@ -41,18 +50,21 @@
 
 .btnGoogleSignUp.btn {
   width: 100%;
-  margin:0 0 40px;
+  margin:0 0 20px;
 }
 
 .idWrap {
-  position: relative;
+
+  input#id.input {
+    padding-right: 72px;
+  }
 
   .btn.btnCheckDouble {
     position: absolute;
-    top: 0;
+    bottom: 0;
     right: 0;
-    padding-top: 11px;
-    padding-bottom: 16px;
+    padding: 11px 10px 16px;
+    margin: 0;
     font-size: 1.3rem;
     font-weight: $textBold;
 

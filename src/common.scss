@@ -306,6 +306,29 @@ textarea:focus {
   }
 }
 
+
+::-webkit-input-placeholder {
+  color: $colorDisabledText;
+  font-size: 1.2rem;
+  font-weight: 400;
+}
+::-moz-placeholder {
+  color: $colorDisabledText;
+  font-size: 1.2rem;
+  font-weight: 400;
+}
+:-ms-input-placeholder {
+  color: $colorDisabledText;
+  font-size: 1.2rem;
+  font-weight: 400;
+}
+::input-placeholde {
+  color: $colorDisabledText;
+  font-size: 1.2rem;
+  font-weight: 400;
+}
+
+
 /* select */
 select {
   -webkit-appearance: none;
