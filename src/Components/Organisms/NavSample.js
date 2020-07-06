@@ -22,6 +22,11 @@ const NavSample = () => {
           영화 상세페이지로
         </button>
       </Link>
+      <Link to="/wholeMovieList">
+        <button className={["btn", "fill", "white"].join(" ")}>
+          전체 영화리스트 페이지
+        </button>
+      </Link>
       <Link to="/booking/seat">
         <button className={["btn", "fill", "white"].join(" ")}>
           좌석선택 페이지로

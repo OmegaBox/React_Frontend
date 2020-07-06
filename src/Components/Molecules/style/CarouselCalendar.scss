@@ -20,8 +20,13 @@
 }
 
 .carouselCal.selectedDay {
-  background-color: rgb(240, 240, 240);
-  border-bottom: 3px solid $colorMainLight;
+  background-color: $colorGrayF5;
+  border-bottom: 2px solid $colorMainLight;
+}
+
+.carouselCal.disabled {
+  cursor: default;
+  color: $colorGrayD8;
 }
 
 .carouselCalendarContainer button {
@@ -35,7 +40,7 @@
   min-width: initial;
 }
 
-.slick-slide.slick-active > div {
+.slick-slide > div {
   height: 41px;
   // display: flex;
   // align-items: center;
