@@ -110,6 +110,7 @@ const getTheatersCanBooking = (movies = []) => async (dispatch, state) => {
   console.log(movies);
 
   const selectedOption = state().Booking.selectedOption;
+  const selectedMovies = selectedOption.selectedMovies;
   const selectedTheaters = selectedOption.selectedTheaters;
   const selectedDate = transformDateFormat(selectedOption.selectedDate)
     .dateStringNoDash;
@@ -122,6 +123,7 @@ const getTheatersCanBooking = (movies = []) => async (dispatch, state) => {
     searchOption: {
       selectedDate,
       selectedTheaters,
+      selectedMovies,
     },
     canSelectRegions: [],
     canSelectTheaters: [],
@@ -327,7 +329,7 @@ const initialState = {
   },
   movies: [
     {
-      id: 101,
+      id: 1,
       name_kor: "#살아있다",
       reservation_rate: 57.9,
       running_time: "97",
@@ -346,7 +348,7 @@ const initialState = {
       average_point: 0,
     },
     {
-      id: 102,
+      id: 2,
       name_kor: "결백",
       reservation_rate: 10.5,
       running_time: "110",
@@ -365,7 +367,7 @@ const initialState = {
       average_point: 0,
     },
     {
-      id: 103,
+      id: 3,
       name_kor: "소리꾼",
       reservation_rate: 7.8,
       running_time: "118",
@@ -384,7 +386,7 @@ const initialState = {
       average_point: 0,
     },
     {
-      id: 104,
+      id: 4,
       name_kor: "다크 나이트",
       reservation_rate: 6.1,
       running_time: "152",
@@ -403,7 +405,7 @@ const initialState = {
       average_point: 0,
     },
     {
-      id: 105,
+      id: 5,
       name_kor: "온워드: 단 하루의 기적",
       reservation_rate: 5.7,
       running_time: "102",
@@ -422,7 +424,7 @@ const initialState = {
       average_point: 0,
     },
     {
-      id: 106,
+      id: 6,
       name_kor: "인베이젼 2020",
       reservation_rate: 2.6,
       running_time: "130",
@@ -441,7 +443,7 @@ const initialState = {
       average_point: 0,
     },
     {
-      id: 107,
+      id: 7,
       name_kor: "아무튼, 아담",
       reservation_rate: 1.0,
       running_time: "100",
@@ -460,7 +462,7 @@ const initialState = {
       average_point: 0,
     },
     {
-      id: 108,
+      id: 8,
       name_kor: "위대한 쇼맨",
       reservation_rate: 0.8,
       running_time: "104",
@@ -479,7 +481,7 @@ const initialState = {
       average_point: 0,
     },
     {
-      id: 109,
+      id: 9,
       name_kor: "트로이 디렉터스 컷",
       reservation_rate: 0.8,
       running_time: "196",
@@ -498,7 +500,7 @@ const initialState = {
       average_point: 0,
     },
     {
-      id: 110,
+      id: 10,
       name_kor: "야구소녀",
       reservation_rate: 0.6,
       running_time: "104",
