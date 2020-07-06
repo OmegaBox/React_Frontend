@@ -96,7 +96,6 @@ const getSchedules = () => async (dispatch, state) => {
         console.log("status 에러발생");
       }
     }
-    console.log("여기는 스케쥴 넣기 직전임", newSearchLog);
 
     dispatch({ type: GET_SCHEDULES_SUCCESS, payload: newSearchLog.schedules });
     dispatch({ type: SET_SCHEDULES_LOG, payload: newSearchLog });
@@ -107,8 +106,6 @@ const getSchedules = () => async (dispatch, state) => {
 
 // 날짜 or 날짜 & 타이틀로 상영 가능한 지역과 영화관 정보 가져오는 Thunk
 const getTheatersCanBooking = (movies = []) => async (dispatch, state) => {
-  console.log(movies);
-
   const selectedOption = state().Booking.selectedOption;
   const selectedMovies = selectedOption.selectedMovies;
   const selectedTheaters = selectedOption.selectedTheaters;
@@ -116,8 +113,6 @@ const getTheatersCanBooking = (movies = []) => async (dispatch, state) => {
     .dateStringNoDash;
   const canSelectRegionTheatersLogs = state().Booking
     .canSelectRegionTheatersLogs;
-
-  console.log("canSelectRegionTheatersLogs", canSelectRegionTheatersLogs);
 
   const newRegionTheaterLog = {
     searchOption: {
@@ -138,7 +133,6 @@ const getTheatersCanBooking = (movies = []) => async (dispatch, state) => {
   if (pastLog) {
     dispatch(setCanSelectRegions(pastLog.canSelectRegions));
     dispatch(setCanSelectTheaters(pastLog.canSelectTheaters));
-    console.log("패스트로그로 진입 해버림", pastLog);
   } else {
     try {
       const resRegions = await movieApi.getScreeningRegions(
@@ -230,7 +224,6 @@ function* selectMovieSaga(action) {
   if (selectedDate === "") yield put(setSelectedDate("2020-07-01")); // 날짜 선택
   yield put(setSelectedHour(getCurrentHour())); // 현재 시간을 선택
   yield put(setSelectedMovies(newSelectedMovies)); // 영화 선택
-  console.log("시작");
   yield put(getTheatersCanBooking(newSelectedMovies));
   if (selectedTheaters.length) {
     yield put(getSchedules());
