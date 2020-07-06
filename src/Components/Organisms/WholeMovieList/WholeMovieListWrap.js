@@ -62,8 +62,6 @@ const WholeMovieListWrap = () => {
       <div className="wholeMovieSearchBarWrap">
         <input
           type="text"
-          // value={searchInputState}
-          // onChange={changeSearchInput}
           className="wholeMovieSearchBar"
           placeholder="영화명 검색"
           title="영화 검색"
@@ -78,8 +76,8 @@ const WholeMovieListWrap = () => {
               <p className="mainRank">{v.rank}</p>
               <img
                 className="wholeMoviePoster"
-                alt="영화이미지"
-                src="https://img.megabox.co.kr/SharedImg/2020/06/02/xIBdAOS5lJNBe1CBXovcV1WYE9Q6DWPV_420.jpg"
+                alt={v.title}
+                src={v.poster}
               />
               <div className="wholeMovieInforWrap">
                 <div className="wholeMovieSummary">
@@ -92,10 +90,31 @@ const WholeMovieListWrap = () => {
                   </div>
                 </div>
               </div>
-              <ul className="movieListTitleWrap">
-                {/* <li className="movieListTitle">등급</li> */}
-                <li className="movieListTitle">{v.name_kor}</li>
-              </ul>
+              <div className="movieListTitleWrap">
+                {/* {wholeMovie.map((movie) => {
+                  let iconClassName = "icon";
+                  switch (movie.grade) {
+                    case "청소년관람불가" || "18+":
+                      iconClassName += " ageGrade19Small";
+                      break;
+                    case "15세이상관람가" || "15+":
+                      iconClassName += " ageGrade15Small";
+                      break;
+                    case "12세이상관람가" || "12+":
+                      iconClassName += " ageGrade12Small";
+                      break;
+                    case "전체관람가" || "all":
+                    default:
+                      iconClassName += " ageGradeSmall";
+                      break;
+                  }
+                  return (
+                    <span className={iconClassName}>{v.grade}</span>
+                  ); */}
+                {/* })} */}
+                <span className="movieGrade icon ageGrade"></span>
+                <span className="movieListTitle">{v.name_kor}</span>
+              </div>
 
               <div className="movieListRateandDay">
                 <span className="movieListBookingRate">예매율{v.reservation_rate}%</span>
