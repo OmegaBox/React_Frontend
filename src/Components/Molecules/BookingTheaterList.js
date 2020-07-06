@@ -93,8 +93,6 @@ const BookingTheaterList = () => {
         <ul className="localRegionTheater">
           {selectedRegion
             ? selectedRegion.theaters.map((theater, i) => {
-                console.log("여기 확인", theater);
-
                 const isSelected = selectedTheaters.find(
                   (th) => th.name === theater.name
                 );

@@ -3,8 +3,6 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { selectMovie } from "../../Reducer/bookingReducer";
 
-import { movieApi } from "../../Api/api";
-
 import "./style/BookingMovieList.scss";
 
 const BookingMovieList = () => {
