@@ -20,8 +20,6 @@ export const movieApi = {
     }
   },
   getScreeningRegions: (date, movies) => {
-    console.log("getScreeningRegions API", movies);
-
     let movieIds = "";
     if (movies) {
       movieIds = movies.reduce((acc, cur) => acc + "+" + cur.id, "").slice(1);
@@ -30,6 +28,9 @@ export const movieApi = {
       movies ? "?movie=" + movieIds : ""
     }
     `;
+
+    console.log(call);
+
     return axios.get(call);
   },
   getScreeningTheaters: (date, movies) => {

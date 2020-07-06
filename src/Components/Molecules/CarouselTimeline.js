@@ -48,6 +48,7 @@ const CarouselTimeline = () => {
 
             return (
               <button
+                key={`carouselTime${i}`}
                 className={addClass}
                 id={i}
                 onClick={() => dispatch(setSelectedHour(time))}

@@ -107,17 +107,23 @@ const getSchedules = () => async (dispatch, state) => {
 
 // 날짜 or 날짜 & 타이틀로 상영 가능한 지역과 영화관 정보 가져오는 Thunk
 const getTheatersCanBooking = (movies = []) => async (dispatch, state) => {
+  console.log(movies);
+
   const selectedOption = state().Booking.selectedOption;
+  const selectedMovies = selectedOption.selectedMovies;
   const selectedTheaters = selectedOption.selectedTheaters;
   const selectedDate = transformDateFormat(selectedOption.selectedDate)
     .dateStringNoDash;
   const canSelectRegionTheatersLogs = state().Booking
     .canSelectRegionTheatersLogs;
 
+  console.log("canSelectRegionTheatersLogs", canSelectRegionTheatersLogs);
+
   const newRegionTheaterLog = {
     searchOption: {
       selectedDate,
       selectedTheaters,
+      selectedMovies,
     },
     canSelectRegions: [],
     canSelectTheaters: [],
@@ -129,51 +135,57 @@ const getTheatersCanBooking = (movies = []) => async (dispatch, state) => {
       JSON.stringify(newRegionTheaterLog.searchOption)
   );
 
-  console.log("과거 로그 확인", pastLog);
+  if (pastLog) {
+    dispatch(setCanSelectRegions(pastLog.canSelectRegions));
+    dispatch(setCanSelectTheaters(pastLog.canSelectTheaters));
+    console.log("패스트로그로 진입 해버림", pastLog);
+  } else {
+    try {
+      const resRegions = await movieApi.getScreeningRegions(
+        selectedDate,
+        movies.length ? movies : ""
+      );
+      const resTheaters = await movieApi.getScreeningTheaters(
+        selectedDate,
+        movies.length ? movies : ""
+      );
 
-  try {
-    const resRegions = await movieApi.getScreeningRegions(
-      selectedDate,
-      movies.length ? movies : ""
-    );
-    const resTheaters = await movieApi.getScreeningTheaters(
-      selectedDate,
-      movies.length ? movies : ""
-    );
+      if (resRegions.status === 200 && resTheaters.status === 200) {
+        const canSelectRegions = {
+          "가까운 영화관": 3,
+          서울: 0,
+          경기: 0,
+          인천: 0,
+          "대전/충청/세종": 0,
+          "부산/대구/경상": 0,
+          "광주/전라": 0,
+          강원: 0,
+          제주: 0,
+        };
+        for (let i = 0; i < resRegions.data.results.length; i++) {
+          canSelectRegions[resRegions.data.results[i].region_name] =
+            resRegions.data.results[i].region_count;
+        }
+        dispatch(setCanSelectRegions(canSelectRegions));
+        dispatch(setCanSelectTheaters(resTheaters.data.results));
 
-    if (resRegions.status === 200 && resTheaters.status === 200) {
-      const canSelectRegions = {
-        "가까운 영화관": 3,
-        서울: 0,
-        경기: 0,
-        인천: 0,
-        "대전/충청/세종": 0,
-        "부산/대구/경상": 0,
-        "광주/전라": 0,
-        강원: 0,
-        제주: 0,
-      };
-      for (let i = 0; i < resRegions.data.results.length; i++) {
-        canSelectRegions[resRegions.data.results[i].region_name] =
-          resRegions.data.results[i].region_count;
+        // 로그로 기록하기
+        newRegionTheaterLog.canSelectRegions = canSelectRegions;
+        newRegionTheaterLog.canSelectTheaters = resTheaters.data.results;
+        dispatch({
+          type: SET_REGION_THEATER_LOG,
+          payload: newRegionTheaterLog,
+        });
+      } else {
+        console.log("에러 발생");
       }
-      dispatch(setCanSelectRegions(canSelectRegions));
-      dispatch(setCanSelectTheaters(resTheaters.data.results));
-
-      // 로그로 기록하기
-      newRegionTheaterLog.canSelectRegions = canSelectRegions;
-      newRegionTheaterLog.canSelectTheaters = resTheaters.data.results;
-      dispatch({ type: SET_REGION_THEATER_LOG, payload: newRegionTheaterLog });
-    } else {
-      console.log("에러 발생");
+    } catch (e) {
+      console.log("에러 발생", e);
     }
-  } catch (e) {
-    console.log("에러 발생", e);
   }
 
   // 만약 이미 선택한 상영관이 선택 불가능하게 바뀌었을 경우 선택을 취소해준다
   const canSelectTheaters = state().Booking.canSelectTheaters;
-  console.log("에러 시작 직전이야", canSelectTheaters);
 
   const newSelectedTheaters = canSelectTheaters.filter((theater) =>
     selectedTheaters.find((th) => th.name === theater.name)
@@ -218,7 +230,11 @@ function* selectMovieSaga(action) {
   if (selectedDate === "") yield put(setSelectedDate("2020-07-01")); // 날짜 선택
   yield put(setSelectedHour(getCurrentHour())); // 현재 시간을 선택
   yield put(setSelectedMovies(newSelectedMovies)); // 영화 선택
-  if (selectedTheaters.length) yield put(getSchedules()); // 상영관 선택을 했다면 스케쥴 가져오기
+  console.log("시작");
+  yield put(getTheatersCanBooking(newSelectedMovies));
+  if (selectedTheaters.length) {
+    yield put(getSchedules());
+  } // 상영관 선택을 했다면 스케쥴 가져오기
 }
 
 // 영화관 선택용 미들웨어 Saga
@@ -313,7 +329,7 @@ const initialState = {
   },
   movies: [
     {
-      id: 101,
+      id: 1,
       name_kor: "#살아있다",
       reservation_rate: 57.9,
       running_time: "97",
@@ -332,7 +348,7 @@ const initialState = {
       average_point: 0,
     },
     {
-      id: 102,
+      id: 2,
       name_kor: "결백",
       reservation_rate: 10.5,
       running_time: "110",
@@ -351,7 +367,7 @@ const initialState = {
       average_point: 0,
     },
     {
-      id: 103,
+      id: 3,
       name_kor: "소리꾼",
       reservation_rate: 7.8,
       running_time: "118",
@@ -370,7 +386,7 @@ const initialState = {
       average_point: 0,
     },
     {
-      id: 104,
+      id: 4,
       name_kor: "다크 나이트",
       reservation_rate: 6.1,
       running_time: "152",
@@ -389,7 +405,7 @@ const initialState = {
       average_point: 0,
     },
     {
-      id: 105,
+      id: 5,
       name_kor: "온워드: 단 하루의 기적",
       reservation_rate: 5.7,
       running_time: "102",
@@ -408,7 +424,7 @@ const initialState = {
       average_point: 0,
     },
     {
-      id: 106,
+      id: 6,
       name_kor: "인베이젼 2020",
       reservation_rate: 2.6,
       running_time: "130",
@@ -427,7 +443,7 @@ const initialState = {
       average_point: 0,
     },
     {
-      id: 107,
+      id: 7,
       name_kor: "아무튼, 아담",
       reservation_rate: 1.0,
       running_time: "100",
@@ -446,7 +462,7 @@ const initialState = {
       average_point: 0,
     },
     {
-      id: 108,
+      id: 8,
       name_kor: "위대한 쇼맨",
       reservation_rate: 0.8,
       running_time: "104",
@@ -465,7 +481,7 @@ const initialState = {
       average_point: 0,
     },
     {
-      id: 109,
+      id: 9,
       name_kor: "트로이 디렉터스 컷",
       reservation_rate: 0.8,
       running_time: "196",
@@ -484,7 +500,7 @@ const initialState = {
       average_point: 0,
     },
     {
-      id: 110,
+      id: 10,
       name_kor: "야구소녀",
       reservation_rate: 0.6,
       running_time: "104",
