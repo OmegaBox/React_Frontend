@@ -15,6 +15,8 @@ const SET_NEARBY_THEATERS = "booking/NEARBY_THEATERS";
 const SET_CAN_SELECT_REGIONS = "booking/SET_CAN_SELECT_REGIONS";
 const SET_CAN_SELECT_THEATERS = "booking/SET_CAN_SELECT_THEATERS";
 
+const SET_SCHEDULES_LOG = "booking/SET_SCHEDULES_LOG";
+
 const SELECT_MOVIE = "booking/SELECT_MOVIE";
 const SELECT_THEATER = "booking/SELECT_THEATER";
 
@@ -47,25 +49,51 @@ const setCanSelectTheaters = (theaters) => ({
 
 // 외부 api로 정보 가져오는 Thunk
 const getSchedules = () => async (dispatch, state) => {
+  const scheduleLogs = state().Booking.scheduleLogs;
+
   const selectedOption = state().Booking.selectedOption;
   const selectedTheaters = selectedOption.selectedTheaters;
   const selectedDate = selectedOption.selectedDate;
+  const selectedMovies = selectedOption.selectedMovies.length
+    ? selectedOption.selectedMovies
+    : undefined;
 
-  let schedules = [];
+  const searchLog = {
+    searchOption: {
+      date: selectedDate,
+      theaters: selectedTheaters,
+      movies: selectedMovies,
+    },
+    schedules: [],
+  };
+
+  const pastLog = scheduleLogs.find(
+    (log) =>
+      JSON.stringify(log.searchOption) ===
+      JSON.stringify(searchLog.searchOption)
+  );
+
+  if (pastLog) {
+    dispatch({ type: GET_SCHEDULES_SUCCESS, payload: pastLog.schedules });
+    return;
+  }
+
   try {
     for (let i = 0; i < selectedTheaters.length; i++) {
       const res = await movieApi.getSchedules({
         date: selectedDate,
         theaterId: selectedTheaters[i].theater_id,
+        movies: selectedMovies,
       });
       if (res.status === 200) {
-        schedules = [...schedules, ...res.data];
+        searchLog.schedules = [...searchLog.schedules, ...res.data];
       } else {
         console.log("status 에러발생");
       }
     }
-    dispatch({ type: GET_SCHEDULES_SUCCESS, payload: schedules });
-    console.log(schedules);
+    dispatch({ type: GET_SCHEDULES_SUCCESS, payload: searchLog.schedules });
+    dispatch({ type: SET_SCHEDULES_LOG, payload: searchLog });
+    console.log(searchLog);
   } catch (e) {
     console.log("에러발생", e);
   }
@@ -182,6 +210,7 @@ const initialState = {
   },
   canSelectTheaters: [],
   schedules: [],
+  scheduleLogs: [],
   selectedOption: {
     selectedDate: "2020-07-01",
     selectedRegion: "", // 선택한 지역
@@ -213,164 +242,194 @@ const initialState = {
   },
   movies: [
     {
-      id: 3,
+      id: 101,
       name_kor: "#살아있다",
-      name_eng: "#ALIVE",
+      reservation_rate: 57.9,
       running_time: "97",
-      genre: null,
       rank: 1,
-      acc_audience: 1194980,
-      reservation_rate: 63.2,
+      acc_audience: 1342958,
+      acc_favorite: 0,
       open_date: "2020-06-24",
-      grade: "15세이상관람가",
+      close_date: "2020-08-31",
       description: "",
       poster:
-        "https://caloculator-s3.s3.ap-northeast-2.amazonaws.com/media/posters/django_unchained.jpg",
-      trailer: null,
+        "https://caloculator-s3.s3.ap-northeast-2.amazonaws.com/media/posters/20193069.jpg",
+      trailer:
+        "https://caloculator-s3.s3.ap-northeast-2.amazonaws.com/media/trailers/20193069.mp4",
+      comments: [],
+      liked: 0,
+      average_point: 0,
     },
     {
-      id: 4,
+      id: 102,
       name_kor: "결백",
-      name_eng: "Innocence",
+      reservation_rate: 10.5,
       running_time: "110",
-      genre: null,
       rank: 2,
-      acc_audience: 742917,
-      reservation_rate: 13.5,
+      acc_audience: 770103,
+      acc_favorite: 0,
       open_date: "2020-06-10",
-      grade: "15세이상관람가",
+      close_date: "2020-08-31",
       description: "",
       poster:
-        "https://caloculator-s3.s3.ap-northeast-2.amazonaws.com/media/posters/django_unchained.jpg",
-      trailer: null,
+        "https://caloculator-s3.s3.ap-northeast-2.amazonaws.com/media/posters/20183813.jpg",
+      trailer:
+        "https://caloculator-s3.s3.ap-northeast-2.amazonaws.com/media/trailers/20183813.mp4",
+      comments: [],
+      liked: 0,
+      average_point: 0,
     },
     {
-      id: 5,
-      name_kor: "온워드: 단 하루의 기적",
-      name_eng: "Onward",
-      running_time: "102",
-      genre: null,
+      id: 103,
+      name_kor: "소리꾼",
+      reservation_rate: 7.8,
+      running_time: "118",
       rank: 3,
-      acc_audience: 296931,
-      reservation_rate: 8.7,
-      open_date: "2020-06-17",
-      grade: "전체관람가",
+      acc_audience: 26982,
+      acc_favorite: 0,
+      open_date: "2020-07-01",
+      close_date: "2020-08-31",
       description: "",
       poster:
-        "https://caloculator-s3.s3.ap-northeast-2.amazonaws.com/media/posters/django_unchained.jpg",
-      trailer: null,
+        "https://caloculator-s3.s3.ap-northeast-2.amazonaws.com/media/posters/20196201.jpg",
+      trailer:
+        "https://caloculator-s3.s3.ap-northeast-2.amazonaws.com/media/trailers/20196201.mp4",
+      comments: [],
+      liked: 0,
+      average_point: 0,
     },
     {
-      id: 6,
-      name_kor: "배트맨 비긴즈",
-      name_eng: "Batman Begins",
-      running_time: "134",
-      genre: null,
+      id: 104,
+      name_kor: "다크 나이트",
+      reservation_rate: 6.1,
+      running_time: "152",
       rank: 4,
-      acc_audience: 902295,
-      reservation_rate: 2.6,
-      open_date: "2005-06-24",
-      grade: "12세관람가",
+      acc_audience: 4194189,
+      acc_favorite: 0,
+      open_date: "2008-08-06",
+      close_date: "2020-08-31",
       description: "",
       poster:
-        "https://caloculator-s3.s3.ap-northeast-2.amazonaws.com/media/posters/django_unchained.jpg",
-      trailer: null,
+        "https://caloculator-s3.s3.ap-northeast-2.amazonaws.com/media/posters/20081056.jpg",
+      trailer:
+        "https://caloculator-s3.s3.ap-northeast-2.amazonaws.com/media/trailers/20081056.mp4",
+      comments: [],
+      liked: 0,
+      average_point: 0,
     },
     {
-      id: 7,
-      name_kor: "사라진 시간",
-      name_eng: "ME AND ME",
-      running_time: "104",
-      genre: null,
-      rank: 5,
-      acc_audience: 184401,
-      reservation_rate: 2.1,
-      open_date: "2020-06-18",
-      grade: "15세이상관람가",
-      description: "",
-      poster:
-        "https://caloculator-s3.s3.ap-northeast-2.amazonaws.com/media/posters/django_unchained.jpg",
-      trailer: null,
-    },
-    {
-      id: 8,
-      name_kor: "위대한 쇼맨",
-      name_eng: "The Greatest Showman",
-      running_time: "104",
-      genre: null,
-      rank: 6,
-      acc_audience: 1685596,
-      reservation_rate: 1.3,
-      open_date: "2017-12-20",
-      grade: "12세이상관람가",
-      description: "",
-      poster:
-        "https://caloculator-s3.s3.ap-northeast-2.amazonaws.com/media/posters/django_unchained.jpg",
-      trailer: null,
-    },
-    {
-      id: 9,
-      name_kor: "엔딩스 비기닝스",
-      name_eng: "ENDINGS, BEGINNINGS",
-      running_time: "110",
-      genre: null,
-      rank: 7,
-      acc_audience: 12429,
-      reservation_rate: 1.0,
-      open_date: "2020-06-24",
-      grade: "15세이상관람가",
-      description: "",
-      poster:
-        "https://caloculator-s3.s3.ap-northeast-2.amazonaws.com/media/posters/django_unchained.jpg",
-      trailer: null,
-    },
-    {
-      id: 10,
-      name_kor: "야구소녀",
-      name_eng: "Baseball Girl",
-      running_time: "104",
-      genre: null,
-      rank: 8,
-      acc_audience: 29965,
-      reservation_rate: 0.8,
-      open_date: "2020-06-18",
-      grade: "12세이상관람가",
-      description: "",
-      poster:
-        "https://caloculator-s3.s3.ap-northeast-2.amazonaws.com/media/posters/django_unchained.jpg",
-      trailer: null,
-    },
-    {
-      id: 11,
-      name_kor: "침입자",
-      name_eng: "Intruder",
+      id: 105,
+      name_kor: "온워드: 단 하루의 기적",
+      reservation_rate: 5.7,
       running_time: "102",
-      genre: null,
-      rank: 9,
-      acc_audience: 530661,
-      reservation_rate: 0.7,
-      open_date: "2020-06-04",
-      grade: "15세이상관람가",
+      rank: 5,
+      acc_audience: 312568,
+      acc_favorite: 0,
+      open_date: "2020-06-17",
+      close_date: "2020-08-31",
       description: "",
       poster:
-        "https://caloculator-s3.s3.ap-northeast-2.amazonaws.com/media/posters/django_unchained.jpg",
-      trailer: null,
+        "https://caloculator-s3.s3.ap-northeast-2.amazonaws.com/media/posters/20191048.jpg",
+      trailer:
+        "https://caloculator-s3.s3.ap-northeast-2.amazonaws.com/media/trailers/20191048.mp4",
+      comments: [],
+      liked: 0,
+      average_point: 0,
     },
     {
-      id: 12,
-      name_kor: "콜 미 바이 유어 네임",
-      name_eng: "Call Me by Your Name",
-      running_time: "131",
-      genre: null,
-      rank: 10,
-      acc_audience: 224881,
-      reservation_rate: 0.5,
-      open_date: "2018-03-22",
-      grade: "청소년관람불가",
+      id: 106,
+      name_kor: "인베이젼 2020",
+      reservation_rate: 2.6,
+      running_time: "130",
+      rank: 6,
+      acc_audience: 9742,
+      acc_favorite: 0,
+      open_date: "2020-07-01",
+      close_date: "2020-08-31",
       description: "",
       poster:
-        "https://caloculator-s3.s3.ap-northeast-2.amazonaws.com/media/posters/django_unchained.jpg",
-      trailer: null,
+        "https://caloculator-s3.s3.ap-northeast-2.amazonaws.com/media/posters/20208617.jpg",
+      trailer:
+        "https://caloculator-s3.s3.ap-northeast-2.amazonaws.com/media/trailers/20208617.mp4",
+      comments: [],
+      liked: 0,
+      average_point: 0,
+    },
+    {
+      id: 107,
+      name_kor: "아무튼, 아담",
+      reservation_rate: 1.0,
+      running_time: "100",
+      rank: 7,
+      acc_audience: 2954,
+      acc_favorite: 0,
+      open_date: "2020-07-02",
+      close_date: "2020-08-31",
+      description: "",
+      poster:
+        "https://caloculator-s3.s3.ap-northeast-2.amazonaws.com/media/posters/20200361.jpg",
+      trailer:
+        "https://caloculator-s3.s3.ap-northeast-2.amazonaws.com/media/trailers/20200361.mp4",
+      comments: [],
+      liked: 0,
+      average_point: 0,
+    },
+    {
+      id: 108,
+      name_kor: "위대한 쇼맨",
+      reservation_rate: 0.8,
+      running_time: "104",
+      rank: 8,
+      acc_audience: 1688503,
+      acc_favorite: 0,
+      open_date: "2017-12-20",
+      close_date: "2020-08-31",
+      description: "",
+      poster:
+        "https://caloculator-s3.s3.ap-northeast-2.amazonaws.com/media/posters/20179462.jpg",
+      trailer:
+        "https://caloculator-s3.s3.ap-northeast-2.amazonaws.com/media/trailers/20179462.mp4",
+      comments: [],
+      liked: 0,
+      average_point: 0,
+    },
+    {
+      id: 109,
+      name_kor: "트로이 디렉터스 컷",
+      reservation_rate: 0.8,
+      running_time: "196",
+      rank: 9,
+      acc_audience: 757,
+      acc_favorite: 0,
+      open_date: "2020-07-03",
+      close_date: "2020-08-31",
+      description: "",
+      poster:
+        "https://caloculator-s3.s3.ap-northeast-2.amazonaws.com/media/posters/20200836.jpg",
+      trailer:
+        "https://caloculator-s3.s3.ap-northeast-2.amazonaws.com/media/trailers/20200836.mp4",
+      comments: [],
+      liked: 0,
+      average_point: 0,
+    },
+    {
+      id: 110,
+      name_kor: "야구소녀",
+      reservation_rate: 0.6,
+      running_time: "104",
+      rank: 10,
+      acc_audience: 31770,
+      acc_favorite: 0,
+      open_date: "2020-06-18",
+      close_date: "2020-08-31",
+      description: "",
+      poster:
+        "https://caloculator-s3.s3.ap-northeast-2.amazonaws.com/media/posters/20196702.jpg",
+      trailer:
+        "https://caloculator-s3.s3.ap-northeast-2.amazonaws.com/media/trailers/20196702.mp4",
+      comments: [],
+      liked: 0,
+      average_point: 0,
     },
   ],
 };
@@ -443,6 +502,12 @@ const bookingReducer = (state = initialState, action) => {
         ...state,
         canSelectTheaters: action.theaters,
       };
+    case SET_SCHEDULES_LOG:
+      return {
+        ...state,
+        scheduleLogs: [...state.scheduleLogs, action.payload],
+      };
+
     case SUCCESS:
     case ERROR:
     case LOADING:
