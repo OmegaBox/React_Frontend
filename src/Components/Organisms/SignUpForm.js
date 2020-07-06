@@ -33,7 +33,14 @@ const SignUpForm = () => {
   };
 
   const signon = Object.values(inputState).every((v) => v !== "");
-  console.log(signon);
+
+  const alertState = {
+    id: false,
+    pw: false,
+    pwCheck: false,
+    tell: false,
+    email: false,
+  };
   return (
     <div className="signWrap">
       <section className="signUpSec">
@@ -64,7 +71,12 @@ const SignUpForm = () => {
           >
             중복확인
           </button>
-          <div className="alertText">중복체크를 해주세요.</div>
+          <div className="alertText" hidden={!alertState.id}>
+            중복체크를 해주세요.
+          </div>
+          <div className="alertText" hidden={!alertState.id}>
+            중복체크를 해주세요.
+          </div>
         </div>
         <div className={["pwWrap", "inputWrap"].join(" ")}>
           <label for="pw">비밀번호</label>
@@ -77,7 +89,9 @@ const SignUpForm = () => {
             onChange={changeInput}
             value={inputState.pw}
           />
-          <div className="alertText">비밀번호를 규칙에 맞게 입력해주세요</div>
+          <div className="alertText" hidden={!alertState.pw}>
+            비밀번호를 규칙에 맞게 입력해주세요
+          </div>
         </div>
         <div className={["pwCheckWrap", "inputWrap"].join(" ")}>
           <label for="pw">비밀번호 확인</label>
@@ -88,7 +102,9 @@ const SignUpForm = () => {
             type="password"
             placeholder="비밀번호 확인"
           />
-          <div className="alertText">비밀번호가 일치하지 않습니다</div>
+          <div className="alertText" hidden={!alertState.pwCheck}>
+            비밀번호가 일치하지 않습니다
+          </div>
         </div>
         <div className={["birthWrap", "inputWrap"].join(" ")}>
           <label for="birth">생년월일</label>
@@ -113,7 +129,9 @@ const SignUpForm = () => {
             onChange={changeInput}
             value={inputState.tell}
           />
-          <div className="alertText">전화번호를 규칙에 맞게 입력해주세요</div>
+          <div className="alertText" hidden={!alertState.tell}>
+            전화번호 형식이 아닙니다
+          </div>
         </div>
         <div className={["emailWrap", "inputWrap"].join(" ")}>
           <label for="email">이메일</label>
@@ -126,7 +144,9 @@ const SignUpForm = () => {
             onChange={changeInput}
             value={inputState.email}
           />
-          <div className="alertText">이메일을 규칙에 맞게 입력해주세요</div>
+          <div className="alertText" hidden={!alertState.email}>
+            이메일을 규칙에 맞게 입력해주세요
+          </div>
         </div>
         <button
           className={
