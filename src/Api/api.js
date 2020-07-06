@@ -19,17 +19,33 @@ export const movieApi = {
       );
     }
   },
-  getScreeningRegions: (date, title) => {
+  getScreeningRegions: (date, movies) => {
+    console.log("getScreeningRegions API", movies);
+
+    let movieIds = "";
+    if (movies) {
+      movieIds = movies.reduce((acc, cur) => acc + "+" + cur.id, "").slice(1);
+    }
     const call = `theaters/schedules/regions/${date}/${
-      title ? "?movie=" + title : ""
+      movies ? "?movie=" + movieIds : ""
     }
     `;
     return axios.get(call);
   },
-  getScreeningTheaters: (date, title) => {
-    const call = `theaters/schedules/${date}/${title ? "?movie=" + title : ""}
+  getScreeningTheaters: (date, movies) => {
+    let movieIds = "";
+    if (movies) {
+      movieIds = movies.reduce((acc, cur) => acc + "+" + cur.id, "").slice(1);
+    }
+
+    const call = `theaters/schedules/${date}/${
+      movies ? "?movie=" + movieIds : ""
+    }
     `;
 
     return axios.get(call);
+  },
+  getSeats: (scheduleId) => {
+    return axios.get(`theaters/schedules/${scheduleId}/seats/`);
   },
 };

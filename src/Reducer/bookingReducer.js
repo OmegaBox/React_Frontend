@@ -16,9 +16,11 @@ const SET_CAN_SELECT_REGIONS = "booking/SET_CAN_SELECT_REGIONS";
 const SET_CAN_SELECT_THEATERS = "booking/SET_CAN_SELECT_THEATERS";
 
 const SET_SCHEDULES_LOG = "booking/SET_SCHEDULES_LOG";
+const SET_REGION_THEATER_LOG = "booking/SET_REGION_THEATER_LOG";
 
 const SELECT_MOVIE = "booking/SELECT_MOVIE";
 const SELECT_THEATER = "booking/SELECT_THEATER";
+const SELECT_DATE = "booking/SELECT_DATE";
 
 // const GET_SCHEDULES = "booking/GET_SCHEDULES";
 const GET_SCHEDULES_SUCCESS = "booking/GET_SCHEDULES_SUCCESS";
@@ -58,7 +60,7 @@ const getSchedules = () => async (dispatch, state) => {
     ? selectedOption.selectedMovies
     : undefined;
 
-  const searchLog = {
+  const newSearchLog = {
     searchOption: {
       date: selectedDate,
       theaters: selectedTheaters,
@@ -70,7 +72,7 @@ const getSchedules = () => async (dispatch, state) => {
   const pastLog = scheduleLogs.find(
     (log) =>
       JSON.stringify(log.searchOption) ===
-      JSON.stringify(searchLog.searchOption)
+      JSON.stringify(newSearchLog.searchOption)
   );
 
   if (pastLog) {
@@ -86,54 +88,111 @@ const getSchedules = () => async (dispatch, state) => {
         movies: selectedMovies,
       });
       if (res.status === 200) {
-        searchLog.schedules = [...searchLog.schedules, ...res.data];
+        newSearchLog.schedules = [
+          ...newSearchLog.schedules,
+          ...res.data.results,
+        ]; // for문 돌면서 누적 기록
       } else {
         console.log("status 에러발생");
       }
     }
-    dispatch({ type: GET_SCHEDULES_SUCCESS, payload: searchLog.schedules });
-    dispatch({ type: SET_SCHEDULES_LOG, payload: searchLog });
-    console.log(searchLog);
+    console.log("여기는 스케쥴 넣기 직전임", newSearchLog);
+
+    dispatch({ type: GET_SCHEDULES_SUCCESS, payload: newSearchLog.schedules });
+    dispatch({ type: SET_SCHEDULES_LOG, payload: newSearchLog });
   } catch (e) {
     console.log("에러발생", e);
   }
 };
 
-// 사가로 바꿀것 -> 날짜 or 날짜 & 타이틀로 상영 가능한 지역과 영화관 정보 가져오는 Thunk
-const getTheatersCanBooking = (title) => async (dispatch, state) => {
+// 날짜 or 날짜 & 타이틀로 상영 가능한 지역과 영화관 정보 가져오는 Thunk
+const getTheatersCanBooking = (movies = []) => async (dispatch, state) => {
   const selectedOption = state().Booking.selectedOption;
+  const selectedTheaters = selectedOption.selectedTheaters;
   const selectedDate = transformDateFormat(selectedOption.selectedDate)
     .dateStringNoDash;
+  const canSelectRegionTheatersLogs = state().Booking
+    .canSelectRegionTheatersLogs;
+
+  const newRegionTheaterLog = {
+    searchOption: {
+      selectedDate,
+      selectedTheaters,
+    },
+    canSelectRegions: [],
+    canSelectTheaters: [],
+  };
+
+  const pastLog = canSelectRegionTheatersLogs.find(
+    (log) =>
+      JSON.stringify(log.searchOption) ===
+      JSON.stringify(newRegionTheaterLog.searchOption)
+  );
+
+  console.log("과거 로그 확인", pastLog);
 
   try {
     const resRegions = await movieApi.getScreeningRegions(
       selectedDate,
-      title ? title : ""
+      movies.length ? movies : ""
     );
     const resTheaters = await movieApi.getScreeningTheaters(
       selectedDate,
-      title ? title : ""
+      movies.length ? movies : ""
     );
 
     if (resRegions.status === 200 && resTheaters.status === 200) {
-      const canSelectRegions = {};
-      for (let i = 0; i < resRegions.data.length; i++) {
-        canSelectRegions[resRegions.data[i].region_name] =
-          resRegions.data[i].region_count;
+      const canSelectRegions = {
+        "가까운 영화관": 3,
+        서울: 0,
+        경기: 0,
+        인천: 0,
+        "대전/충청/세종": 0,
+        "부산/대구/경상": 0,
+        "광주/전라": 0,
+        강원: 0,
+        제주: 0,
+      };
+      for (let i = 0; i < resRegions.data.results.length; i++) {
+        canSelectRegions[resRegions.data.results[i].region_name] =
+          resRegions.data.results[i].region_count;
       }
       dispatch(setCanSelectRegions(canSelectRegions));
-      dispatch(setCanSelectTheaters(resTheaters.data));
+      dispatch(setCanSelectTheaters(resTheaters.data.results));
+
+      // 로그로 기록하기
+      newRegionTheaterLog.canSelectRegions = canSelectRegions;
+      newRegionTheaterLog.canSelectTheaters = resTheaters.data.results;
+      dispatch({ type: SET_REGION_THEATER_LOG, payload: newRegionTheaterLog });
     } else {
       console.log("에러 발생");
     }
   } catch (e) {
     console.log("에러 발생", e);
   }
+
+  // 만약 이미 선택한 상영관이 선택 불가능하게 바뀌었을 경우 선택을 취소해준다
+  const canSelectTheaters = state().Booking.canSelectTheaters;
+  console.log("에러 시작 직전이야", canSelectTheaters);
+
+  const newSelectedTheaters = canSelectTheaters.filter((theater) =>
+    selectedTheaters.find((th) => th.name === theater.name)
+  );
+  // 상영관 선택과 지역 선택 처리
+  dispatch(setSelectTheaters(newSelectedTheaters));
+  if (newSelectedTheaters.length) {
+    dispatch(
+      setSelectRegion(
+        newSelectedTheaters[newSelectedTheaters.length - 1].region
+      )
+    );
+  } else dispatch(setSelectRegion(""));
 };
 
 // 사가 진입용 액션들
 const selectMovie = (movie) => ({ type: SELECT_MOVIE, movie });
 const selectTheater = (theater) => ({ type: SELECT_THEATER, theater });
+const selectDate = (date) => ({ type: SELECT_DATE, date });
 
 // 영화 선택용 미들웨어 Saga
 function* selectMovieSaga(action) {
@@ -191,9 +250,20 @@ function* selectTheaterSaga(action) {
   yield put(getSchedules());
 }
 
+function* selectDateSaga(action) {
+  const state = yield select();
+  const selectedTheaters = state.Booking.selectedOption.selectedTheaters;
+  const selectedMovies = state.Booking.selectedOption.selectedMovies;
+
+  yield put(setSelectedDate(action.date));
+  yield put(getTheatersCanBooking(selectedMovies));
+  if (selectedTheaters.length) yield put(getSchedules());
+}
+
 function* bookingSaga() {
   yield takeLatest(SELECT_MOVIE, selectMovieSaga);
   yield takeLatest(SELECT_THEATER, selectTheaterSaga);
+  yield takeLatest(SELECT_DATE, selectDateSaga);
 }
 
 const initialState = {
@@ -209,6 +279,7 @@ const initialState = {
     제주: 0,
   },
   canSelectTheaters: [],
+  canSelectRegionTheatersLogs: [],
   schedules: [],
   scheduleLogs: [],
   selectedOption: {
@@ -492,10 +563,7 @@ const bookingReducer = (state = initialState, action) => {
     case SET_CAN_SELECT_REGIONS:
       return {
         ...state,
-        canSelectRegions: {
-          ...state.canSelectRegions,
-          ...action.regions,
-        },
+        canSelectRegions: action.regions,
       };
     case SET_CAN_SELECT_THEATERS:
       return {
@@ -506,6 +574,14 @@ const bookingReducer = (state = initialState, action) => {
       return {
         ...state,
         scheduleLogs: [...state.scheduleLogs, action.payload],
+      };
+    case SET_REGION_THEATER_LOG:
+      return {
+        ...state,
+        canSelectRegionTheatersLogs: [
+          ...state.canSelectRegionTheatersLogs,
+          action.payload,
+        ],
       };
 
     case SUCCESS:
@@ -527,4 +603,5 @@ export {
   setNearbyTheaters,
   getSchedules,
   getTheatersCanBooking,
+  selectDate,
 };
