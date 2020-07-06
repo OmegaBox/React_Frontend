@@ -42,15 +42,12 @@ const MainBoxOffice = () => {
     Movie();
   }, []);
 
-  // const favoriteToggle = () => {
-  // }
-
   return (
     <div className="mainBoxOfficeLayout">
       <div className="mainBoxOffice">
         <div className="mainBoxOfficeHeader">
           <h2>박스오피스</h2>
-          <Link to="/wholeMovieList">
+          <Link to="/moviesList">
             <div className="boxOfficeMoreMovieWrap">
               <div className="boxOfficeMoreMovie">더 많은 영화보기 </div>
               <div className="icon moreMovieIcon"></div>
@@ -61,7 +58,7 @@ const MainBoxOffice = () => {
           <ul className="mainMoviesWrap">
             {movieBox.map((v, i) => {
               return (
-                <li key={i}>
+                <Link to={"movie/" + v.id}><li key={i}>
                   <p className="mainRank">{v.rank}</p>
                   <img
                     className="boxOfficeMoviePoster"
@@ -104,9 +101,10 @@ const MainBoxOffice = () => {
                       예매
                   </button>
                   </div>
-                </li>
+                </li></Link>
               )
-            })}
+            }
+            )}
           </ul>
         </div>
         <ul className="boxOfficeSubBarWrap">

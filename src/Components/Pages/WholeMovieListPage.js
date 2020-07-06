@@ -1,9 +1,8 @@
 import React from "react";
 import WholeMovieList from "../Templates/WholeMovieList";
-
 import "./mypage.scss";
 
-const MyPage = () => {
+const WholeMovieListPage = () => {
   return (
     <>
       <WholeMovieList />
@@ -11,4 +10,4 @@ const MyPage = () => {
   );
 };
 
-export default MyPage;
+export default WholeMovieListPage;
