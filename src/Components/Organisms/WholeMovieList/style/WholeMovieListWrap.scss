@@ -158,20 +158,21 @@
 }
 
 .movieListTitleWrap {
+  display: flex;
   width: 230px;
   height: 27px;
   margin: 15px 0 0 0;
-  padding: 0 0 0 30px;
+  padding: 0;
   .movieListTitle {
     overflow: hidden;
     display: block;
     width: 100%;
     white-space: nowrap;
     text-overflow: ellipsis;
-    padding: 2px 0 0 1px;
+    padding: 0 0 0 1px;
     font-size: 1.3333em;
     font-weight: 400;
-  }
+  } 
 }
 
 .movieListRateandDay {
@@ -187,19 +188,22 @@
 }
 
 
-.boxOfficeBtnWrap {
+.wholeBtnWrap {
   display: flex;
   justify-content: space-between;
   margin-top: 10px;
-  .boxOfficeBookingBtn {
-    width: 160px;
+  .wholeBookingBtn {
+    width: 153px;
     height: 36px;
     margin: 0;
     padding: 0;
     background-color: $colorMain;
   }
   .wholeFavoriteBtn {
-    width: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 72px;
     height: 36px;
     padding: 0 5px;
     margin: 0;

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { movieApi } from "../../../Api/api";
 import "./style/MainBoxOffice.scss";
 import { useSelector, useDispatch } from "react-redux";
@@ -16,10 +16,9 @@ const MainBoxOffice = () => {
     try {
       dispatch(setLoadingState());
       const test = await movieApi.getMovies();
-
       if (test.status === 200) {
-        if (!Array.isArray(test.data)) return console.error("배열이 아닙니다.");
-        dispatch(setSuccessState(test.data.sort((a, b) => a.rank - b.rank)));
+        if (!Array.isArray(test.data.results)) return console.error("배열이 아닙니다.");
+        dispatch(setSuccessState(test.data.results));
       } else {
         dispatch({
           type: "ERROR",
@@ -43,18 +42,8 @@ const MainBoxOffice = () => {
     Movie();
   }, []);
 
-  // const [searchInputState, setSearchInputState] = useState('');
-
-  // const changeSearchInput = (e) => {
-  //   setSearchInputState(e.target.value);
-  // };
-  // const initSearchInput = () => {
-  //   setSearchInputState('');
-  // };
-
-  const favoriteToggle = () => {
-
-  }
+  // const favoriteToggle = () => {
+  // }
 
   return (
     <div className="mainBoxOfficeLayout">
@@ -71,14 +60,14 @@ const MainBoxOffice = () => {
         <div className="mainMovieList">
           <ul className="mainMoviesWrap">
             {movieBox.map((v, i) => {
-              console.log(v.rank);
+              console.log(v);
               return (
                 <li key={i}>
                   <p className="mainRank">{v.rank}</p>
                   <img
                     className="boxOfficeMoviePoster"
-                    alt="영화이미지"
-                    src="https://img.megabox.co.kr/SharedImg/2020/06/02/xIBdAOS5lJNBe1CBXovcV1WYE9Q6DWPV_420.jpg"
+                    alt={v.title}
+                    src={v.poster}
                   />
                   <div className="boxOfficeMovieInforWrap">
                     <div className="boxOfficeMovieSummary">
