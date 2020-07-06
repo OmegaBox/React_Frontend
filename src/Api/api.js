@@ -3,30 +3,49 @@ import { transformDateFormat } from "../Utils/ultil";
 
 export const movieApi = {
   getMovies: (id) => axios.get("movies/"),
-  getSchedules: ({ date, title, theaterId }) => {
-    console.log(date, title, theaterId);
+  getSchedules: ({ date, movies, theaterId }) => {
+    let movieIds = "";
+    if (movies) {
+      movieIds = movies.reduce((acc, cur) => acc + "+" + cur.id, "").slice(1);
+    }
 
     if (date) date = transformDateFormat(date).dateStringNoDash;
 
-    if (date && !title && theaterId) {
-      console.log("진입성공");
-
+    if (date && theaterId && !movies) {
       return axios.get(`theaters/${theaterId}/schedules/${date}`);
+    } else {
+      return axios.get(
+        `theaters/${theaterId}/schedules/${date}/?movie=${movieIds}`
+      );
     }
-
-    return undefined;
   },
-  getScreeningRegions: (date, title) => {
+  getScreeningRegions: (date, movies) => {
+    console.log("getScreeningRegions API", movies);
+
+    let movieIds = "";
+    if (movies) {
+      movieIds = movies.reduce((acc, cur) => acc + "+" + cur.id, "").slice(1);
+    }
     const call = `theaters/schedules/regions/${date}/${
-      title ? "?movie=" + title : ""
+      movies ? "?movie=" + movieIds : ""
     }
     `;
     return axios.get(call);
   },
-  getScreeningTheaters: (date, title) => {
-    const call = `theaters/schedules/${date}/${title ? "?movie=" + title : ""}
+  getScreeningTheaters: (date, movies) => {
+    let movieIds = "";
+    if (movies) {
+      movieIds = movies.reduce((acc, cur) => acc + "+" + cur.id, "").slice(1);
+    }
+
+    const call = `theaters/schedules/${date}/${
+      movies ? "?movie=" + movieIds : ""
+    }
     `;
 
     return axios.get(call);
+  },
+  getSeats: (scheduleId) => {
+    return axios.get(`/schedules/${scheduleId}/seats/`);
   },
 };
