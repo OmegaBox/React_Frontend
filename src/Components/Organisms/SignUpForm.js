@@ -9,12 +9,17 @@ const SignUpForm = () => {
   const [inputState, inputDispatch] = useState({
     id: "",
     pw: "",
+    birth: getToday(),
+    tell: "",
     email: "",
   });
   const changeInput = (e) => {
+    let value = e.target.value.split(" ").join("");
+    if (e.target.name === "tell")
+      value = [...value].filter((v) => /[0-9]/g.test(v)).join("");
     inputDispatch({
       ...inputState,
-      [e.target.name]: e.target.value.split(" ").join(""),
+      [e.target.name]: value,
     });
   };
 
@@ -27,8 +32,8 @@ const SignUpForm = () => {
     console.log(regExp[e.target.name].test(inputState[e.target.name]));
   };
 
-  const signon = false;
-
+  const signon = Object.values(inputState).every((v) => v !== "");
+  console.log(signon);
   return (
     <div className="signWrap">
       <section className="signUpSec">
@@ -39,7 +44,8 @@ const SignUpForm = () => {
             " "
           )}
         >
-          구글 회원 가입
+          <span className="logo"></span>
+          <span>구글 회원 가입</span>
         </button>
         <div className={["idWrap", "inputWrap"].join(" ")}>
           <label for="id">아이디</label>
@@ -48,18 +54,17 @@ const SignUpForm = () => {
             id="id"
             name="id"
             type="text"
-            placeholder="대/소문자, 숫자, 특수문자(-_.) 조합 6자리 이상"
+            placeholder="6자리 이상 (대/소문자, 숫자, 특수문자(_))"
             onChange={changeInput}
-            onBlur={checkRegExp}
             value={inputState.id}
           />
           <button
             className={["btnCheckDouble", "btn"].join(" ")}
-            disabled={true}
+            disabled={!regExp.id.test(inputState.id)}
           >
             중복확인
           </button>
-          <div className="notice">아이디를 규칙에 맞게 입력해주세요</div>
+          <div className="alertText">중복체크를 해주세요.</div>
         </div>
         <div className={["pwWrap", "inputWrap"].join(" ")}>
           <label for="pw">비밀번호</label>
@@ -70,9 +75,20 @@ const SignUpForm = () => {
             type="password"
             placeholder="특수문자(!@#$%^&*)를 포함한 8자리 이상"
             onChange={changeInput}
-            onBlur={checkRegExp}
             value={inputState.pw}
           />
+          <div className="alertText">비밀번호를 규칙에 맞게 입력해주세요</div>
+        </div>
+        <div className={["pwCheckWrap", "inputWrap"].join(" ")}>
+          <label for="pw">비밀번호 확인</label>
+          <input
+            className={["input", "large"].join(" ")}
+            id="pwCheck"
+            name="pwCheck"
+            type="password"
+            placeholder="비밀번호 확인"
+          />
+          <div className="alertText">비밀번호가 일치하지 않습니다</div>
         </div>
         <div className={["birthWrap", "inputWrap"].join(" ")}>
           <label for="birth">생년월일</label>
@@ -82,10 +98,8 @@ const SignUpForm = () => {
             name="birth"
             type="date"
             placeholder="생년월일"
-            value={getToday()}
-            // onChange={changeInput}
-            // onBlur={checkRegExp}
-            // value={inputState.birth}
+            onChange={changeInput}
+            value={inputState.birth}
           />
         </div>
         <div className={["tellWrap", "inputWrap"].join(" ")}>
@@ -96,10 +110,10 @@ const SignUpForm = () => {
             name="tell"
             type="text"
             placeholder=" - 를 제외하고 입력하세요."
-            // onChange={changeInput}
-            // onBlur={checkRegExp}
-            // value={inputState.tell}
+            onChange={changeInput}
+            value={inputState.tell}
           />
+          <div className="alertText">전화번호를 규칙에 맞게 입력해주세요</div>
         </div>
         <div className={["emailWrap", "inputWrap"].join(" ")}>
           <label for="email">이메일</label>
@@ -110,16 +124,16 @@ const SignUpForm = () => {
             type="email"
             placeholder="이메일 ex) omagabox@omaga.co.kr"
             onChange={changeInput}
-            onBlur={checkRegExp}
             value={inputState.email}
           />
+          <div className="alertText">이메일을 규칙에 맞게 입력해주세요</div>
         </div>
         <button
           className={
             ["btnSignUp", "btn", "large"].join(" ") +
-            (signon ? " lightGray" : " main fill")
+            (signon ? " main fill" : " lightGray")
           }
-          disabled={signon}
+          disabled={!signon}
         >
           회원가입
         </button>
