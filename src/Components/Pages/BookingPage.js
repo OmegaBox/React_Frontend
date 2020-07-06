@@ -1,8 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Booking from "../Templates/Booking";
+import { useDispatch } from "react-redux";
+import { getTheatersCanBooking } from "../../Reducer/bookingReducer";
 
 const BookingPage = () => {
-  // useEffect(() => {});
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getTheatersCanBooking());
+  }, [dispatch]);
 
   return <Booking />;
 };

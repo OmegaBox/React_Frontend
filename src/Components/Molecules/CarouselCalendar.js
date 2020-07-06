@@ -9,7 +9,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./style/CarouselCalendar.scss";
 
-const dateArray = getDateRangeData("2020-06-29", "2020-07-31");
+const dateArray = getDateRangeData("2020-07-01", "2020-07-15");
 
 const CarouselCalendar = () => {
   const selectedOption = useSelector((state) => state.Booking.selectedOption);
@@ -37,17 +37,33 @@ const CarouselCalendar = () => {
               ? " selectedDay"
               : "";
 
+          addClass += i > 6 ? " disabled" : "";
+
           return (
             <button
               className={addClass}
               id={i}
               onClick={() => dispatch(setSelectedDate(date.dateString))}
+              disabled={i > 6}
+              // styl={{}}
             >
               <span style={{}}>
-                {date.day} {date.dayOfWeek}
+                {date.day}·{date.dayOfWeek}
               </span>
             </button>
           );
+          // : (
+          //   <button
+          //     className={addClass}
+          //     id={i}
+          //     disabled="true"
+          //     style={{ cursor: "default !important" }}
+          //   >
+          //     <span style={{ color: "gray", cursor: "default" }}>
+          //       {date.day} {date.dayOfWeek}
+          //     </span>
+          //   </button>
+          // );
         })}
       </Slider>
     </div>

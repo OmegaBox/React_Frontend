@@ -33,13 +33,13 @@ const Calendar = () => {
         options={{
           locale: Korean,
           enable: [
-            "2020-06-29",
-            "2020-06-30",
             "2020-07-01",
             "2020-07-02",
             "2020-07-03",
             "2020-07-04",
             "2020-07-05",
+            "2020-07-06",
+            "2020-07-07",
           ],
         }}
         value={selectedOption.selectedDate}

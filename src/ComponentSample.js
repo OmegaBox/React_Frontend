@@ -18,6 +18,7 @@ function ComponentSample() {
         <br />
         클래스명 조합에 따라 형태가 다양한 버튼이 됨
       </p>
+
       <button className={["btn", "fill", "main", "xLarge"].join(" ")}>
         확인
       </button>
