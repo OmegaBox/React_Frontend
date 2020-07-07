@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Slider from "react-slick";
 
@@ -53,18 +53,6 @@ const CarouselCalendar = () => {
               </span>
             </button>
           );
-          // : (
-          //   <button
-          //     className={addClass}
-          //     id={i}
-          //     disabled="true"
-          //     style={{ cursor: "default !important" }}
-          //   >
-          //     <span style={{ color: "gray", cursor: "default" }}>
-          //       {date.day} {date.dayOfWeek}
-          //     </span>
-          //   </button>
-          // );
         })}
       </Slider>
     </div>

@@ -12,11 +12,12 @@ const timeArray = Array.from(Array(29).keys());
 
 const CarouselTimeline = () => {
   const selectedOption = useSelector((state) => state.Booking.selectedOption);
+  const schedules = useSelector((state) => state.Booking.schedule.schedules);
 
   let refSlider = null;
   let nowIndex = false;
 
-  const nowHour = new Date().getHours();
+  const nowHour = schedules.length ? +schedules[0].start_time.slice(0, 2) : 0;
 
   const dispatch = useDispatch();
 
@@ -40,9 +41,7 @@ const CarouselTimeline = () => {
             addClass +=
               +selectedOption.selectedHour === +time ? " selectedTime" : "";
             addClass +=
-              +time < +nowHour || !selectedOption.selectedTheaters.length
-                ? " disabledTimeline"
-                : "";
+              +time < +nowHour || !schedules.length ? " disabledTimeline" : "";
 
             if (+time > +nowHour && !nowIndex) nowIndex = i - 1;
 
