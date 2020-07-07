@@ -72,9 +72,12 @@
         opacity: 0;
       }
 
-      // &.booking {
-      //   background-image: $finish;
-      // }
+      &.booking {
+        font-size: 0;
+        border: 0;
+        background-image: $finish;
+        z-index: -1;
+      }
 
       &.select,
       &:not([ disabled ]):hover {

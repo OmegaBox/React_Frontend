@@ -51,7 +51,7 @@ const initialState = {
     {
       id: 2,
       ticketNumber: "T907030552868",
-      title: "오메가박스",
+      title: "결백",
       movieAgeGrade: 15,
       accFavorite: 675, // 누적 좋아요
       theater: "우리집",
@@ -85,23 +85,47 @@ const initialState = {
   commentMovies: [
     {
       id: 0,
-      title: "결백",
+      title: "오메가박스",
       rating: 8,
-      hashTag: "OST", // 연출, 스토리, 영상미, 배우, OST
+      hashTag: [
+        {
+          id: 0,
+          tag: "OST",
+        },
+        {
+          id: 1,
+          tag: "배우",
+        },
+      ], // 연출, 스토리, 영상미, 배우, OST
       commentText: "정말 강추합니다.",
       accFavorite: 675,
       writeDate: "2020-06-27",
+      poster:
+        "https://img.megabox.co.kr/SharedImg/2020/06/15/pjraLryYt5zQ1HEf6axtAdkXRhfhRZTZ_420.jpg",
     },
   ],
   watchedMovies: [
     {
       id: 0,
+      title: "#살아있다",
+      theater: "강남",
+      screeningHall: "1관",
+      date: "2020-06-28",
+      time: "15:40",
+      round: 1,
+      poster:
+        "https://img.megabox.co.kr/SharedImg/2020/06/15/pjraLryYt5zQ1HEf6axtAdkXRhfhRZTZ_420.jpg",
+    },
+    {
+      id: 1,
       title: "결백",
       theater: "강남",
       screeningHall: "1관",
       date: "2020-06-28",
       time: "15:40",
       round: 1,
+      poster:
+        "https://img.megabox.co.kr/SharedImg/2020/06/15/pjraLryYt5zQ1HEf6axtAdkXRhfhRZTZ_420.jpg",
     },
   ],
   cancelMovies: [
@@ -114,6 +138,8 @@ const initialState = {
       price: 6000,
       cancelDate: "2020-06-28",
       cancelTime: "15:37",
+      poster:
+        "https://img.megabox.co.kr/SharedImg/2020/06/15/pjraLryYt5zQ1HEf6axtAdkXRhfhRZTZ_420.jpg",
     },
   ],
 };

@@ -3,8 +3,6 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { selectMovie } from "../../Reducer/bookingReducer";
 
-import { movieApi } from "../../Api/api";
-
 import "./style/BookingMovieList.scss";
 
 const BookingMovieList = () => {
@@ -46,12 +44,16 @@ const BookingMovieList = () => {
             : "";
 
           return (
-            <li className={selectedClassName}>
+            <li key={`movieList${movie.id}`} className={selectedClassName}>
               <button
                 type="button"
                 onClick={() =>
                   dispatch(
-                    selectMovie({ title: movie.name_kor, poster: movie.poster })
+                    selectMovie({
+                      title: movie.name_kor,
+                      poster: movie.poster,
+                      id: movie.id,
+                    })
                   )
                 }
               >

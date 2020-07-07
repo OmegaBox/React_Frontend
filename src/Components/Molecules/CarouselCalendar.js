@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Slider from "react-slick";
 
-import { setSelectedDate } from "../../Reducer/bookingReducer";
+import { selectDate } from "../../Reducer/bookingReducer";
 import { getDateRangeData } from "../../Utils/ultil";
 
 import "slick-carousel/slick/slick.css";
@@ -41,9 +41,10 @@ const CarouselCalendar = () => {
 
           return (
             <button
+              key={`carouselDate${i}`}
               className={addClass}
               id={i}
-              onClick={() => dispatch(setSelectedDate(date.dateString))}
+              onClick={() => dispatch(selectDate(date.dateString))}
               disabled={i > 6}
               // styl={{}}
             >
