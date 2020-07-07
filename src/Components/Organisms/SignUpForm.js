@@ -106,13 +106,13 @@ const SignUpForm = () => {
   // 회원 가입 이벤트
   const signUpEvent = async () => {
     const test = {
-      name: "송아무롷개씨",
-      id: "songtddh",
+      name: "송아무하롷개씨",
+      id: "songtdddh",
       pw: "songth!!",
       pwCheck: "songth!!",
       birth: "1994-02-03",
-      tell: "01099225255",
-      email: "son221gth@song.com",
+      tell: "01011125255",
+      email: "son221ssgth@song.com",
     };
     try {
       const res = await userApi.signup({
@@ -126,7 +126,7 @@ const SignUpForm = () => {
       });
       console.log(res);
     } catch (e) {
-      console.log("영화", e);
+      console.log("영화", e.response);
     }
 
     // console.log("이거봐", res);
