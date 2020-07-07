@@ -37,55 +37,66 @@ const SignUpForm = () => {
     tell: useRef(),
     email: useRef(),
   };
+  const btnCheckDoubleRef = useRef();
 
   // 중복 체크
-  const [checkDouble, doubleDispatch] = useState(null);
+  const [checkDoubleState, doubleDispatch] = useState(null);
 
   // 정규식 체크
   const checkRegExp = (key) => {
-    console.log(key);
     return regExp[key].test(inputState[key]);
   };
 
   // input onChangeEvent
   const changeInput = (e) => {
     const name = e.target.name;
+    let value = e.target.value.split(" ").join("");
+
     if (alertState[name])
       alertDispatch({
         ...alertState,
         [name]: false,
       });
-    let value = e.target.value.split(" ").join("");
-    if (name === "id") doubleDispatch(false);
+
+    if (name === "id") doubleDispatch(null);
+
     if (name === "tell")
       value = [...value].filter((v) => /[0-9]/g.test(v)).join("");
+
     inputDispatch({
       ...inputState,
-      [e.target.name]: value,
+      [name]: value,
     });
   };
 
   // input onBluerEvent
   const bluerInput = (e) => {
     const name = e.target.name;
+    if (inputState[name] === "") return;
     if (name === "pwCheck" && inputState.pw !== inputState.pwCheck) {
+      console.log("패스워드 체크");
       alertDispatch({
         ...alertState,
         [name]: true,
       });
     }
-    if (!regExp[name] || (name === "id" && checkDouble)) return;
-    if (name === "id" && !checkDouble) {
-      alertDispatch({
-        ...alertState,
-        [name]: true,
-      });
-    } else if (!checkRegExp(name)) {
+    if (!regExp[name] || name === "id") return;
+    else if (!checkRegExp(name)) {
+      console.log("정규식 오류");
       alertDispatch({
         ...alertState,
         [name]: true,
       });
     }
+  };
+
+  // 아이디 중복체크
+  const checkDouble = () => {
+    doubleDispatch(true);
+    alertDispatch({
+      ...alertState,
+      id: false,
+    });
   };
 
   // 회원가입 버튼 활성화
@@ -93,9 +104,23 @@ const SignUpForm = () => {
 
   // 회원 가입 이벤트
   const signUpEvent = () => {
-    Object.keys(inputState).forEach((key) => {
-      console.log(`${key} : ${inputState[key]}`);
-    });
+    if (checkDoubleState === null) {
+      alertDispatch({
+        ...alertState,
+        id: true,
+      });
+      inputRefs.id.current.focus();
+      return;
+    } else if (!Object.values(alertState).every((ale) => !ale)) {
+      const keys = ["name", "id", "pw", "pwCheck", "tell", "email"];
+      const alertKey = keys.find((key) => alertState[key] === true);
+      console.log(inputRefs[alertKey]);
+      inputRefs[alertKey].current.focus();
+    } else {
+      Object.keys(inputState).forEach((key) => {
+        console.log(key, inputState[key]);
+      });
+    }
   };
 
   return (
@@ -133,7 +158,9 @@ const SignUpForm = () => {
         <div className={["idWrap", "inputWrap"].join(" ")}>
           <label htmlFor="id">아이디</label>
           <input
-            className={["input", "large"].join(" ")}
+            className={
+              ["input", "large"].join(" ") + (alertState.id ? " alert" : "")
+            }
             id="id"
             name="id"
             type="text"
@@ -145,7 +172,8 @@ const SignUpForm = () => {
           <button
             className={["btnCheckDouble", "btn"].join(" ")}
             disabled={!regExp.id.test(inputState.id)}
-            onClick={() => {}}
+            onClick={checkDouble}
+            ref={btnCheckDoubleRef}
           >
             중복확인
           </button>
@@ -155,11 +183,11 @@ const SignUpForm = () => {
           <div
             className={
               ["alertText"].join(" ") +
-              (checkDouble ? " passibleId" : " impassibleId")
+              (checkDoubleState ? " passibleId" : " impassibleId")
             }
-            hidden={checkDouble === null}
+            hidden={checkDoubleState === null}
           >
-            {checkDouble
+            {checkDoubleState
               ? "사용가능한 아이디입니다."
               : "중복되는 아이디입니다."}
           </div>
@@ -219,7 +247,9 @@ const SignUpForm = () => {
         <div className={["tellWrap", "inputWrap"].join(" ")}>
           <label htmlFor="tell">전화번호</label>
           <input
-            className={["input", "large"].join(" ")}
+            className={
+              ["input", "large"].join(" ") + (alertState.tell ? " alert" : "")
+            }
             id="tell"
             name="tell"
             type="text"
@@ -267,4 +297,4 @@ const SignUpForm = () => {
   );
 };
 
-export default SignUpForm;
+export default React.memo(SignUpForm);
