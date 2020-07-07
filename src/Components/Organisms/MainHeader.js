@@ -1,10 +1,11 @@
 import React from "react";
-import "./style/SubHeader.scss";
+import "./style/MainHeader.scss";
 import logo from "../../images/omegaWhite.png"
-import { Link } from "react-router-dom";
+import { Link, Route } from "react-router-dom";
 
-const SubHeader = () => {
+const MainHeader = () => {
   return (
+
     <div>
       <header className="headerLayout">
         <nav className="mainNav">
@@ -55,4 +56,4 @@ const SubHeader = () => {
   );
 };
 
-export default SubHeader;
+export default MainHeader;

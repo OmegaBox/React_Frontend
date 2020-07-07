@@ -9,7 +9,7 @@ const MainBoxOffice = () => {
   let movieBox = useSelector((state) => state.Movie.movies);
   movieBox = movieBox.filter((_, i) => i < 4);
   const dispatch = useDispatch();
-  console.log(selectMovie);
+
 
   return (
     <div className="mainBoxOfficeLayout">
