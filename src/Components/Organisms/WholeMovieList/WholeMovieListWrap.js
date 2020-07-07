@@ -36,7 +36,6 @@ const WholeMovieListWrap = () => {
       <ul className="wholeMovieList">
         {wholeMovie.map((movie, i) => {
           return (
-
             <li className="wholeMovie" key={i}>
               <Link to={"movie/" + movie.id}>
                 <p className="mainRank">{movie.rank}</p>
@@ -76,9 +75,9 @@ const WholeMovieListWrap = () => {
                       break;
                   }
                   return (
-                    <span className={iconClassName}>{v.grade}</span>
-                  ); */}
-                {/* })} */}
+                    <span className={iconClassName}>{movie.grade}</span>
+                  );
+                })} */}
                 <span className="movieGrade icon ageGrade"></span>
                 <span className="movieListTitle">{movie.name_kor}</span>
               </div>

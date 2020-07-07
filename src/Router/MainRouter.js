@@ -14,8 +14,8 @@ const MainRouter = () => {
     <Switch>
       <Route exact path="/" component={MainPage} />
       <Route path="/booking" component={BookingPage} />
-      <Route path="/movieDetail" component={MovieDetailPage} />
-      <Route path="/moviesList" component={WholeMovieListPage} />
+      <Route path="/movie" component={MovieDetailPage} />
+      <Route path="/listMovies" component={WholeMovieListPage} />
       <Route path="/mypage" component={MyPage} />
       <Route path={["/login", "/signup"]} component={LoginAndSignUpPage} />
       <Route path="/stylesample" component={ComponentSample} />

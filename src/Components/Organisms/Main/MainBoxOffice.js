@@ -13,7 +13,7 @@ const MainBoxOffice = () => {
       <div className="mainBoxOffice">
         <div className="mainBoxOfficeHeader">
           <h2>박스오피스</h2>
-          <Link to="/moviesList">
+          <Link to="/listMovies">
             <div className="boxOfficeMoreMovieWrap">
               <div className="boxOfficeMoreMovie">더 많은 영화보기 </div>
               <div className="icon moreMovieIcon"></div>
@@ -57,7 +57,7 @@ const MainBoxOffice = () => {
                       <span className="icon favoriteOutLine"></span>
                       <span className="boxOfficeFavoriteScore">{movie.acc_favorite}</span>
                     </button>
-                    <button
+                    <Link to="/booking"><button
                       className={[
                         "boxOfficeBookingBtn",
                         "btn",
@@ -68,6 +68,7 @@ const MainBoxOffice = () => {
                     >
                       예매
                   </button>
+                    </Link>
                   </div>
                 </li>
 
