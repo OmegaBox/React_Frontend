@@ -18,8 +18,7 @@ const MainRouter = () => {
       <Route path="/movieDetail" component={MovieDetailPage} />
       <Route path="/wholeMovieList" component={WholeMovieLIstPage} />
       <Route path="/mypage" component={MyPage} />
-      {/* <Route path={["/login", "/signup"]} component={LoginAndSignUpPage} /> */}
-      <Route path="/signup" component={SignUpForm} />
+      <Route path="/membersignup" component={SignUpForm} />
       <Route path="/stylesample" component={ComponentSample} />
       <Route render={NotFoundPage} />
     </Switch>

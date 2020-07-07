@@ -48,19 +48,8 @@ export const movieApi = {
   },
 };
 
-export const signupApi = {
-  checkDouble: () => {},
+export const userApi = {
   signup: ({ name, id, pw, pwCheck, birth, tell, email }) => {
-    const JSONDATA = JSON.stringify({
-      username: id,
-      email: email,
-      password1: pw,
-      password2: pwCheck,
-      name: name,
-      mobile: tell,
-      birth_date: birth,
-    });
-    console.log(JSONDATA);
     return axios.post("/members/signup/", {
       username: id,
       email: email,

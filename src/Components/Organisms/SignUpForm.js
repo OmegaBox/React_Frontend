@@ -3,7 +3,7 @@ import React, { useState, useRef } from "react";
 import "./style/SignUpForm.scss";
 
 import { getToday, regExp } from "../../Utils/ultil";
-import { signupApi } from "../../Api/api";
+import { userApi } from "../../Api/api";
 
 const initSignState = {
   name: "",
@@ -115,7 +115,7 @@ const SignUpForm = () => {
       email: "son221gth@song.com",
     };
     try {
-      const res = await signupApi.signup({
+      const res = await userApi.signup({
         name: test.name,
         id: test.id,
         pw: test.pw,
