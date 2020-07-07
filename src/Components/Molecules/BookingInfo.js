@@ -103,7 +103,10 @@ const BookingInfo = () => {
             <br />
             <span>{`${ticket.seletedTime} ~ ${ticket.endTime}`}</span>
           </div>
-          <img src="https://megabox.co.kr/SharedImg/2020/06/15/pjraLryYt5zQ1HEf6axtAdkXRhfhRZTZ_150.jpg"></img>
+          <img
+            src="https://megabox.co.kr/SharedImg/2020/06/15/pjraLryYt5zQ1HEf6axtAdkXRhfhRZTZ_150.jpg"
+            alt="선택영화 포스터 이미지"
+          ></img>
         </li>
         <li className="bookingSeatInfo">
           <ul className="seatInfo">
