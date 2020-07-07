@@ -73,10 +73,19 @@ const numWithComma = (numStr) => {
   return arr.join("");
 };
 
+const regExp = {
+  name: /^[a-zA-Z가-힣]{2,}$/,
+  id: /^[0-9a-zA-Z_]{6,}$/,
+  pw: /((?=.*[0-9a-zA-Z])(?=.*[!@#$%^&*]).{8,})/,
+  tell: /^(010|0)([0-9]{8})$/,
+  email: /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@([0-9a-zA-Z]+)([-_\.]?[a-zA-Z]{2})*\.[a-zA-Z]{2,3}$/,
+};
+
 export {
   getToday,
   getCurrentHour,
   getDateRangeData,
   transformDateFormat,
   numWithComma,
+  regExp,
 };

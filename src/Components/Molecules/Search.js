@@ -1,7 +1,6 @@
 // import React, { useState, useEffect, useRef } from "react";
 // import { movieApi } from "../../Api/api";
 
-
 // export const Search = () => {
 //   const [searchState, setSearchState] = useState([]);
 //   const inputRef = useRef();

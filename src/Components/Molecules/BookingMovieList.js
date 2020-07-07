@@ -3,8 +3,6 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { selectMovie } from "../../Reducer/bookingReducer";
 
-import { movieApi } from "../../Api/api";
-
 import "./style/BookingMovieList.scss";
 
 const BookingMovieList = () => {
@@ -23,16 +21,16 @@ const BookingMovieList = () => {
         {movies.map((movie) => {
           let iconClassName = "icon";
           switch (movie.grade) {
-            case "청소년관람불가" || "18+":
+            case "18+":
               iconClassName += " ageGrade19Small";
               break;
-            case "15세이상관람가" || "15+":
+            case "15+":
               iconClassName += " ageGrade15Small";
               break;
-            case "12세이상관람가" || "12+":
+            case "12+":
               iconClassName += " ageGrade12Small";
               break;
-            case "전체관람가" || "all":
+            case "all":
             default:
               iconClassName += " ageGradeSmall";
               break;
@@ -46,7 +44,7 @@ const BookingMovieList = () => {
             : "";
 
           return (
-            <li className={selectedClassName}>
+            <li key={`movieList${movie.id}`} className={selectedClassName}>
               <button
                 type="button"
                 onClick={() =>
@@ -72,7 +70,7 @@ const BookingMovieList = () => {
             <>
               {selectedMovies.map((movie) => {
                 return (
-                  <li>
+                  <li key={`selectedMoviesPoster${movie.id}`}>
                     <img
                       className="poster"
                       src={movie.poster}
@@ -91,8 +89,8 @@ const BookingMovieList = () => {
                   </li>
                 );
               })}
-              {unSelectedMovies.map(() => {
-                return <li>+</li>;
+              {unSelectedMovies.map((_, i) => {
+                return <li key={`unSelectedMoviesPoster${i}`}>+</li>;
               })}
             </>
           ) : (
