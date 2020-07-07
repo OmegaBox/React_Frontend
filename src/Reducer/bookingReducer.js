@@ -1,5 +1,5 @@
-import { select, put, call, takeLatest } from "redux-saga/effects";
-import { getToday, getCurrentHour, transformDateFormat } from "../Utils/ultil";
+import { select, put, takeLatest } from "redux-saga/effects";
+import { transformDateFormat } from "../Utils/ultil";
 import { movieApi } from "../Api/api";
 
 const SUCCESS = "booking/SUCCESS";
@@ -22,9 +22,11 @@ const SELECT_MOVIE = "booking/SELECT_MOVIE";
 const SELECT_THEATER = "booking/SELECT_THEATER";
 const SELECT_DATE = "booking/SELECT_DATE";
 
+const SET_DEFAULT_TICKET_INFO = "booking/SET_DEFAULT_TICKET_INFO";
+
 // const GET_SCHEDULES = "booking/GET_SCHEDULES";
+const GET_SCHEDULES = "booking/GET_SCHEDULES";
 const GET_SCHEDULES_SUCCESS = "booking/GET_SCHEDULES_SUCCESS";
-const GET_SCHEDULES_LOADING = "booking/GET_SCHEDULES_LOADING";
 const GET_SCHEDULES_ERROR = "booking/GET_SCHEDULES_ERROR";
 
 // 단순 상태 변환용 액션들
@@ -48,10 +50,15 @@ const setCanSelectTheaters = (theaters) => ({
   type: SET_CAN_SELECT_THEATERS,
   theaters,
 });
+const setDefaultTicketInfo = (payload) => ({
+  type: SET_DEFAULT_TICKET_INFO,
+  payload,
+});
 
 // 외부 api로 정보 가져오는 Thunk
 const getSchedules = () => async (dispatch, state) => {
-  const scheduleLogs = state().Booking.scheduleLogs;
+  dispatch({ type: GET_SCHEDULES });
+  const scheduleLogs = state().Booking.schedule.scheduleLogs;
 
   const selectedOption = state().Booking.selectedOption;
   const selectedTheaters = selectedOption.selectedTheaters;
@@ -69,14 +76,21 @@ const getSchedules = () => async (dispatch, state) => {
     schedules: [],
   };
 
+  // 로그 처리
   const pastLog = scheduleLogs.find(
     (log) =>
       JSON.stringify(log.searchOption) ===
       JSON.stringify(newSearchLog.searchOption)
   );
-
   if (pastLog) {
     dispatch({ type: GET_SCHEDULES_SUCCESS, payload: pastLog.schedules });
+    dispatch(
+      setSelectedHour(
+        pastLog.schedules.length
+          ? +pastLog.schedules[0].start_time.slice(0, 2)
+          : 0
+      )
+    );
     return;
   }
 
@@ -97,8 +111,19 @@ const getSchedules = () => async (dispatch, state) => {
       }
     }
 
+    newSearchLog.schedules = newSearchLog.schedules.sort((a, b) =>
+      a.start_time < b.start_time ? -1 : 1
+    );
+
     dispatch({ type: GET_SCHEDULES_SUCCESS, payload: newSearchLog.schedules });
     dispatch({ type: SET_SCHEDULES_LOG, payload: newSearchLog });
+    dispatch(
+      setSelectedHour(
+        newSearchLog.schedules.length
+          ? +newSearchLog.schedules[0].start_time.slice(0, 2)
+          : 0
+      )
+    );
   } catch (e) {
     console.log("에러발생", e);
   }
@@ -111,8 +136,7 @@ const getTheatersCanBooking = (movies = []) => async (dispatch, state) => {
   const selectedTheaters = selectedOption.selectedTheaters;
   const selectedDate = transformDateFormat(selectedOption.selectedDate)
     .dateStringNoDash;
-  const canSelectRegionTheatersLogs = state().Booking
-    .canSelectRegionTheatersLogs;
+  const canSelectRegionTheatersLogs = state().Booking.canSelectLocation.logs;
 
   const newRegionTheaterLog = {
     searchOption: {
@@ -120,8 +144,8 @@ const getTheatersCanBooking = (movies = []) => async (dispatch, state) => {
       selectedTheaters,
       selectedMovies,
     },
-    canSelectRegions: [],
-    canSelectTheaters: [],
+    regions: [],
+    theaters: [],
   };
 
   const pastLog = canSelectRegionTheatersLogs.find(
@@ -131,8 +155,8 @@ const getTheatersCanBooking = (movies = []) => async (dispatch, state) => {
   );
 
   if (pastLog) {
-    dispatch(setCanSelectRegions(pastLog.canSelectRegions));
-    dispatch(setCanSelectTheaters(pastLog.canSelectTheaters));
+    dispatch(setCanSelectRegions(pastLog.regions));
+    dispatch(setCanSelectTheaters(pastLog.theaters));
   } else {
     try {
       const resRegions = await movieApi.getScreeningRegions(
@@ -145,7 +169,7 @@ const getTheatersCanBooking = (movies = []) => async (dispatch, state) => {
       );
 
       if (resRegions.status === 200 && resTheaters.status === 200) {
-        const canSelectRegions = {
+        const regions = {
           "가까운 영화관": 3,
           서울: 0,
           경기: 0,
@@ -157,15 +181,15 @@ const getTheatersCanBooking = (movies = []) => async (dispatch, state) => {
           제주: 0,
         };
         for (let i = 0; i < resRegions.data.results.length; i++) {
-          canSelectRegions[resRegions.data.results[i].region_name] =
+          regions[resRegions.data.results[i].region_name] =
             resRegions.data.results[i].region_count;
         }
-        dispatch(setCanSelectRegions(canSelectRegions));
+        dispatch(setCanSelectRegions(regions));
         dispatch(setCanSelectTheaters(resTheaters.data.results));
 
         // 로그로 기록하기
-        newRegionTheaterLog.canSelectRegions = canSelectRegions;
-        newRegionTheaterLog.canSelectTheaters = resTheaters.data.results;
+        newRegionTheaterLog.regions = regions;
+        newRegionTheaterLog.theaters = resTheaters.data.results;
         dispatch({
           type: SET_REGION_THEATER_LOG,
           payload: newRegionTheaterLog,
@@ -179,7 +203,7 @@ const getTheatersCanBooking = (movies = []) => async (dispatch, state) => {
   }
 
   // 만약 이미 선택한 상영관이 선택 불가능하게 바뀌었을 경우 선택을 취소해준다
-  const canSelectTheaters = state().Booking.canSelectTheaters;
+  const canSelectTheaters = state().Booking.canSelectLocation.theaters;
 
   const newSelectedTheaters = canSelectTheaters.filter((theater) =>
     selectedTheaters.find((th) => th.name === theater.name)
@@ -222,7 +246,7 @@ function* selectMovieSaga(action) {
   }
 
   if (selectedDate === "") yield put(setSelectedDate("2020-07-01")); // 날짜 선택
-  yield put(setSelectedHour(getCurrentHour())); // 현재 시간을 선택
+  // yield put(setSelectedHour(getCurrentHour())); // 현재 시간을 선택
   yield put(setSelectedMovies(newSelectedMovies)); // 영화 선택
   yield put(getTheatersCanBooking(newSelectedMovies));
   if (selectedTheaters.length) {
@@ -254,7 +278,7 @@ function* selectTheaterSaga(action) {
     newSelectedTheaters.push(action.theater);
   }
 
-  yield put(setSelectedHour(getCurrentHour())); // 현재 시간을 선택
+  // yield put(setSelectedHour(getCurrentHour())); // 현재 시간을 선택
   yield put(setSelectTheaters(newSelectedTheaters)); // 상영관 선택 처리
   yield put(getSchedules());
 }
@@ -276,21 +300,25 @@ function* bookingSaga() {
 }
 
 const initialState = {
-  canSelectRegions: {
-    "가까운 영화관": 3,
-    서울: 0,
-    경기: 0,
-    인천: 0,
-    "대전/충청/세종": 0,
-    "부산/대구/경상": 0,
-    "광주/전라": 0,
-    강원: 0,
-    제주: 0,
+  canSelectLocation: {
+    regions: {
+      "가까운 영화관": 3,
+      서울: 0,
+      경기: 0,
+      인천: 0,
+      "대전/충청/세종": 0,
+      "부산/대구/경상": 0,
+      "광주/전라": 0,
+      강원: 0,
+      제주: 0,
+    },
+    theaters: [],
+    logs: [],
   },
-  canSelectTheaters: [],
-  canSelectRegionTheatersLogs: [],
-  schedules: [],
-  scheduleLogs: [],
+  schedule: {
+    schedules: [],
+    scheduleLogs: [],
+  },
   selectedOption: {
     selectedDate: "2020-07-01",
     selectedRegion: "", // 선택한 지역
@@ -299,8 +327,8 @@ const initialState = {
     selectedMovies: [],
     movieAgeGrade: "All",
     screenHall: "2관",
-    selectedHour: "19",
-    selectedTime: "19:40",
+    selectedHour: "0",
+    selectedTime: "0",
     endTime: "",
     seletedSeat: [],
   },
@@ -327,6 +355,7 @@ const initialState = {
       reservation_rate: 57.9,
       running_time: "97",
       rank: 1,
+      grade: "15+",
       acc_audience: 1342958,
       acc_favorite: 0,
       open_date: "2020-06-24",
@@ -346,6 +375,7 @@ const initialState = {
       reservation_rate: 10.5,
       running_time: "110",
       rank: 2,
+      grade: "15+",
       acc_audience: 770103,
       acc_favorite: 0,
       open_date: "2020-06-10",
@@ -365,6 +395,7 @@ const initialState = {
       reservation_rate: 7.8,
       running_time: "118",
       rank: 3,
+      grade: "12+",
       acc_audience: 26982,
       acc_favorite: 0,
       open_date: "2020-07-01",
@@ -384,6 +415,7 @@ const initialState = {
       reservation_rate: 6.1,
       running_time: "152",
       rank: 4,
+      grade: "15+",
       acc_audience: 4194189,
       acc_favorite: 0,
       open_date: "2008-08-06",
@@ -403,6 +435,7 @@ const initialState = {
       reservation_rate: 5.7,
       running_time: "102",
       rank: 5,
+      grade: "all",
       acc_audience: 312568,
       acc_favorite: 0,
       open_date: "2020-06-17",
@@ -422,6 +455,7 @@ const initialState = {
       reservation_rate: 2.6,
       running_time: "130",
       rank: 6,
+      grade: "12+",
       acc_audience: 9742,
       acc_favorite: 0,
       open_date: "2020-07-01",
@@ -441,6 +475,7 @@ const initialState = {
       reservation_rate: 1.0,
       running_time: "100",
       rank: 7,
+      grade: "15+",
       acc_audience: 2954,
       acc_favorite: 0,
       open_date: "2020-07-02",
@@ -460,6 +495,7 @@ const initialState = {
       reservation_rate: 0.8,
       running_time: "104",
       rank: 8,
+      grade: "12+",
       acc_audience: 1688503,
       acc_favorite: 0,
       open_date: "2017-12-20",
@@ -479,6 +515,7 @@ const initialState = {
       reservation_rate: 0.8,
       running_time: "196",
       rank: 9,
+      grade: "18+",
       acc_audience: 757,
       acc_favorite: 0,
       open_date: "2020-07-03",
@@ -498,6 +535,7 @@ const initialState = {
       reservation_rate: 0.6,
       running_time: "104",
       rank: 10,
+      grade: "12+",
       acc_audience: 31770,
       acc_favorite: 0,
       open_date: "2020-06-18",
@@ -516,10 +554,19 @@ const initialState = {
 
 const bookingReducer = (state = initialState, action) => {
   switch (action.type) {
+    case GET_SCHEDULES:
+      return {
+        ...state,
+        isLoading: state.isLoading + 1,
+      };
     case GET_SCHEDULES_SUCCESS:
       return {
         ...state,
-        schedules: action.payload,
+        schedule: {
+          ...state.schedule,
+          schedules: action.payload,
+        },
+        isLoading: state.isLoading - 1,
       };
     case SET_SELECTED_MOVIE:
       return {
@@ -572,25 +619,42 @@ const bookingReducer = (state = initialState, action) => {
     case SET_CAN_SELECT_REGIONS:
       return {
         ...state,
-        canSelectRegions: action.regions,
+        canSelectLocation: {
+          ...state.canSelectLocation,
+          regions: action.regions,
+        },
       };
     case SET_CAN_SELECT_THEATERS:
       return {
         ...state,
-        canSelectTheaters: action.theaters,
+        canSelectLocation: {
+          ...state.canSelectLocation,
+          theaters: action.theaters,
+        },
       };
     case SET_SCHEDULES_LOG:
       return {
         ...state,
-        scheduleLogs: [...state.scheduleLogs, action.payload],
+        schedule: {
+          ...state.schedule,
+          scheduleLogs: [...state.schedule.scheduleLogs, action.payload],
+        },
       };
     case SET_REGION_THEATER_LOG:
       return {
         ...state,
-        canSelectRegionTheatersLogs: [
-          ...state.canSelectRegionTheatersLogs,
-          action.payload,
-        ],
+        canSelectLocation: {
+          ...state.canSelectLocation,
+          logs: [...state.canSelectLocation.logs, action.payload],
+        },
+      };
+    case SET_DEFAULT_TICKET_INFO:
+      return {
+        ...state,
+        ticket: {
+          ...state.ticket,
+          ...action.payload,
+        },
       };
 
     case SUCCESS:
@@ -610,6 +674,7 @@ export {
   setSelectedHour,
   setSelectRegion,
   setNearbyTheaters,
+  setDefaultTicketInfo,
   getSchedules,
   getTheatersCanBooking,
   selectDate,
