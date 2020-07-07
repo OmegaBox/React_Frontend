@@ -133,7 +133,12 @@ button {
   border: none;
   background: none;
   cursor: pointer;
+  
+  &:hover {
+    text-decoration: none;
+  }
 }
+
 .btn {
   margin: 0 4px;
   padding: 0 16px;
@@ -301,6 +306,29 @@ textarea:focus {
   }
 }
 
+
+::-webkit-input-placeholder {
+  color: $colorDisabledText;
+  font-size: 1.2rem;
+  font-weight: 400;
+}
+::-moz-placeholder {
+  color: $colorDisabledText;
+  font-size: 1.2rem;
+  font-weight: 400;
+}
+:-ms-input-placeholder {
+  color: $colorDisabledText;
+  font-size: 1.2rem;
+  font-weight: 400;
+}
+::input-placeholde {
+  color: $colorDisabledText;
+  font-size: 1.2rem;
+  font-weight: 400;
+}
+
+
 /* select */
 select {
   -webkit-appearance: none;
@@ -447,6 +475,14 @@ p {
   &.btnMore {background-image: url("https://img.megabox.co.kr/static/pc/images/movie/btn-alert.png");}
   &.reply {background-image: url("https://img.megabox.co.kr/static/pc/images/common/ico/ico-reply.png");}
   &.info {background-image: url("https://img.megabox.co.kr/static/pc/images/common/ico/ico-tooltip-gray.png");}
+
+  &.moreMovieIcon {
+    width: 16px;
+    height: 16px;
+    margin: -1px 0 0 7px;
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/ico/ico-more-cross-gray.png");
+    background-repeat: no-repeat;
+  }  
 }
 
 

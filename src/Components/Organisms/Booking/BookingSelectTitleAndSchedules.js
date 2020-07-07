@@ -1,13 +1,13 @@
 import React from "react";
 import CarouselCalendar from "../../Molecules/CarouselCalendar";
 import Calendar from "../../Molecules/Calendar";
-import BookingTheaterList from "../../Molecules/BookingTheaterList";
+import BookingMovieList from "../../Molecules/BookingMovieList";
+import BookingMovieSchedules from "../../Molecules/BookingMovieSchedules";
 import BookingFastTitle from "../../Atoms/BookingFastTitle";
-import TeatherMap from "../../Molecules/TeatherMap";
+import BookingScheduleInfo from "../../Molecules/BookingScheduleInfo";
 
 import "./style/BookingSelectMovie.scss";
-
-const BookingSelectMovie = () => {
+const BookingSelectTimeAndTheater = () => {
   return (
     <div className="bookingSelectMovieContainer">
       <BookingFastTitle />
@@ -16,11 +16,12 @@ const BookingSelectMovie = () => {
         <Calendar />
       </div>
       <div className="bookingInfoLists">
-        <BookingTheaterList />
-        <TeatherMap />
+        <BookingMovieList />
+        <BookingMovieSchedules />
+        <BookingScheduleInfo />
       </div>
     </div>
   );
 };
 
-export default BookingSelectMovie;
+export default BookingSelectTimeAndTheater;

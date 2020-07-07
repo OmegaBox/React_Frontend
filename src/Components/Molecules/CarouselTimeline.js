@@ -40,7 +40,7 @@ const CarouselTimeline = () => {
             addClass +=
               +selectedOption.selectedHour === +time ? " selectedTime" : "";
             addClass +=
-              +time < +nowHour || !selectedOption.selectedTheathers.length
+              +time < +nowHour || !selectedOption.selectedTheaters.length
                 ? " disabledTimeline"
                 : "";
 
@@ -48,6 +48,7 @@ const CarouselTimeline = () => {
 
             return (
               <button
+                key={`carouselTime${i}`}
                 className={addClass}
                 id={i}
                 onClick={() => dispatch(setSelectedHour(time))}

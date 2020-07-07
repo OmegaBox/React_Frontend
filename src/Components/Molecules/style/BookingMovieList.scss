@@ -9,7 +9,7 @@
 }
 
 .bookingMovieList {
-  width: 270px;
+  width: 310px;
   height: 530px;
   padding: 10px 20px 17px 20px;
   // box-sizing: border-box;
@@ -17,7 +17,7 @@
 }
 
 .movieLists {
-  width: 229px;
+  width: 100%;
   height: 372px;
   overflow-y: scroll;
   scrollbar-color: $colorGray44 $colorGrayEa;
@@ -50,7 +50,7 @@
 }
 
 .selectedMoviePosterBox {
-  width: 230px;
+  width: 100%;
   height: 100px;
   margin-top: 10px;
   ul {
@@ -79,6 +79,7 @@
     img {
       width: 63px;
       height: 90px;
+      font-size: 1.5rem;
     }
   }
 }
