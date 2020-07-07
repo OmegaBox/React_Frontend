@@ -12,8 +12,6 @@ const getMovies = () => async (dispatch) => {
   try {
     dispatch(setLoadingState());
     const res = await movieApi.getMovies();
-    console.log(res.data.results);
-
     if (res.status === 200) {
       if (!Array.isArray(res.data.results)) return console.error("배열이 아닙니다.");
       dispatch(setSuccessState(res.data.results));
