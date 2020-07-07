@@ -5,7 +5,7 @@ import "./style/WholeMovieListWrap.scss"
 import { Link } from "react-router-dom";
 
 const WholeMovieListWrap = () => {
-  const wholeMovie = useSelector((state) => state.Movie.movies);
+  const movies = useSelector((state) => state.Movie.movies);
 
   return (
     <div className="WholeMovieListLayout">
@@ -34,7 +34,23 @@ const WholeMovieListWrap = () => {
         <button type="button" className="iconSearchBtn"></button>
       </div>
       <ul className="wholeMovieList">
-        {wholeMovie.map((movie, i) => {
+        {movies.map((movie, i) => {
+          let iconClassName = "icon";
+          switch (movie.grade) {
+            case "18+":
+              iconClassName += " ageGrade19Small";
+              break;
+            case "15+":
+              iconClassName += " ageGrade15Small";
+              break;
+            case "12+":
+              iconClassName += " ageGrade12Small";
+              break;
+            case "all":
+            default:
+              iconClassName += " ageGradeSmall";
+              break;
+          }
           return (
             <li className="wholeMovie" key={i}>
               <Link to={"movie/" + movie.id}>
@@ -57,28 +73,7 @@ const WholeMovieListWrap = () => {
                 </div>
               </Link>
               <div className="movieListTitleWrap">
-                {/* {wholeMovie.map((movie) => {
-                  let iconClassName = "icon";
-                  switch (movie.grade) {
-                    case "청소년관람불가" || "18+":
-                      iconClassName += " ageGrade19Small";
-                      break;
-                    case "15세이상관람가" || "15+":
-                      iconClassName += " ageGrade15Small";
-                      break;
-                    case "12세이상관람가" || "12+":
-                      iconClassName += " ageGrade12Small";
-                      break;
-                    case "전체관람가" || "all":
-                    default:
-                      iconClassName += " ageGradeSmall";
-                      break;
-                  }
-                  return (
-                    <span className={iconClassName}>{movie.grade}</span>
-                  );
-                })} */}
-                <span className="movieGrade icon ageGrade"></span>
+                <span className={iconClassName} />
                 <span className="movieListTitle">{movie.name_kor}</span>
               </div>
               <div className="movieListRateandDay">
