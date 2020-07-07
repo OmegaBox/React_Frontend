@@ -61,6 +61,14 @@ export const signupApi = {
       birth_date: birth,
     });
     console.log(JSONDATA);
-    return axios.post("/members/signup/", JSONDATA);
+    return axios.post("/members/signup/", {
+      username: id,
+      email: email,
+      password1: pw,
+      password2: pwCheck,
+      name: name,
+      mobile: tell,
+      birth_date: birth,
+    });
   },
 };
