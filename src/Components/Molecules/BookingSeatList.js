@@ -99,16 +99,10 @@ const socialDistance = (row, seatNum) => {
 const BookingSeatList = () => {
   const dispatch = useDispatch();
 
-  const [select, personal] = useSelector((state) => [
+  const [select, personal, ticket] = useSelector((state) => [
     state.Seat.selectedSeat,
     state.Seat.personal,
   ]);
-  const test = async () => {
-    const dd = await movieApi.getSeats(1);
-    console.log("좌석정보", dd);
-  };
-
-  test();
 
   // 선택 좌석 수
   const totalSeatCount = select.length;
@@ -128,7 +122,7 @@ const BookingSeatList = () => {
   };
 
   useEffect(() => {
-    seatApi(1);
+    seatApi(3);
   }, [seatApi]);
   return (
     <div className="bookingSeatList">

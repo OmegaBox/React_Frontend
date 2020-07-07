@@ -44,14 +44,14 @@ export const movieApi = {
     return axios.get(call);
   },
   getSeats: (scheduleId) => {
-    return axios.get(`/schedules/${scheduleId}/seats/`);
+    return axios.get(`/schedules/${scheduleId}/reserved-seats/`);
   },
 };
 
 export const signupApi = {
   checkDouble: () => {},
   signup: ({ name, id, pw, pwCheck, birth, tell, email }) => {
-    const JSONDATA = JSON.stringify({
+    return axios.post("/members/signup/", {
       username: id,
       email: email,
       password1: pw,
@@ -60,7 +60,5 @@ export const signupApi = {
       mobile: tell,
       birth_date: birth,
     });
-    console.log(JSONDATA);
-    return axios.post("/members/signup/", JSONDATA);
   },
 };

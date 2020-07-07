@@ -111,24 +111,23 @@ const SignUpForm = () => {
       pw: "songth!!",
       pwCheck: "songth!!",
       birth: "1994-06-03",
-      tell: "01033445555",
-      email: "songth@song.com",
+      tell: "01033345555",
+      email: "songth@naver.com",
     };
-    const res = await signupApi.signup({
-      name: test.name,
-      id: test.id,
-      pw: test.pw,
-      pwCheck: test.pwCheck,
-      birth: test.birth,
-      tell: test.tell,
-      email: test.email,
-    });
 
-    if (res.status === 200) {
-      console.log(res);
-    } else {
-      console.log(res);
-      console.log("status 에러발생");
+    try {
+      const res = await signupApi.signup({
+        name: test.name,
+        id: test.id,
+        pw: test.pw,
+        pwCheck: test.pwCheck,
+        birth: test.birth,
+        tell: test.tell,
+        email: test.email,
+      });
+    } catch (e) {
+      console.log(e);
+      console.error(e);
     }
 
     // if (checkDoubleState === null) {
