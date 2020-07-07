@@ -7,12 +7,14 @@ import { getToday, regExp } from "../../Utils/ultil";
 
 const SignUpForm = () => {
   const [inputState, inputDispatch] = useState({
+    name: "",
     id: "",
     pw: "",
     birth: getToday(),
     tell: "",
     email: "",
   });
+
   const changeInput = (e) => {
     let value = e.target.value.split(" ").join("");
     if (e.target.name === "tell")
@@ -41,6 +43,8 @@ const SignUpForm = () => {
     tell: false,
     email: false,
   };
+
+  const afterCheck = false;
   return (
     <div className="signWrap">
       <section className="signUpSec">
@@ -54,8 +58,20 @@ const SignUpForm = () => {
           <span className="logo"></span>
           <span>구글 회원 가입</span>
         </button>
+        <div className={["nameWrap", "inputWrap"].join(" ")}>
+          <label htmlFor="name">이름</label>
+          <input
+            className={["input", "large"].join(" ")}
+            id="name"
+            name="name"
+            type="text"
+            placeholder="이름을 입력하세요."
+            onChange={changeInput}
+            value={inputState.name}
+          />
+        </div>
         <div className={["idWrap", "inputWrap"].join(" ")}>
-          <label for="id">아이디</label>
+          <label htmlFor="id">아이디</label>
           <input
             className={["input", "large"].join(" ")}
             id="id"
@@ -72,14 +88,20 @@ const SignUpForm = () => {
             중복확인
           </button>
           <div className="alertText" hidden={!alertState.id}>
-            중복체크를 해주세요.
+            중복체크를 해주세요
           </div>
-          <div className="alertText" hidden={!alertState.id}>
-            중복체크를 해주세요.
+          <div
+            className={
+              ["alertText"].join(" ") +
+              (afterCheck ? " passibleId" : " impassibleId")
+            }
+            hidden={alertState.id}
+          >
+            {afterCheck ? "사용가능한 아이디입니다." : "중복되는 아이디입니다."}
           </div>
         </div>
         <div className={["pwWrap", "inputWrap"].join(" ")}>
-          <label for="pw">비밀번호</label>
+          <label htmlFor="pw">비밀번호</label>
           <input
             className={["input", "large"].join(" ")}
             id="pw"
@@ -94,7 +116,7 @@ const SignUpForm = () => {
           </div>
         </div>
         <div className={["pwCheckWrap", "inputWrap"].join(" ")}>
-          <label for="pw">비밀번호 확인</label>
+          <label htmlFor="pw">비밀번호 확인</label>
           <input
             className={["input", "large"].join(" ")}
             id="pwCheck"
@@ -107,7 +129,7 @@ const SignUpForm = () => {
           </div>
         </div>
         <div className={["birthWrap", "inputWrap"].join(" ")}>
-          <label for="birth">생년월일</label>
+          <label htmlFor="birth">생년월일</label>
           <input
             className={["input", "large"].join(" ")}
             id="birth"
@@ -118,8 +140,34 @@ const SignUpForm = () => {
             value={inputState.birth}
           />
         </div>
+        <div className={["genderWrap", "inputWrap"].join(" ")}>
+          <span className="genderTitle">성별</span>
+          <label htmlFor="male" className="radioLabel">
+            남
+          </label>
+          <input
+            className={["input", "large"].join(" ")}
+            id="male"
+            name="gender"
+            type="radio"
+            value="male"
+          />
+          <label htmlFor="female" className="radioLabel">
+            여
+          </label>
+          <input
+            className={["input", "large"].join(" ")}
+            id="female"
+            name="gender"
+            type="radio"
+            value="female"
+          />
+          <div className="alertText" hidden={!alertState.pwCheck}>
+            비밀번호가 일치하지 않습니다
+          </div>
+        </div>
         <div className={["tellWrap", "inputWrap"].join(" ")}>
-          <label for="tell">전화번호</label>
+          <label htmlFor="tell">전화번호</label>
           <input
             className={["input", "large"].join(" ")}
             id="tell"
@@ -134,7 +182,7 @@ const SignUpForm = () => {
           </div>
         </div>
         <div className={["emailWrap", "inputWrap"].join(" ")}>
-          <label for="email">이메일</label>
+          <label htmlFor="email">이메일</label>
           <input
             className={["input", "large"].join(" ")}
             id="email"

@@ -111,3 +111,26 @@
 .rules {
   font-size: 1.2rem;
 }
+
+.genderWrap {
+  $labelHeight: 40px;
+
+  & span.genderTitle {
+    display: block;
+    width: 100%;
+    margin-bottom: 4px;
+    padding: 0;
+    font-size: 1.6rem;
+    font-weight: 500;
+    color: $colorMain;
+    text-align: left;
+  }
+  & label.radioLabel {
+    width: 50%;
+    height: $labelHeight;
+    text-align: center;
+    line-height: $labelHeight;
+    border: 1px solid $border;
+    cursor: pointer;
+  }
+} 
