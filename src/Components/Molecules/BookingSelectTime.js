@@ -4,13 +4,13 @@ import "./style/BookingSelectTime.scss";
 import { useSelector } from "react-redux";
 
 const BookingSelectTime = () => {
-  const schedules = useSelector((state) => state.Booking.schedules);
+  const schedules = useSelector((state) => state.Booking.schedule.schedules);
 
   return (
     <ol className="BookingSelectTimeContainer">
       {schedules.map((schedule) => {
         return (
-          <li>
+          <li key={`scheduleId${schedule.schedule_id}`}>
             <div className="screeningTime">
               <strong>{schedule.start_time}</strong>
               <span>~{schedule.end_time}</span>
@@ -32,144 +32,8 @@ const BookingSelectTime = () => {
           </li>
         );
       })}
-      {/* <li>
-        <div className="screeningTime">
-          <strong>11:10</strong>
-          <span>~13:19</span>
-        </div>
-        <div className="screeningMovieTitle">
-          <strong>소리꾼</strong>
-          <span>2D</span>
-        </div>
-        <div className="screeningTheaterAndHall">
-          <strong>강남</strong>
-          <span>5관</span>
-          <div className="bookingSeats">
-            <span className="availableSeats">60</span>/<span>150</span>
-          </div>
-        </div>
-      </li>
-      <li>
-        <div className="screeningTime">
-          <strong>11:10</strong>
-          <span>~13:19</span>
-        </div>
-        <div className="screeningMovieTitle">
-          <strong>소리꾼</strong>
-          <span>2D</span>
-        </div>
-        <div className="screeningTheaterAndHall">
-          <strong>강남</strong>
-          <span>5관</span>
-          <div className="bookingSeats">
-            <span className="availableSeats">60</span>/<span>150</span>
-          </div>
-        </div>
-      </li>
-      <li>
-        <div className="screeningTime">
-          <strong>11:10</strong>
-          <span>~13:19</span>
-        </div>
-        <div className="screeningMovieTitle">
-          <strong>소리꾼</strong>
-          <span>2D</span>
-        </div>
-        <div className="screeningTheaterAndHall">
-          <strong>강남</strong>
-          <span>5관</span>
-          <div className="bookingSeats">
-            <span className="availableSeats">60</span>/<span>150</span>
-          </div>
-        </div>
-      </li>
-      <li>
-        <div className="screeningTime">
-          <strong>11:10</strong>
-          <span>~13:19</span>
-        </div>
-        <div className="screeningMovieTitle">
-          <strong>소리꾼</strong>
-          <span>2D</span>
-        </div>
-        <div className="screeningTheaterAndHall">
-          <strong>강남</strong>
-          <span>5관</span>
-          <div className="bookingSeats">
-            <span className="availableSeats">60</span>/<span>150</span>
-          </div>
-        </div>
-      </li>
-      <li>
-        <div className="screeningTime">
-          <strong>11:10</strong>
-          <span>~13:19</span>
-        </div>
-        <div className="screeningMovieTitle">
-          <strong>소리꾼</strong>
-          <span>2D</span>
-        </div>
-        <div className="screeningTheaterAndHall">
-          <strong>강남</strong>
-          <span>5관</span>
-          <div className="bookingSeats">
-            <span className="availableSeats">60</span>/<span>150</span>
-          </div>
-        </div>
-      </li>
-      <li>
-        <div className="screeningTime">
-          <strong>11:10</strong>
-          <span>~13:19</span>
-        </div>
-        <div className="screeningMovieTitle">
-          <strong>소리꾼</strong>
-          <span>2D</span>
-        </div>
-        <div className="screeningTheaterAndHall">
-          <strong>강남</strong>
-          <span>5관</span>
-          <div className="bookingSeats">
-            <span className="availableSeats">60</span>/<span>150</span>
-          </div>
-        </div>
-      </li>
-      <li>
-        <div className="screeningTime">
-          <strong>11:10</strong>
-          <span>~13:19</span>
-        </div>
-        <div className="screeningMovieTitle">
-          <strong>소리꾼</strong>
-          <span>2D</span>
-        </div>
-        <div className="screeningTheaterAndHall">
-          <strong>강남</strong>
-          <span>5관</span>
-          <div className="bookingSeats">
-            <span className="availableSeats">60</span>/<span>150</span>
-          </div>
-        </div>
-      </li>
-      <li>
-        <div className="screeningTime">
-          <strong>11:10</strong>
-          <span>~13:19</span>
-        </div>
-        <div className="screeningMovieTitle">
-          <strong>소리꾼</strong>
-          <span>2D</span>
-        </div>
-        <div className="screeningTheaterAndHall">
-          <strong>강남</strong>
-          <span>5관</span>
-          <div className="bookingSeats">
-            <span className="availableSeats">60</span>/<span>150</span>
-          </div>
-        </div>
-      </li> */}
     </ol>
   );
 };
 
-export default BookingSelectTime;
+export default React.memo(BookingSelectTime);

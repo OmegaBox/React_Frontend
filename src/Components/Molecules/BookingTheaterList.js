@@ -8,9 +8,9 @@ import {
   setNearbyTheaters,
 } from "../../Reducer/bookingReducer";
 import {
-  theaterLoaction,
+  theaterLocation,
   findNearbyTheaters,
-} from "../../Utils/theaterLoaction";
+} from "../../Utils/theaterLocation";
 
 const BookingTheaterList = () => {
   // async function dispatchNearby() {
@@ -23,16 +23,16 @@ const BookingTheaterList = () => {
 
   const selectedOption = useSelector((state) => state.Booking.selectedOption);
   const canSelectRegions = useSelector(
-    (state) => state.Booking.canSelectRegions
+    (state) => state.Booking.canSelectLocation.regions
   ); // 선택 가능한 지역별 영화관 수
 
   const canSelectTheaters = useSelector(
-    (state) => state.Booking.canSelectTheaters
+    (state) => state.Booking.canSelectLocation.theaters
   ); // 선택 가능한 지역별 상영관들
 
   const dispatch = useDispatch();
 
-  const theaterLocs = theaterLoaction.slice();
+  const theaterLocs = theaterLocation.slice();
   const nearbyTheaters = selectedOption.nearbyTheaters; // 가까운 영화관들
 
   if (!theaterLocs.find((theater) => theater.region === "가까운 영화관")) {
@@ -152,4 +152,4 @@ const BookingTheaterList = () => {
   );
 };
 
-export default BookingTheaterList;
+export default React.memo(BookingTheaterList);

@@ -64,11 +64,11 @@ export const findNearbyTheaters = async () => {
   const curLoc = await getLocation();
 
   const theaterDistances = [];
-  for (let i = 0; i < theaterLoaction.length; i++) {
-    const theaters = theaterLoaction[i].theaters;
+  for (let i = 0; i < theaterLocation.length; i++) {
+    const theaters = theaterLocation[i].theaters;
     for (let j = 0; j < theaters.length; j++) {
-      const name = theaterLoaction[i].theaters[j].name;
-      const theaterLoc = theaterLoaction[i].theaters[j].location;
+      const name = theaterLocation[i].theaters[j].name;
+      const theaterLoc = theaterLocation[i].theaters[j].location;
       const distance = getDistanceFromLatLonInKm(curLoc, theaterLoc);
 
       theaterDistances.push({ name, location: theaterLoc, distance });
@@ -82,7 +82,7 @@ export const findNearbyTheaters = async () => {
   return closest3;
 };
 
-export const theaterLoaction = [
+export const theaterLocation = [
   {
     region: "서울",
     theaters: [

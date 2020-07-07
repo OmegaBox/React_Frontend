@@ -70,7 +70,7 @@ const BookingMovieList = () => {
             <>
               {selectedMovies.map((movie) => {
                 return (
-                  <li>
+                  <li key={`selectedMoviesPoster${movie.id}`}>
                     <img
                       className="poster"
                       src={movie.poster}
@@ -89,8 +89,8 @@ const BookingMovieList = () => {
                   </li>
                 );
               })}
-              {unSelectedMovies.map(() => {
-                return <li>+</li>;
+              {unSelectedMovies.map((_, i) => {
+                return <li key={`unSelectedMoviesPoster${i}`}>+</li>;
               })}
             </>
           ) : (
