@@ -1,5 +1,5 @@
-import { select, put, call, takeLatest } from "redux-saga/effects";
-import { getToday, getCurrentHour, transformDateFormat } from "../Utils/ultil";
+import { select, put, takeLatest } from "redux-saga/effects";
+import { transformDateFormat } from "../Utils/ultil";
 import { movieApi } from "../Api/api";
 
 const SUCCESS = "booking/SUCCESS";
@@ -21,6 +21,8 @@ const SET_REGION_THEATER_LOG = "booking/SET_REGION_THEATER_LOG";
 const SELECT_MOVIE = "booking/SELECT_MOVIE";
 const SELECT_THEATER = "booking/SELECT_THEATER";
 const SELECT_DATE = "booking/SELECT_DATE";
+
+const SET_DEFAULT_TICKET_INFO = "booking/SET_DEFAULT_TICKET_INFO";
 
 // const GET_SCHEDULES = "booking/GET_SCHEDULES";
 const GET_SCHEDULES = "booking/GET_SCHEDULES";
@@ -47,6 +49,10 @@ const setCanSelectRegions = (regions) => ({
 const setCanSelectTheaters = (theaters) => ({
   type: SET_CAN_SELECT_THEATERS,
   theaters,
+});
+const setDefaultTicketInfo = (payload) => ({
+  type: SET_DEFAULT_TICKET_INFO,
+  payload,
 });
 
 // 외부 api로 정보 가져오는 Thunk
@@ -349,6 +355,7 @@ const initialState = {
       reservation_rate: 57.9,
       running_time: "97",
       rank: 1,
+      grade: "15+",
       acc_audience: 1342958,
       acc_favorite: 0,
       open_date: "2020-06-24",
@@ -368,6 +375,7 @@ const initialState = {
       reservation_rate: 10.5,
       running_time: "110",
       rank: 2,
+      grade: "15+",
       acc_audience: 770103,
       acc_favorite: 0,
       open_date: "2020-06-10",
@@ -387,6 +395,7 @@ const initialState = {
       reservation_rate: 7.8,
       running_time: "118",
       rank: 3,
+      grade: "12+",
       acc_audience: 26982,
       acc_favorite: 0,
       open_date: "2020-07-01",
@@ -406,6 +415,7 @@ const initialState = {
       reservation_rate: 6.1,
       running_time: "152",
       rank: 4,
+      grade: "15+",
       acc_audience: 4194189,
       acc_favorite: 0,
       open_date: "2008-08-06",
@@ -425,6 +435,7 @@ const initialState = {
       reservation_rate: 5.7,
       running_time: "102",
       rank: 5,
+      grade: "all",
       acc_audience: 312568,
       acc_favorite: 0,
       open_date: "2020-06-17",
@@ -444,6 +455,7 @@ const initialState = {
       reservation_rate: 2.6,
       running_time: "130",
       rank: 6,
+      grade: "12+",
       acc_audience: 9742,
       acc_favorite: 0,
       open_date: "2020-07-01",
@@ -463,6 +475,7 @@ const initialState = {
       reservation_rate: 1.0,
       running_time: "100",
       rank: 7,
+      grade: "15+",
       acc_audience: 2954,
       acc_favorite: 0,
       open_date: "2020-07-02",
@@ -482,6 +495,7 @@ const initialState = {
       reservation_rate: 0.8,
       running_time: "104",
       rank: 8,
+      grade: "12+",
       acc_audience: 1688503,
       acc_favorite: 0,
       open_date: "2017-12-20",
@@ -501,6 +515,7 @@ const initialState = {
       reservation_rate: 0.8,
       running_time: "196",
       rank: 9,
+      grade: "18+",
       acc_audience: 757,
       acc_favorite: 0,
       open_date: "2020-07-03",
@@ -520,6 +535,7 @@ const initialState = {
       reservation_rate: 0.6,
       running_time: "104",
       rank: 10,
+      grade: "12+",
       acc_audience: 31770,
       acc_favorite: 0,
       open_date: "2020-06-18",
@@ -632,6 +648,14 @@ const bookingReducer = (state = initialState, action) => {
           logs: [...state.canSelectLocation.logs, action.payload],
         },
       };
+    case SET_DEFAULT_TICKET_INFO:
+      return {
+        ...state,
+        ticket: {
+          ...state.ticket,
+          ...action.payload,
+        },
+      };
 
     case SUCCESS:
     case ERROR:
@@ -650,6 +674,7 @@ export {
   setSelectedHour,
   setSelectRegion,
   setNearbyTheaters,
+  setDefaultTicketInfo,
   getSchedules,
   getTheatersCanBooking,
   selectDate,

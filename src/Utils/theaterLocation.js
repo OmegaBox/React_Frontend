@@ -4,9 +4,6 @@ export const getLocation = () => {
     return new Promise((resolve) => {
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          // console.info(
-          //   `re:${position.coords.latitude} ${position.coords.longitude}`
-          // );
           resolve({
             lat: position.coords.latitude,
             lng: position.coords.longitude,
@@ -26,13 +23,12 @@ export const getLocation = () => {
         }
       );
     }).then((coords) => {
-      // console.log(`coords:${JSON.stringify(coords)}`);
       return coords;
     });
   }
   console.info("GPS를 지원하지 않습니다");
   return {
-    lat: 37.498227,
+    lat: 37.498227, // 기본 주소는 강남 메가박스
     lng: 127.026375,
   };
 };
@@ -96,22 +92,22 @@ export const theaterLocation = [
       {
         name: "강남대로(씨티)",
         location: {
-          lat: 37.5417438,
-          lng: 127.044786,
+          lat: 37.500372,
+          lng: 127.027018,
         },
       },
       {
         name: "강동",
         location: {
-          lat: 37.5417438,
-          lng: 127.044786,
+          lat: 37.498227,
+          lng: 127.026375,
         },
       },
       {
         name: "군자",
         location: {
-          lat: 37.555783,
-          lng: 127.078387,
+          lat: 37.498227,
+          lng: 127.026375,
         },
       },
       {
@@ -152,8 +148,8 @@ export const theaterLocation = [
       {
         name: "성수",
         location: {
-          lat: 37.54192,
-          lng: 127.044878,
+          lat: 37.541847,
+          lng: 127.04503,
         },
       },
       {
