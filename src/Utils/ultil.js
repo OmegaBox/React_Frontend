@@ -74,6 +74,7 @@ const numWithComma = (numStr) => {
 };
 
 const regExp = {
+  name: /^[a-zA-Z가-힣]{2,}$/g,
   id: /^[0-9a-zA-Z_]{6,}$/,
   pw: /((?=.*[0-9a-zA-Z])(?=.*[!@#$%^&*]).{8,})/,
   tell: /^(010|0)(\d{8})/g,
