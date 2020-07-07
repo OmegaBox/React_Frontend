@@ -1,47 +1,12 @@
-import React, { useEffect } from "react";
-import { movieApi } from "../../../Api/api";
-import { useSelector, useDispatch } from "react-redux";
+import React from "react";
+// import { movieApi } from "../../../Api/api";
+import { useSelector } from "react-redux";
 import "./style/WholeMovieListWrap.scss"
-import {
-  setLoadingState,
-  setSuccessState,
-} from "../../../Reducer/movieReducer";
+import { Link } from "react-router-dom";
 
 const WholeMovieListWrap = () => {
   const wholeMovie = useSelector((state) => state.Movie.movies);
-  const dispatch = useDispatch();
 
-  const Movie = async () => {
-    try {
-      dispatch(setLoadingState());
-      const test = await movieApi.getMovies();
-
-      if (test.status === 200) {
-        if (!Array.isArray(test.data)) return console.error("배열이 아닙니다.");
-        dispatch(setSuccessState(test.data.sort((a, b) => a.rank - b.rank)));
-      } else {
-        dispatch({
-          type: "ERROR",
-          error: {
-            state: true,
-            message: test.statusText,
-          },
-        });
-      }
-    } catch (error) {
-      dispatch({
-        type: "ERROR",
-        error: {
-          state: true,
-          message: error.message,
-        },
-      });
-    }
-  };
-
-  useEffect(() => {
-    Movie();
-  }, []);
   return (
     <div className="WholeMovieListLayout">
       <h1 className="WholeMovieHeader">전체영화</h1>
@@ -69,27 +34,29 @@ const WholeMovieListWrap = () => {
         <button type="button" className="iconSearchBtn"></button>
       </div>
       <ul className="wholeMovieList">
-        {wholeMovie.map((v, i) => {
-          console.log(v.rank);
+        {wholeMovie.map((movie, i) => {
           return (
-            <li key={i}>
-              <p className="mainRank">{v.rank}</p>
-              <img
-                className="wholeMoviePoster"
-                alt={v.title}
-                src={v.poster}
-              />
-              <div className="wholeMovieInforWrap">
-                <div className="wholeMovieSummary">
-                  <p>{v.description}</p>
-                </div>
-                <div className="boxOfficeMovieScore">
-                  <div>
-                    <p>관람평</p>
-                    <strong>{v.average_point}</strong>
+
+            <li className="wholeMovie" key={i}>
+              <Link to={"movie/" + movie.id}>
+                <p className="mainRank">{movie.rank}</p>
+                <img
+                  className="wholeMoviePoster"
+                  alt={movie.title}
+                  src={movie.poster}
+                />
+                <div className="wholeMovieInforWrap">
+                  <div className="wholeMovieSummary">
+                    <p>{movie.description}</p>
+                  </div>
+                  <div className="boxOfficeMovieScore">
+                    <div>
+                      <p>관람평</p>
+                      <strong>{movie.average_point}</strong>
+                    </div>
                   </div>
                 </div>
-              </div>
+              </Link>
               <div className="movieListTitleWrap">
                 {/* {wholeMovie.map((movie) => {
                   let iconClassName = "icon";
@@ -113,12 +80,11 @@ const WholeMovieListWrap = () => {
                   ); */}
                 {/* })} */}
                 <span className="movieGrade icon ageGrade"></span>
-                <span className="movieListTitle">{v.name_kor}</span>
+                <span className="movieListTitle">{movie.name_kor}</span>
               </div>
-
               <div className="movieListRateandDay">
-                <span className="movieListBookingRate">예매율{v.reservation_rate}%</span>
-                <span className="movieListOpeningDay">개봉일{v.open_date}</span>
+                <span className="movieListBookingRate">예매율{movie.reservation_rate}%</span>
+                <span className="movieListOpeningDay">개봉일{movie.open_date}</span>
               </div>
 
               <div className="wholeBtnWrap">
@@ -132,7 +98,7 @@ const WholeMovieListWrap = () => {
                   ].join(" ")}
                 >
                   <span className="icon favorite"></span>
-                  <span className="wholeFavoriteScore">{v.acc_favorite}</span>
+                  <span className="wholeFavoriteScore">{movie.acc_favorite}</span>
                 </button>
                 <button
                   className={[
