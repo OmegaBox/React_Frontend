@@ -28,9 +28,6 @@ export const movieApi = {
       movies ? "?movie=" + movieIds : ""
     }
     `;
-
-    console.log(call);
-
     return axios.get(call);
   },
   getScreeningTheaters: (date, movies) => {
@@ -48,5 +45,22 @@ export const movieApi = {
   },
   getSeats: (scheduleId) => {
     return axios.get(`/schedules/${scheduleId}/seats/`);
+  },
+};
+
+export const signupApi = {
+  checkDouble: () => {},
+  signup: ({ name, id, pw, pwCheck, birth, tell, email }) => {
+    const JSONDATA = JSON.stringify({
+      username: id,
+      email: email,
+      password1: pw,
+      password2: pwCheck,
+      name: name,
+      mobile: tell,
+      birth_date: birth,
+    });
+    console.log(JSONDATA);
+    return axios.post("/members/signup/", JSONDATA);
   },
 };
