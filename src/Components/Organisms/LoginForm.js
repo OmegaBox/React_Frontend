@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 import "./style/LoginForm.scss";
 
 const LoginForm = () => {
+  const [inputId, setInputId] = useState("");
+  const [inputPass, setInputPass] = useState("");
+
   return (
     <div className={["popupWrap"].join(" ")}>
       <div
@@ -33,6 +36,7 @@ const LoginForm = () => {
             type="text"
             id="userId"
             placeholder="아이디"
+            onChange={(e) => setInputId(e.target.value)}
           />
           <label className="a11yHidden" htmlFor="userPw">
             비밀번호
@@ -42,6 +46,7 @@ const LoginForm = () => {
             type="password"
             id="userPw"
             placeholder="비밀번호"
+            onChange={(e) => setInputPass(e.target.value)}
           />
           <div className="inputWrap saveIdWrap">
             <input type="checkbox" id="saveId" />
@@ -52,11 +57,10 @@ const LoginForm = () => {
           <button
             className={["btnLogin", "btn", "large"].join(" ")}
             type="submit"
-            disabled={true}
           >
             로그인
           </button>
-          <Link to="/signup" className="btnSignUp">
+          <Link to="/membersignup" className="btnSignUp">
             회원가입
           </Link>
         </div>

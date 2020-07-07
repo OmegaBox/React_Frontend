@@ -3,12 +3,12 @@ import { Switch, Route } from "react-router-dom";
 import MainPage from "../Components/Pages/MainPage";
 import BookingPage from "../Components/Pages/BookingPage";
 import MyPage from "../Components/Pages/MyPage";
-import LoginAndSignUpPage from "../Components/Pages/LoginAndSignUpPage";
 import NotFoundPage from "../Components/Pages/NotFoundPage";
 import ComponentSample from "../ComponentSample";
 import MovieDetailPage from "../Components/Pages/MovieDetailPage";
 import WholeMovieListPage from "../Components/Pages/WholeMovieListPage";
 import SignUpForm from "../Components/Organisms/SignUpForm";
+import LoginForm from "../Components/Organisms/LoginForm";
 
 const MainRouter = () => {
   return (
@@ -19,6 +19,7 @@ const MainRouter = () => {
       <Route path="/moviesList" component={WholeMovieListPage} />
       <Route path="/mypage" component={MyPage} />
       <Route path="/membersignup" component={SignUpForm} />
+      <Route path="/memberlogin" component={LoginForm} />
       <Route path="/stylesample" component={ComponentSample} />
       <Route render={NotFoundPage} />
     </Switch>
