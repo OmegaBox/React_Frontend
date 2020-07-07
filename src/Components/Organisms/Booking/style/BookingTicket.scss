@@ -1,4 +1,10 @@
-@import '../../../../common.scss';
+@import "../../../../commonVariable.scss";
+@import "../../../../common.scss";
 
 // 좌석 배경
 $ticket: url("https://img.megabox.co.kr/static/pc/images/reserve/bg-reserve-finish-top.png");
+
+.ticketWrap {
+  width: 1100px;
+  margin: 40px  auto 120px;
+}
