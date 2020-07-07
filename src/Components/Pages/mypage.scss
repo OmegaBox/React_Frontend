@@ -76,14 +76,14 @@ p.bullet::before {
 }
 
 /* mypage content area common style */
-.mypageDashBoard,
-.bookingHistoryWrap,
-.pointWrap,
-.myMovieStoryWrap,
-.confirmPassword,
-.editUserInfo,
-.editPassword,
-.editOption {
+main .mypageDashBoard,
+main .bookingHistoryWrap,
+main .pointWrap,
+main .myMovieStoryWrap,
+main .confirmPassword,
+main .editUserInfo,
+main .editPassword,
+main .editOption {
   float: right;
   width: 840px;
 }
