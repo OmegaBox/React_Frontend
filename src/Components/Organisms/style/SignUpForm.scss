@@ -28,12 +28,23 @@
     font-weight: 500;
     color: $colorMain;
     text-align: left;
+
+    &::after {
+      padding-left: 4px;
+      content: "(필수)";
+      font-size: 1.2rem;
+      color: $colorRed;
+    }
   }
 
   & input.input {
     width: 100%;
     margin-right: 0;
     font-size: 1.5rem;
+
+    &.alert {
+      border-color: $colorRed;
+    }
   }
   .alertText {
     position: absolute;
@@ -89,6 +100,10 @@
       font-weight: $textMedium;
       cursor: default;
     }
+  }
+
+  div.passibleId {
+    color: $colorSub;
   }
 } 
 
