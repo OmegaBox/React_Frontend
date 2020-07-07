@@ -13,10 +13,6 @@ import {
 } from "../../Utils/theaterLocation";
 
 const BookingTheaterList = () => {
-  // async function dispatchNearby() {
-  //   dispatch(setNearbyTheaters(await findNearbyTheaters()));
-  // }
-
   const dispatchNearby = useCallback(async () =>
     dispatch(setNearbyTheaters(await findNearbyTheaters()))
   );

@@ -70,12 +70,12 @@ const getSchedules = () => async (dispatch, state) => {
     schedules: [],
   };
 
+  // 로그 처리
   const pastLog = scheduleLogs.find(
     (log) =>
       JSON.stringify(log.searchOption) ===
       JSON.stringify(newSearchLog.searchOption)
   );
-
   if (pastLog) {
     dispatch({ type: GET_SCHEDULES_SUCCESS, payload: pastLog.schedules });
     dispatch(
@@ -85,8 +85,6 @@ const getSchedules = () => async (dispatch, state) => {
           : 0
       )
     );
-    console.log(pastLog.schedules);
-
     return;
   }
 
@@ -106,7 +104,6 @@ const getSchedules = () => async (dispatch, state) => {
         console.log("status 에러발생");
       }
     }
-    console.log(newSearchLog.schedules);
 
     newSearchLog.schedules = newSearchLog.schedules.sort((a, b) =>
       a.start_time < b.start_time ? -1 : 1
