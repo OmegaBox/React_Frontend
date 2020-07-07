@@ -15,7 +15,7 @@ export const movieApi = {
       return axios.get(`theaters/${theaterId}/schedules/${date}`);
     } else {
       return axios.get(
-        `theaters/${theaterId}/schedules/${date}/?movie=${movieIds}`
+        `theaters/${theaterId}/schedules/${date}/?movies=${movieIds}`
       );
     }
   },
@@ -25,7 +25,7 @@ export const movieApi = {
       movieIds = movies.reduce((acc, cur) => acc + "+" + cur.id, "").slice(1);
     }
     const call = `theaters/schedules/regions/${date}/${
-      movies ? "?movie=" + movieIds : ""
+      movies ? "?movies=" + movieIds : ""
     }
     `;
     return axios.get(call);
@@ -37,7 +37,7 @@ export const movieApi = {
     }
 
     const call = `theaters/schedules/${date}/${
-      movies ? "?movie=" + movieIds : ""
+      movies ? "?movies=" + movieIds : ""
     }
     `;
 
