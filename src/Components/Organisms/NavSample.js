@@ -17,12 +17,12 @@ const NavSample = () => {
           마이 페이지로
         </button>
       </Link>
-      <Link to="/movieDetail">
+      <Link to="/movie">
         <button className={["btn", "fill", "white"].join(" ")}>
           영화 상세페이지로
         </button>
       </Link>
-      <Link to="/moviesList">
+      <Link to="/listMovies">
         <button className={["btn", "fill", "white"].join(" ")}>
           전체 영화리스트 페이지
         </button>
