@@ -28,9 +28,6 @@ export const movieApi = {
       movies ? "?movie=" + movieIds : ""
     }
     `;
-
-    console.log(call);
-
     return axios.get(call);
   },
   getScreeningTheaters: (date, movies) => {
