@@ -3,7 +3,7 @@ import React, { useState, useRef } from "react";
 import "./style/SignUpForm.scss";
 
 import { getToday, regExp } from "../../Utils/ultil";
-import { signupApi } from "../../Api/api";
+import { userApi } from "../../Api/api";
 
 const initSignState = {
   name: "",
@@ -105,61 +105,34 @@ const SignUpForm = () => {
 
   // 회원 가입 이벤트
   const signUpEvent = async () => {
-    const test = {
-      name: "송씨",
-      id: "songth",
-      pw: "songth!!",
-      pwCheck: "songth!!",
-      birth: "1994-06-03",
-      tell: "01033345555",
-      email: "songth@naver.com",
-    };
-
-    try {
-      const res = await signupApi.signup({
-        name: test.name,
-        id: test.id,
-        pw: test.pw,
-        pwCheck: test.pwCheck,
-        birth: test.birth,
-        tell: test.tell,
-        email: test.email,
+    if (checkDoubleState === null) {
+      alertDispatch({
+        ...alertState,
+        id: true,
       });
-    } catch (e) {
-      console.log(e);
-      console.error(e);
+      inputRefs.id.current.focus();
+      return;
+    } else if (!Object.values(alertState).every((ale) => !ale)) {
+      const keys = ["name", "id", "pw", "pwCheck", "tell", "email"];
+      const alertKey = keys.find((key) => alertState[key] === true);
+      console.log(inputRefs[alertKey]);
+      inputRefs[alertKey].current.focus();
+    } else {
+      try {
+        const res = await userApi.signup({
+          name: inputState.name,
+          id: inputState.id,
+          pw: inputState.pw,
+          pwCheck: inputState.pwCheck,
+          birth: inputState.birth,
+          tell: inputState.tell,
+          email: inputState.email,
+        });
+        console.log(res);
+      } catch (e) {
+        console.log(`회원가입 실패 : ${e.response}`);
+      }
     }
-
-    // if (checkDoubleState === null) {
-    //   alertDispatch({
-    //     ...alertState,
-    //     id: true,
-    //   });
-    //   inputRefs.id.current.focus();
-    //   return;
-    // } else if (!Object.values(alertState).every((ale) => !ale)) {
-    //   const keys = ["name", "id", "pw", "pwCheck", "tell", "email"];
-    //   const alertKey = keys.find((key) => alertState[key] === true);
-    //   console.log(inputRefs[alertKey]);
-    //   inputRefs[alertKey].current.focus();
-    // } else {
-    //   const res = await signupApi.signup({
-    //     name: inputState.name,
-    //     id: inputState.id,
-    //     pw: inputState.pw,
-    //     pwCheck: inputState.pwCheck,
-    //     birth: inputState.birth,
-    //     tell: inputState.tell,
-    //     email: inputState.email,
-    //   });
-
-    //   if (res.status === 200) {
-    //     console.log(res);
-    //   } else {
-    //     console.log(res);
-    //     console.log("status 에러발생");
-    //   }
-    // }
   };
 
   return (
@@ -324,12 +297,10 @@ const SignUpForm = () => {
         <button
           className={
             ["btnSignUp", "btn", "large"].join(" ") +
-            // (signAble ? " main fill" : " lightGray")
-            (true ? " main fill" : " lightGray")
+            (signAble ? " main fill" : " lightGray")
           }
           onClick={signUpEvent}
-          // disabled={!signAble}
-          disabled={false}
+          disabled={!signAble}
         >
           회원가입
         </button>

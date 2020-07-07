@@ -48,8 +48,7 @@ export const movieApi = {
   },
 };
 
-export const signupApi = {
-  checkDouble: () => {},
+export const userApi = {
   signup: ({ name, id, pw, pwCheck, birth, tell, email }) => {
     return axios.post("/members/signup/", {
       username: id,
