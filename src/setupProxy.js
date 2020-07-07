@@ -20,6 +20,12 @@ module.exports = (app) => {
       changeOrigin: true,
     })
   );
+  app.use(
+    createProxyMiddleware("/members/signup/", {
+      target: "https://www.omegabox.xyz",
+      changeOrigin: true,
+    })
+  );
   // app.use(
   //   createProxyMiddleware('/getVilageFcst', {
   //     target: 'http://apis.data.go.kr/1360000/VilageFcstInfoService/',

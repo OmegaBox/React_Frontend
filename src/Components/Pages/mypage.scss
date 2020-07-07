@@ -76,14 +76,14 @@ p.bullet::before {
 }
 
 /* mypage content area common style */
-.mypageDashBoard,
-.bookingHistoryWrap,
-.pointWrap,
-.myMovieStoryWrap,
-.confirmPassword,
-.editUserInfo,
-.editPassword,
-.editOption {
+main .mypageDashBoard,
+main .bookingHistoryWrap,
+main .pointWrap,
+main .myMovieStoryWrap,
+main .confirmPassword,
+main .editUserInfo,
+main .editPassword,
+main .editOption {
   float: right;
   width: 840px;
 }
@@ -620,7 +620,7 @@ table {
   }
   & li a {
     width: 100%;
-    padding: 7px 8px 3px;
+    padding: 10px 8px 6px;
     font-weight: 500;
     text-align: center;
     border: 1px solid $border;
@@ -737,8 +737,12 @@ table {
     }
   }
 }
+section.comment, section.watched, section.likeMovie {margin-top: 40px;}
+.comment .movieList {border-top: 1px solid $darkBorder;}
 .comment .movieItem {
   align-items: flex-start;
+  padding: 28px 8px 20px;
+  border-bottom: 1px solid $border;
 }
 
 .watched .movieList li {
@@ -751,7 +755,7 @@ table {
 .watched .movieItem {
   position: relative;
   flex-wrap: nowrap;
-  padding: 32px 24px 64px;
+  padding: 20px 24px 60px;
   border: 1px solid $border;
   border-radius: 8px;
   .poster {

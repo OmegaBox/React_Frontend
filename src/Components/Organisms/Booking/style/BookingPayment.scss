@@ -1,0 +1,204 @@
+@import "../../../../commonVariable.scss";
+@import "../../../../common.scss";
+
+.bookingPaymentWrap {
+  width: 1100px;
+  margin: 60px auto 120px;
+  & > .title {
+    margin-bottom: 40px;
+    padding: 0 8px 16px;
+    font-size: 2.8rem;
+    font-weight: 500;
+    border-bottom: 1px solid $darkBorder;
+  }
+}
+
+.bookingPaymentWrap .pointWrap {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 24px;
+  padding: 24px;
+  background-color: $lightBg;
+  border-radius: 4px;
+  .stitle {
+    display: flex;
+    align-items: center;
+    margin-right: 24px;
+    font-size: 1.6rem;
+    color: $colorMain;
+    .icon.point {margin-right: 4px;}
+    .point {
+      padding-left: 8px;
+      font-size: 2rem;
+    }
+  }
+  input {
+    width: 180px;
+    margin: 0 8px;
+  }
+  button.btn.regular {
+    height: 38px;
+    margin-left: 16px;
+    font-size: 1.6rem;
+  }
+}
+
+.bookingPaymentWrap .paymentInfoWrap {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  width: 100%;
+  padding-top: 32px;
+  font-weight: 500;
+  color: $darkBgText;
+  background-color: $deepDarkBg;
+  border-radius: 8px;
+  overflow: hidden;
+  .btnWrap {
+    width: 100%;
+    padding: 0;
+    button {
+      width: 50%;
+      height: 50px;
+      margin: 32px 0 0 0;
+      border-radius: 0;
+    }
+  }
+  .moviePoster {
+    width: 200px;
+    height: initial;
+    margin: 0 32px;
+    border-radius: 4px;
+    overflow: hidden;
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
+  .paymentInfo {
+    display: flex;
+    flex-wrap: wrap;
+    width: 804px;
+    margin-right: 32px;
+    .movieInfo, .finalPaymentWrap {
+      position: relative;
+      display: flex;
+      align-content: center;
+      flex-wrap: wrap;
+      width: 100%;
+      padding-top: 8px;
+      li {
+        display: flex;
+        align-items: center;
+        padding-bottom: 4px;
+        padding-right: 12px;
+        font-weight: 400;
+      }
+    }
+    .movieInfo {
+      margin-bottom: 24px;
+      padding-top: 16px;
+      padding-left: 8px;
+    }
+    .movieInfo .time .icon.time{
+      width: 15px;
+      height: 15px;
+      margin-bottom: 4px;
+      margin-right: 6px;
+    }
+    .movieInfo .grade {
+      position: absolute;
+      top: 20px;
+      left: 8px;
+    }
+    .movieInfo .title {
+      width: 100%;
+      padding-left: 32px;
+      padding-bottom: 8px;
+      font-size: 2rem;
+    }
+    .dcEx, .usePoint {
+      margin: 0 1%;
+      padding: 16px 16px 12px 16px;
+      background-color: $darkBg;
+      border-radius: 4px;
+    }
+    .dcEx {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-content: center;
+      width: 70%;
+      margin-left: 0;
+    }
+    .dcEx .priceProcess {
+      display: flex;
+      width: 100%;
+      margin-bottom: 16px;
+      padding: 0 0 8px;
+      border-bottom: 1px solid $darkBorder;
+      li {
+        width: 33.33%;
+        font-size: 1.4rem;
+        font-weight: 400;
+        text-align: center;
+      }
+      li .person, li .price {
+        display: inline-block;
+        font-weight: inherit;
+      }
+    }
+    .dcEx .subTitle, .dcEx .totalPrice, .usePoint .subTitle, .usePoint .dcPrice {
+      font-size: 1.6rem;
+      font-weight: 400;
+    }
+    .dcEx .totalPrice, .usePoint .dcPrice {
+      font-weight: 500;
+      color: $colorWhite;
+    }
+    .dcEx .subTitle {margin-right: 8px;}
+    .usePoint {
+      position: relative;
+      width: 28%;
+      margin-right: 0;
+      padding-top: 26px;
+      font-weight: 400;
+      text-align: center;
+      &::before {
+        position: absolute;
+        top: 50%;
+        left: -25px;
+        content: "-";
+        display: block;
+        width: 32px;
+        margin-top: -15px;
+        padding: 5px 0 3px;
+        color: $colorWhite;
+        text-align: center;
+        background-color: $colorSub;
+        border-radius: 16px;
+      }
+    }
+    .finalPaymentWrap {
+      justify-content: flex-end;
+      align-items: flex-end;
+      width: 100%;
+      margin-top: 32px;
+      padding-right: 8px;
+      
+      .subTitle {
+        margin-bottom: 8px;
+        padding-right: 12px;
+        font-size: 1.4rem;
+        font-weight: 400;
+      }
+      .payment {
+        font-size: 2.4rem;
+        font-weight: 500;
+        color: $colorSubLight;
+      }
+    }
+  }
+}
