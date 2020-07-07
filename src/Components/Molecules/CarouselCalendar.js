@@ -41,6 +41,7 @@ const CarouselCalendar = () => {
 
           return (
             <button
+              key={`carouselDate${i}`}
               className={addClass}
               id={i}
               onClick={() => dispatch(selectDate(date.dateString))}
