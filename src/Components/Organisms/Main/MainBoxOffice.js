@@ -1,46 +1,12 @@
-import React, { useEffect } from "react";
-import { movieApi } from "../../../Api/api";
+import React from "react";
+// import { movieApi } from "../../../Api/api";
 import "./style/MainBoxOffice.scss";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import {
-  setLoadingState,
-  setSuccessState,
-} from "../../../Reducer/movieReducer";
 
 const MainBoxOffice = () => {
   let movieBox = useSelector((state) => state.Movie.movies);
   movieBox = movieBox.filter((_, i) => i < 4);
-  const dispatch = useDispatch();
-  const Movie = async () => {
-    try {
-      dispatch(setLoadingState());
-      const test = await movieApi.getMovies();
-      if (test.status === 200) {
-        if (!Array.isArray(test.data.results)) return console.error("배열이 아닙니다.");
-        dispatch(setSuccessState(test.data.results));
-      } else {
-        dispatch({
-          type: "ERROR",
-          error: {
-            state: true,
-            message: test.statusText,
-          },
-        });
-      }
-    } catch (error) {
-      dispatch({
-        type: "ERROR",
-        error: {
-          state: true,
-          message: error.message,
-        },
-      });
-    }
-  };
-  useEffect(() => {
-    Movie();
-  }, []);
 
   return (
     <div className="mainBoxOfficeLayout">
@@ -56,26 +22,28 @@ const MainBoxOffice = () => {
         </div>
         <div className="mainMovieList">
           <ul className="mainMoviesWrap">
-            {movieBox.map((v, i) => {
+            {movieBox.map((movie, i) => {
               return (
-                <Link to={"movie/" + v.id}><li key={i}>
-                  <p className="mainRank">{v.rank}</p>
-                  <img
-                    className="boxOfficeMoviePoster"
-                    alt={v.title}
-                    src={v.poster}
-                  />
-                  <div className="boxOfficeMovieInforWrap">
-                    <div className="boxOfficeMovieSummary">
-                      <p>{v.description}</p>
-                    </div>
-                    <div className="boxOfficeMovieScore">
-                      <div>
-                        <p>관람평</p>
-                        <strong>{v.average_point}</strong>
+                <li key={i}>
+                  <Link to={"movie/" + movie.id}>
+                    <p className="mainRank">{movie.rank}</p>
+                    <img
+                      className="boxOfficeMoviePoster"
+                      alt={movie.title}
+                      src={movie.poster}
+                    />
+                    <div className="boxOfficeMovieInforWrap">
+                      <div className="boxOfficeMovieSummary">
+                        <p>{movie.description}</p>
+                      </div>
+                      <div className="boxOfficeMovieScore">
+                        <div>
+                          <p>관람평</p>
+                          <strong>{movie.average_point}</strong>
+                        </div>
                       </div>
                     </div>
-                  </div>
+                  </Link>
                   <div className="boxOfficeBtnWrap">
                     <button
                       className={[
@@ -87,7 +55,7 @@ const MainBoxOffice = () => {
                       ].join(" ")}
                     >
                       <span className="icon favoriteOutLine"></span>
-                      <span className="boxOfficeFavoriteScore">{v.acc_favorite}</span>
+                      <span className="boxOfficeFavoriteScore">{movie.acc_favorite}</span>
                     </button>
                     <button
                       className={[
@@ -101,7 +69,8 @@ const MainBoxOffice = () => {
                       예매
                   </button>
                   </div>
-                </li></Link>
+                </li>
+
               )
             }
             )}
@@ -135,8 +104,6 @@ const MainBoxOffice = () => {
               <span className="boxOfficeSearchBarText">빠른예매</span>
             </li>
           </Link>
-
-
         </ul>
       </div>
     </div>
