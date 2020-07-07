@@ -1,11 +1,13 @@
 import React from "react";
 // import { movieApi } from "../../../Api/api";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import "./style/WholeMovieListWrap.scss"
 import { Link } from "react-router-dom";
+import { selectMovie } from "../../../Reducer/bookingReducer";
 
 const WholeMovieListWrap = () => {
   const movies = useSelector((state) => state.Movie.movies);
+  const dispatch = useDispatch();
 
   return (
     <div className="WholeMovieListLayout">
@@ -94,7 +96,14 @@ const WholeMovieListWrap = () => {
                   <span className="icon favorite"></span>
                   <span className="wholeFavoriteScore">{movie.acc_favorite}</span>
                 </button>
-                <button
+                <Link to="/booking"><button onClick={() =>
+                  dispatch(
+                    selectMovie({
+                      title: movie.name_kor,
+                      poster: movie.poster,
+                      id: movie.id,
+                    })
+                  )}
                   className={[
                     "wholeBookingBtn",
                     "btn",
@@ -105,6 +114,7 @@ const WholeMovieListWrap = () => {
                 >
                   예매
                   </button>
+                </Link>
               </div>
             </li>
           )
