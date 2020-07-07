@@ -71,7 +71,7 @@ const BookingTheaterList = () => {
                 : "";
 
             return (
-              <li className={className}>
+              <li key={`selectedRegion${i}`} className={className}>
                 <button
                   type="button"
                   disabled={!canSelectRegions[theater.region]}
@@ -92,7 +92,7 @@ const BookingTheaterList = () => {
         </ul>
         <ul className="localRegionTheater">
           {selectedRegion
-            ? selectedRegion.theaters.map((theater) => {
+            ? selectedRegion.theaters.map((theater, i) => {
                 const isSelected = selectedTheaters.find(
                   (th) => th.name === theater.name
                 );
@@ -107,7 +107,7 @@ const BookingTheaterList = () => {
                 className += CanSelected ? "" : " disabled";
 
                 return (
-                  <li className={className}>
+                  <li key={`slectedTheater${i}`} className={className}>
                     <button
                       disabled={!CanSelected}
                       onClick={() => dispatch(selectTheater(theater))}
@@ -123,9 +123,9 @@ const BookingTheaterList = () => {
       <ul className="seletedTheaterLists">
         {unSelectedTheaters.length !== 3 ? (
           <>
-            {selectedTheaters.map((theater) => {
+            {selectedTheaters.map((theater, i) => {
               return (
-                <li>
+                <li key={`selectedTheaterList${i}`}>
                   <span>{theater.name}</span>
                   <button onClick={() => dispatch(selectTheater(theater))}>
                     x
@@ -133,9 +133,9 @@ const BookingTheaterList = () => {
                 </li>
               );
             })}
-            {unSelectedTheaters.map(() => {
+            {unSelectedTheaters.map((_, i) => {
               return (
-                <li>
+                <li key={`unSelectedTheaterList${i}`}>
                   <span className="bigPlusMark">+</span>
                 </li>
               );

@@ -414,6 +414,7 @@ p {
     background-image: url("https://img.megabox.co.kr/static/pc/images/common/ico/ico-heart-toggle-gray.png");
     background-position: 0;
   }
+  &.favorite.select {background-position: -17px;}
   &.closed {
     background-image: url("https://img.megabox.co.kr/static/pc/images/common/btn/btn-layer-close.png");
   }
