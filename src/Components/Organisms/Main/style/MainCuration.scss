@@ -84,12 +84,13 @@
     margin: 7px 0 0 0;
     padding: 0;
     figcaption {
+      width: 170px;
+      margin-top: 12px;
       text-align: center;
       font-size: 15px;
-      width: 170px;
-      text-overflow: ellipsis;
-      white-space: nowrap;
       overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
     }
   }
 }
