@@ -80,26 +80,27 @@
 
 .openInfor {
   position: relative;
-  border-radius: 50%;
   width: 204px;
   height: 204px;
   margin: 0 18px;
   padding: 0;
   font-size: 15px;
-  background: url(https://www.megabox.co.kr/static/pc/images/theater/bg-theater-new.jpg);
+  background-image: url("https://www.megabox.co.kr/static/pc/images/theater/bg-theater-new.jpg");
+  border-radius: 50%;
   text-align: center;
   span em {
-    background: $colorSub;
     display: inline-block;
     min-width: 75px;
     height: 25px;
     margin: 0 auto 10px;
     line-height: 25px;
     color: $colorWhite;
+    background: $colorSub;
   }
 }
 
 .openingTheaters .openInfor:hover {
+  background-image: initial;
   background-color: white;
   color: $colorSub;
 }

@@ -28,14 +28,16 @@
 }
 .boxOfficeMoreMovieWrap {
   display: flex;
+  justify-content: flex-end;
   position: absolute;
-  width: 123px;
+  width: 130px;
   height: 16px;
   right: 0;
   top: 87px;
   color: $colorDisabledText;
   line-height: 16px;
   font-size: 15px;
+  text-align: right;
 }
 
 .mainMoviesWrap {

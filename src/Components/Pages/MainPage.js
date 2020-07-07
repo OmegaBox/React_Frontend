@@ -1,8 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Main from "../Templates/Main";
+import { useDispatch } from "react-redux";
+import { getMovies } from "../../Reducer/movieReducer";
 
 const MainPage = () => {
-  // useEffect(() => {});
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getMovies());
+  }, [dispatch]);
 
   return <Main />;
 };
