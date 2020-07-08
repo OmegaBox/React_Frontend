@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import ModalPortal from "../../../Modules/ModalPortal";
 
 import BookingSeatReset from "../../Molecules/BookingSeatReset";
@@ -7,10 +7,14 @@ import BookingPersonalSetting from "../../Molecules/BookingPersonalSetting";
 import BookingSeatList from "../../Molecules/BookingSeatList";
 import BookingInfo from "../../Molecules/BookingInfo";
 import PopupNotice from "../../Molecules/PopupNotice";
+import BookingFastTitle from "../../Atoms/BookingFastTitle";
+
+import { resetSeat } from "../../../Reducer/bookingSeatReducer";
 
 import "./style/BookingSelectSeat.scss";
 
 const BookingSelectSeat = ({ history }) => {
+  const dispatch = useDispatch();
   const [modal, text, event, w, h, ticket] = useSelector((state) => {
     const Modal = state.modal;
     return [
@@ -29,7 +33,10 @@ const BookingSelectSeat = ({ history }) => {
     selectedDate,
     selectedTheather,
     selectedMovieTitle,
+    movieAgeGrade,
+    poster,
     screenHall,
+    screenType,
     seletedTime,
     endTime,
   } = ticket;
@@ -52,11 +59,13 @@ const BookingSelectSeat = ({ history }) => {
 
   useEffect(() => {
     if (!checkTicket()) history.push("/");
-  }, [checkTicket]);
+    return () => dispatch(resetSeat());
+  }, [history]);
 
   return (
     <section className="bookingSelectSeat">
-      <div className="clearfix">
+      <BookingFastTitle />
+      <div className="clearfix bookingSelectSeatHeader">
         <h3>관람인원 선택(최대 8매 선택 가능)</h3>
         <BookingSeatReset />
         <div className="bookingSeatWrap">
@@ -64,7 +73,18 @@ const BookingSelectSeat = ({ history }) => {
           <BookingSeatList scheduleId={scheduleId} seatType={seatType} />
         </div>
       </div>
-      <BookingInfo />
+      <BookingInfo
+        props={{
+          selectedMovieTitle,
+          movieAgeGrade,
+          selectedTheather,
+          screenHall,
+          seletedTime,
+          selectedDate,
+          endTime,
+          poster,
+        }}
+      />
       {modal && (
         <ModalPortal>
           <PopupNotice
