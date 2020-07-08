@@ -22,6 +22,24 @@ function* loginSaga(action) {
     console.log(res);
 
     if (res.status === 200) {
+      // console.log(cookie.load("accessToken"));
+      if (cookie.load("accessToken")) {
+        console.log("진입함 엑세스");
+
+        cookie.remove("accessToken", {
+          path: "/",
+          httpOnly: true,
+        });
+      }
+      if (cookie.load("refreshToken")) {
+        console.log("진입함 리프레시");
+
+        cookie.remove("refreshToken", {
+          path: "/",
+          httpOnly: true,
+        });
+      }
+
       cookie.save("accessToken", res.data.access, {
         path: "/",
         httpOnly: true,
@@ -30,6 +48,9 @@ function* loginSaga(action) {
         path: "/",
         httpOnly: true,
       });
+
+      console.log(res.data.access);
+      console.log(res.data.refresh);
 
       yield put({
         type: LOGIN_SUCCESS,

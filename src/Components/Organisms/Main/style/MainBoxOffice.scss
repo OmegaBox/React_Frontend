@@ -1,13 +1,41 @@
 @import "../../../../commonVariable.scss";
 
 .mainBoxOfficeLayout {
-  height: 830px;
-  background: $colorGray33;
+  position: relative;
+  width: 100%;
+  margin-top: -110px;
+  padding-top: 110px;
+  padding-bottom: 80px;
+  background-image: url("https://img.megabox.co.kr/static/pc/images/movie/bg-movie-detail-pattern.png");
+  overflow: hidden;
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: block;
+    background-color: transparentize($color: $colorBlack, $amount: 0.3);
+    z-index: -100;
+  }
+}
+.moviePosterBg {
+  position: absolute;
+  top: -15px;
+  bottom: -15px;
+  left: -15px;
+  right: -15px;
+  width: 100%;
+  z-index: -100;
+  & > img {
+    width: 110%;
+    filter: blur(15px);
+  }
 }
 
 .mainBoxOffice {
   width: 1100px;
-  height: 830px;
   margin: 0 auto;
 }
 
@@ -229,3 +257,8 @@ li:nth-last-child(4) {
 .boxOfficeSearchBarText {
   line-height: 31px;
 }
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> b5b4dc56a17b6fe56457910162d831bf33c0855e
