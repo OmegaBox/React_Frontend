@@ -44,7 +44,7 @@ export const movieApi = {
     return axios.get(call);
   },
   getSeats: (scheduleId) => {
-    return axios.get(`/schedules/${scheduleId}/reserved-seats/`);
+    return axios.get(`/schedules/${scheduleId}/seats/`);
   },
 };
 
@@ -58,6 +58,12 @@ export const userApi = {
       name: name,
       mobile: tell,
       birth_date: birth,
+    });
+  },
+  login: ({ id, pw }) => {
+    return axios.post("/members/login/", {
+      username: id,
+      password: pw,
     });
   },
 };

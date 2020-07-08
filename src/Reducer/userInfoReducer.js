@@ -1,6 +1,47 @@
+import { select, put, takeLatest } from "redux-saga/effects";
+import { userApi } from "../Api/api";
+
+import cookie from "react-cookies";
+
 const SUCCESS = "userInfo/SUCCESS";
 const ERROR = "userInfo/ERROR";
 const LOADING = "userInfo/LOADING";
+
+const LOGIN = "userInfo/LOGIN";
+const LOGIN_LOADING = "userInfo/LOGIN_LOADING";
+
+// 사가 진입용 액션
+const startLogin = (user) => ({ type: LOGIN, user });
+
+function* loginSaga(action) {
+  yield put({ type: LOGIN_LOADING });
+
+  try {
+    const res = yield userApi.login(action.user);
+    console.log(res);
+
+    if (res.status === 200) {
+      cookie.save("accessToken", res.data.access, {
+        path: "/",
+        httpOnly: true,
+      });
+      cookie.save("refreshToken", res.data.refresh, {
+        path: "/",
+        httpOnly: true,
+      });
+
+      console.log(cookie.load("accessToken"), cookie.load("refreshToken"));
+    } else {
+      console.log("통신은 성공했으나 에러발생", res);
+    }
+  } catch (e) {
+    console.log(e.response);
+  }
+}
+
+function* userInfoSaga() {
+  yield takeLatest(LOGIN, loginSaga);
+}
 
 const initialState = {
   id: 0,
@@ -154,4 +195,4 @@ const userInfoReducer = (state = initialState, action) => {
   }
 };
 
-export { userInfoReducer };
+export { userInfoReducer, userInfoSaga, startLogin };
