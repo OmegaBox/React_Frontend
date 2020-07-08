@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import ModalPortal from "../../../Modules/ModalPortal";
 
@@ -10,11 +10,50 @@ import PopupNotice from "../../Molecules/PopupNotice";
 
 import "./style/BookingSelectSeat.scss";
 
-const BookingSelectSeat = () => {
-  const [modal, text, event, w, h] = useSelector((state) => {
+const BookingSelectSeat = ({ history }) => {
+  const [modal, text, event, w, h, ticket] = useSelector((state) => {
     const Modal = state.modal;
-    return [Modal.modal, Modal.text, Modal.event, Modal.width, Modal.height];
+    return [
+      Modal.modal,
+      Modal.text,
+      Modal.event,
+      Modal.width,
+      Modal.height,
+      state.Booking.ticket,
+    ];
   });
+
+  const {
+    scheduleId,
+    seatType,
+    selectedDate,
+    selectedTheather,
+    selectedMovieTitle,
+    screenHall,
+    seletedTime,
+    endTime,
+  } = ticket;
+
+  console.log(ticket);
+
+  const checkTicket = () => {
+    return (
+      Object.values({
+        seatType,
+        selectedDate,
+        selectedTheather,
+        selectedMovieTitle,
+        screenHall,
+        seletedTime,
+        endTime,
+      }).every((v) => v !== "") && Number.isInteger(scheduleId)
+    );
+  };
+
+  useEffect(() => {
+    if (!checkTicket()) history.push("/");
+  }, [checkTicket]);
+
   return (
     <section className="bookingSelectSeat">
       <div className="clearfix">
@@ -22,7 +61,7 @@ const BookingSelectSeat = () => {
         <BookingSeatReset />
         <div className="bookingSeatWrap">
           <BookingPersonalSetting />
-          <BookingSeatList />
+          <BookingSeatList scheduleId={scheduleId} seatType={seatType} />
         </div>
       </div>
       <BookingInfo />
@@ -42,4 +81,4 @@ const BookingSelectSeat = () => {
   );
 };
 
-export default BookingSelectSeat;
+export default React.memo(BookingSelectSeat);
