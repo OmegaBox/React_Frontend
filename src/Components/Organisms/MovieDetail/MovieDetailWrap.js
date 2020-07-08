@@ -30,7 +30,7 @@ const MovieDetailWrap = () => {
                     type="button"
                     className={["btn", "outLine", "regular", "white"].join(" ")}
                   >
-                    {movie.acc_favortie}
+                    {movie.acc_favorite}
                   </button>
                   <button
                     type="button"
