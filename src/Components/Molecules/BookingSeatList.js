@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { setSelectSeat } from "../../Reducer/bookingSeatReducer";
@@ -74,39 +74,31 @@ const screeningHallSeatInfo = [
   },
 ];
 
-// 홀 타입
-const hallType = 2;
-
-// 예매된 좌석
-const booking = ["A1", "B10", "C4"];
-
-// 행 이름 배열
-const rowNames = new Array(screeningHallSeatInfo[hallType].row)
-  .fill(0)
-  .map((v, i) => String.fromCharCode(65 + i));
-
-// 좌석 번호 배열
-const seatNums = new Array(screeningHallSeatInfo[hallType].maxSeat)
-  .fill(0)
-  .map((v, i) => i + 1);
-
 // 띄어앉기 석 로직
 const socialDistance = (row, seatNum) => {
   const rowNum = row.charCodeAt() - 64;
   return rowNum % 3 === seatNum % 3;
 };
 
-const BookingSeatList = ({ history }) => {
+const BookingSeatList = ({ scheduleId, seatType = 0 }) => {
+  const [reservedSeats, reservedDispatch] = useState([]);
   const dispatch = useDispatch();
 
-  const [select, personal, ticket] = useSelector((state) => [
+  const [select, personal] = useSelector((state) => [
     state.Seat.selectedSeat,
     state.Seat.personal,
-    state.Booking.ticket,
   ]);
 
-  console.log(ticket);
-
+  // 홀 타입
+  const hallType = seatType;
+  // 행 이름 배열
+  const rowNames = new Array(screeningHallSeatInfo[hallType].row)
+    .fill(0)
+    .map((v, i) => String.fromCharCode(65 + i));
+  // 좌석 번호 배열
+  const seatNums = new Array(screeningHallSeatInfo[hallType].maxSeat)
+    .fill(0)
+    .map((v, i) => i + 1);
   // 선택 좌석 수
   const totalSeatCount = select.length;
   // 인원 총 원
@@ -114,27 +106,24 @@ const BookingSeatList = ({ history }) => {
   // 선택 가능
   const selectable = totalCount - totalSeatCount > 0;
 
+  // useEffect re-rendering 방지용 체크
+  let checkRervedSeat = "";
+  // 예매된 좌석 정보 가져오기
   const seatApi = async (id) => {
     const res = await movieApi.getSeats(id);
     try {
-      console.log(res);
+      const reserved_seat = res.data.map((seat) => seat.reserved_seat);
+      reservedDispatch(reserved_seat);
+      checkRervedSeat = reserved_seat.join(" ");
     } catch (e) {
       console.error(`error : ${e.state}`);
       console.error(`${e.response}`);
     }
   };
 
-  // useEffect(() => {
-  //   const checkTicketArr = [
-  //     ticket.selectedDate,
-  //     ticket.selectedMovieTitle,
-  //     ticket.selectedTheather,
-  //     ticket.seletedTime,
-  //     ticket.endTime,
-  //   ]
-  //   if ()
-  //   // seatApi(3);
-  // }, []);
+  useEffect(() => {
+    if (scheduleId) seatApi(scheduleId);
+  }, [seatApi, scheduleId, checkRervedSeat]);
 
   return (
     <div className="bookingSeatList">
@@ -149,7 +138,7 @@ const BookingSeatList = ({ history }) => {
         {rowNames.map((row) => (
           <li key={`row ${row}`}>
             {seatNums.map((num) => {
-              const booked = booking.includes(`${row}${num}`);
+              const booked = reservedSeats.includes(`${row}${num}`);
               const except = screeningHallSeatInfo[hallType].except(row, num);
               const selected = select.includes(`${row}${num}`);
               const social = socialDistance(row, num);
