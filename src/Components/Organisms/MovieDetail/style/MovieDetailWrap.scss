@@ -39,6 +39,12 @@
     float: left;
     width: 800px;
     margin-right: 40px;
+    button {
+      justify-content: center;
+      align-items: center;
+      padding: 0 4px;
+    }
+    button.favorite .icon {margin-right: 4px;}
   }
   .posterButton {
     float: right;
