@@ -105,69 +105,34 @@ const SignUpForm = () => {
 
   // 회원 가입 이벤트
   const signUpEvent = async () => {
-    const test = {
-      name: "송아무하롷개씨",
-      id: "songtdddh",
-      pw: "songth!!",
-      pwCheck: "songth!!",
-      birth: "1994-02-03",
-      tell: "01011125255",
-      email: "son221ssgth@song.com",
-    };
-    try {
-      const res = await userApi.signup({
-        name: test.name,
-        id: test.id,
-        pw: test.pw,
-        pwCheck: test.pwCheck,
-        birth: test.birth,
-        tell: test.tell,
-        email: test.email,
+    if (checkDoubleState === null) {
+      alertDispatch({
+        ...alertState,
+        id: true,
       });
-      console.log(res);
-    } catch (e) {
-      console.log("영화", e.response);
+      inputRefs.id.current.focus();
+      return;
+    } else if (!Object.values(alertState).every((ale) => !ale)) {
+      const keys = ["name", "id", "pw", "pwCheck", "tell", "email"];
+      const alertKey = keys.find((key) => alertState[key] === true);
+      console.log(inputRefs[alertKey]);
+      inputRefs[alertKey].current.focus();
+    } else {
+      try {
+        const res = await userApi.signup({
+          name: inputState.name,
+          id: inputState.id,
+          pw: inputState.pw,
+          pwCheck: inputState.pwCheck,
+          birth: inputState.birth,
+          tell: inputState.tell,
+          email: inputState.email,
+        });
+        console.log(res);
+      } catch (e) {
+        console.log(`회원가입 실패 : ${e.response}`);
+      }
     }
-
-    // console.log("이거봐", res);
-
-    // if (res.status === 200) {
-    //   console.log(res);
-    // } else {
-    //   console.log(res);
-    //   console.log("status 에러발생");
-    // }
-
-    // if (checkDoubleState === null) {
-    //   alertDispatch({
-    //     ...alertState,
-    //     id: true,
-    //   });
-    //   inputRefs.id.current.focus();
-    //   return;
-    // } else if (!Object.values(alertState).every((ale) => !ale)) {
-    //   const keys = ["name", "id", "pw", "pwCheck", "tell", "email"];
-    //   const alertKey = keys.find((key) => alertState[key] === true);
-    //   console.log(inputRefs[alertKey]);
-    //   inputRefs[alertKey].current.focus();
-    // } else {
-    //   const res = await signupApi.signup({
-    //     name: inputState.name,
-    //     id: inputState.id,
-    //     pw: inputState.pw,
-    //     pwCheck: inputState.pwCheck,
-    //     birth: inputState.birth,
-    //     tell: inputState.tell,
-    //     email: inputState.email,
-    //   });
-
-    //   if (res.status === 200) {
-    //     console.log(res);
-    //   } else {
-    //     console.log(res);
-    //     console.log("status 에러발생");
-    //   }
-    // }
   };
 
   return (
@@ -332,12 +297,10 @@ const SignUpForm = () => {
         <button
           className={
             ["btnSignUp", "btn", "large"].join(" ") +
-            // (signAble ? " main fill" : " lightGray")
-            (true ? " main fill" : " lightGray")
+            (signAble ? " main fill" : " lightGray")
           }
           onClick={signUpEvent}
-          // disabled={!signAble}
-          disabled={false}
+          disabled={!signAble}
         >
           회원가입
         </button>
