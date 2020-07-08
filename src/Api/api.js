@@ -44,7 +44,7 @@ export const movieApi = {
     return axios.get(call);
   },
   getSeats: (scheduleId) => {
-    return axios.get(`/schedules/${scheduleId}/seats/`);
+    return axios.get(`/schedules/${scheduleId}/reserved-seats/`);
   },
 };
 
