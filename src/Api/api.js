@@ -6,7 +6,17 @@ const checkValidation = async () => {
   const accessToken = cookie.load("accessToken");
   const refreshToken = cookie.load("refreshToken");
 
-  // const
+  try {
+    const checkAccessToken = await axios.post(
+      "https://www.omegabox.xyz/members/token/verify/",
+      {
+        token: accessToken,
+      }
+    );
+    console.log("유효성 체크", checkAccessToken);
+  } catch (e) {
+    console.log("유효성 체크 에러", e.response);
+  }
 };
 
 export const movieApi = {
@@ -70,6 +80,7 @@ export const userApi = {
     });
   },
   login: ({ id, pw }) => {
+    checkValidation();
     return axios.post("/members/login/", {
       username: id,
       password: pw,

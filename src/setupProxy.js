@@ -39,9 +39,9 @@ module.exports = (app) => {
   //   })
   // );
   // app.use(
-  //   createProxyMiddleware('/getVilageFcst', {
-  //     target: 'http://apis.data.go.kr/1360000/VilageFcstInfoService/',
+  //   createProxyMiddleware("/members/token/verify/", {
+  //     target: "https://www.omegabox.xyz",
   //     changeOrigin: true,
-  //   }),
+  //   })
   // );
 };
