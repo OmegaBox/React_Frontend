@@ -3,6 +3,7 @@ import { transformDateFormat } from "../Utils/ultil";
 
 export const movieApi = {
   getMovies: (id) => axios.get("movies/"),
+  getMovie: (id) => axios.get(`{movies/${id}`),
   getSchedules: ({ date, movies, theaterId }) => {
     let movieIds = "";
     if (movies) {
@@ -26,7 +27,7 @@ export const movieApi = {
     }
     const call = `theaters/schedules/regions/${date}/${
       movies ? "?movie=" + movieIds : ""
-    }
+      }
     `;
     return axios.get(call);
   },
@@ -38,7 +39,7 @@ export const movieApi = {
 
     const call = `theaters/schedules/${date}/${
       movies ? "?movie=" + movieIds : ""
-    }
+      }
     `;
 
     return axios.get(call);
