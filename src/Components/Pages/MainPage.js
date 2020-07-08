@@ -6,6 +6,7 @@ import { getMovies } from "../../Reducer/movieReducer";
 const MainPage = () => {
   const dispatch = useDispatch();
   useEffect(() => {
+    window.scrollTo(0, 0)
     dispatch(getMovies());
   }, [dispatch]);
 
