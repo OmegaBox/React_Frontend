@@ -1,5 +1,13 @@
 import axios from "axios";
+import cookie from "react-cookies";
 import { transformDateFormat } from "../Utils/ultil";
+
+const checkValidation = async () => {
+  const accessToken = cookie.load("accessToken");
+  const refreshToken = cookie.load("refreshToken");
+
+  // const
+};
 
 export const movieApi = {
   getMovies: (id) => axios.get("movies/"),

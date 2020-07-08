@@ -24,13 +24,12 @@
     font-size: 15px;
     border-bottom: 1px solid $colorGrayD8;
   }
-
 }
 .boxOfficeMoreMovieWrap {
   display: flex;
   justify-content: flex-end;
   position: absolute;
-  width: 130px;
+  width: 150px;
   height: 16px;
   right: 0;
   top: 87px;
@@ -60,20 +59,20 @@
     font-style: italic;
     font-size: 2em;
     color: $colorWhite;
-    text-shadow: 2px 2px 2px rgba(0,0,0,0.8);
-    background: url('https://www.megabox.co.kr/static/pc/images/main/bg-main-movie-rank.png') no-repeat 0 0;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.8);
+    background: url("https://www.megabox.co.kr/static/pc/images/main/bg-main-movie-rank.png")
+      no-repeat 0 0;
   }
 }
-
 
 .boxOfficeMovieInforWrap {
   position: absolute;
   top: 0;
-  background-color: rgba(0,0,0,0.8);
+  background-color: rgba(0, 0, 0, 0.8);
   width: 245px;
   height: 352px;
-  opacity: 0; 
-  transition: opacity .5s ease-out;
+  opacity: 0;
+  transition: opacity 0.5s ease-out;
 }
 
 .boxOfficeMovieSummary {
@@ -115,7 +114,6 @@
     font-size: 1.6em;
     color: $colorSubLight;
   }
- 
 }
 
 .boxOfficeBtnWrap {
@@ -146,7 +144,6 @@
 }
 
 .boxOfficeFavoriteBtn:hover {
-  
 }
 
 .boxOffice {
@@ -176,12 +173,12 @@
     border-left: 1px solid #423e3e;
   }
 }
-.boxOfficeSubBarWrap, li:nth-last-child(4) {
+.boxOfficeSubBarWrap,
+li:nth-last-child(4) {
   border-left: none;
 }
 
-
-.boxOfficeSearchBarWrap form  {
+.boxOfficeSearchBarWrap form {
   border-bottom: 1px solid #423e3e;
 }
 

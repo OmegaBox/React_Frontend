@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 import "./style/LoginForm.scss";
 import { userApi } from "../../Api/api";
@@ -11,6 +11,7 @@ const LoginForm = () => {
   const [inputPw, setInputPw] = useState("");
 
   const dispatch = useDispatch();
+  const history = useHistory();
 
   return (
     <div className={["popupWrap"].join(" ")}>
@@ -63,14 +64,17 @@ const LoginForm = () => {
           <button
             className={["btnLogin", "btn", "large"].join(" ")}
             type="submit"
-            onClick={async () =>
+            onClick={async () => {
               dispatch(
-                startLogin({
-                  id: inputId,
-                  pw: inputPw,
-                })
-              )
-            }
+                startLogin(
+                  {
+                    id: inputId,
+                    pw: inputPw,
+                  },
+                  history
+                )
+              );
+            }}
           >
             로그인
           </button>
