@@ -57,7 +57,7 @@ const BookingSelectSeat = ({ history }) => {
 
   useEffect(() => {
     if (!checkTicket()) history.push("/");
-    dispatch(resetSeat());
+    return () => dispatch(resetSeat());
   }, [history]);
 
   return (
@@ -74,6 +74,7 @@ const BookingSelectSeat = ({ history }) => {
       <BookingInfo
         props={{
           selectedMovieTitle,
+          screenType,
           movieAgeGrade,
           selectedTheather,
           screenHall,
@@ -81,6 +82,9 @@ const BookingSelectSeat = ({ history }) => {
           selectedDate,
           endTime,
           poster,
+        }}
+        goBack={() => {
+          history.goBack();
         }}
       />
       {modal && (

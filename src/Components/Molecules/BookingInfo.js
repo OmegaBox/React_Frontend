@@ -50,9 +50,10 @@ const date = (dateValue) => {
   return `${dateValue.split("-").join(".")}(${dateString})`;
 };
 
-const BookingInfo = ({ props }) => {
+const BookingInfo = ({ props, goBack }) => {
   const {
     selectedMovieTitle,
+    screenType,
     movieAgeGrade,
     selectedTheather,
     screenHall,
@@ -106,6 +107,7 @@ const BookingInfo = ({ props }) => {
         <li className={["bookingMovieTitle"].join(" ")}>
           <span className={`icon ${age(movieAgeGrade)}`} />
           <span>{selectedMovieTitle}</span>
+          <span className="screenType">{screenType}</span>
         </li>
         <li className="bookingDetailInfo">
           <div>
@@ -165,7 +167,9 @@ const BookingInfo = ({ props }) => {
         </li>
       </ul>
       <div>
-        <button className="btn regular pre">이전</button>
+        <button className="btn regular pre" onClick={goBack}>
+          이전
+        </button>
         <button
           className="btn regular next"
           disabled={totalCount !== 0 && totalCount === selectedSeat.length}
