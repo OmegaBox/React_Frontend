@@ -84,7 +84,9 @@
     }
   }
   span {display: inline-block;}
-  .genre span {min-width: 80px;}
+  .genre span {
+    min-width: 90px;
+  }
 }
 
 .movieInfoGraphicWrap {

@@ -2,9 +2,6 @@ import React, { useState } from "react";
 import "./style/MovieDetailWrap.scss";
 import { useSelector } from "react-redux";
 
-
-
-
 const MovieDetailWrap = () => {
   const movieDetail = useSelector((state) => state.Movie.movieDetail);
 
@@ -14,10 +11,7 @@ const MovieDetailWrap = () => {
         return (
           <div key={`movies${movie.id}`}>
             <div className="movieBg">
-              <img
-                src="https://img.megabox.co.kr/SharedImg/2020/07/03/tYL5aEGMlMIZODmDFWdwfLyVD2DW13OJ_570.jpg"
-                alt=""
-              />
+              <img src={movie.poster} alt={movie.title} />
             </div>
             <div className="movieInfo">
               <div className="summary">
@@ -28,16 +22,25 @@ const MovieDetailWrap = () => {
                 <div className="btnWrap">
                   <button
                     type="button"
-                    className={["btn", "outLine", "regular", "white"].join(" ")}
+                    className={[
+                      "btn",
+                      "outLine",
+                      "regular",
+                      "white",
+                      "favorite",
+                    ].join(" ")}
                   >
-                    {movie.acc_favorite}
+                    <span
+                      className={["icon", "favoriteOutLine"].join(" ")}
+                    ></span>
+                    <span>{movie.acc_favorite}</span>
                   </button>
                   <button
                     type="button"
                     className={["btn", "outLine", "regular", "white"].join(" ")}
                   >
                     공유하기
-            </button>
+                  </button>
                 </div>
                 <ul className="eval">
                   <li>
@@ -50,17 +53,24 @@ const MovieDetailWrap = () => {
                   <li>
                     <h4 className="title">예매율</h4>
                     <div className="bookingRate">
-                      <span className={["icon", "bookingRate"].join(" ")}></span>
+                      <span
+                        className={["icon", "bookingRate"].join(" ")}
+                      ></span>
                       <span>{movie.rank}</span>
-                      <span className="smallTxt">위 ({movie.reservation_rate}%)</span>
+                      <span className="smallTxt">
+                        위 ({movie.reservation_rate})
+                      </span>
                     </div>
                   </li>
                   <li className="acc">
                     <h4 className="title">
-                      누적관객수<span className={["icon", "info"].join(" ")}></span>
+                      누적관객수
+                      <span className={["icon", "info"].join(" ")}></span>
                     </h4>
                     <div className="accCumlative">
-                      <span className={["icon", "accCumlative"].join(" ")}></span>
+                      <span
+                        className={["icon", "accCumlative"].join(" ")}
+                      ></span>
                       <span>{movie.acc_audience}</span>
                       <span className="smallTxt">명</span>
                     </div>
@@ -69,21 +79,18 @@ const MovieDetailWrap = () => {
               </div>
               <div className="posterButton">
                 <div className="poster">
-                  <img
-                    src={movie.poster}
-                    alt={movie.title}
-                  />
+                  <img src={movie.poster} alt={movie.title} />
                 </div>
                 <button
                   type="button"
                   className={["btn", "fill", "regular", "sub"].join(" ")}
                 >
                   예매
-          </button>
+                </button>
               </div>
             </div>
           </div>
-        )
+        );
       })}
     </div>
   );
