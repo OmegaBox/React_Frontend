@@ -1,5 +1,21 @@
 import axios from "axios";
+import cookie from "react-cookies";
 import { transformDateFormat } from "../Utils/ultil";
+
+const checkValidation = async () => {
+  const accessToken = cookie.load("accessToken");
+  const refreshToken = cookie.load("refreshToken");
+
+  try {
+    const checkAccessToken = await axios.post("/members/token/verify/", {
+      token:
+        "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNTk0MTgzMTkyLCJqdGkiOiIwNzQ4N2I3YmZlZTc0YjBkYjcwMzNmYTcwYTcwMDdkYyIsInVzZXJfaWQiOjIxfQ.-_-htvj1MaJkTwRRBearlLZuBJbgOYxlLvKjOopJo98",
+    });
+    console.log("유효성 체크", checkAccessToken, accessToken);
+  } catch (e) {
+    console.log("유효성 체크 에러", e.response, accessToken);
+  }
+};
 
 export const movieApi = {
   getMovies: () => axios.get("movies/"),
@@ -16,7 +32,7 @@ export const movieApi = {
       return axios.get(`theaters/${theaterId}/schedules/${date}`);
     } else {
       return axios.get(
-        `theaters/${theaterId}/schedules/${date}/?movie=${movieIds}`
+        `theaters/${theaterId}/schedules/${date}/?movies=${movieIds}`
       );
     }
   },
@@ -26,8 +42,8 @@ export const movieApi = {
       movieIds = movies.reduce((acc, cur) => acc + "+" + cur.id, "").slice(1);
     }
     const call = `theaters/schedules/regions/${date}/${
-      movies ? "?movie=" + movieIds : ""
-      }
+      movies ? "?movies=" + movieIds : ""
+    }
     `;
     return axios.get(call);
   },
@@ -38,8 +54,8 @@ export const movieApi = {
     }
 
     const call = `theaters/schedules/${date}/${
-      movies ? "?movie=" + movieIds : ""
-      }
+      movies ? "?movies=" + movieIds : ""
+    }
     `;
 
     return axios.get(call);
@@ -59,6 +75,13 @@ export const userApi = {
       name: name,
       mobile: tell,
       birth_date: birth,
+    });
+  },
+  login: ({ id, pw }) => {
+    checkValidation();
+    return axios.post("/members/login/", {
+      username: id,
+      password: pw,
     });
   },
 };

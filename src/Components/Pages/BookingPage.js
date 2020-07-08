@@ -6,6 +6,7 @@ import { getTheatersCanBooking } from "../../Reducer/bookingReducer";
 const BookingPage = () => {
   const dispatch = useDispatch();
   useEffect(() => {
+    window.scrollTo(0, 0)
     dispatch(getTheatersCanBooking());
   }, [dispatch]);
 

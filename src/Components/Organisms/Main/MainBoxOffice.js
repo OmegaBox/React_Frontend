@@ -10,7 +10,6 @@ const MainBoxOffice = () => {
   movieBox = movieBox.filter((_, i) => i < 4);
   const dispatch = useDispatch();
 
-
   return (
     <div className="mainBoxOfficeLayout">
       <div className="mainBoxOffice">
@@ -29,7 +28,6 @@ const MainBoxOffice = () => {
               return (
                 <li key={`movieList${movie.id}`}>
                   <Link to={"movieDetail/" + movie.id}>
-
                     <p className="mainRank">{movie.rank}</p>
                     <img
                       className="boxOfficeMoviePoster"
@@ -59,34 +57,36 @@ const MainBoxOffice = () => {
                       ].join(" ")}
                     >
                       <span className="icon favoriteOutLine"></span>
-                      <span className="boxOfficeFavoriteScore" >{movie.acc_favorite}</span>
+                      <span className="boxOfficeFavoriteScore">
+                        {movie.acc_favorite}
+                      </span>
                     </button>
-                    <Link to="/booking"><button onClick={() =>
-                      dispatch(
-                        selectMovie({
-                          title: movie.name_kor,
-                          poster: movie.poster,
-                          id: movie.id,
-                        })
-                      )
-                    }
-                      className={[
-                        "boxOfficeBookingBtn",
-                        "btn",
-                        "fill",
-                        "subLight",
-                        "small",
-                      ].join(" ")}
-                    >
-                      예매
-                  </button>
+                    <Link to="/booking">
+                      <button
+                        onClick={() =>
+                          dispatch(
+                            selectMovie({
+                              title: movie.name_kor,
+                              poster: movie.poster,
+                              id: movie.id,
+                            })
+                          )
+                        }
+                        className={[
+                          "boxOfficeBookingBtn",
+                          "btn",
+                          "fill",
+                          "subLight",
+                          "small",
+                        ].join(" ")}
+                      >
+                        예매
+                      </button>
                     </Link>
                   </div>
                 </li>
-
-              )
-            }
-            )}
+              );
+            })}
           </ul>
         </div>
         <ul className="boxOfficeSubBarWrap">
@@ -119,7 +119,17 @@ const MainBoxOffice = () => {
           </Link>
         </ul>
       </div>
-    </div >
+      <div className="moviePosterBg">
+        {movieBox.map((movie, i) => {
+          return (
+            <img
+              src={movie.poster}
+              alt={movie.title}
+            />
+          )
+        })}
+      </div>
+    </div>
   );
 };
 

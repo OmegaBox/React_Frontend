@@ -30,7 +30,7 @@ const MovieDetailWrap = () => {
                     type="button"
                     className={["btn", "outLine", "regular", "white"].join(" ")}
                   >
-                    {movie.acc_favortie}
+                    {movie.acc_favorite}
                   </button>
                   <button
                     type="button"
@@ -52,7 +52,7 @@ const MovieDetailWrap = () => {
                     <div className="bookingRate">
                       <span className={["icon", "bookingRate"].join(" ")}></span>
                       <span>{movie.rank}</span>
-                      <span className="smallTxt">위 ({movie.reservation_rate})</span>
+                      <span className="smallTxt">위 ({movie.reservation_rate}%)</span>
                     </div>
                   </li>
                   <li className="acc">

@@ -1,21 +1,16 @@
 import React from "react";
 import "./style/MainHeader.scss";
-import logo from "../../images/omegaWhite.png"
+import logo from "../../images/omegaWhite.png";
 import { Link, Route } from "react-router-dom";
 
 const MainHeader = () => {
   return (
-
     <div>
       <header className="headerLayout">
         <nav className="mainNav">
           <h1 className="mainLogo">
             <Link to="/">
-              <img
-                className="mainLogo"
-                alt="omegabox logo"
-                src={logo}
-              />
+              <img className="mainLogo" alt="omegabox logo" src={logo} />
             </Link>
           </h1>
           <div className="subNav">
@@ -25,9 +20,15 @@ const MainHeader = () => {
               <li>고객센터</li>
             </ul>
             <ul className="subRightSide">
-              <li><Link to="/memberlogin">로그인</Link></li>
-              <li><Link to="/membersignup">회원가입</Link></li>
-              <li><Link to="/Booking">빠른예매</Link></li>
+              <li>
+                <Link to="/memberlogin">로그인</Link>
+              </li>
+              <li>
+                <Link to="/membersignup">회원가입</Link>
+              </li>
+              <li>
+                <Link to="/Booking">빠른예매</Link>
+              </li>
             </ul>
           </div>
           <div className="bottom">
@@ -36,8 +37,12 @@ const MainHeader = () => {
               <li className="headerIcon menuSearch"></li>
             </ul>
             <ul className="mainMenu mainLeftSide">
-              <li><Link to="/listMovies">영화</Link></li>
-              <li><Link to="/Booking">예매</Link></li>
+              <li>
+                <Link to="/listMovies">영화</Link>
+              </li>
+              <li>
+                <Link to="/Booking">예매</Link>
+              </li>
               <li>극장</li>
             </ul>
             <ul className="mainMenu mainRightSide">
@@ -47,7 +52,9 @@ const MainHeader = () => {
             </ul>
             <ul className="rightIcon">
               <li className="headerIcon menuSchedule"></li>
-              <Link to="/MyPage"><li className="headerIcon menuMypage"></li></Link>
+              <Link to="/MyPage">
+                <li className="headerIcon menuMypage"></li>
+              </Link>
             </ul>
           </div>
         </nav>

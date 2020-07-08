@@ -5,47 +5,64 @@ import { numWithComma } from "../../Utils/ultil";
 
 import "./style/BookingInfo.scss";
 
-const ticket = {
-  selectedDate: "2020-07-10",
-  selectedTheather: "강남",
-  selectedMovieTitle: "살아있다",
-  movieAgeGrade: "All",
-  screenHall: "2관",
-  seletedTime: "19:40",
-  endTime: "",
-  seats: [],
-  ticketType: {
-    adult: 0,
-    teen: 0,
-    preferential: 0,
-  },
-  price: 0,
+const age = (ageString) => {
+  switch (ageString) {
+    case "18+":
+      return " ageGrade19Small";
+    case "15+":
+      return " ageGrade15Small";
+    case "12+":
+      return " ageGrade12Small";
+    case "all":
+    default:
+      return " ageGradeSmall";
+  }
 };
 
-const date = (() => {
-  const dataNum = new Date(ticket.selectedDate).getDay();
-
-  switch (dataNum) {
+const date = (dateValue) => {
+  const dateNum = new Date(dateValue).getDay();
+  let dateString = "";
+  switch (dateNum) {
     case 0:
-      return "일";
+      dateString = "일";
+      break;
     case 1:
-      return "월";
+      dateString = "월";
+      break;
     case 2:
-      return "화";
+      dateString = "화";
+      break;
     case 3:
-      return "수";
+      dateString = "수";
+      break;
     case 4:
-      return "목";
+      dateString = "목";
+      break;
     case 5:
-      return "금";
+      dateString = "금";
+      break;
     case 6:
-      return "토";
+      dateString = "토";
+      break;
     default:
-      return "에러";
+      dateString = "-";
   }
-})();
+  return `${dateValue.split("-").join(".")}(${dateString})`;
+};
 
-const BookingInfo = () => {
+const BookingInfo = ({ props, goBack }) => {
+  const {
+    selectedMovieTitle,
+    screenType,
+    movieAgeGrade,
+    selectedTheather,
+    screenHall,
+    seletedTime,
+    selectedDate,
+    endTime,
+    poster,
+  } = props;
+
   const [selectedSeat, personal, price] = useSelector((state) => [
     state.Seat.selectedSeat,
     state.Seat.personal,
@@ -59,9 +76,9 @@ const BookingInfo = () => {
     teen: 0,
     preferential: 0,
   };
-
+  // 각 인원별 수
   const personalTypeCounts = Object.values(personal);
-
+  // 좌석 뷰 박스
   const seatBox = new Array(8).fill("-");
 
   selectedSeat.forEach((v, i) => {
@@ -88,25 +105,21 @@ const BookingInfo = () => {
     <section className="bookingInfo">
       <ul className="bookingInfoList">
         <li className={["bookingMovieTitle"].join(" ")}>
-          <span className={`icon ageGrade${15}Small`} />
-          <span>{ticket.selectedMovieTitle}</span>
+          <span className={`icon ${age(movieAgeGrade)}`} />
+          <span>{selectedMovieTitle}</span>
+          <span className="screenType">{screenType}</span>
         </li>
         <li className="bookingDetailInfo">
           <div>
-            <span>{ticket.selectedTheather}</span>
+            <span>{selectedTheather}</span>
             <br />
-            <span>{ticket.screenHall}</span>
+            <span>{screenHall}</span>
             <br />
-            <span>{`${ticket.selectedDate
-              .split("-")
-              .join(".")}(${date})`}</span>
+            <span>{date(selectedDate)}</span>
             <br />
-            <span>{`${ticket.seletedTime} ~ ${ticket.endTime}`}</span>
+            <span>{`${seletedTime} ~ ${endTime}`}</span>
           </div>
-          <img
-            src="https://megabox.co.kr/SharedImg/2020/06/15/pjraLryYt5zQ1HEf6axtAdkXRhfhRZTZ_150.jpg"
-            alt="선택영화 포스터 이미지"
-          ></img>
+          <img src={poster} alt={`${selectedMovieTitle} 포스터 이미지`}></img>
         </li>
         <li className="bookingSeatInfo">
           <ul className="seatInfo">
@@ -154,7 +167,9 @@ const BookingInfo = () => {
         </li>
       </ul>
       <div>
-        <button className="btn regular pre">이전</button>
+        <button className="btn regular pre" onClick={goBack}>
+          이전
+        </button>
         <button
           className="btn regular next"
           disabled={totalCount !== 0 && totalCount === selectedSeat.length}
