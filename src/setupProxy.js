@@ -21,7 +21,7 @@ module.exports = (app) => {
     })
   );
   app.use(
-    createProxyMiddleware("/members/signup/", {
+    createProxyMiddleware("/members/signup", {
       target: "https://www.omegabox.xyz",
       changeOrigin: true,
     })
