@@ -51,8 +51,8 @@ const MovieDetailWrap = () => {
                     <h4 className="title">예매율</h4>
                     <div className="bookingRate">
                       <span className={["icon", "bookingRate"].join(" ")}></span>
-                      <span>1</span>
-                      <span className="smallTxt">위 (25.5%)</span>
+                      <span>{movie.rank}</span>
+                      <span className="smallTxt">위 ({movie.reservation_rate})</span>
                     </div>
                   </li>
                   <li className="acc">
@@ -61,7 +61,7 @@ const MovieDetailWrap = () => {
                     </h4>
                     <div className="accCumlative">
                       <span className={["icon", "accCumlative"].join(" ")}></span>
-                      <span>1,342,958</span>
+                      <span>{movie.acc_audience}</span>
                       <span className="smallTxt">명</span>
                     </div>
                   </li>
@@ -70,8 +70,8 @@ const MovieDetailWrap = () => {
               <div className="posterButton">
                 <div className="poster">
                   <img
-                    src="https://img.megabox.co.kr/SharedImg/2020/06/02/xIBdAOS5lJNBe1CBXovcV1WYE9Q6DWPV_420.jpg"
-                    alt=""
+                    src={movie.poster}
+                    alt={movie.title}
                   />
                 </div>
                 <button

@@ -17,7 +17,7 @@ const NavSample = () => {
           마이 페이지로
         </button>
       </Link>
-      <Link to="/movie:idx">
+      <Link to="/movieDetail:idx">
         <button className={["btn", "fill", "white"].join(" ")}>
           영화 상세페이지로
         </button>
