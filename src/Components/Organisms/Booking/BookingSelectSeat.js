@@ -41,8 +41,6 @@ const BookingSelectSeat = ({ history }) => {
     endTime,
   } = ticket;
 
-  console.log(ticket);
-
   const checkTicket = () => {
     return (
       Object.values({
@@ -59,7 +57,7 @@ const BookingSelectSeat = ({ history }) => {
 
   useEffect(() => {
     if (!checkTicket()) history.push("/");
-    return () => dispatch(resetSeat());
+    dispatch(resetSeat());
   }, [history]);
 
   return (

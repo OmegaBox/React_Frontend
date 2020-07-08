@@ -6,7 +6,6 @@ import { numWithComma } from "../../Utils/ultil";
 import "./style/BookingInfo.scss";
 
 const age = (ageString) => {
-  console.log(ageString);
   switch (ageString) {
     case "18+":
       return " ageGrade19Small";
