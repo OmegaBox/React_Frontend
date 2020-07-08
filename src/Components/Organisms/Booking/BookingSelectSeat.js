@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useLayoutEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import ModalPortal from "../../../Modules/ModalPortal";
 
@@ -55,7 +55,7 @@ const BookingSelectSeat = ({ history }) => {
     );
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!checkTicket()) history.push("/");
     return () => dispatch(resetSeat());
   }, [history]);
