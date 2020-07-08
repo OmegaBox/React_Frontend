@@ -9,17 +9,19 @@ import NotFoundPage from "../Components/Pages/NotFoundPage";
 import ComponentSample from "../ComponentSample";
 import MovieDetailPage from "../Components/Pages/MovieDetailPage";
 import WholeMovieListPage from "../Components/Pages/WholeMovieListPage";
+import SignUpForm from "../Components/Organisms/SignUpForm";
 
 const MainRouter = () => {
   return (
     <Switch>
       <Route exact path="/" component={MainPage} />
       <Route path="/booking" component={BookingPage} />
-      <Route path="/movieDetail" component={MovieDetailPage} />
-      <Route path="/moviesList" component={WholeMovieListPage} />
+      <Route path="/movieDetail/:idx" component={MovieDetailPage} />
+      <Route path="/listMovies" component={WholeMovieListPage} />
       <Route path="/mypage" component={MyPage} />
       <Route path="/event" component={EventPage} />
       <Route path={["/login", "/signup"]} component={LoginAndSignUpPage} />
+      <Route path="/membersignup" component={SignUpForm} />
       <Route path="/stylesample" component={ComponentSample} />
       <Route render={NotFoundPage} />
     </Switch>

@@ -2,7 +2,8 @@ import axios from "axios";
 import { transformDateFormat } from "../Utils/ultil";
 
 export const movieApi = {
-  getMovies: (id) => axios.get("movies/"),
+  getMovies: () => axios.get("movies/"),
+  getMovie: (id) => axios.get(`{movies/${id}`),
   getSchedules: ({ date, movies, theaterId }) => {
     let movieIds = "";
     if (movies) {
@@ -26,7 +27,7 @@ export const movieApi = {
     }
     const call = `theaters/schedules/regions/${date}/${
       movies ? "?movie=" + movieIds : ""
-    }
+      }
     `;
     return axios.get(call);
   },
@@ -38,20 +39,19 @@ export const movieApi = {
 
     const call = `theaters/schedules/${date}/${
       movies ? "?movie=" + movieIds : ""
-    }
+      }
     `;
 
     return axios.get(call);
   },
   getSeats: (scheduleId) => {
-    return axios.get(`/schedules/${scheduleId}/seats/`);
+    return axios.get(`/schedules/${scheduleId}/reserved-seats/`);
   },
 };
 
-export const signupApi = {
-  checkDouble: () => {},
+export const userApi = {
   signup: ({ name, id, pw, pwCheck, birth, tell, email }) => {
-    const JSONDATA = JSON.stringify({
+    return axios.post("/members/signup/", {
       username: id,
       email: email,
       password1: pw,
@@ -60,7 +60,5 @@ export const signupApi = {
       mobile: tell,
       birth_date: birth,
     });
-    console.log(JSONDATA);
-    return axios.post("/members/signup/", JSONDATA);
   },
 };

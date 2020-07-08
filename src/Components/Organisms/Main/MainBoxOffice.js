@@ -1,19 +1,22 @@
 import React from "react";
 // import { movieApi } from "../../../Api/api";
 import "./style/MainBoxOffice.scss";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { selectMovie } from "../../../Reducer/bookingReducer";
 
 const MainBoxOffice = () => {
   let movieBox = useSelector((state) => state.Movie.movies);
   movieBox = movieBox.filter((_, i) => i < 4);
+  const dispatch = useDispatch();
+
 
   return (
     <div className="mainBoxOfficeLayout">
       <div className="mainBoxOffice">
         <div className="mainBoxOfficeHeader">
           <h2>박스오피스</h2>
-          <Link to="/moviesList">
+          <Link to="/listMovies">
             <div className="boxOfficeMoreMovieWrap">
               <div className="boxOfficeMoreMovie">더 많은 영화보기 </div>
               <div className="icon moreMovieIcon"></div>
@@ -24,8 +27,9 @@ const MainBoxOffice = () => {
           <ul className="mainMoviesWrap">
             {movieBox.map((movie, i) => {
               return (
-                <li key={i}>
-                  <Link to={"movie/" + movie.id}>
+                <li key={`movieList${movie.id}`}>
+                  <Link to={"movieDetail/" + movie.id}>
+
                     <p className="mainRank">{movie.rank}</p>
                     <img
                       className="boxOfficeMoviePoster"
@@ -55,9 +59,17 @@ const MainBoxOffice = () => {
                       ].join(" ")}
                     >
                       <span className="icon favoriteOutLine"></span>
-                      <span className="boxOfficeFavoriteScore">{movie.acc_favorite}</span>
+                      <span className="boxOfficeFavoriteScore" >{movie.acc_favorite}</span>
                     </button>
-                    <button
+                    <Link to="/booking"><button onClick={() =>
+                      dispatch(
+                        selectMovie({
+                          title: movie.name_kor,
+                          poster: movie.poster,
+                          id: movie.id,
+                        })
+                      )
+                    }
                       className={[
                         "boxOfficeBookingBtn",
                         "btn",
@@ -68,6 +80,7 @@ const MainBoxOffice = () => {
                     >
                       예매
                   </button>
+                    </Link>
                   </div>
                 </li>
 
@@ -106,7 +119,7 @@ const MainBoxOffice = () => {
           </Link>
         </ul>
       </div>
-    </div>
+    </div >
   );
 };
 
