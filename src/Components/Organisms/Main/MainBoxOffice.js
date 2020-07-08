@@ -120,8 +120,14 @@ const MainBoxOffice = () => {
         </ul>
       </div>
       <div className="moviePosterBg">
-        {/* 1위 영화 포스터 */}
-        <img src="https://img.megabox.co.kr/SharedImg/2020/06/26/Iqs6FGbxVHJoFt0yIkWs16RsfjnyWIEu_380.jpg" />
+        {movieBox.map((movie, i) => {
+          return (
+            <img
+              src={movie.poster}
+              alt={movie.title}
+            />
+          )
+        })}
       </div>
     </div>
   );
