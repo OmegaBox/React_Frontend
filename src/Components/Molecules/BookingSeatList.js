@@ -96,13 +96,16 @@ const socialDistance = (row, seatNum) => {
   return rowNum % 3 === seatNum % 3;
 };
 
-const BookingSeatList = () => {
+const BookingSeatList = ({ history }) => {
   const dispatch = useDispatch();
 
   const [select, personal, ticket] = useSelector((state) => [
     state.Seat.selectedSeat,
     state.Seat.personal,
+    state.Booking.ticket,
   ]);
+
+  console.log(ticket);
 
   // 선택 좌석 수
   const totalSeatCount = select.length;
@@ -113,17 +116,26 @@ const BookingSeatList = () => {
 
   const seatApi = async (id) => {
     const res = await movieApi.getSeats(id);
-    if (res.status === 200) {
+    try {
       console.log(res);
-      return res;
-    } else {
-      console.log("status 에러발생");
+    } catch (e) {
+      console.error(`error : ${e.state}`);
+      console.error(`${e.response}`);
     }
   };
 
-  useEffect(() => {
-    seatApi(3);
-  }, [seatApi]);
+  // useEffect(() => {
+  //   const checkTicketArr = [
+  //     ticket.selectedDate,
+  //     ticket.selectedMovieTitle,
+  //     ticket.selectedTheather,
+  //     ticket.seletedTime,
+  //     ticket.endTime,
+  //   ]
+  //   if ()
+  //   // seatApi(3);
+  // }, []);
+
   return (
     <div className="bookingSeatList">
       <ul className="seatRowName">
