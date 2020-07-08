@@ -21,15 +21,27 @@ module.exports = (app) => {
     })
   );
   app.use(
-    createProxyMiddleware("/members/signup", {
+    createProxyMiddleware("/members/", {
       target: "https://www.omegabox.xyz",
       changeOrigin: true,
     })
   );
   // app.use(
-  //   createProxyMiddleware('/getVilageFcst', {
-  //     target: 'http://apis.data.go.kr/1360000/VilageFcstInfoService/',
+  //   createProxyMiddleware("/members/signup", {
+  //     target: "https://www.omegabox.xyz",
   //     changeOrigin: true,
-  //   }),
+  //   })
+  // );
+  // app.use(
+  //   createProxyMiddleware("/members/login", {
+  //     target: "https://www.omegabox.xyz",
+  //     changeOrigin: true,
+  //   })
+  // );
+  // app.use(
+  //   createProxyMiddleware("/members/token/verify/", {
+  //     target: "https://www.omegabox.xyz",
+  //     changeOrigin: true,
+  //   })
   // );
 };

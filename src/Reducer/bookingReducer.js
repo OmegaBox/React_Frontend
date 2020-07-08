@@ -204,19 +204,30 @@ const getTheatersCanBooking = (movies = []) => async (dispatch, state) => {
 
   // 만약 이미 선택한 상영관이 선택 불가능하게 바뀌었을 경우 선택을 취소해준다
   const canSelectTheaters = state().Booking.canSelectLocation.theaters;
+  const canSelectRegions = state().Booking.canSelectLocation.regions;
 
   const newSelectedTheaters = canSelectTheaters.filter((theater) =>
     selectedTheaters.find((th) => th.name === theater.name)
   );
+
+  let newSelectedRegion = "";
+  if (selectedOption.selectedRegion) {
+    newSelectedRegion =
+      canSelectRegions[selectedOption.selectedRegion] > 0
+        ? selectedOption.selectedRegion
+        : "";
+  }
+
   // 상영관 선택과 지역 선택 처리
   dispatch(setSelectTheaters(newSelectedTheaters));
-  if (newSelectedTheaters.length) {
-    dispatch(
-      setSelectRegion(
-        newSelectedTheaters[newSelectedTheaters.length - 1].region
-      )
-    );
-  } else dispatch(setSelectRegion(""));
+  dispatch(setSelectRegion(newSelectedRegion));
+  // if (newSelectedTheaters.length) {
+  //   dispatch(
+  //     setSelectRegion(
+  //       newSelectedTheaters[newSelectedTheaters.length - 1].region
+  //     )
+  //   );
+  // } else dispatch(setSelectRegion(""));
 };
 
 // 사가 진입용 액션들

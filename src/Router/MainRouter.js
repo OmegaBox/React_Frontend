@@ -10,6 +10,7 @@ import ComponentSample from "../ComponentSample";
 import MovieDetailPage from "../Components/Pages/MovieDetailPage";
 import WholeMovieListPage from "../Components/Pages/WholeMovieListPage";
 import SignUpForm from "../Components/Organisms/SignUpForm";
+import LoginForm from "../Components/Organisms/LoginForm";
 
 const MainRouter = () => {
   return (
@@ -20,8 +21,8 @@ const MainRouter = () => {
       <Route path="/listMovies" component={WholeMovieListPage} />
       <Route path="/mypage" component={MyPage} />
       <Route path="/event" component={EventPage} />
-      <Route path={["/login", "/signup"]} component={LoginAndSignUpPage} />
       <Route path="/membersignup" component={SignUpForm} />
+      <Route path="/memberlogin" component={LoginForm} />
       <Route path="/stylesample" component={ComponentSample} />
       <Route render={NotFoundPage} />
     </Switch>
