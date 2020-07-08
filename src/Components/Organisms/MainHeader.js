@@ -5,7 +5,7 @@ import { Link, Route } from "react-router-dom";
 
 const MainHeader = () => {
   return (
-    <>
+    <div>
       <header className="headerLayout">
         <nav className="mainNav">
           <h1 className="mainLogo">
@@ -59,7 +59,7 @@ const MainHeader = () => {
           </div>
         </nav>
       </header>
-    </>
+    </div>
   );
 };
 

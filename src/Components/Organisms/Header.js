@@ -7,9 +7,9 @@ const Header = () => {
   let location = useLocation();
   console.log(location.pathname);
   return (
-    <>
+    <div>
       <MainHeader />
-    </>
+    </div>
   );
 };
 
