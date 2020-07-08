@@ -29,11 +29,15 @@
 
     &.bookingMovieTitle {
       display: flex;
-      flex-flow: row nowrap;
+      flex-flow: row wrap;
       justify-content: unset;
       font-size: 1.6rem;
       line-height: 1.2;
       vertical-align: top;
+    }
+    & .screenType {
+      padding: 3px 0 0 30px;
+      width: 100%;
     }
   }
 
