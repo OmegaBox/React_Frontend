@@ -114,7 +114,7 @@ const BookingPayment = () => {
             type="button"
             className={["btn", "fill", "sub", "regular"].join(" ")}
           >
-            다음
+            결제
           </button>
         </div>
       </div>
