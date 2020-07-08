@@ -10,7 +10,8 @@ const checkValidation = async () => {
 };
 
 export const movieApi = {
-  getMovies: (id) => axios.get("movies/"),
+  getMovies: () => axios.get("movies/"),
+  getMovie: (id) => axios.get(`{movies/${id}`),
   getSchedules: ({ date, movies, theaterId }) => {
     let movieIds = "";
     if (movies) {
