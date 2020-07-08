@@ -11,7 +11,7 @@ import NavSample from "../Organisms/NavSample";
 
 const Main = () => {
   return (
-    <div>
+    <>
       <Header />
       <MainBoxOffice />
       <MainBenefits />
@@ -21,7 +21,7 @@ const Main = () => {
       <MainNotice />
       <Footer />
       <NavSample />
-    </div>
+    </>
   );
 };
 
