@@ -1,11 +1,17 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 import "./style/LoginForm.scss";
+import { userApi } from "../../Api/api";
+import { useDispatch } from "react-redux";
+import { startLogin } from "../../Reducer/userInfoReducer";
 
 const LoginForm = () => {
   const [inputId, setInputId] = useState("");
-  const [inputPass, setInputPass] = useState("");
+  const [inputPw, setInputPw] = useState("");
+
+  const dispatch = useDispatch();
+  const history = useHistory();
 
   return (
     <div className={["popupWrap"].join(" ")}>
@@ -17,7 +23,7 @@ const LoginForm = () => {
         }}
       >
         <h2>로그인</h2>
-        <button
+        {/* <button
           className={["btn", "xSmall", "closed"].join(" ")}
           onClick={() => {
             // dispatch(closeModal());
@@ -26,7 +32,7 @@ const LoginForm = () => {
         >
           {" "}
           <span className={["icon", "closed"].join(" ")}></span>
-        </button>
+        </button> */}
         <div className="popupContent">
           <label className="a11yHidden" htmlFor="userId">
             아이디
@@ -46,17 +52,29 @@ const LoginForm = () => {
             type="password"
             id="userPw"
             placeholder="비밀번호"
-            onChange={(e) => setInputPass(e.target.value)}
+            onChange={(e) => setInputPw(e.target.value)}
           />
           <div className="inputWrap saveIdWrap">
             <input type="checkbox" id="saveId" />
             <label htmlFor="saveId">
-              <span className="inputIcon"></span>아이디 저장
+              <span className="inputIcon" />
+              아이디 저장
             </label>
           </div>
           <button
             className={["btnLogin", "btn", "large"].join(" ")}
             type="submit"
+            onClick={async () => {
+              dispatch(
+                startLogin(
+                  {
+                    id: inputId,
+                    pw: inputPw,
+                  },
+                  history
+                )
+              );
+            }}
           >
             로그인
           </button>
@@ -69,4 +87,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default React.memo(LoginForm);

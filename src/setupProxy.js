@@ -3,6 +3,12 @@ const { createProxyMiddleware } = require("http-proxy-middleware");
 // src/setupProxy.js
 module.exports = (app) => {
   app.use(
+    createProxyMiddleware("/movies/", {
+      target: "https://www.omegabox.xyz",
+      changeOrigin: true,
+    })
+  );
+  app.use(
     createProxyMiddleware("/theaters", {
       target: "https://www.omegabox.xyz",
       changeOrigin: true,
@@ -14,22 +20,11 @@ module.exports = (app) => {
       changeOrigin: true,
     })
   );
+
   app.use(
-    createProxyMiddleware("/movies", {
+    createProxyMiddleware("/members/", {
       target: "https://www.omegabox.xyz",
       changeOrigin: true,
     })
   );
-  app.use(
-    createProxyMiddleware("/members/signup", {
-      target: "https://www.omegabox.xyz",
-      changeOrigin: true,
-    })
-  );
-  // app.use(
-  //   createProxyMiddleware('/getVilageFcst', {
-  //     target: 'http://apis.data.go.kr/1360000/VilageFcstInfoService/',
-  //     changeOrigin: true,
-  //   }),
-  // );
 };

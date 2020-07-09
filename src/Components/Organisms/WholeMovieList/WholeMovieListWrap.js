@@ -1,11 +1,13 @@
 import React from "react";
 // import { movieApi } from "../../../Api/api";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import "./style/WholeMovieListWrap.scss"
 import { Link } from "react-router-dom";
+import { selectMovie } from "../../../Reducer/bookingReducer";
 
 const WholeMovieListWrap = () => {
-  const wholeMovie = useSelector((state) => state.Movie.movies);
+  const movies = useSelector((state) => state.Movie.movies);
+  const dispatch = useDispatch();
 
   return (
     <div className="WholeMovieListLayout">
@@ -34,11 +36,26 @@ const WholeMovieListWrap = () => {
         <button type="button" className="iconSearchBtn"></button>
       </div>
       <ul className="wholeMovieList">
-        {wholeMovie.map((movie, i) => {
+        {movies.map((movie, i) => {
+          let iconClassName = "icon";
+          switch (movie.grade) {
+            case "18+":
+              iconClassName += " ageGrade19Small";
+              break;
+            case "15+":
+              iconClassName += " ageGrade15Small";
+              break;
+            case "12+":
+              iconClassName += " ageGrade12Small";
+              break;
+            case "all":
+            default:
+              iconClassName += " ageGradeSmall";
+              break;
+          }
           return (
-
             <li className="wholeMovie" key={i}>
-              <Link to={"movie/" + movie.id}>
+              <Link to={"moviedetail/" + movie.id}>
                 <p className="mainRank">{movie.rank}</p>
                 <img
                   className="wholeMoviePoster"
@@ -58,28 +75,7 @@ const WholeMovieListWrap = () => {
                 </div>
               </Link>
               <div className="movieListTitleWrap">
-                {/* {wholeMovie.map((movie) => {
-                  let iconClassName = "icon";
-                  switch (movie.grade) {
-                    case "청소년관람불가" || "18+":
-                      iconClassName += " ageGrade19Small";
-                      break;
-                    case "15세이상관람가" || "15+":
-                      iconClassName += " ageGrade15Small";
-                      break;
-                    case "12세이상관람가" || "12+":
-                      iconClassName += " ageGrade12Small";
-                      break;
-                    case "전체관람가" || "all":
-                    default:
-                      iconClassName += " ageGradeSmall";
-                      break;
-                  }
-                  return (
-                    <span className={iconClassName}>{v.grade}</span>
-                  ); */}
-                {/* })} */}
-                <span className="movieGrade icon ageGrade"></span>
+                <span className={iconClassName} />
                 <span className="movieListTitle">{movie.name_kor}</span>
               </div>
               <div className="movieListRateandDay">
@@ -100,7 +96,14 @@ const WholeMovieListWrap = () => {
                   <span className="icon favorite"></span>
                   <span className="wholeFavoriteScore">{movie.acc_favorite}</span>
                 </button>
-                <button
+                <Link to="/booking"><button onClick={() =>
+                  dispatch(
+                    selectMovie({
+                      title: movie.name_kor,
+                      poster: movie.poster,
+                      id: movie.id,
+                    })
+                  )}
                   className={[
                     "wholeBookingBtn",
                     "btn",
@@ -111,6 +114,7 @@ const WholeMovieListWrap = () => {
                 >
                   예매
                   </button>
+                </Link>
               </div>
             </li>
           )

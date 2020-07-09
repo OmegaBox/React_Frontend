@@ -1,14 +1,95 @@
+import { put, takeLatest } from "redux-saga/effects";
+import { userApi, isLogin } from "../Api/api";
+
+import cookie from "react-cookies";
+
 const SUCCESS = "userInfo/SUCCESS";
 const ERROR = "userInfo/ERROR";
 const LOADING = "userInfo/LOADING";
 
+const LOGIN = "userInfo/LOGIN";
+const LOGIN_LOADING = "userInfo/LOGIN_LOADING";
+const LOGIN_SUCCESS = "userInfo/LOGIN_SUCCESS";
+const ALREADY_LOGIN = "userInfo/ALREADY_LOGIN";
+
+const LOGOUT_SUCCESS = "userInfo/LOGOUT";
+
+const checkLogin = () => async (dispatch) => {
+  const res = await isLogin();
+  console.log("로그인여부 확인", res);
+
+  if (res) dispatch({ type: ALREADY_LOGIN });
+  else dispatch({ type: LOGOUT_SUCCESS });
+};
+
+const startLogout = () => async (dispatch) => {
+  await userApi.logout();
+  console.log("로그아웃");
+
+  dispatch({ type: LOGOUT_SUCCESS });
+};
+
+// 사가 진입용 액션
+const startLogin = (user, history) => ({ type: LOGIN, user, history });
+
+function* loginSaga(action) {
+  yield put({ type: LOGIN_LOADING });
+
+  try {
+    const res = yield userApi.login(action.user);
+
+    if (res.status === 200) {
+      if (cookie.load("accessToken")) {
+        cookie.remove("accessToken", {
+          path: "/",
+        });
+      }
+      if (cookie.load("refreshToken")) {
+        cookie.remove("refreshToken", {
+          path: "/",
+        });
+      }
+
+      cookie.save("accessToken", res.data.access, {
+        path: "/",
+        maxAge: 3600,
+      });
+      cookie.save("refreshToken", res.data.refresh, {
+        path: "/",
+      });
+
+      yield put({
+        type: LOGIN_SUCCESS,
+        id: res.data.username,
+        name: res.data.name,
+        email: res.data.email,
+        mobile: res.data.mobile,
+        birthDate: res.data.birth_date,
+      });
+      action.history.push("/");
+    } else {
+      console.log("통신은 성공했으나 에러발생", res);
+    }
+  } catch (e) {
+    console.log(e.response);
+  }
+}
+
+function* userInfoSaga() {
+  yield takeLatest(LOGIN, loginSaga);
+}
+
 const initialState = {
-  id: 0,
+  isLogin: false,
+  id: "omegaman",
   name: "홍길동",
-  tier: "일반회원",
+  email: "xxxxx@naver.com",
   point: 18000,
-  scheduledPoint: 0,
-  expiredPoint: 1200,
+  mobile: "+821011111111",
+  birthDate: "2020-07-08",
+  loading: false,
+  error: false,
+  errorMessage: "",
   bookingHistory: [
     {
       id: 0,
@@ -146,7 +227,28 @@ const initialState = {
 
 const userInfoReducer = (state = initialState, action) => {
   switch (action.type) {
-    case SUCCESS:
+    case LOGIN_SUCCESS:
+      return {
+        ...state,
+        isLogin: true,
+        id: action.id,
+        name: action.name,
+        email: action.email,
+        mobile: action.mobile,
+        birthDate: action.birthDate,
+      };
+    case LOGOUT_SUCCESS:
+      return {
+        ...state,
+        isLogin: false,
+      };
+
+    case ALREADY_LOGIN:
+      return {
+        ...state,
+        isLogin: true,
+      };
+
     case ERROR:
     case LOADING:
     default:
@@ -154,4 +256,4 @@ const userInfoReducer = (state = initialState, action) => {
   }
 };
 
-export { userInfoReducer };
+export { userInfoReducer, userInfoSaga, checkLogin, startLogin, startLogout };
