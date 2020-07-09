@@ -15,7 +15,7 @@ const initSignState = {
   email: "",
 };
 
-const SignUpForm = () => {
+const SignUpForm = ({ history }) => {
   // 회원가입 상태
   const [inputState, setInput] = useState(initSignState);
 
@@ -129,6 +129,7 @@ const SignUpForm = () => {
           email: inputState.email,
         });
         console.log(res);
+        history.push("/memberlogin");
       } catch (e) {
         console.log(`회원가입 실패 : ${e.response}`);
       }
