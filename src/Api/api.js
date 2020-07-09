@@ -23,13 +23,16 @@ export const refreshValidation = async () => {
 
 export const isLogin = async () => {
   const accessToken = cookie.load("accessToken");
+  console.log("isLogin 체크", accessToken);
+
   if (accessToken) return true;
   return await refreshValidation();
 };
 
 export const movieApi = {
   getMovies: () => axios.get("movies/"),
-  getMovie: (id) => axios.get(`{movies/${id}`),
+  getMovie: (id) => axios.get(`movies/${id}`),
+  // getSearch: (keyword) => axios.get(`movies/?searchName=${keyword}`),
   getSchedules: ({ date, movies, theaterId }) => {
     let movieIds = "";
     if (movies) {
@@ -53,7 +56,7 @@ export const movieApi = {
     }
     const call = `theaters/schedules/regions/${date}/${
       movies ? "?movies=" + movieIds : ""
-    }
+      }
     `;
     return axios.get(call);
   },
@@ -65,7 +68,7 @@ export const movieApi = {
 
     const call = `theaters/schedules/${date}/${
       movies ? "?movies=" + movieIds : ""
-    }
+      }
     `;
 
     return axios.get(call);
