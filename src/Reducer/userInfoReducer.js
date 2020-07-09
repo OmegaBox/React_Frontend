@@ -10,6 +10,7 @@ const LOADING = "userInfo/LOADING";
 const LOGIN = "userInfo/LOGIN";
 const LOGIN_LOADING = "userInfo/LOGIN_LOADING";
 const LOGIN_SUCCESS = "userInfo/LOGIN_SUCCESS";
+const ALREADY_LOGIN = "userInfo/ALREADY_LOGIN";
 
 const LOGOUT_SUCCESS = "userInfo/LOGOUT";
 
@@ -17,7 +18,7 @@ const checkLogin = () => async (dispatch) => {
   const res = await isLogin();
   console.log("로그인여부 확인", res);
 
-  if (res) return;
+  if (res) dispatch({ type: ALREADY_LOGIN });
   else dispatch({ type: LOGOUT_SUCCESS });
 };
 
@@ -241,6 +242,13 @@ const userInfoReducer = (state = initialState, action) => {
         ...state,
         isLogin: false,
       };
+
+    case ALREADY_LOGIN:
+      return {
+        ...state,
+        isLogin: true,
+      };
+
     case ERROR:
     case LOADING:
     default:

@@ -23,6 +23,8 @@ export const refreshValidation = async () => {
 
 export const isLogin = async () => {
   const accessToken = cookie.load("accessToken");
+  console.log("isLogin 체크", accessToken);
+
   if (accessToken) return true;
   return await refreshValidation();
 };
