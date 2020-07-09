@@ -9,7 +9,7 @@ import BookingInfo from "../../Molecules/BookingInfo";
 import PopupNotice from "../../Molecules/PopupNotice";
 import BookingFastTitle from "../../Atoms/BookingFastTitle";
 
-import { resetSeat } from "../../../Reducer/bookingSeatReducer";
+import { resetThunk } from "../../../Reducer/bookingSeatReducer";
 
 import "./style/BookingSelectSeat.scss";
 
@@ -55,10 +55,14 @@ const BookingSelectSeat = ({ history }) => {
     );
   };
 
-  useLayoutEffect(() => {
+  useEffect(() => {
+    console.log("didMount");
     if (!checkTicket()) history.push("/");
-    return () => dispatch(resetSeat());
-  }, [history]);
+    dispatch(resetThunk(history.location.pathname));
+    return () => {
+      console.log("unMount");
+    };
+  }, []);
 
   return (
     <section className="bookingSelectSeat">
@@ -85,6 +89,9 @@ const BookingSelectSeat = ({ history }) => {
         }}
         goBack={() => {
           history.goBack();
+        }}
+        goNext={() => {
+          history.push("/booking/payment");
         }}
       />
       {modal && (
