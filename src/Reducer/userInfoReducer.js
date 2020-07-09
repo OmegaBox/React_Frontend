@@ -24,8 +24,6 @@ function* loginSaga(action) {
   try {
     const res = yield userApi.login(action.user);
 
-    isLogin();
-
     if (res.status === 200) {
       if (cookie.load("accessToken")) {
         cookie.remove("accessToken", {
