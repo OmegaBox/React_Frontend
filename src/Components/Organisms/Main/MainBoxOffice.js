@@ -27,7 +27,7 @@ const MainBoxOffice = () => {
             {movieBox.map((movie, i) => {
               return (
                 <li key={`movieList${movie.id}`}>
-                  <Link to={"movieDetail/" + movie.id}>
+                  <Link to={"detail/" + movie.id}>
                     <p className="mainRank">{movie.rank}</p>
                     <img
                       className="boxOfficeMoviePoster"

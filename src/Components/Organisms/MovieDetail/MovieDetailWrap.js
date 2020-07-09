@@ -1,14 +1,15 @@
 import React from "react";
 import "./style/MovieDetailWrap.scss";
 import { useSelector } from "react-redux";
-// import { numWithComma } from "../../../Utils/ultil"
 
 const MovieDetailWrap = () => {
   const movieDetail = useSelector((state) => state.Movie.movieDetail);
 
   return (
     <div className="movieVisual">
+      {console.log(movieDetail)}
       {movieDetail.map((movie, i) => {
+        console.log("하이");
         return (
           <div key={`movies${movie.id}`}>
             <div className="movieBg">

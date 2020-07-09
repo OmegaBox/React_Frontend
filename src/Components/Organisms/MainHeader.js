@@ -2,10 +2,14 @@ import React from "react";
 import "./style/MainHeader.scss";
 import logo from "../../images/omegaWhite.png";
 import { Link, Route } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const MainHeader = () => {
   const dispatch = useDispatch();
+  const changeHeader = useSelector((state) => state.userInfo.isLogin);
+  const clickLogout = (e) => {
+    // 상태 되돌리기
+  };
   return (
     <div>
       <header className="headerLayout">
@@ -22,12 +26,20 @@ const MainHeader = () => {
               <li>고객센터</li>
             </ul>
             <ul className="subRightSide">
-              <li>
-                <Link to="/memberlogin">로그인</Link>
-              </li>
-              <li>
-                <Link to="/membersignup">회원가입</Link>
-              </li>
+              {changeHeader === true ? (
+                <>
+                  <li><button
+                    type="button"
+                    onClick={clickLogout}
+                  >로그아웃</button></li>
+                  <li><Link to="/">알림</Link></li>
+                </>
+              ) : (
+                  <>
+                    <li><Link to="/memberlogin">로그인</Link></li>
+                    <li><Link to="/membersignup">회원가입</Link></li>
+                  </>
+                )}
               <li>
                 <Link to="/Booking">빠른예매</Link>
               </li>
