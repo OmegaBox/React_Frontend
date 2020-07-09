@@ -1,7 +1,15 @@
 const RESET = "RESET";
 const CHANGE_COUNT = "CHANGE_COUNT";
-const SET_PRICE = "SET_PRICE";
 const SET_SELECTSEAT = "SET_SELECTSEAT";
+
+const initSeatState = {
+  personal: {
+    adult: 0,
+    teen: 0,
+    preferential: 0,
+  },
+  selectedSeat: [],
+};
 
 export const resetSeat = () => ({
   type: RESET,
@@ -11,33 +19,20 @@ export const changePersonalCount = (type, value) => ({
   personType: type,
   value: value,
 });
-export const setPrice = (price) => ({
-  type: SET_PRICE,
-  price: price,
-});
 export const setSelectSeat = (seat) => ({
   type: SET_SELECTSEAT,
   selected: seat,
 });
 
-const initSeatState = {
-  personal: {
-    adult: 0,
-    teen: 0,
-    preferential: 0,
-  },
-  price: {
-    adult: 7000,
-    teen: 3500,
-    preferential: 3500,
-  },
-  selectedSeat: [],
+export const resetThunk = (url) => (dispatch) => {
+  console.log("thunk", url);
+  if (url === "/booking/seat") dispatch(resetSeat());
 };
 
 const seatReducer = (state = initSeatState, action) => {
   switch (action.type) {
     case RESET:
-      return initSeatState;
+      return { ...initSeatState };
     case CHANGE_COUNT:
       return {
         ...state,
@@ -45,11 +40,6 @@ const seatReducer = (state = initSeatState, action) => {
           ...state.personal,
           [action.personType]: action.value,
         },
-      };
-    case SET_PRICE:
-      return {
-        ...state,
-        price: action.price,
       };
     case SET_SELECTSEAT:
       return {

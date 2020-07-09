@@ -38,7 +38,7 @@ const RecommendEvent = () => {
             <a href="#" className="eventItem">
               <div className="imgWrap">
                 <img
-                  src="https://img.megabox.co.kr/SharedImg/event/2020/06/16/GcDx0cF1WsWfm11gJYI1J88kzV60DFD9.jpg"
+                  src="https://img.megabox.co.kr/SharedImg/event/2020/06/15/1FmOw19ViMIYmwN25yvK8VDpgkQ8nQEM.jpg"
                   alt=""
                 />
               </div>
@@ -57,8 +57,10 @@ const RecommendEvent = () => {
                 />
               </div>
               <div className="eventContent">
-                <h4 className="eventTitle">오리지널 티켓 No.16 온워드</h4>
-                <p className="eventDate">2020.06.17 ~ 2020.07.14</p>
+                <h4 className="eventTitle">
+                  [KB 랩비트 페스티벌 X 메가박스] 티켓 패키지 판매!!
+                </h4>
+                <p className="eventDate">2020.06.16 ~ 2020.09.20</p>
               </div>
             </a>
           </li>
@@ -71,8 +73,8 @@ const RecommendEvent = () => {
                 />
               </div>
               <div className="eventContent">
-                <h4 className="eventTitle">오리지널 티켓 No.16 온워드</h4>
-                <p className="eventDate">2020.06.17 ~ 2020.07.14</p>
+                <h4 className="eventTitle">메가박스 오리지널 티켓북</h4>
+                <p className="eventDate">2020.01.23 ~ 2020.12.31</p>
               </div>
             </a>
           </li>
