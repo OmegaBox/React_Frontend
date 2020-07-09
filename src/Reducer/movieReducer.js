@@ -8,6 +8,8 @@ const MOVIE_DETAIL_SUCCESS = "movies/SUCCESS";
 const MOVIE_DETAIL_ERROR = "movies/ERROR";
 const MOVIE_DETAIL_LOADING = "movies/LOADING";
 
+const SET_SELETED_MOVIE_DETAIL = "movies/SELETED_MOVIE_DETAIL"
+
 const setSuccessMovie = (data) => ({ type: MOVIE_SUCCESS, data });
 const setLoadingMovie = () => ({ type: MOVIE_LOADING });
 const setErrorMovie = (error) => ({ type: MOVIE_ERROR, error });
@@ -15,6 +17,8 @@ const setErrorMovie = (error) => ({ type: MOVIE_ERROR, error });
 const setSuccessMovieDetail = (data) => ({ type: MOVIE_DETAIL_SUCCESS, data });
 const setLoadingMovieDetail = () => ({ type: MOVIE_DETAIL_LOADING });
 const setErrorMovieDetail = (error) => ({ type: MOVIE_DETAIL_ERROR, error });
+
+const setSelectedMovieDetail = (id) => ({ type: SET_SELETED_MOVIE_DETAIL, id })
 
 const getMovies = () => async (dispatch) => {
   try {
@@ -44,6 +48,9 @@ const getMovies = () => async (dispatch) => {
 };
 const getMovie = () => async (dispatch) => {
   try {
+    // const movieId = (id) => {
+
+    // }
     dispatch(setLoadingMovieDetail());
     const res = await movieApi.getMovie();
     if (res.status === 200) {
