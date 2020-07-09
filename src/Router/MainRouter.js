@@ -4,7 +4,6 @@ import MainPage from "../Components/Pages/MainPage";
 import BookingPage from "../Components/Pages/BookingPage";
 import MyPage from "../Components/Pages/MyPage";
 import EventPage from "../Components/Pages/EventPage";
-import LoginAndSignUpPage from "../Components/Pages/LoginAndSignUpPage";
 import NotFoundPage from "../Components/Pages/NotFoundPage";
 import ComponentSample from "../ComponentSample";
 import MovieDetailPage from "../Components/Pages/MovieDetailPage";

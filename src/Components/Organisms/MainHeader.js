@@ -1,10 +1,32 @@
 import React from "react";
 import "./style/MainHeader.scss";
 import logo from "../../images/omegaWhite.png";
-import { Link, Route } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import subHeaderLogo from "../../images/omegabox_logo.jpg";
+import { useLocation } from "react-router-dom";
 
 const MainHeader = () => {
+  let location = useLocation();
+  let pageName = (pageLocation) => {
+    let page = "";
+    switch (pageLocation) {
+      case "/listMovies":
+        page = "영화";
+        break;
+      case "/Booking":
+        page = "예매";
+        break;
+      case "/MyPage":
+        page = "나의 메가박스";
+        break;
+      case "/event":
+        page = "이벤트";
+        break;
+      default:
+    }
+    return page;
+  };
   const dispatch = useDispatch();
   const changeHeader = useSelector((state) => state.userInfo.isLogin);
   const clickLogout = (e) => {
@@ -12,11 +34,20 @@ const MainHeader = () => {
   };
   return (
     <div>
-      <header className="headerLayout">
+      <header
+        className={[
+          "headerLayout",
+          `${location.pathname === "/" ? "" : "subHeader"}`,
+        ].join(" ")}
+      >
         <nav className="mainNav">
           <h1 className="mainLogo">
             <Link to="/">
-              <img className="mainLogo" alt="omegabox logo" src={logo} />
+              <img
+                className="mainLogo"
+                alt="omegabox logo"
+                src={location.pathname === "/" ? logo : subHeaderLogo}
+              />
             </Link>
           </h1>
           <div className="subNav">
@@ -60,7 +91,7 @@ const MainHeader = () => {
               <li>극장</li>
             </ul>
             <ul className="mainMenu mainRightSide">
-              <li>이벤트</li>
+              <Link to="/event">이벤트</Link>
               <li>스토어</li>
               <li>혜택</li>
             </ul>
@@ -72,6 +103,16 @@ const MainHeader = () => {
             </ul>
           </div>
         </nav>
+        <div className="pageUtil">
+          <ul>
+            <li className="home">
+              <Link to="/"></Link>
+            </li>
+            <li>
+              <Link to="">{pageName(location.pathname)}</Link>
+            </li>
+          </ul>
+        </div>
       </header>
     </div>
   );
