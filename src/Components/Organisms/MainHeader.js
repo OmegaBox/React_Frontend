@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import subHeaderLogo from "../../images/omegabox_logo.jpg";
 import { useLocation } from "react-router-dom";
+import { startLogout } from "../../Reducer/userInfoReducer";
 
 const MainHeader = () => {
   let location = useLocation();
@@ -29,8 +30,11 @@ const MainHeader = () => {
   };
   const dispatch = useDispatch();
   const changeHeader = useSelector((state) => state.userInfo.isLogin);
+  console.log("ㅇㅕ기로바", changeHeader);
+
   const clickLogout = (e) => {
-    // 상태 되돌리기
+    dispatch(startLogout());
+    window.scrollTo(0, 0);
   };
   return (
     <div>
