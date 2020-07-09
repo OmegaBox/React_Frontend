@@ -1,5 +1,5 @@
-import { select, put, takeLatest } from "redux-saga/effects";
-import { userApi } from "../Api/api";
+import { put, takeLatest } from "redux-saga/effects";
+import { userApi, isLogin } from "../Api/api";
 
 import cookie from "react-cookies";
 
@@ -11,6 +11,10 @@ const LOGIN = "userInfo/LOGIN";
 const LOGIN_LOADING = "userInfo/LOGIN_LOADING";
 const LOGIN_SUCCESS = "userInfo/LOGIN_SUCCESS";
 
+const LOGOUT = "userInfo/LOGOUT";
+
+const startLogout = () => ({ type: LOGOUT });
+
 // 사가 진입용 액션
 const startLogin = (user, history) => ({ type: LOGIN, user, history });
 
@@ -19,38 +23,33 @@ function* loginSaga(action) {
 
   try {
     const res = yield userApi.login(action.user);
-    console.log(res);
+
+    isLogin();
 
     if (res.status === 200) {
-      // console.log(cookie.load("accessToken"));
       if (cookie.load("accessToken")) {
-        console.log("진입함 엑세스");
-
         cookie.remove("accessToken", {
           path: "/",
-          httpOnly: true,
         });
       }
       if (cookie.load("refreshToken")) {
-        console.log("진입함 리프레시");
-
         cookie.remove("refreshToken", {
           path: "/",
-          httpOnly: true,
         });
       }
 
       cookie.save("accessToken", res.data.access, {
         path: "/",
-        httpOnly: true,
+        maxAge: 3600,
       });
       cookie.save("refreshToken", res.data.refresh, {
         path: "/",
-        httpOnly: true,
       });
 
-      console.log(res.data.access);
-      console.log(res.data.refresh);
+      console.log("저장한거 확인 accessToken", cookie.load("accessToken"));
+      console.log("저장한거 확인 refreshToken", cookie.load("refreshToken"));
+
+      console.log("엑세스토큰 유저인포리듀서", cookie.load("accessToken"));
 
       yield put({
         type: LOGIN_SUCCESS,
@@ -224,11 +223,19 @@ const userInfoReducer = (state = initialState, action) => {
     case LOGIN_SUCCESS:
       return {
         ...state,
+        isLogin: true,
         id: action.id,
         name: action.name,
         email: action.email,
         mobile: action.mobile,
         birthDate: action.birthDate,
+      };
+    case LOGOUT:
+      console.log("로그아웃 진입 성공");
+
+      return {
+        ...state,
+        isLogin: false,
       };
     case ERROR:
     case LOADING:
@@ -237,4 +244,4 @@ const userInfoReducer = (state = initialState, action) => {
   }
 };
 
-export { userInfoReducer, userInfoSaga, startLogin };
+export { userInfoReducer, userInfoSaga, startLogin, startLogout };
