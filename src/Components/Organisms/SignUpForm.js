@@ -1,9 +1,14 @@
 import React, { useState, useRef } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
 import "./style/SignUpForm.scss";
 
 import { getToday, regExp } from "../../Utils/ultil";
 import { userApi } from "../../Api/api";
+
+import { openModal, setSize, setOneBtn } from "../../Reducer/modalReducer";
+import ModalPortal from "../../Modules/ModalPortal";
+import PopupNotice from "../Molecules/PopupNotice";
 
 const initSignState = {
   name: "",
@@ -15,7 +20,8 @@ const initSignState = {
   email: "",
 };
 
-const SignUpForm = () => {
+const SignUpForm = ({ history }) => {
+  const dispatch = useDispatch();
   // 회원가입 상태
   const [inputState, setInput] = useState(initSignState);
 
@@ -27,6 +33,12 @@ const SignUpForm = () => {
     pwCheck: false,
     tell: false,
     email: false,
+  });
+
+  // 모달창 상태
+  const [modal, text, event, w, h] = useSelector((state) => {
+    const Modal = state.modal;
+    return [Modal.modal, Modal.text, Modal.event, Modal.width, Modal.height];
   });
 
   // input Ref
@@ -128,9 +140,24 @@ const SignUpForm = () => {
           tell: inputState.tell,
           email: inputState.email,
         });
-        console.log(res);
+        dispatch(setOneBtn());
+        dispatch(
+          openModal("회원가입에 성공하셨습니다.", () => {
+            history.push("/memberlogin");
+          })
+        );
       } catch (e) {
-        console.log(`회원가입 실패 : ${e.response}`);
+        console.log(e.response);
+        if (e.response.status === 400) {
+          let errorText = "회원가입 실패:";
+          Object.keys(e.response.data).forEach((key) => {
+            const errorDetail = `${key}: ${e.response.data[key]}`;
+            errorText += `
+  ${errorDetail}`;
+          });
+          console.error(errorText);
+          // dispatch(openModal(errorText));
+        }
       }
     }
   };
@@ -305,6 +332,18 @@ const SignUpForm = () => {
           회원가입
         </button>
       </section>
+      {modal && (
+        <ModalPortal>
+          <PopupNotice
+            text={text}
+            onEvent={event}
+            popupSize={{
+              width: w,
+              height: h,
+            }}
+          />
+        </ModalPortal>
+      )}
     </div>
   );
 };
