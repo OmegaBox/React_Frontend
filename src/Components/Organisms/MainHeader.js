@@ -63,10 +63,12 @@ const MainHeader = () => {
             <ul className="subRightSide">
               {changeHeader === true ? (
                 <>
-                  <li><button
-                    type="button"
-                    onClick={clickLogout}
-                  >로그아웃</button></li>
+                  <li>
+                    <Link to="/"
+                      onClick={clickLogout}
+                    >
+                      로그아웃</Link>
+                  </li>
                   <li><Link to="/">알림</Link></li>
                 </>
               ) : (
