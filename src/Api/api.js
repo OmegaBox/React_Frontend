@@ -12,8 +12,13 @@ export const movieApi = {
     if (date) date = transformDateFormat(date).dateStringNoDash;
 
     if (date && theaterId && !movies) {
+      console.log(`theaters/${theaterId}/schedules/${date}`);
+
       return axios.get(`theaters/${theaterId}/schedules/${date}`);
     } else {
+      console.log(
+        `theaters/${theaterId}/schedules/${date}/?movies=${movieIds}`
+      );
       return axios.get(
         `theaters/${theaterId}/schedules/${date}/?movies=${movieIds}`
       );
@@ -24,10 +29,14 @@ export const movieApi = {
     if (movies) {
       movieIds = movies.reduce((acc, cur) => acc + "+" + cur.id, "").slice(1);
     }
+
     const call = `theaters/schedules/regions/${date}/${
       movies ? "?movies=" + movieIds : ""
     }
     `;
+
+    console.log(call);
+
     return axios.get(call);
   },
   getScreeningTheaters: (date, movies) => {
@@ -40,6 +49,8 @@ export const movieApi = {
       movies ? "?movies=" + movieIds : ""
     }
     `;
+
+    console.log(call);
 
     return axios.get(call);
   },
