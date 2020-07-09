@@ -61,6 +61,7 @@ const transformDateFormat = (date) => {
   };
 };
 
+// 문자열 숫자에 천단위 콤마 찍기
 const numWithComma = (numStr) => {
   if (numStr.length <= 3) return numStr;
   const arr = [...numStr];
@@ -73,6 +74,7 @@ const numWithComma = (numStr) => {
   return arr.join("");
 };
 
+// 회원 가입 정규표현식
 const regExp = {
   name: /^[a-zA-Z가-힣]{2,}$/,
   id: /^[0-9a-zA-Z_]{6,}$/,
