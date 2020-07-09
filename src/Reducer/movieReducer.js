@@ -46,13 +46,13 @@ const getMovies = () => async (dispatch) => {
     });
   }
 };
-const getMovie = () => async (dispatch) => {
-  try {
-    // const movieId = (id) => {
 
-    // }
+const getMovie = (id) => async (dispatch) => {
+  try {
     dispatch(setLoadingMovieDetail());
-    const res = await movieApi.getMovie();
+    const res = await movieApi.getMovieById(id);
+    console.log("하이");
+
     if (res.status === 200) {
       if (!Array.isArray(res.data.results)) return console.error("배열이 아닙니다.");
       dispatch(setSuccessMovieDetail(res.data.results));
@@ -372,7 +372,7 @@ const movieReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        movies: action.data,
+        movieDetail: action.data,
         error: null,
         page: action.page
       }

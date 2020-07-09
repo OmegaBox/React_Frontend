@@ -2,8 +2,10 @@ import React from "react";
 import "./style/MainHeader.scss";
 import logo from "../../images/omegaWhite.png";
 import { Link, Route } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 const MainHeader = () => {
+  const dispatch = useDispatch();
   return (
     <div>
       <header className="headerLayout">

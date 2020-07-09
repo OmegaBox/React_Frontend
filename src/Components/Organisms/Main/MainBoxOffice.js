@@ -123,6 +123,7 @@ const MainBoxOffice = () => {
         {movieBox.map((movie, i) => {
           return (
             <img
+              key={i}
               src={movie.poster}
               alt={movie.title}
             />

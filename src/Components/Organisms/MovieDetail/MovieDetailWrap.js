@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import "./style/MovieDetailWrap.scss";
 import { useSelector } from "react-redux";
+// import { numWithComma } from "../../../Utils/ultil"
 
 const MovieDetailWrap = () => {
   const movieDetail = useSelector((state) => state.Movie.movieDetail);
