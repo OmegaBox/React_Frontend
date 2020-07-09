@@ -15,57 +15,15 @@ const PremiereEvent = () => {
           <article className="eventItem">
             <div className="imgWrap">
               <img
-                src="https://img.megabox.co.kr/SharedImg/event/2020/06/16/GcDx0cF1WsWfm11gJYI1J88kzV60DFD9.jpg"
+                src="https://img.megabox.co.kr/SharedImg/event/2020/07/03/dchyDV5Quoxr0HZp0KGT0dxTqcId3zck.jpg"
                 alt=""
               />
             </div>
             <div className="eventContent">
               <h4 className="eventTitle">
-                오리지널 티켓 No.16 온워드오리지널 티켓 No.16 온워드
+                &lt;불량한 가족&gt; 개봉주 무대인사
               </h4>
-              <p className="eventDate">2020.06.17 ~ 2020.07.14</p>
-            </div>
-          </article>
-        </li>
-        <li>
-          <article className="eventItem">
-            <div className="imgWrap">
-              <img
-                src="https://img.megabox.co.kr/SharedImg/event/2020/06/16/GcDx0cF1WsWfm11gJYI1J88kzV60DFD9.jpg"
-                alt=""
-              />
-            </div>
-            <div className="eventContent">
-              <h4 className="eventTitle">오리지널 티켓 No.16 온워드</h4>
-              <p className="eventDate">2020.06.17 ~ 2020.07.14</p>
-            </div>
-          </article>
-        </li>
-        <li>
-          <article className="eventItem">
-            <div className="imgWrap">
-              <img
-                src="https://img.megabox.co.kr/SharedImg/event/2020/06/16/GcDx0cF1WsWfm11gJYI1J88kzV60DFD9.jpg"
-                alt=""
-              />
-            </div>
-            <div className="eventContent">
-              <h4 className="eventTitle">오리지널 티켓 No.16 온워드</h4>
-              <p className="eventDate">2020.06.17 ~ 2020.07.14</p>
-            </div>
-          </article>
-        </li>
-        <li>
-          <article className="eventItem">
-            <div className="imgWrap">
-              <img
-                src="https://img.megabox.co.kr/SharedImg/event/2020/06/16/GcDx0cF1WsWfm11gJYI1J88kzV60DFD9.jpg"
-                alt=""
-              />
-            </div>
-            <div className="eventContent">
-              <h4 className="eventTitle">오리지널 티켓 No.16 온워드</h4>
-              <p className="eventDate">2020.06.17 ~ 2020.07.14</p>
+              <p className="eventDate">2020.07.10 ~ 2020.07.10</p>
             </div>
           </article>
         </li>

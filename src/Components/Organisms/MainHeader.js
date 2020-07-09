@@ -19,6 +19,9 @@ const MainHeader = () => {
       case "/MyPage":
         page = "나의 메가박스";
         break;
+      case "/event":
+        page = "이벤트";
+        break;
       default:
     }
     return page;
@@ -74,7 +77,7 @@ const MainHeader = () => {
               <li>극장</li>
             </ul>
             <ul className="mainMenu mainRightSide">
-              <li>이벤트</li>
+              <Link to="/event">이벤트</Link>
               <li>스토어</li>
               <li>혜택</li>
             </ul>
