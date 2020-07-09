@@ -16,7 +16,7 @@ const MainHeader = () => {
       case "/Booking":
         page = "예매";
         break;
-      case "/MyPage":
+      case "/mypage":
         page = "나의 메가박스";
         break;
       case "/event":
@@ -83,7 +83,7 @@ const MainHeader = () => {
             </ul>
             <ul className="rightIcon">
               <li className="headerIcon menuSchedule"></li>
-              <Link to="/MyPage">
+              <Link to="/mypage">
                 <li className="headerIcon menuMypage"></li>
               </Link>
             </ul>

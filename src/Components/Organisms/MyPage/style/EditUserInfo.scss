@@ -1,0 +1,13 @@
+@import "../../../../commonVariable.scss";
+
+.editUserInfo .name button {margin: 0 8px;}
+.editUserInfo .email input {width: 100%;}
+.editUserInfo .password button,
+.editUserInfo .memberOut button {margin: 0;}
+
+.editPassword input {width: 100%;}
+.editPassword .newPassword input {margin-bottom: 8px;}
+.editUserInfo .titleText {
+  margin-top: 40px;
+  margin-bottom: 8px;
+}

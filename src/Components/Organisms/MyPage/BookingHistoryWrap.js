@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import BookingCancel from "../../Molecules/BookingCancel";
 import PopupNotice from "../../Molecules/PopupNotice";
 import ModalPortal from "../../../Modules/ModalPortal";
+import "./style/BookingHistoryWrap.scss";
 
 const BookingHistoryWrap = () => {
   /* 예매내역 */
