@@ -1,5 +1,5 @@
-import { select, put, takeLatest } from "redux-saga/effects";
-import { userApi } from "../Api/api";
+import { put, takeLatest } from "redux-saga/effects";
+import { userApi, isLogin } from "../Api/api";
 
 import cookie from "react-cookies";
 
@@ -10,6 +10,24 @@ const LOADING = "userInfo/LOADING";
 const LOGIN = "userInfo/LOGIN";
 const LOGIN_LOADING = "userInfo/LOGIN_LOADING";
 const LOGIN_SUCCESS = "userInfo/LOGIN_SUCCESS";
+const ALREADY_LOGIN = "userInfo/ALREADY_LOGIN";
+
+const LOGOUT_SUCCESS = "userInfo/LOGOUT";
+
+const checkLogin = () => async (dispatch) => {
+  const res = await isLogin();
+  console.log("로그인여부 확인", res);
+
+  if (res) dispatch({ type: ALREADY_LOGIN });
+  else dispatch({ type: LOGOUT_SUCCESS });
+};
+
+const startLogout = () => async (dispatch) => {
+  await userApi.logout();
+  console.log("로그아웃");
+
+  dispatch({ type: LOGOUT_SUCCESS });
+};
 
 // 사가 진입용 액션
 const startLogin = (user, history) => ({ type: LOGIN, user, history });
@@ -19,38 +37,26 @@ function* loginSaga(action) {
 
   try {
     const res = yield userApi.login(action.user);
-    console.log(res);
 
     if (res.status === 200) {
-      // console.log(cookie.load("accessToken"));
       if (cookie.load("accessToken")) {
-        console.log("진입함 엑세스");
-
         cookie.remove("accessToken", {
           path: "/",
-          httpOnly: true,
         });
       }
       if (cookie.load("refreshToken")) {
-        console.log("진입함 리프레시");
-
         cookie.remove("refreshToken", {
           path: "/",
-          httpOnly: true,
         });
       }
 
       cookie.save("accessToken", res.data.access, {
         path: "/",
-        httpOnly: true,
+        maxAge: 3600,
       });
       cookie.save("refreshToken", res.data.refresh, {
         path: "/",
-        httpOnly: true,
       });
-
-      console.log(res.data.access);
-      console.log(res.data.refresh);
 
       yield put({
         type: LOGIN_SUCCESS,
@@ -224,12 +230,25 @@ const userInfoReducer = (state = initialState, action) => {
     case LOGIN_SUCCESS:
       return {
         ...state,
+        isLogin: true,
         id: action.id,
         name: action.name,
         email: action.email,
         mobile: action.mobile,
         birthDate: action.birthDate,
       };
+    case LOGOUT_SUCCESS:
+      return {
+        ...state,
+        isLogin: false,
+      };
+
+    case ALREADY_LOGIN:
+      return {
+        ...state,
+        isLogin: true,
+      };
+
     case ERROR:
     case LOADING:
     default:
@@ -237,4 +256,4 @@ const userInfoReducer = (state = initialState, action) => {
   }
 };
 
-export { userInfoReducer, userInfoSaga, startLogin };
+export { userInfoReducer, userInfoSaga, checkLogin, startLogin, startLogout };

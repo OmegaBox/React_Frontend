@@ -55,7 +55,7 @@ const WholeMovieListWrap = () => {
           }
           return (
             <li className="wholeMovie" key={i}>
-              <Link to={"movieDetail/" + movie.id}>
+              <Link to={"moviedetail/" + movie.id}>
                 <p className="mainRank">{movie.rank}</p>
                 <img
                   className="wholeMoviePoster"

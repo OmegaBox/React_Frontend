@@ -110,8 +110,8 @@ const BookingSeatList = ({ scheduleId, seatType = 0 }) => {
   let checkRervedSeat = "";
   // 예매된 좌석 정보 가져오기
   const seatApi = async (id) => {
-    const res = await movieApi.getSeats(id);
     try {
+      const res = await movieApi.getReservedSeats(id);
       const reserved_seat = res.data.map((seat) => seat.reserved_seat);
       reservedDispatch(reserved_seat);
       checkRervedSeat = reserved_seat.join(" ");
