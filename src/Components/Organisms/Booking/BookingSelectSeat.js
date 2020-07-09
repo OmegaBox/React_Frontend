@@ -77,6 +77,7 @@ const BookingSelectSeat = ({ history }) => {
       </div>
       <BookingInfo
         props={{
+          scheduleId,
           selectedMovieTitle,
           screenType,
           movieAgeGrade,

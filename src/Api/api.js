@@ -2,19 +2,29 @@ import axios from "axios";
 import cookie from "react-cookies";
 import { transformDateFormat } from "../Utils/ultil";
 
-const checkValidation = async () => {
-  const accessToken = cookie.load("accessToken");
-  const refreshToken = cookie.load("refreshToken");
-
+export const refreshValidation = async () => {
   try {
-    const checkAccessToken = await axios.post("/members/token/verify/", {
-      token:
-        "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNTk0MTgzMTkyLCJqdGkiOiIwNzQ4N2I3YmZlZTc0YjBkYjcwMzNmYTcwYTcwMDdkYyIsInVzZXJfaWQiOjIxfQ.-_-htvj1MaJkTwRRBearlLZuBJbgOYxlLvKjOopJo98",
+    const refreshToken = cookie.load("refreshToken");
+    const newAccessToken = await axios.post("/members/token/refresh/", {
+      refresh: refreshToken,
     });
-    console.log("유효성 체크", checkAccessToken, accessToken);
+    cookie.remove("accessToken", {
+      path: "/",
+    });
+    cookie.save("accessToken", newAccessToken.data.access, {
+      path: "/",
+    });
+    return true;
   } catch (e) {
-    console.log("유효성 체크 에러", e.response, accessToken);
+    console.log("refresh 실패, 로그아웃 처리 필요");
+    return false;
   }
+};
+
+export const isLogin = async () => {
+  const accessToken = cookie.load("accessToken");
+  if (accessToken) return true;
+  return await refreshValidation();
 };
 
 export const movieApi = {
@@ -63,6 +73,24 @@ export const movieApi = {
   getReservedSeats: (scheduleId) => {
     return axios.get(`/schedules/${scheduleId}/reserved-seats/`);
   },
+  getTotalPrice: (scheduleId, personalCount) => {
+    console.log(scheduleId, personalCount);
+    // 받은 personalCount가 객체가 아닐때
+    if (typeof personalCount !== "object")
+      return console.error("전달받은 값이 객체가 아닙니다.");
+    // 인원별 모든 값이 0일 때 실행 안함.
+    if (Object.values(personalCount).every((val) => val === 0))
+      return {
+        data: { total_price: 0 },
+      };
+    const urlString =
+      `/theaters/schedules/${scheduleId}/price/?` +
+      Object.keys(personalCount)
+        .filter((key) => personalCount[key] !== 0)
+        .map((key) => `${key}s=${personalCount[key]}`)
+        .join("&");
+    return axios.get(urlString);
+  },
 };
 
 export const userApi = {
@@ -78,10 +106,18 @@ export const userApi = {
     });
   },
   login: ({ id, pw }) => {
-    checkValidation();
     return axios.post("/members/login/", {
       username: id,
       password: pw,
     });
+  },
+  logout: () => {
+    cookie.remove("accessToken", {
+      path: "/",
+    });
+    cookie.remove("refreshToken", {
+      path: "/",
+    });
+    return axios.post("/members/logout/");
   },
 };
