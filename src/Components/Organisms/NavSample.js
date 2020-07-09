@@ -1,8 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import cookie from "react-cookies";
+import { useDispatch } from "react-redux";
+import { startLogout } from "../../Reducer/userInfoReducer";
 
 const NavSample = () => {
+  const dispatch = useDispatch();
+
   return (
     <div>
       <Link to="/">
@@ -58,6 +62,15 @@ const NavSample = () => {
         onClick={() => alert(cookie.load("accessToken"))}
       >
         엑세스토큰 쿠키 확인 버튼
+      </button>
+      <button
+        className={["btn", "fill", "white"].join(" ")}
+        onClick={() => {
+          dispatch(startLogout());
+          window.scrollTo(0, 0);
+        }}
+      >
+        로그아웃
       </button>
     </div>
   );

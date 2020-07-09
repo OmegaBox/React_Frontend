@@ -11,9 +11,22 @@ const LOGIN = "userInfo/LOGIN";
 const LOGIN_LOADING = "userInfo/LOGIN_LOADING";
 const LOGIN_SUCCESS = "userInfo/LOGIN_SUCCESS";
 
-const LOGOUT = "userInfo/LOGOUT";
+const LOGOUT_SUCCESS = "userInfo/LOGOUT";
 
-const startLogout = () => ({ type: LOGOUT });
+const checkLogin = () => async (dispatch) => {
+  const res = await isLogin();
+  console.log("로그인여부 확인", res);
+
+  if (res) return;
+  else dispatch({ type: LOGOUT_SUCCESS });
+};
+
+const startLogout = () => async (dispatch) => {
+  await userApi.logout();
+  console.log("로그아웃");
+
+  dispatch({ type: LOGOUT_SUCCESS });
+};
 
 // 사가 진입용 액션
 const startLogin = (user, history) => ({ type: LOGIN, user, history });
@@ -43,11 +56,6 @@ function* loginSaga(action) {
       cookie.save("refreshToken", res.data.refresh, {
         path: "/",
       });
-
-      console.log("저장한거 확인 accessToken", cookie.load("accessToken"));
-      console.log("저장한거 확인 refreshToken", cookie.load("refreshToken"));
-
-      console.log("엑세스토큰 유저인포리듀서", cookie.load("accessToken"));
 
       yield put({
         type: LOGIN_SUCCESS,
@@ -228,9 +236,7 @@ const userInfoReducer = (state = initialState, action) => {
         mobile: action.mobile,
         birthDate: action.birthDate,
       };
-    case LOGOUT:
-      console.log("로그아웃 진입 성공");
-
+    case LOGOUT_SUCCESS:
       return {
         ...state,
         isLogin: false,
@@ -242,4 +248,4 @@ const userInfoReducer = (state = initialState, action) => {
   }
 };
 
-export { userInfoReducer, userInfoSaga, startLogin, startLogout };
+export { userInfoReducer, userInfoSaga, checkLogin, startLogin, startLogout };
