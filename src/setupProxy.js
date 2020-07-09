@@ -22,6 +22,12 @@ module.exports = (app) => {
     })
   );
   app.use(
+    createProxyMiddleware("/movies/detail", {
+      target: "https://www.omegabox.xyz",
+      changeOrigin: true,
+    })
+  );
+  app.use(
     createProxyMiddleware("/theaters", {
       target: "https://www.omegabox.xyz",
       changeOrigin: true,
