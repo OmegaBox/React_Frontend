@@ -30,8 +30,8 @@ export const isLogin = async () => {
 };
 
 export const movieApi = {
-  getMovies: () => axios.get("movies/"),
-  getMovie: (id) => axios.get(`movies/${id}`),
+  getMovies: () => axios.get("/a/movies/"),
+  getMovie: (id) => axios.get(`/a/movies/detail/${id}`),
   // getSearch: (keyword) => axios.get(`movies/?searchName=${keyword}`),
   getSchedules: ({ date, movies, theaterId }) => {
     let movieIds = "";

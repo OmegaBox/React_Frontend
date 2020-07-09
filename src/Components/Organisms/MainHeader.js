@@ -6,8 +6,12 @@ import { useDispatch, useSelector } from "react-redux";
 import subHeaderLogo from "../../images/omegabox_logo.jpg";
 import { useLocation } from "react-router-dom";
 import { startLogout } from "../../Reducer/userInfoReducer";
+import { openloOutPopUp } from "../../Reducer/modalReducer";
+
 
 const MainHeader = () => {
+  const dispatch = useDispatch();
+
   let location = useLocation();
   let pageName = (pageLocation) => {
     let page = "";
@@ -28,13 +32,12 @@ const MainHeader = () => {
     }
     return page;
   };
-  const dispatch = useDispatch();
+
   const changeHeader = useSelector((state) => state.userInfo.isLogin);
   console.log("ㅇㅕ기로바", changeHeader);
 
   const clickLogout = (e) => {
     dispatch(startLogout());
-    window.scrollTo(0, 0);
   };
   return (
     <div>
@@ -64,10 +67,10 @@ const MainHeader = () => {
               {changeHeader === true ? (
                 <>
                   <li>
-                    <Link to="/"
+                    <button
                       onClick={clickLogout}
                     >
-                      로그아웃</Link>
+                      로그아웃</button>
                   </li>
                   <li><Link to="/">알림</Link></li>
                 </>
