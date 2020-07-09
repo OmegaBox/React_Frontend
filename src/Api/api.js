@@ -31,7 +31,7 @@ export const isLogin = async () => {
 
 export const movieApi = {
   getMovies: () => axios.get("movies/"),
-  getMovie: (id) => axios.get(`movies/${id}`),
+  getMovie: (id) => axios.get(`/movies/detail/${id}`),
   // getSearch: (keyword) => axios.get(`movies/?searchName=${keyword}`),
   getSchedules: ({ date, movies, theaterId }) => {
     let movieIds = "";
@@ -62,7 +62,7 @@ export const movieApi = {
 
     const call = `theaters/schedules/regions/${date}/${
       movies ? "?movies=" + movieIds : ""
-      }
+    }
     `;
 
     console.log(call);
@@ -77,7 +77,7 @@ export const movieApi = {
 
     const call = `theaters/schedules/${date}/${
       movies ? "?movies=" + movieIds : ""
-      }
+    }
     `;
 
     console.log(call);
