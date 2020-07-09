@@ -131,7 +131,7 @@ const SignUpForm = ({ history }) => {
         console.log(res);
         history.push("/memberlogin");
       } catch (e) {
-        console.log(`회원가입 실패 : ${e.response}`);
+        console.error(`회원가입 실패 : ${e.response}`);
       }
     }
   };
