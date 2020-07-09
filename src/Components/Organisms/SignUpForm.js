@@ -17,10 +17,10 @@ const initSignState = {
 
 const SignUpForm = () => {
   // 회원가입 상태
-  const [inputState, inputDispatch] = useState(initSignState);
+  const [inputState, setInput] = useState(initSignState);
 
   // 경고 문구 출력 여부
-  const [alertState, alertDispatch] = useState({
+  const [alertState, setAlert] = useState({
     name: false,
     id: false,
     pw: false,
@@ -54,7 +54,7 @@ const SignUpForm = () => {
     let value = e.target.value.split(" ").join("");
 
     if (alertState[name])
-      alertDispatch({
+      setAlert({
         ...alertState,
         [name]: false,
       });
@@ -64,7 +64,7 @@ const SignUpForm = () => {
     if (name === "tell")
       value = [...value].filter((v) => /[0-9]/g.test(v)).join("");
 
-    inputDispatch({
+    setInput({
       ...inputState,
       [name]: value,
     });
@@ -76,7 +76,7 @@ const SignUpForm = () => {
     if (inputState[name] === "") return;
     if (name === "pwCheck" && inputState.pw !== inputState.pwCheck) {
       console.log("패스워드 체크");
-      alertDispatch({
+      setAlert({
         ...alertState,
         [name]: true,
       });
@@ -84,7 +84,7 @@ const SignUpForm = () => {
     if (!regExp[name] || name === "id") return;
     else if (!checkRegExp(name)) {
       console.log("정규식 오류");
-      alertDispatch({
+      setAlert({
         ...alertState,
         [name]: true,
       });
@@ -94,7 +94,7 @@ const SignUpForm = () => {
   // 아이디 중복체크
   const checkDouble = () => {
     doubleDispatch(true);
-    alertDispatch({
+    setAlert({
       ...alertState,
       id: false,
     });
@@ -106,7 +106,7 @@ const SignUpForm = () => {
   // 회원 가입 이벤트
   const signUpEvent = async () => {
     if (checkDoubleState === null) {
-      alertDispatch({
+      setAlert({
         ...alertState,
         id: true,
       });
