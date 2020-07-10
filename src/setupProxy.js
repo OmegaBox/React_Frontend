@@ -2,8 +2,15 @@ const { createProxyMiddleware } = require("http-proxy-middleware");
 
 // src/setupProxy.js
 module.exports = (app) => {
+
   app.use(
-    createProxyMiddleware("/movies/", {
+    createProxyMiddleware("/movies", {
+      target: "https://www.omegabox.xyz",
+      changeOrigin: true,
+    })
+  );
+  app.use(
+    createProxyMiddleware("/movies/detail", {
       target: "https://www.omegabox.xyz",
       changeOrigin: true,
     })

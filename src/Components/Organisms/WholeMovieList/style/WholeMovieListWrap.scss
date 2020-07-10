@@ -182,11 +182,14 @@
   height: 32.5px;
   padding: 10px 0 0 0;
   overflow: hidden;
-  span {
-    margin: 0 7px 0 0;
-  }
+  
 }
-
+.movieListOpeningDay {
+  display: inline-block;
+  width: 140px;
+  margin: 0;
+  text-align: end;
+}
 
 .wholeBtnWrap {
   display: flex;
