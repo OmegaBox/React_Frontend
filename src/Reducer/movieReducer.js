@@ -61,9 +61,7 @@ const getMovie = (id) => async (dispatch) => {
   dispatch(setLoadingMovieDetail());
   try {
     const res = await movieApi.getMovie(id);
-    console.log('겟무비 시도 결과', res);
     if (res.status === 200) {
-      console.log(res)
       console.log(res.data)
       dispatch(setSuccessMovieDetail(res.data));
     } else {
@@ -99,7 +97,6 @@ const initialState = {
 };
 
 const movieReducer = (state = initialState, action) => {
-  console.log(action.data)
   switch (action.type) {
     case MOVIE_SUCCESS:
       return {
