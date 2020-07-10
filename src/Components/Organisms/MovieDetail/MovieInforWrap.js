@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 const MovieInforWrap = () => {
   const movie = useSelector((state) => state.Movie.detail);
   console.log(movie.directors);
-
+  console.count(movie.directors);
   return (
     <div className="movieDetailInforLayout">
       <ul className="tab">
