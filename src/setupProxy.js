@@ -27,7 +27,7 @@ module.exports = (app) => {
     })
   );
   app.use(
-    createProxyMiddleware("/reservations", {
+    createProxyMiddleware("/reservations/", {
       target: "https://www.omegabox.xyz",
       changeOrigin: true,
     })

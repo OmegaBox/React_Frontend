@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 
 import "./style/LoginForm.scss";
-import { userApi } from "../../Api/api";
 import { useDispatch, useSelector } from "react-redux";
 import { startLogin } from "../../Reducer/userInfoReducer";
 
@@ -54,7 +53,21 @@ const LoginForm = () => {
             type="password"
             id="userPw"
             placeholder="비밀번호"
-            onChange={(e) => setInputPw(e.target.value)}
+            onChange={(e) => {
+              setInputPw(e.target.value);
+            }}
+            onKeyUp={(e) => {
+              if (e.keyCode === 13)
+                dispatch(
+                  startLogin(
+                    {
+                      id: inputId,
+                      pw: inputPw,
+                    },
+                    history
+                  )
+                );
+            }}
           />
           <div className="inputWrap saveIdWrap">
             {/* <input type="checkbox" id="saveId" />

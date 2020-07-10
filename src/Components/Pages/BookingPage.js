@@ -1,7 +1,10 @@
 import React, { useEffect } from "react";
 import Booking from "../Templates/Booking";
 import { useDispatch, useSelector } from "react-redux";
-import { getTheatersCanBooking } from "../../Reducer/bookingReducer";
+import {
+  getTheatersCanBooking,
+  getPossibleMovies,
+} from "../../Reducer/bookingReducer";
 import { checkLogin } from "../../Reducer/userInfoReducer";
 import { setOneBtn } from "../../Reducer/modalReducer";
 import ModalPortal from "../../Modules/ModalPortal";
@@ -15,6 +18,7 @@ const BookingPage = ({ history }) => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    dispatch(getPossibleMovies());
     dispatch(getTheatersCanBooking());
     dispatch(checkLogin());
   }, [dispatch]);
