@@ -54,7 +54,21 @@ const LoginForm = () => {
             type="password"
             id="userPw"
             placeholder="비밀번호"
-            onChange={(e) => setInputPw(e.target.value)}
+            onChange={(e) => {
+              setInputPw(e.target.value);
+            }}
+            onKeyUp={(e) => {
+              if (e.keyCode === 13)
+                dispatch(
+                  startLogin(
+                    {
+                      id: inputId,
+                      pw: inputPw,
+                    },
+                    history
+                  )
+                );
+            }}
           />
           <div className="inputWrap saveIdWrap">
             {/* <input type="checkbox" id="saveId" />
