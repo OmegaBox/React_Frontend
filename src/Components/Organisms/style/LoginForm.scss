@@ -10,9 +10,14 @@ $checkBoxSize: 14px;
 }
 
 .saveIdWrap.inputWrap {
+  display: flex;
+  justify-content: center;
+  // width: 387px;
+  // height: 1.5rem;
   margin: 0;
   font-size: 1.4rem;
   text-align: left;
+  margin-top: 15px;
 
   & #saveId {
     width: $checkBoxSize;
@@ -23,23 +28,28 @@ $checkBoxSize: 14px;
   & label {
     padding-left: 20px;
   }
+
+  span {
+    color: $colorRed;
+    font-weight: 500;
+  }
 }
 
 .btnLogin.btn {
   width: 100%;
   margin: 35px 0 20px;
   border-color: $colorMain;
-  color:$colorWhite;
+  color: $colorWhite;
   background-color: $colorMain;
 
   &:hover {
     border-color: $colorMainDark;
     background-color: $colorMainDark;
   }
-  
+
   &[disabled] {
     border-color: $ligthBorder;
-    color:$colorGray66;
+    color: $colorGray66;
     background-color: $colorGrayEa;
     cursor: default;
   }
@@ -48,7 +58,7 @@ $checkBoxSize: 14px;
 .btnFindIdPw,
 .btnSignUp {
   font-size: 1.5rem;
-  color:$colorLightText;
+  color: $colorLightText;
 
   &:hover,
   &:focus {

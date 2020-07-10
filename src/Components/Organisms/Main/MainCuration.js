@@ -1,7 +1,13 @@
 import React from "react";
 import "./style/MainCuration.scss";
+import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { selectMovie } from "../../../Reducer/bookingReducer";
+
 
 const MainCuration = () => {
+  const movie = useSelector((state) => state.Movie.movies);
+  const dispatch = useDispatch();
   return (
     <div className="mainCurationLayout">
       <div className="mainCuration">
@@ -19,14 +25,26 @@ const MainCuration = () => {
               src="https://img.megabox.co.kr/SharedImg/2020/05/26/4DpEOKISeL20EXabwXkfsfaeeJW27heu_420.jpg"
               alt="야구소녀"
             />
-            <button
-              className={["btn", "outLine", "lightGray", "xLarge", "curationdetailButton"].join(" ")}>
-              상세정보
+            <Link to="/detail/10">
+              <button
+                className={["btn", "outLine", "lightGray", "xLarge", "curationdetailButton"].join(" ")}>
+                상세정보
             </button>
-            <button
-              className={["btn", "fill", "subDark", "main", "xLarge", "curationBookingButton"].join(" ")}>
-              예매
+            </Link>
+            <Link to="/booking">
+              <button
+                onClick={() =>
+                  dispatch(
+                    selectMovie({
+                      title: movie.name_kor,
+                      poster: movie.poster,
+                      id: movie.id,
+                    })
+                  )}
+                className={["btn", "fill", "subDark", "main", "xLarge", "curationBookingButton"].join(" ")}>
+                예매
             </button>
+            </Link>
           </div>
           <div className="filmSociety"></div>
           <div className="curationComment">

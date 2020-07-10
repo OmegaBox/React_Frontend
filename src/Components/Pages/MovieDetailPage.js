@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from "react";
 import MovieDetail from "../Templates/MovieDetail";
 import { useDispatch } from "react-redux";
@@ -8,7 +9,6 @@ const MovieDetailPage = ({ match }) => {
   useEffect(() => {
     window.scrollTo(0, 0);
     dispatch(getMovie(`${match.params.idx}`));
-    console.log("여길봐", `${match.params.idx}`);
   }, [dispatch]);
   return <MovieDetail />;
 };
