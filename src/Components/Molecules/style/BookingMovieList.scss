@@ -27,6 +27,15 @@
   margin-top: 10px;
   border: solid 1px $colorGrayEa;
 
+  .disable {
+    button {
+      cursor: default;
+      span {
+        color: $colorGrayEa;
+      }
+    }
+  }
+
   button {
     display: flex;
     align-items: center;

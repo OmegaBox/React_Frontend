@@ -14,6 +14,7 @@ const SET_SELECTED_THEATERS = "booking/SELECTED_THEATER";
 const SET_NEARBY_THEATERS = "booking/NEARBY_THEATERS";
 const SET_CAN_SELECT_REGIONS = "booking/SET_CAN_SELECT_REGIONS";
 const SET_CAN_SELECT_THEATERS = "booking/SET_CAN_SELECT_THEATERS";
+const SET_CAN_SELECT_MOVIES = "booking/SET_CAN_SELECT_MOVIES";
 
 const SET_SCHEDULES_LOG = "booking/SET_SCHEDULES_LOG";
 const SET_REGION_THEATER_LOG = "booking/SET_REGION_THEATER_LOG";
@@ -24,10 +25,15 @@ const SELECT_DATE = "booking/SELECT_DATE";
 
 const SET_DEFAULT_TICKET_INFO = "booking/SET_DEFAULT_TICKET_INFO";
 
-// const GET_SCHEDULES = "booking/GET_SCHEDULES";
 const GET_SCHEDULES = "booking/GET_SCHEDULES";
 const GET_SCHEDULES_SUCCESS = "booking/GET_SCHEDULES_SUCCESS";
 const GET_SCHEDULES_ERROR = "booking/GET_SCHEDULES_ERROR";
+
+const GET_POSSIBLE_MOVIES_LOADING = "booking/GET_POSSIBLE_MOVIES_LOADING";
+const GET_POSSIBLE_MOVIES_SUCCESS = "booking/GET_POSSIBLE_MOVIES_SUCCESS";
+const GET_POSSIBLE_MOVIES_ERROR = "booking/GET_POSSIBLE_MOVIES_ERROR";
+
+const GET_MOVIES_SUCCESS = "booking/GET_MOVIES_SUCCESS";
 
 // 단순 상태 변환용 액션들
 const setSelectedMovies = (movies) => ({ type: SET_SELECTED_MOVIE, movies });
@@ -55,7 +61,65 @@ const setDefaultTicketInfo = (payload) => ({
   payload,
 });
 
-// 외부 api로 정보 가져오는 Thunk
+// Thunk
+const getPossibleMovies = () => async (dispatch) => {
+  try {
+    dispatch({ type: GET_POSSIBLE_MOVIES_LOADING });
+    const res = await movieApi.getMovies();
+    if (res.status === 200) {
+      dispatch({ type: GET_POSSIBLE_MOVIES_SUCCESS, movies: res.data.results });
+      dispatch({ type: GET_MOVIES_SUCCESS, movies: res.data.results });
+    } else {
+      dispatch({
+        type: GET_POSSIBLE_MOVIES_ERROR,
+        error: {
+          state: true,
+          message: res.statusText,
+        },
+      });
+    }
+  } catch (error) {
+    dispatch({
+      type: "ERROR",
+      error: {
+        state: true,
+        message: error.message,
+      },
+    });
+  }
+};
+
+const getCanSelectMovies = () => async (dispatch, state) => {
+  console.log("진입성공");
+
+  const movies = state().Booking.movies;
+  const schedules = state().Booking.schedule.schedules;
+  const selectedTheaters = state().Booking.selectedOption.selectedTheaters;
+
+  console.log("영화리스트", movies);
+  console.log("스케쥴", schedules);
+  console.log("선택한 영화관", selectedTheaters);
+
+  if (!selectedTheaters.length) {
+    dispatch({
+      type: SET_CAN_SELECT_MOVIES,
+      movies,
+    });
+    return;
+  }
+
+  // const canSelectTitle = selectedTheaters.filter(theater => schedules.find(schedule => schedule.movie === ))
+  const canSelectMovies = schedules.filter((schedule) =>
+    movies.find((movie) => movie.name_kor === schedule.movie)
+  );
+  console.log(canSelectMovies);
+
+  dispatch({
+    type: SET_CAN_SELECT_MOVIES,
+    movies: canSelectMovies,
+  });
+};
+
 const getSchedules = () => async (dispatch, state) => {
   dispatch({ type: GET_SCHEDULES });
   const scheduleLogs = state().Booking.schedule.scheduleLogs;
@@ -91,6 +155,7 @@ const getSchedules = () => async (dispatch, state) => {
           : 0
       )
     );
+    dispatch(getCanSelectMovies());
     return;
   }
 
@@ -117,6 +182,7 @@ const getSchedules = () => async (dispatch, state) => {
 
     dispatch({ type: GET_SCHEDULES_SUCCESS, payload: newSearchLog.schedules });
     dispatch({ type: SET_SCHEDULES_LOG, payload: newSearchLog });
+    dispatch(getCanSelectMovies());
     dispatch(
       setSelectedHour(
         newSearchLog.schedules.length
@@ -326,6 +392,7 @@ const initialState = {
     theaters: [],
     logs: [],
   },
+
   schedule: {
     schedules: [],
     scheduleLogs: [],
@@ -359,152 +426,22 @@ const initialState = {
     },
     price: 0,
   },
-  movies: [
-    {
-      id: 1,
-      rank: 1,
-      name_kor: "#살아있다",
-      name_eng: "#ALIVE",
-      poster:
-        "https://caloculator-s3.s3.ap-northeast-2.amazonaws.com/media/posters/20193069.jpg",
-      description: "",
-      average_point: 7.5,
-      grade: "15+",
-      reservation_rate: 57.9,
-      open_date: "2020-06-24",
-      acc_favorite: 2,
-    },
-    {
-      id: 2,
-      rank: 2,
-      name_kor: "결백",
-      name_eng: "Innocence",
-      poster:
-        "https://caloculator-s3.s3.ap-northeast-2.amazonaws.com/media/posters/20183813.jpg",
-      description: "",
-      average_point: 0,
-      grade: "15+",
-      reservation_rate: 10.5,
-      open_date: "2020-06-10",
-      acc_favorite: 0,
-    },
-    {
-      id: 3,
-      rank: 3,
-      name_kor: "소리꾼",
-      name_eng: "The Singer",
-      poster:
-        "https://caloculator-s3.s3.ap-northeast-2.amazonaws.com/media/posters/20196201.jpg",
-      description: "",
-      average_point: 0,
-      grade: "12+",
-      reservation_rate: 7.8,
-      open_date: "2020-07-01",
-      acc_favorite: 0,
-    },
-    {
-      id: 4,
-      rank: 4,
-      name_kor: "다크 나이트",
-      name_eng: "The Dark Knight",
-      poster:
-        "https://caloculator-s3.s3.ap-northeast-2.amazonaws.com/media/posters/20081056.jpg",
-      description: "",
-      average_point: 0,
-      grade: "15+",
-      reservation_rate: 6.1,
-      open_date: "2008-08-06",
-      acc_favorite: 0,
-    },
-    {
-      id: 5,
-      rank: 5,
-      name_kor: "온워드: 단 하루의 기적",
-      name_eng: "Onward",
-      poster:
-        "https://caloculator-s3.s3.ap-northeast-2.amazonaws.com/media/posters/20191048.jpg",
-      description: "",
-      average_point: 0,
-      grade: "all",
-      reservation_rate: 5.7,
-      open_date: "2020-06-17",
-      acc_favorite: 0,
-    },
-    {
-      id: 6,
-      rank: 6,
-      name_kor: "인베이젼 2020",
-      name_eng: "Invasion",
-      poster:
-        "https://caloculator-s3.s3.ap-northeast-2.amazonaws.com/media/posters/20208617.jpg",
-      description: "",
-      average_point: 0,
-      grade: "12+",
-      reservation_rate: 2.6,
-      open_date: "2020-07-01",
-      acc_favorite: 0,
-    },
-    {
-      id: 7,
-      rank: 7,
-      name_kor: "아무튼, 아담",
-      name_eng: "Adam",
-      poster:
-        "https://caloculator-s3.s3.ap-northeast-2.amazonaws.com/media/posters/20200361.jpg",
-      description: "",
-      average_point: 0,
-      grade: "15+",
-      reservation_rate: 1.0,
-      open_date: "2020-07-02",
-      acc_favorite: 0,
-    },
-    {
-      id: 8,
-      rank: 8,
-      name_kor: "위대한 쇼맨",
-      name_eng: "The Greatest Showman",
-      poster:
-        "https://caloculator-s3.s3.ap-northeast-2.amazonaws.com/media/posters/20179462.jpg",
-      description: "",
-      average_point: 0,
-      grade: "12+",
-      reservation_rate: 0.8,
-      open_date: "2017-12-20",
-      acc_favorite: 0,
-    },
-    {
-      id: 9,
-      rank: 9,
-      name_kor: "트로이 디렉터스 컷",
-      name_eng: "Troy: Director’s Cut",
-      poster:
-        "https://caloculator-s3.s3.ap-northeast-2.amazonaws.com/media/posters/20200836.jpg",
-      description: "",
-      average_point: 0,
-      grade: "18+",
-      reservation_rate: 0.8,
-      open_date: "2020-07-03",
-      acc_favorite: 0,
-    },
-    {
-      id: 10,
-      rank: 10,
-      name_kor: "야구소녀",
-      name_eng: "Baseball Girl",
-      poster:
-        "https://caloculator-s3.s3.ap-northeast-2.amazonaws.com/media/posters/20196702.jpg",
-      description: "",
-      average_point: 0,
-      grade: "12+",
-      reservation_rate: 0.6,
-      open_date: "2020-06-18",
-      acc_favorite: 0,
-    },
-  ],
+  canSelectMovies: [],
+  movies: [],
 };
 
 const bookingReducer = (state = initialState, action) => {
   switch (action.type) {
+    case GET_MOVIES_SUCCESS:
+      return {
+        ...state,
+        movies: action.movies,
+      };
+    case GET_POSSIBLE_MOVIES_SUCCESS:
+      return {
+        ...state,
+        canSelectMovies: action.movies,
+      };
     case GET_SCHEDULES:
       return {
         ...state,
@@ -583,6 +520,12 @@ const bookingReducer = (state = initialState, action) => {
           theaters: action.theaters,
         },
       };
+    case SET_CAN_SELECT_MOVIES:
+      return {
+        ...state,
+        canSelectMovies: action.movies,
+      };
+
     case SET_SCHEDULES_LOG:
       return {
         ...state,
@@ -628,5 +571,6 @@ export {
   setDefaultTicketInfo,
   getSchedules,
   getTheatersCanBooking,
+  getPossibleMovies,
   selectDate,
 };

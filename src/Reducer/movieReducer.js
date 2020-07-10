@@ -16,18 +16,10 @@ const setSuccessMovie = (data) => ({ type: MOVIE_SUCCESS, data });
 const setLoadingMovie = () => ({ type: MOVIE_LOADING });
 const setErrorMovie = (error) => ({ type: MOVIE_ERROR, error });
 
-const setSuccessMovieDetail = (data) => {
-  console.log(data)
-  return ({ type: MOVIE_DETAIL_SUCCESS, data })
-};
+const setSuccessMovieDetail = (data) => ({ type: MOVIE_DETAIL_SUCCESS, data })
 const setLoadingMovieDetail = () => ({ type: MOVIE_DETAIL_LOADING });
 const setErrorMovieDetail = (error) => ({ type: MOVIE_DETAIL_ERROR, error });
-// const setSelectedMovieDetail = (id) => ({ type: SET_SELETED_MOVIE_DETAIL, id })
 
-
-// 검색
-// const setSearchSpace = (keyword) => ({ type: SEARCH_SPACE, keyword });
-// const setAddSpace = () => ({ type: ADD_SPACE });
 
 const getMovies = () => async (dispatch) => {
   try {
@@ -57,13 +49,10 @@ const getMovies = () => async (dispatch) => {
 };
 
 const getMovie = (id) => async (dispatch) => {
-
   dispatch(setLoadingMovieDetail());
   try {
     const res = await movieApi.getMovie(id);
-    console.log('겟무비 시도 결과', res);
     if (res.status === 200) {
-      console.log(res)
       console.log(res.data)
       dispatch(setSuccessMovieDetail(res.data));
     } else {
@@ -93,13 +82,11 @@ const initialState = {
   error: false,
   errorMessage: "",
   movies: [
-
   ],
   detail: {},
 };
 
 const movieReducer = (state = initialState, action) => {
-  console.log(action.data)
   switch (action.type) {
     case MOVIE_SUCCESS:
       return {
