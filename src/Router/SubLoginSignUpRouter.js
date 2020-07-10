@@ -6,8 +6,8 @@ import SignUpForm from "../Components/Organisms/SignUpForm";
 const SubLoginSignUpRouter = () => {
   return (
     <Switch>
-      <Route path="/login" component={LoginForm} />
-      <Route path="/signup" component={SignUpForm} />
+      <Route path="/memberlogin" component={LoginForm} />
+      <Route path="/membersignups" component={SignUpForm} />
     </Switch>
   );
 };

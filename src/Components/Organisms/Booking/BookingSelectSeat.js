@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect } from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import ModalPortal from "../../../Modules/ModalPortal";
 
@@ -56,13 +56,9 @@ const BookingSelectSeat = ({ history }) => {
   };
 
   useEffect(() => {
-    console.log("didMount");
     if (!checkTicket()) history.push("/");
     dispatch(resetThunk(history.location.pathname));
-    return () => {
-      console.log("unMount");
-    };
-  }, []);
+  }, [history]);
 
   return (
     <section className="bookingSelectSeat">
