@@ -8,24 +8,25 @@ export const refreshValidation = async () => {
     const newAccessToken = await axios.post("/members/token/refresh/", {
       refresh: refreshToken,
     });
+
     cookie.remove("accessToken", {
       path: "/",
     });
     cookie.save("accessToken", newAccessToken.data.access, {
       path: "/",
     });
+
     return true;
   } catch (e) {
-    console.log("refresh 실패, 로그아웃 처리 필요");
     return false;
   }
 };
 
 export const isLogin = async () => {
   const accessToken = cookie.load("accessToken");
-  console.log("isLogin 체크", accessToken);
 
   if (accessToken) return true;
+
   return await refreshValidation();
 };
 
@@ -42,13 +43,8 @@ export const movieApi = {
     if (date) date = transformDateFormat(date).dateStringNoDash;
 
     if (date && theaterId && !movies) {
-      console.log(`theaters/${theaterId}/schedules/${date}`);
-
       return axios.get(`theaters/${theaterId}/schedules/${date}`);
     } else {
-      console.log(
-        `theaters/${theaterId}/schedules/${date}/?movies=${movieIds}`
-      );
       return axios.get(
         `theaters/${theaterId}/schedules/${date}/?movies=${movieIds}`
       );
@@ -62,7 +58,7 @@ export const movieApi = {
 
     const call = `theaters/schedules/regions/${date}/${
       movies ? "?movies=" + movieIds : ""
-      }
+    }
     `;
 
     console.log(call);
@@ -77,7 +73,7 @@ export const movieApi = {
 
     const call = `theaters/schedules/${date}/${
       movies ? "?movies=" + movieIds : ""
-      }
+    }
     `;
 
     console.log(call);
