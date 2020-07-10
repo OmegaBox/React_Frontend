@@ -14,6 +14,7 @@ const SET_SELECTED_THEATERS = "booking/SELECTED_THEATER";
 const SET_NEARBY_THEATERS = "booking/NEARBY_THEATERS";
 const SET_CAN_SELECT_REGIONS = "booking/SET_CAN_SELECT_REGIONS";
 const SET_CAN_SELECT_THEATERS = "booking/SET_CAN_SELECT_THEATERS";
+const SET_CAN_SELECT_MOVIES = "booking/SET_CAN_SELECT_MOVIES";
 
 const SET_SCHEDULES_LOG = "booking/SET_SCHEDULES_LOG";
 const SET_REGION_THEATER_LOG = "booking/SET_REGION_THEATER_LOG";
@@ -55,7 +56,38 @@ const setDefaultTicketInfo = (payload) => ({
   payload,
 });
 
-// 외부 api로 정보 가져오는 Thunk
+// Thunk
+const getCanSelectMovies = () => async (dispatch, state) => {
+  console.log("진입성공");
+
+  const movies = state().Booking.movies;
+  const schedules = state().Booking.schedule.schedules;
+  const selectedTheaters = state().Booking.selectedOption.selectedTheaters;
+
+  console.log("영화리스트", movies);
+  console.log("스케쥴", schedules);
+  console.log("선택한 영화관", selectedTheaters);
+
+  if (!selectedTheaters.length) {
+    dispatch({
+      type: SET_CAN_SELECT_MOVIES,
+      movies,
+    });
+    return;
+  }
+
+  // const canSelectTitle = selectedTheaters.filter(theater => schedules.find(schedule => schedule.movie === ))
+  const canSelectMovies = schedules.filter((schedule) =>
+    movies.find((movie) => movie.name_kor === schedule.movie)
+  );
+  console.log(canSelectMovies);
+
+  dispatch({
+    type: SET_CAN_SELECT_MOVIES,
+    movies: canSelectMovies,
+  });
+};
+
 const getSchedules = () => async (dispatch, state) => {
   dispatch({ type: GET_SCHEDULES });
   const scheduleLogs = state().Booking.schedule.scheduleLogs;
@@ -91,6 +123,7 @@ const getSchedules = () => async (dispatch, state) => {
           : 0
       )
     );
+    dispatch(getCanSelectMovies());
     return;
   }
 
@@ -117,6 +150,7 @@ const getSchedules = () => async (dispatch, state) => {
 
     dispatch({ type: GET_SCHEDULES_SUCCESS, payload: newSearchLog.schedules });
     dispatch({ type: SET_SCHEDULES_LOG, payload: newSearchLog });
+    dispatch(getCanSelectMovies());
     dispatch(
       setSelectedHour(
         newSearchLog.schedules.length
@@ -583,6 +617,12 @@ const bookingReducer = (state = initialState, action) => {
           theaters: action.theaters,
         },
       };
+    case SET_CAN_SELECT_MOVIES:
+      return {
+        ...state,
+        canSelectMovies: action.movies,
+      };
+
     case SET_SCHEDULES_LOG:
       return {
         ...state,
