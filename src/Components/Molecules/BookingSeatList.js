@@ -114,7 +114,7 @@ const BookingSeatList = ({ scheduleId, seatType = 0 }) => {
       const res = await movieApi.getReservedSeats(id);
       const reserved_seat = res.data.map((seat) => seat.reserved_seat);
       setReservedSeat(reserved_seat);
-      checkRervedSeat = reserved_seat.join(" ");
+      checktReservedSeat = reserved_seat.join(" ");
     } catch (e) {
       console.error(`error : ${e.state}`);
       console.error(`${e.response}`);
