@@ -56,9 +56,13 @@ const BookingSelectSeat = ({ history }) => {
   };
 
   useEffect(() => {
+    console.log("didMount");
     if (!checkTicket()) history.push("/");
     dispatch(resetThunk(history.location.pathname));
-  }, [history]);
+    return () => {
+      console.log("unMount");
+    };
+  }, []);
 
   return (
     <section className="bookingSelectSeat">
