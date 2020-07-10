@@ -122,8 +122,8 @@ const BookingSeatList = ({ scheduleId, seatType = 0 }) => {
   };
 
   useEffect(() => {
-    if (scheduleId) seatApi(scheduleId);
-  }, [seatApi, scheduleId, checkRervedSeat]);
+    if (scheduleId && checkRervedSeat === "") seatApi(scheduleId);
+  }, [checkRervedSeat]);
 
   return (
     <div className="bookingSeatList">
