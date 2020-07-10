@@ -4,7 +4,7 @@ import Footer from "../Organisms/Footer";
 import NavSample from "../Organisms/NavSample";
 import SubBookingRouter from "../../Router/SubBookingRouter";
 
-const Booking = ({ history }) => {
+const Booking = () => {
   return (
     <div>
       <Header />

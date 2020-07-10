@@ -32,7 +32,12 @@ const startLogout = () => async (dispatch) => {
 };
 
 // 사가 진입용 액션
-const startLogin = (user, history) => ({ type: LOGIN, user, history });
+const startLogin = (user, history, setError) => ({
+  type: LOGIN,
+  user,
+  history,
+  setError,
+});
 
 function* loginSaga(action) {
   yield put({ type: LOGIN_LOADING });
@@ -68,6 +73,7 @@ function* loginSaga(action) {
     }
   } catch (e) {
     console.log(e.response);
+    action.setError("아이디/비밀번호를 확인 해주세요");
   }
 }
 
