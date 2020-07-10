@@ -1,15 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import "./style/MainHeader.scss";
 import logo from "../../images/omegaWhite.png";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import subHeaderLogo from "../../images/omegabox_logo.jpg";
 import { useLocation } from "react-router-dom";
 import { startLogout } from "../../Reducer/userInfoReducer";
+import ModalPortal from "../../Modules/ModalPortal";
+import PopupNotice from "../Molecules/PopupNotice";
+import { openModal } from "../../Reducer/modalReducer"
 
 
 const MainHeader = () => {
   const dispatch = useDispatch();
+  // const [questionLogin, setQuestionState] = useState(false)
+  const [modal, text, event] = useSelector((state) => {
+    const Modal = state.modal;
+    return [
+      Modal.modal,
+      Modal.text,
+      Modal.event,
+    ];
+  });
+
+  const history = useHistory();
 
   let location = useLocation();
   let pageName = (pageLocation) => {
@@ -32,10 +46,12 @@ const MainHeader = () => {
     return page;
   };
 
-  const changeHeader = useSelector((state) => state.userInfo.isLogin);
-  const clickLogout = (e) => {
+  const logOutPopup = () => {
     dispatch(startLogout());
-  };
+    history.push("/");
+  }
+  const changeHeader = useSelector((state) => state.userInfo.isLogin);
+
   return (
     <div>
       <header
@@ -65,7 +81,9 @@ const MainHeader = () => {
                 <>
                   <li>
                     <Link to="/"
-                      onClick={clickLogout}
+                      onClick={() => {
+                        dispatch(openModal("로그아웃하시겠습니까?", logOutPopup))
+                      }}
                     >
                       로그아웃
                     </Link>
@@ -120,6 +138,13 @@ const MainHeader = () => {
             </li>
           </ul>
         </div>
+        {modal &&
+          <ModalPortal>
+            <PopupNotice
+              text={text}
+              onEvent={event} />
+          </ModalPortal>
+        }
       </header>
     </div>
   );
