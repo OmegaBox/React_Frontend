@@ -16,10 +16,7 @@ const setSuccessMovie = (data) => ({ type: MOVIE_SUCCESS, data });
 const setLoadingMovie = () => ({ type: MOVIE_LOADING });
 const setErrorMovie = (error) => ({ type: MOVIE_ERROR, error });
 
-const setSuccessMovieDetail = (data) => {
-  console.log(data)
-  return ({ type: MOVIE_DETAIL_SUCCESS, data })
-};
+const setSuccessMovieDetail = (data) => ({ type: MOVIE_DETAIL_SUCCESS, data })
 const setLoadingMovieDetail = () => ({ type: MOVIE_DETAIL_LOADING });
 const setErrorMovieDetail = (error) => ({ type: MOVIE_DETAIL_ERROR, error });
 // const setSelectedMovieDetail = (id) => ({ type: SET_SELETED_MOVIE_DETAIL, id })

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from "react";
 import MovieDetail from "../Templates/MovieDetail";
 import { useDispatch } from "react-redux";
