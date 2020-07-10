@@ -2,6 +2,7 @@ import { put, takeLatest } from "redux-saga/effects";
 import { userApi, isLogin } from "../Api/api";
 
 import cookie from "react-cookies";
+import { removeCookies } from "../Utils/ultil";
 
 const SUCCESS = "userInfo/SUCCESS";
 const ERROR = "userInfo/ERROR";
@@ -24,6 +25,7 @@ const checkLogin = () => async (dispatch) => {
 
 const startLogout = () => async (dispatch) => {
   await userApi.logout();
+  removeCookies();
   console.log("로그아웃");
 
   dispatch({ type: LOGOUT_SUCCESS });
@@ -37,25 +39,19 @@ function* loginSaga(action) {
 
   try {
     const res = yield userApi.login(action.user);
+    console.log(res);
 
     if (res.status === 200) {
-      if (cookie.load("accessToken")) {
-        cookie.remove("accessToken", {
-          path: "/",
-        });
-      }
-      if (cookie.load("refreshToken")) {
-        cookie.remove("refreshToken", {
-          path: "/",
-        });
-      }
+      removeCookies();
 
       cookie.save("accessToken", res.data.access, {
         path: "/",
         maxAge: 3600,
       });
+
       cookie.save("refreshToken", res.data.refresh, {
         path: "/",
+        maxAge: 86400,
       });
 
       yield put({
