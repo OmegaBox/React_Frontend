@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "./style/MovieDetailWrap.scss";
 import { useSelector } from "react-redux";
 
@@ -7,7 +7,9 @@ const MovieDetailWrap = () => {
 
   return (
     <div className="movieVisual">
+      {console.log(movieDetail)}
       {movieDetail.map((movie, i) => {
+        console.log("하이");
         return (
           <div key={`movies${movie.id}`}>
             <div className="movieBg">
