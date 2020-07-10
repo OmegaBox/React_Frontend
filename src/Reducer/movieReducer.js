@@ -19,12 +19,7 @@ const setErrorMovie = (error) => ({ type: MOVIE_ERROR, error });
 const setSuccessMovieDetail = (data) => ({ type: MOVIE_DETAIL_SUCCESS, data })
 const setLoadingMovieDetail = () => ({ type: MOVIE_DETAIL_LOADING });
 const setErrorMovieDetail = (error) => ({ type: MOVIE_DETAIL_ERROR, error });
-// const setSelectedMovieDetail = (id) => ({ type: SET_SELETED_MOVIE_DETAIL, id })
 
-
-// 검색
-// const setSearchSpace = (keyword) => ({ type: SEARCH_SPACE, keyword });
-// const setAddSpace = () => ({ type: ADD_SPACE });
 
 const getMovies = () => async (dispatch) => {
   try {
@@ -58,7 +53,7 @@ const getMovie = (id) => async (dispatch) => {
   try {
     const res = await movieApi.getMovie(id);
     if (res.status === 200) {
-      // console.log(res.data)
+      console.log(res.data)
       dispatch(setSuccessMovieDetail(res.data));
     } else {
       dispatch({
@@ -87,7 +82,6 @@ const initialState = {
   error: false,
   errorMessage: "",
   movies: [
-
   ],
   detail: {},
 };

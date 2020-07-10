@@ -4,8 +4,8 @@ import { useSelector } from "react-redux";
 
 const MovieInforWrap = () => {
   const movie = useSelector((state) => state.Movie.detail);
-  console.log(movie.directors);
-  console.count(movie.directors);
+  console.log(movie.actors !== undefined && movie.actors.splice(5))
+
   return (
     <div className="movieDetailInforLayout">
       <ul className="tab">
@@ -36,21 +36,27 @@ const MovieInforWrap = () => {
           더보기<span className={["icon", "arrowBottom"].join(" ")}></span>
         </button>
       </div>
-      <ul className="movieInfoWrap">
+      < ul className="movieInfoWrap">
         <li className="movieType">
           <h3 className="title">상영타입</h3>
           <span>2D, 2D ATMOS, 디지털가치봄</span>
         </li>
         <li className="director">
           <h3 className="title">감독</h3>
-          {/* {movie.directors.map((director) => {
-            return <span>{director.name}</span>
-          })} */}
-
+          {movie.directors !== undefined && movie.directors.map((director, i) => {
+            return <span key={director}>{director.name}</span>
+          })
+          }
         </li>
         <li className="genre">
           <h3 className="title">장르</h3>
-          <span>드라마/98분</span>
+          <span >
+            {movie.genres !== undefined && movie.genres.map((genre, i) => {
+              return <span key={genre} className="movieGenre">{genre.name}</span>
+            })
+            }
+          </span>/
+          <span className="runningTime">{movie.running_time}분</span>
         </li>
         <li className="ageGrade">
           <h3 className="title">등급</h3>
@@ -58,11 +64,13 @@ const MovieInforWrap = () => {
         </li>
         <li className="openingDate">
           <h3 className="title">개봉일</h3>
-          <span>2020.06.24</span>
+          <span>{movie.open_date}</span>
         </li>
         <li className="cast">
           <h3 className="title">출연진</h3>
-          <span>박신혜, 유아인</span>
+          {movie.actors !== undefined && movie.actors.map((actor, i) => {
+            return <span key={movie.actor}>{actor.name},</span>
+          })}
         </li>
       </ul>
       <ul className="movieInfoGraphicWrap">
@@ -73,17 +81,17 @@ const MovieInforWrap = () => {
         </li>
         <li>
           <h3 className="title">실관람 평점</h3>
-          <p className="content">6.9</p>
+          <p className="content">{movie.average_point}</p>
           <div className="graph"></div>
         </li>
         <li>
           <h3 className="title">예매율</h3>
-          <p className="content">25.5%</p>
+          <p className="content">{movie.reservation_rate}%</p>
           <div className="graph"></div>
         </li>
         <li>
           <h3 className="title">일자별 관객수</h3>
-          <p className="content">1,342,958</p>
+          <p className="content">{movie.acc_audience}</p>
           <div className="graph"></div>
         </li>
       </ul>
@@ -280,7 +288,7 @@ const MovieInforWrap = () => {
           </li>
         </ul>
       </div>
-    </div>
+    </div >
   );
 };
 
