@@ -3,9 +3,9 @@ import "./style/MovieInforWrap.scss";
 import { useSelector } from "react-redux";
 
 const MovieInforWrap = () => {
-
   const movie = useSelector((state) => state.Movie.detail);
-  console.log(Array.isArray(movie.directors), movie.directors);
+  console.log(movie.directors);
+
   return (
     <div className="movieDetailInforLayout">
       <ul className="tab">
@@ -23,21 +23,11 @@ const MovieInforWrap = () => {
         </li>
       </ul>
       <div className="movieStoryWrap">
-        <h3 className="title">
+        {/* <h3 className="title">
           원인불명 증세의 사람들의 공격에 통제 불능에 빠진 도시
-        </h3>
+        </h3> */}
         <p className={["story", "open"].join(" ")}>
-          영문도 모른채 잠에서 깬 '준우'(유아인)는 아무도 없는 집에 혼자 고립된
-          것을 알게 된다.
-          <br /> 데이터, 와이파이, 문자, 전화 모든 것이 끊긴 채 고립된 상황.
-          <br /> 연락이 두절된 가족에 이어 최소한의 식량마저 바닥이 나자 더 이상
-          버티기 힘들어진 '준우'.
-          <br /> 하지만 그 순간 건너편 아파트에서 누군가 시그널을 보내온다.
-          <br /> 또 다른 생존자 '유빈'(박신혜)이 아직 살아있음을 알게 된
-          '준우'는
-          <br /> 함께 살아남기 위한 방법을 찾아 나서는데...!
-          <br />
-          <br />꼭 살아남아야 한다.
+          {movie.description}
         </p>
         <button
           type="button"

@@ -57,12 +57,11 @@ const getMovies = () => async (dispatch) => {
 };
 
 const getMovie = (id) => async (dispatch) => {
-
   dispatch(setLoadingMovieDetail());
   try {
     const res = await movieApi.getMovie(id);
     if (res.status === 200) {
-      console.log(res.data)
+      // console.log(res.data)
       dispatch(setSuccessMovieDetail(res.data));
     } else {
       dispatch({
