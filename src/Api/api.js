@@ -62,7 +62,7 @@ export const movieApi = {
 
     const call = `theaters/schedules/regions/${date}/${
       movies ? "?movies=" + movieIds : ""
-    }
+      }
     `;
 
     console.log(call);
@@ -77,7 +77,7 @@ export const movieApi = {
 
     const call = `theaters/schedules/${date}/${
       movies ? "?movies=" + movieIds : ""
-    }
+      }
     `;
 
     console.log(call);

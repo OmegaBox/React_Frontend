@@ -16,11 +16,16 @@
     flex-grow: 1;
     margin-left: -1px;
     margin-bottom: -1px;
-    padding: 10px 0 8px;
+    
     border-width: 1px 1px 0 1px;
     border-style: solid;
     border-color: $ligthBorder;
     text-align: center;
+    button {
+      width: 100%;
+      padding: 18px 0 14px;
+      border-radius: 0;
+    }
   }
   li:first-child {margin-left: 0;}
   li.active {

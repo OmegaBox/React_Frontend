@@ -8,19 +8,21 @@ const MOVIE_DETAIL_SUCCESS = "movies/SUCCESS";
 const MOVIE_DETAIL_ERROR = "movies/ERROR";
 const MOVIE_DETAIL_LOADING = "movies/LOADING";
 
-const SET_SELETED_MOVIE_DETAIL = "movies/SELETED_MOVIE_DETAIL";
 
 const SEARCH_SPACE = "movies/SEARCH_SPACE";
-const ADD_SPACE = "movies/ADD_SPACE";
+// const ADD_SPACE = "movies/ADD_SPACE";
 
 const setSuccessMovie = (data) => ({ type: MOVIE_SUCCESS, data });
 const setLoadingMovie = () => ({ type: MOVIE_LOADING });
 const setErrorMovie = (error) => ({ type: MOVIE_ERROR, error });
 
-const setSuccessMovieDetail = (data) => ({ type: MOVIE_DETAIL_SUCCESS, data });
+const setSuccessMovieDetail = (data) => {
+  console.log(data)
+  return ({ type: MOVIE_DETAIL_SUCCESS, data })
+};
 const setLoadingMovieDetail = () => ({ type: MOVIE_DETAIL_LOADING });
 const setErrorMovieDetail = (error) => ({ type: MOVIE_DETAIL_ERROR, error });
-const setSelectedMovieDetail = (id) => ({ type: SET_SELETED_MOVIE_DETAIL, id })
+// const setSelectedMovieDetail = (id) => ({ type: SET_SELETED_MOVIE_DETAIL, id })
 
 
 // 검색
@@ -55,16 +57,15 @@ const getMovies = () => async (dispatch) => {
 };
 
 const getMovie = (id) => async (dispatch) => {
-  console.log("겟무비 도착", id);
 
   dispatch(setLoadingMovieDetail());
   try {
     const res = await movieApi.getMovie(id);
     console.log('겟무비 시도 결과', res);
-    dispatch(setSuccessMovieDetail());
     if (res.status === 200) {
-      if (!Array.isArray(res.data.results)) return console.error("배열이 아닙니다.");
-      dispatch(setSuccessMovieDetail(res.data.results));
+      console.log(res)
+      console.log(res.data)
+      dispatch(setSuccessMovieDetail(res.data));
     } else {
       dispatch({
         type: "ERROR",
@@ -75,8 +76,6 @@ const getMovie = (id) => async (dispatch) => {
       });
     }
   } catch (error) {
-    console.log('겟무비에러', error.response);
-
     dispatch({
       type: "ERROR",
       error: {
@@ -88,22 +87,19 @@ const getMovie = (id) => async (dispatch) => {
 
 };
 
-// const getSearch = (e, keyword) => async (dispatch) => {
-
-// }
-
 const initialState = {
   page: 0,
   loading: false,
   error: false,
   errorMessage: "",
   movies: [
+
   ],
-  movieDetail: [
-  ],
+  detail: {},
 };
 
 const movieReducer = (state = initialState, action) => {
+  console.log(action.data)
   switch (action.type) {
     case MOVIE_SUCCESS:
       return {
@@ -131,7 +127,7 @@ const movieReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        movieDetail: action.data,
+        detail: action.data,
         error: null,
         page: action.page
       }
