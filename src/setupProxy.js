@@ -4,20 +4,8 @@ const { createProxyMiddleware } = require("http-proxy-middleware");
 module.exports = (app) => {
 
   app.use(
-    createProxyMiddleware("/a/movies", {
+    createProxyMiddleware("/movies", {
       target: "https://www.omegabox.xyz",
-      pathRewrite: {
-        '^/a/movies': '/movies'
-      },
-      changeOrigin: true,
-    })
-  );
-  app.use(
-    createProxyMiddleware("/a/movies/detail", {
-      target: "https://www.omegabox.xyz",
-      pathRewrite: {
-        '^/a/movies': '/movies'
-      },
       changeOrigin: true,
     })
   );

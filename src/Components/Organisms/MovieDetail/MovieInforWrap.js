@@ -1,7 +1,11 @@
 import React from "react";
 import "./style/MovieInforWrap.scss";
+import { useSelector } from "react-redux";
 
 const MovieInforWrap = () => {
+
+  const movie = useSelector((state) => state.Movie.detail);
+  console.log(Array.isArray(movie.directors), movie.directors);
   return (
     <div className="movieDetailInforLayout">
       <ul className="tab">
@@ -49,7 +53,10 @@ const MovieInforWrap = () => {
         </li>
         <li className="director">
           <h3 className="title">감독</h3>
-          <span>조일형</span>
+          {/* {movie.directors.map((director) => {
+            return <span>{director.name}</span>
+          })} */}
+
         </li>
         <li className="genre">
           <h3 className="title">장르</h3>
