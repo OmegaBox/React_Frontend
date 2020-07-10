@@ -107,9 +107,9 @@ const BookingSeatList = ({ scheduleId, seatType = 0 }) => {
   const selectable = totalCount - totalSeatCount > 0;
 
   // useEffect re-rendering 방지용 체크
-  let checkRervedSeat = "";
+  let checktReservedSeat = "";
   // 예매된 좌석 정보 가져오기
-  const seatApi = async (id) => {
+  const callReservedSeatsApi = async (id) => {
     try {
       const res = await movieApi.getReservedSeats(id);
       const reserved_seat = res.data.map((seat) => seat.reserved_seat);
@@ -122,8 +122,9 @@ const BookingSeatList = ({ scheduleId, seatType = 0 }) => {
   };
 
   useEffect(() => {
-    if (scheduleId && checkRervedSeat === "") seatApi(scheduleId);
-  }, [checkRervedSeat]);
+    if (scheduleId && checktReservedSeat === "")
+      callReservedSeatsApi(scheduleId);
+  }, [checktReservedSeat]);
 
   return (
     <div className="bookingSeatList">
