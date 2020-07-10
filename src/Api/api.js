@@ -126,12 +126,6 @@ export const userApi = {
     });
   },
   logout: () => {
-    cookie.remove("accessToken", {
-      path: "/",
-    });
-    cookie.remove("refreshToken", {
-      path: "/",
-    });
     return axios.post("/members/logout/");
   },
 };
