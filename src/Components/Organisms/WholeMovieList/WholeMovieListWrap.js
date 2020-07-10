@@ -96,14 +96,15 @@ const WholeMovieListWrap = () => {
                   <span className="icon favorite"></span>
                   <span className="wholeFavoriteScore">{movie.acc_favorite}</span>
                 </button>
-                <Link to="/booking"><button onClick={() =>
-                  dispatch(
-                    selectMovie({
-                      title: movie.name_kor,
-                      poster: movie.poster,
-                      id: movie.id,
-                    })
-                  )}
+                <Link to="/booking"><button
+                  onClick={() =>
+                    dispatch(
+                      selectMovie({
+                        title: movie.name_kor,
+                        poster: movie.poster,
+                        id: movie.id,
+                      })
+                    )}
                   className={[
                     "wholeBookingBtn",
                     "btn",
