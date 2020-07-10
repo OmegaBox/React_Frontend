@@ -133,7 +133,7 @@ button {
   border: none;
   background: none;
   cursor: pointer;
-  
+
   &:hover {
     text-decoration: none;
   }
@@ -309,7 +309,6 @@ textarea:focus {
   }
 }
 
-
 ::-webkit-input-placeholder {
   color: $colorDisabledText;
   font-size: 1.2rem;
@@ -330,7 +329,6 @@ textarea:focus {
   font-size: 1.2rem;
   font-weight: 400;
 }
-
 
 /* select */
 select {
@@ -417,7 +415,9 @@ p {
     background-image: url("https://img.megabox.co.kr/static/pc/images/common/ico/ico-heart-toggle-gray.png");
     background-position: 0;
   }
-  &.favorite.select {background-position: -17px;}
+  &.favorite.select {
+    background-position: -17px;
+  }
   &.closed {
     background-image: url("https://img.megabox.co.kr/static/pc/images/common/btn/btn-layer-close.png");
   }
@@ -433,27 +433,56 @@ p {
   &.plus {
     background-image: url("https://img.megabox.co.kr/static/pc/images/reserve/bg-empty-cell-circle.png");
   }
-  &.ageGrade, &.ageGrade12, &.ageGrade15, &.ageGrade19, &.ageGradeSmall, &.ageGrade12Small, &.ageGrade15Small, &.ageGrade19Small {
+  &.ageGrade,
+  &.ageGrade12,
+  &.ageGrade15,
+  &.ageGrade19,
+  &.ageGradeSmall,
+  &.ageGrade12Small,
+  &.ageGrade15Small,
+  &.ageGrade19Small {
     margin-right: 8px;
     border-radius: 12px;
     background-size: 100%;
   }
-  &.ageGrade, &.ageGrade12, &.ageGrade15, &.ageGrade19 {
+  &.ageGrade,
+  &.ageGrade12,
+  &.ageGrade15,
+  &.ageGrade19 {
     width: 24px;
     height: 24px;
   }
-  &.ageGradeSmall, &.ageGrade12Small, &.ageGrade15Small, &.ageGrade19Small {
+  &.ageGradeSmall,
+  &.ageGrade12Small,
+  &.ageGrade15Small,
+  &.ageGrade19Small {
     width: 20px;
     height: 20px;
   }
-  &.ageGrade {background-image: url("https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-all.png");}
-  &.ageGradeSmall {background-image: url("https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-all.png");}
-  &.ageGrade12 {background-image: url("https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-12.png");}
-  &.ageGrade12Small {background-image: url("https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-12.png");}
-  &.ageGrade15 {background-image: url("https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-15.png");}
-  &.ageGrade15Small {background-image: url("https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-15.png");}
-  &.ageGrade19 {background-image: url("https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-19.png");}
-  &.ageGrade19Small {background-image: url("https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-19.png");}
+  &.ageGrade {
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-all.png");
+  }
+  &.ageGradeSmall {
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-all.png");
+  }
+  &.ageGrade12 {
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-12.png");
+  }
+  &.ageGrade12Small {
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-12.png");
+  }
+  &.ageGrade15 {
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-15.png");
+  }
+  &.ageGrade15Small {
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-15.png");
+  }
+  &.ageGrade19 {
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-19.png");
+  }
+  &.ageGrade19Small {
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-19.png");
+  }
   &.rating {
     width: 24px;
     height: 28px;
@@ -475,9 +504,15 @@ p {
     background-image: url("https://img.megabox.co.kr/static/pc/images/common/ico/ico-person.png");
     background-position: 0 4px;
   }
-  &.btnMore {background-image: url("https://img.megabox.co.kr/static/pc/images/movie/btn-alert.png");}
-  &.reply {background-image: url("https://img.megabox.co.kr/static/pc/images/common/ico/ico-reply.png");}
-  &.info {background-image: url("https://img.megabox.co.kr/static/pc/images/common/ico/ico-tooltip-gray.png");}
+  &.btnMore {
+    background-image: url("https://img.megabox.co.kr/static/pc/images/movie/btn-alert.png");
+  }
+  &.reply {
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/ico/ico-reply.png");
+  }
+  &.info {
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/ico/ico-tooltip-gray.png");
+  }
 
   &.moreMovieIcon {
     width: 16px;
@@ -501,7 +536,6 @@ p {
   }
 }
 
-
 .popupWrap {
   position: fixed;
   top: 0;
@@ -511,6 +545,7 @@ p {
   margin: 0;
   padding: 0;
   background-color: $dimdBg;
+  z-index: 1000;
   .popupBox {
     position: absolute;
     top: 0;

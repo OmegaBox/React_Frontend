@@ -3,12 +3,15 @@ import { Link, useHistory } from "react-router-dom";
 
 import "./style/LoginForm.scss";
 import { userApi } from "../../Api/api";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { startLogin } from "../../Reducer/userInfoReducer";
 
 const LoginForm = () => {
   const [inputId, setInputId] = useState("");
   const [inputPw, setInputPw] = useState("");
+  const errorMessage = useSelector(
+    (state) => state.userInfo.login.errorMessage
+  );
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -23,16 +26,15 @@ const LoginForm = () => {
         }}
       >
         <h2>로그인</h2>
-        {/* <button
+        <button
           className={["btn", "xSmall", "closed"].join(" ")}
           onClick={() => {
-            // dispatch(closeModal());
-            console.log("닫기");
+            history.push("/");
           }}
         >
           {" "}
           <span className={["icon", "closed"].join(" ")}></span>
-        </button> */}
+        </button>
         <div className="popupContent">
           <label className="a11yHidden" htmlFor="userId">
             아이디
@@ -44,7 +46,7 @@ const LoginForm = () => {
             placeholder="아이디"
             onChange={(e) => setInputId(e.target.value)}
           />
-          <label className="a11yHidden" htmlFor="userPw">
+          <label className="a11yHidden" htmlFor="userPw" name="password">
             비밀번호
           </label>
           <input
@@ -55,11 +57,12 @@ const LoginForm = () => {
             onChange={(e) => setInputPw(e.target.value)}
           />
           <div className="inputWrap saveIdWrap">
-            <input type="checkbox" id="saveId" />
+            {/* <input type="checkbox" id="saveId" />
             <label htmlFor="saveId">
               <span className="inputIcon" />
               아이디 저장
-            </label>
+            </label> */}
+            <span className="loginError">{errorMessage}</span>
           </div>
           <button
             className={["btnLogin", "btn", "large"].join(" ")}
