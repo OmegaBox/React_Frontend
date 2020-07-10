@@ -1,9 +1,14 @@
 import React, { useState, useRef } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
 import "./style/SignUpForm.scss";
 
 import { getToday, regExp } from "../../Utils/ultil";
 import { userApi } from "../../Api/api";
+
+import { openModal, setSize, setOneBtn } from "../../Reducer/modalReducer";
+import ModalPortal from "../../Modules/ModalPortal";
+import PopupNotice from "../Molecules/PopupNotice";
 
 const initSignState = {
   name: "",
@@ -15,18 +20,25 @@ const initSignState = {
   email: "",
 };
 
-const SignUpForm = () => {
+const SignUpForm = ({ history }) => {
+  const dispatch = useDispatch();
   // 회원가입 상태
-  const [inputState, inputDispatch] = useState(initSignState);
+  const [inputState, setInput] = useState(initSignState);
 
   // 경고 문구 출력 여부
-  const [alertState, alertDispatch] = useState({
+  const [alertState, setAlert] = useState({
     name: false,
     id: false,
     pw: false,
     pwCheck: false,
     tell: false,
     email: false,
+  });
+
+  // 모달창 상태
+  const [modal, text, event, w, h] = useSelector((state) => {
+    const Modal = state.modal;
+    return [Modal.modal, Modal.text, Modal.event, Modal.width, Modal.height];
   });
 
   // input Ref
@@ -54,7 +66,7 @@ const SignUpForm = () => {
     let value = e.target.value.split(" ").join("");
 
     if (alertState[name])
-      alertDispatch({
+      setAlert({
         ...alertState,
         [name]: false,
       });
@@ -64,7 +76,7 @@ const SignUpForm = () => {
     if (name === "tell")
       value = [...value].filter((v) => /[0-9]/g.test(v)).join("");
 
-    inputDispatch({
+    setInput({
       ...inputState,
       [name]: value,
     });
@@ -76,7 +88,7 @@ const SignUpForm = () => {
     if (inputState[name] === "") return;
     if (name === "pwCheck" && inputState.pw !== inputState.pwCheck) {
       console.log("패스워드 체크");
-      alertDispatch({
+      setAlert({
         ...alertState,
         [name]: true,
       });
@@ -84,7 +96,7 @@ const SignUpForm = () => {
     if (!regExp[name] || name === "id") return;
     else if (!checkRegExp(name)) {
       console.log("정규식 오류");
-      alertDispatch({
+      setAlert({
         ...alertState,
         [name]: true,
       });
@@ -94,7 +106,7 @@ const SignUpForm = () => {
   // 아이디 중복체크
   const checkDouble = () => {
     doubleDispatch(true);
-    alertDispatch({
+    setAlert({
       ...alertState,
       id: false,
     });
@@ -106,7 +118,7 @@ const SignUpForm = () => {
   // 회원 가입 이벤트
   const signUpEvent = async () => {
     if (checkDoubleState === null) {
-      alertDispatch({
+      setAlert({
         ...alertState,
         id: true,
       });
@@ -128,9 +140,24 @@ const SignUpForm = () => {
           tell: inputState.tell,
           email: inputState.email,
         });
-        console.log(res);
+        dispatch(setOneBtn());
+        dispatch(
+          openModal("회원가입에 성공하셨습니다.", () => {
+            history.push("/memberlogin");
+          })
+        );
       } catch (e) {
-        console.log(`회원가입 실패 : ${e.response}`);
+        console.log(e.response);
+        if (e.response.status === 400) {
+          let errorText = "회원가입 실패:";
+          Object.keys(e.response.data).forEach((key) => {
+            const errorDetail = `${key}: ${e.response.data[key]}`;
+            errorText += `
+  ${errorDetail}`;
+          });
+          console.error(errorText);
+          // dispatch(openModal(errorText));
+        }
       }
     }
   };
@@ -305,6 +332,18 @@ const SignUpForm = () => {
           회원가입
         </button>
       </section>
+      {modal && (
+        <ModalPortal>
+          <PopupNotice
+            text={text}
+            onEvent={event}
+            popupSize={{
+              width: w,
+              height: h,
+            }}
+          />
+        </ModalPortal>
+      )}
     </div>
   );
 };

@@ -10,7 +10,7 @@ export const getLocation = () => {
           });
         },
         (error) => {
-          console.error(error);
+          // console.error(error);
           resolve({
             lat: 37.498227,
             lng: 127.026375,
@@ -26,7 +26,7 @@ export const getLocation = () => {
       return coords;
     });
   }
-  console.info("GPS를 지원하지 않습니다");
+  // console.info("GPS를 지원하지 않습니다");
   return {
     lat: 37.498227, // 기본 주소는 강남 메가박스
     lng: 127.026375,
