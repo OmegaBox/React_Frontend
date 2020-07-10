@@ -82,20 +82,20 @@ const MovieDetailWrap = () => {
             <div className="poster">
               <img src={movie.poster} alt={movie.title} />
             </div>
-            <Link to="/booking"><button
-              onClick={() =>
-                dispatch(
-                  selectMovie({
-                    title: movie.name_kor,
-                    poster: movie.poster,
-                    id: movie.id,
-                  })
-                )
-              }
-              type="button"
-              className={["btn", "fill", "regular", "sub", "detailBookingBtn"].join(" ")}
-            >
-              예매
+            <Link to="/booking">
+              <button
+                onClick={() =>
+                  dispatch(
+                    selectMovie({
+                      title: movie.name_kor,
+                      poster: movie.poster,
+                      id: movie.id,
+                    })
+                  )}
+                type="button"
+                className={["btn", "fill", "regular", "sub", "detailBookingBtn"].join(" ")}
+              >
+                예매
                 </button>
             </Link>
           </div>
