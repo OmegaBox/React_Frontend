@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import BookingCancel from "../../Molecules/BookingCancel";
 import PopupNotice from "../../Molecules/PopupNotice";
 import ModalPortal from "../../../Modules/ModalPortal";
+import { numWithComma } from "../../../Utils/ultil";
 import "./style/BookingHistoryWrap.scss";
 
 const BookingHistoryWrap = () => {
@@ -15,12 +16,6 @@ const BookingHistoryWrap = () => {
   const { cancelMovies } = useSelector((state) => ({
     cancelMovies: state.userInfo.cancelMovies,
   }));
-  const priceTypeConversion = (price) => {
-    let totalPoint = Array.from(String(price));
-    totalPoint.splice(-3, 0, ",");
-    totalPoint = totalPoint.join("");
-    return totalPoint;
-  };
 
   const [useInfo, setUseInfo] = useState({ open: false });
 
@@ -233,7 +228,7 @@ const BookingHistoryWrap = () => {
                   <td>
                     {cancelMovie.date} {cancelMovie.time}
                   </td>
-                  <td>{priceTypeConversion(cancelMovie.price)}원</td>
+                  <td>{numWithComma(String(cancelMovie.price))}원</td>
                 </tr>
               ))
             ) : (

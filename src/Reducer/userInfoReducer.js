@@ -82,14 +82,17 @@ function* userInfoSaga() {
 const initialState = {
   isLogin: false,
   id: "omegaman",
-  name: "홍길동",
   email: "xxxxx@naver.com",
-  point: 18000,
+  name: "홍길동",
   mobile: "+821011111111",
   birthDate: "2020-07-08",
   loading: false,
   error: false,
   errorMessage: "",
+  profile: {
+    tier: "basic",
+    point: 18000,
+  },
   bookingHistory: [
     {
       id: 0,

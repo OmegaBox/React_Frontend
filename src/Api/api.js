@@ -134,4 +134,9 @@ export const userApi = {
     });
     return axios.post("/members/logout/");
   },
+  memberDetail: ({ id }) => {
+    return axios.post(`/members/${id}`, {
+      username: id,
+    });
+  },
 };

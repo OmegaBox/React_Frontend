@@ -27,6 +27,7 @@ const MyMovieStory = () => {
           <a href="#">보고싶어</a>
         </li>
       </ul>
+
       <MyMovieStoryTimeLine />
       <MyMovieStoryComment />
       <MyMovieStoryWatched />
