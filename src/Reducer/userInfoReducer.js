@@ -1,4 +1,4 @@
-import { put, takeLatest } from "redux-saga/effects";
+import { put, call, takeLatest } from "redux-saga/effects";
 import { userApi, isLogin } from "../Api/api";
 
 import cookie from "react-cookies";
@@ -11,6 +11,7 @@ const LOADING = "userInfo/LOADING";
 const LOGIN = "userInfo/LOGIN";
 const LOGIN_LOADING = "userInfo/LOGIN_LOADING";
 const LOGIN_SUCCESS = "userInfo/LOGIN_SUCCESS";
+const LOGIN_ERROR = "userInfo/LOGIN_ERROR";
 const ALREADY_LOGIN = "userInfo/ALREADY_LOGIN";
 
 const LOGOUT_SUCCESS = "userInfo/LOGOUT";
@@ -43,7 +44,7 @@ function* loginSaga(action) {
   yield put({ type: LOGIN_LOADING });
 
   try {
-    const res = yield userApi.login(action.user);
+    const res = yield call(userApi.login, action.user);
     console.log(res);
 
     if (res.status === 200) {
@@ -58,10 +59,14 @@ function* loginSaga(action) {
         path: "/",
         maxAge: 86400,
       });
+      cookie.save("id", res.data.id, {
+        path: "/",
+        maxAge: 86400,
+      });
 
       yield put({
         type: LOGIN_SUCCESS,
-        id: res.data.username,
+        userName: res.data.username,
         name: res.data.name,
         email: res.data.email,
         mobile: res.data.mobile,
@@ -69,11 +74,16 @@ function* loginSaga(action) {
       });
       action.history.push("/");
     } else {
-      console.log("통신은 성공했으나 에러발생", res);
+      yield put({
+        type: LOGIN_ERROR,
+        errorMessage: "서버와의 연결이 원활하지 않습니다",
+      });
     }
   } catch (e) {
-    console.log(e.response);
-    action.setError("아이디/비밀번호를 확인 해주세요");
+    yield put({
+      type: LOGIN_ERROR,
+      errorMessage: "아이디/비밀번호를 확인 해주세요",
+    });
   }
 }
 
@@ -83,14 +93,17 @@ function* userInfoSaga() {
 
 const initialState = {
   isLogin: false,
-  id: "omegaman",
+  userName: "omegaman",
   name: "홍길동",
   email: "xxxxx@naver.com",
   point: 18000,
   mobile: "+821011111111",
   birthDate: "2020-07-08",
-  loading: false,
-  error: false,
+  login: {
+    loading: false,
+    error: false,
+    errorMessgae: "",
+  },
   errorMessage: "",
   bookingHistory: [
     {
@@ -229,15 +242,38 @@ const initialState = {
 
 const userInfoReducer = (state = initialState, action) => {
   switch (action.type) {
+    case LOGIN_LOADING:
+      return {
+        ...state,
+        login: {
+          ...state.login,
+          loading: true,
+        },
+      };
     case LOGIN_SUCCESS:
       return {
         ...state,
         isLogin: true,
-        id: action.id,
+        userName: action.userName,
         name: action.name,
         email: action.email,
         mobile: action.mobile,
         birthDate: action.birthDate,
+        login: {
+          ...state.login,
+          loading: false,
+        },
+      };
+
+    case LOGIN_ERROR:
+      return {
+        ...state,
+        login: {
+          ...state.login,
+          loading: false,
+          error: true,
+          errorMessage: action.errorMessage,
+        },
       };
     case LOGOUT_SUCCESS:
       return {

@@ -105,4 +105,9 @@ export const removeCookies = () => {
       path: "/",
     });
   }
+  if (cookie.load("id")) {
+    cookie.remove("id", {
+      path: "/",
+    });
+  }
 };
