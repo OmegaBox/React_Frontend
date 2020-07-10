@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 
 import { movieApi } from "../../Api/api";
@@ -79,7 +79,7 @@ const BookingInfo = ({ props, goBack }) => {
   };
   // 각 인원별 수
   const personalTypeCounts = Object.values(personal);
-  // 금액 계산
+  // r영화 타입별 기본 금액
   const basePrice = (() => {
     switch (screenType) {
       case "2D":
