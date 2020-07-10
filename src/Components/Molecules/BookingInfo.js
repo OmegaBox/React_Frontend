@@ -1,8 +1,10 @@
 import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 import { movieApi } from "../../Api/api";
 import { numWithComma } from "../../Utils/ultil";
+
+import { setDefaultTicketInfo } from "../../Reducer/bookingReducer";
 
 import "./style/BookingInfo.scss";
 
@@ -51,7 +53,8 @@ const date = (dateValue) => {
   return `${dateValue.split("-").join(".")}(${dateString})`;
 };
 
-const BookingInfo = ({ props, goBack }) => {
+const BookingInfo = ({ props, goBack, goNext }) => {
+  const dispatch = useDispatch();
   const {
     scheduleId,
     selectedMovieTitle,
@@ -79,7 +82,7 @@ const BookingInfo = ({ props, goBack }) => {
   };
   // 각 인원별 수
   const personalTypeCounts = Object.values(personal);
-  // r영화 타입별 기본 금액
+  // 영화 타입별 기본 금액
   const basePrice = (() => {
     switch (screenType) {
       case "2D":
@@ -123,6 +126,28 @@ const BookingInfo = ({ props, goBack }) => {
     } catch (e) {
       console.error(`error : ${e.state}`);
       console.error(`${e.response}`);
+    }
+  };
+
+  // 다음 이동 이벤트
+  const goPayment = async () => {
+    try {
+      const SeatIds = await movieApi.getSeatId(scheduleId, selectedSeat);
+      await movieApi.makeReservation(
+        scheduleId,
+        SeatIds.data.map((v) => v.seat_id).reverse(),
+        seatPersonalType
+      );
+      dispatch(
+        setDefaultTicketInfo({
+          seats: SeatIds.data,
+          ticketType: seatPersonalType,
+          price: totalPrice,
+        })
+      );
+      goNext();
+    } catch (e) {
+      console.error(e.response);
     }
   };
 
@@ -201,7 +226,8 @@ const BookingInfo = ({ props, goBack }) => {
         </button>
         <button
           className="btn regular next"
-          disabled={totalCount !== 0 && totalCount === selectedSeat.length}
+          onClick={goPayment}
+          disabled={totalCount === 0 || totalCount !== selectedSeat.length}
         >
           다음
         </button>
