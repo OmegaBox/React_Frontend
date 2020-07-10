@@ -1,9 +1,12 @@
 import React from "react";
 import "./style/MovieDetailWrap.scss";
 import { useSelector, useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
+import { selectMovie } from "../../../Reducer/bookingReducer";
 
 const MovieDetailWrap = () => {
   const movie = useSelector((state) => state.Movie.detail);
+  const dispatch = useDispatch();
 
   return (
     <div className="movieVisual">
@@ -79,12 +82,22 @@ const MovieDetailWrap = () => {
             <div className="poster">
               <img src={movie.poster} alt={movie.title} />
             </div>
-            <button
+            <Link to="/booking"><button
+              onClick={() =>
+                dispatch(
+                  selectMovie({
+                    title: movie.name_kor,
+                    poster: movie.poster,
+                    id: movie.id,
+                  })
+                )
+              }
               type="button"
-              className={["btn", "fill", "regular", "sub"].join(" ")}
+              className={["btn", "fill", "regular", "sub", "detailBookingBtn"].join(" ")}
             >
               예매
                 </button>
+            </Link>
           </div>
         </div>
       </div>

@@ -64,10 +64,11 @@ const MainHeader = () => {
               {changeHeader === true ? (
                 <>
                   <li>
-                    <button
+                    <Link to="/"
                       onClick={clickLogout}
                     >
-                      로그아웃</button>
+                      로그아웃
+                    </Link>
                   </li>
                   <li><Link to="/">알림</Link></li>
                 </>
