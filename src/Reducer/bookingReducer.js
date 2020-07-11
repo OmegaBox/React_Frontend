@@ -75,12 +75,12 @@ const getPossibleMovies = () => async (dispatch) => {
         },
       });
     }
-  } catch (error) {
+  } catch (e) {
     dispatch({
-      type: "ERROR",
+      type: GET_POSSIBLE_MOVIES_ERROR,
       error: {
         state: true,
-        message: error.message,
+        message: e.response,
       },
     });
   }
@@ -89,15 +89,11 @@ const getPossibleMovies = () => async (dispatch) => {
 const getCanSelectMovies = () => async (dispatch, state) => {
   console.log("진입성공");
 
-  const movies = state().Booking.movies;
+  const movies = state().Booking.movies.allMovies;
   const schedules = state().Booking.schedule.schedules;
-  const selectedTheaters = state().Booking.selectedOption.selectedTheaters;
+  // const selectedTheaters = state().Booking.selectedOption.selectedTheaters;
 
-  console.log("영화리스트", movies);
-  console.log("스케쥴", schedules);
-  console.log("선택한 영화관", selectedTheaters);
-
-  if (!selectedTheaters.length) {
+  if (!schedules.length) {
     dispatch({
       type: SET_CAN_SELECT_MOVIES,
       movies,
@@ -377,8 +373,11 @@ function* bookingSaga() {
 }
 
 const initialState = {
-  canSelectMovies: [],
-  movies: [],
+  movies: {
+    allMovies: [],
+    canSelectMovies: [],
+    loading: false,
+  },
   canSelectLocation: {
     regions: {
       "가까운 영화관": 3,
@@ -414,6 +413,7 @@ const initialState = {
     seletedSeat: [],
   },
   ticket: {
+    reservationInfos: [],
     selectedDate: "2020-07-10",
     selectedTheather: "강남",
     selectedMovieTitle: "살아있다",
@@ -436,16 +436,28 @@ const bookingReducer = (state = initialState, action) => {
     case GET_MOVIES_SUCCESS:
       return {
         ...state,
-        movies: action.movies,
+        movies: {
+          ...state.movies,
+          allMovies: action.movies,
+          loading: false,
+        },
       };
     case GET_POSSIBLE_MOVIES:
       return {
         ...state,
+        movies: {
+          ...state.movies,
+          loading: true,
+        },
       };
     case GET_POSSIBLE_MOVIES_SUCCESS:
       return {
         ...state,
-        canSelectMovies: action.movies,
+        movies: {
+          ...state.movies,
+          canSelectMovies: action.movies,
+          loading: false,
+        },
       };
     case GET_SCHEDULES:
       return {
@@ -533,7 +545,10 @@ const bookingReducer = (state = initialState, action) => {
     case SET_CAN_SELECT_MOVIES:
       return {
         ...state,
-        canSelectMovies: action.movies,
+        movies: {
+          ...state.movies,
+          canSelectMovies: action.movies,
+        },
       };
 
     case SET_SCHEDULES_LOG:
