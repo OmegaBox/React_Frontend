@@ -133,16 +133,18 @@ const BookingInfo = ({ props, goBack, goNext }) => {
   const goPayment = async () => {
     try {
       const SeatIds = await movieApi.getSeatId(scheduleId, selectedSeat);
-      await movieApi.makeReservation(
+      const reservationId = await movieApi.makeReservation(
         scheduleId,
         SeatIds.data.map((v) => v.seat_id).reverse(),
         seatPersonalType
       );
+      console.log("예약아이디", reservationId);
       dispatch(
         setDefaultTicketInfo({
           seats: SeatIds.data,
           ticketType: seatPersonalType,
           price: totalPrice,
+          reservationId: reservationId.data,
         })
       );
       goNext();
