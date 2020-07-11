@@ -1,8 +1,6 @@
 import axios from "axios";
 import cookie from "react-cookies";
-import {
-  transformDateFormat
-} from "../Utils/ultil";
+import { transformDateFormat } from "../Utils/ultil";
 
 export const refreshValidation = async () => {
   try {
@@ -35,11 +33,7 @@ export const movieApi = {
   getMovies: () => axios.get("movies/"),
   getMovie: (id) => axios.get(`/movies/detail/${id}`),
   // getSearch: (keyword) => axios.get(`movies/?searchName=${keyword}`),
-  getSchedules: ({
-    date,
-    movies,
-    theaterId
-  }) => {
+  getSchedules: ({ date, movies, theaterId }) => {
     let movieIds = "";
     if (movies) {
       movieIds = movies.reduce((acc, cur) => acc + "+" + cur.id, "").slice(1);
@@ -102,15 +96,15 @@ export const movieApi = {
     if (Object.values(personalCount).every((val) => val === 0))
       return {
         data: {
-          total_price: 0
+          total_price: 0,
         },
       };
     const urlString =
       `/theaters/schedules/${scheduleId}/price/?` +
       Object.keys(personalCount)
-      .filter((key) => personalCount[key] !== 0)
-      .map((key) => `${key}s=${personalCount[key]}`)
-      .join("&");
+        .filter((key) => personalCount[key] !== 0)
+        .map((key) => `${key}s=${personalCount[key]}`)
+        .join("&");
     return axios.get(urlString);
   },
   getSeatId: (scheduleId, seatArr) => {
@@ -142,21 +136,13 @@ export const movieApi = {
     return axios.post("/reservations/", JSON.stringify(bady), {
       headers: {
         Authorization: "Bearer " + accessToken,
-      }
+      },
     });
   },
 };
 
 export const userApi = {
-  signup: ({
-    name,
-    id,
-    pw,
-    pwCheck,
-    birth,
-    tell,
-    email
-  }) => {
+  signup: ({ name, id, pw, pwCheck, birth, tell, email }) => {
     return axios.post("/members/signup/", {
       username: id,
       email: email,
@@ -167,10 +153,7 @@ export const userApi = {
       birth_date: birth,
     });
   },
-  login: ({
-    id,
-    pw
-  }) => {
+  login: ({ id, pw }) => {
     return axios.post("/members/login/", {
       username: id,
       password: pw,
@@ -178,5 +161,13 @@ export const userApi = {
   },
   logout: () => {
     return axios.post("/members/logout/");
+  },
+  idDoubleCheck: (id) => {
+    return axios.post(
+      "https://www.omegabox.xyz/members/signup/check-username/",
+      {
+        username: id,
+      }
+    );
   },
 };
