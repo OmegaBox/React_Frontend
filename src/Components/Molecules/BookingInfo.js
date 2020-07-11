@@ -138,13 +138,15 @@ const BookingInfo = ({ props, goBack, goNext }) => {
         SeatIds.data.map((v) => v.seat_id).reverse(),
         seatPersonalType
       );
-      console.log("예약아이디", reservationInfos);
+
       dispatch(
         setDefaultTicketInfo({
           seats: SeatIds.data,
           ticketType: seatPersonalType,
           price: totalPrice,
-          reservationInfos: reservationInfos.data,
+          reservationInfos: reservationInfos.data.map(
+            (data) => data.reservation
+          ),
         })
       );
       goNext();
