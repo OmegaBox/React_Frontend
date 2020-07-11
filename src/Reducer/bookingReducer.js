@@ -12,6 +12,7 @@ const SET_SELECTED_HOUR = "booking/SELECTED_HOUR";
 const SET_SELECTED_REGION = "booking/SELECTED_REGION";
 const SET_SELECTED_THEATERS = "booking/SELECTED_THEATER";
 const SET_NEARBY_THEATERS = "booking/NEARBY_THEATERS";
+
 const SET_CAN_SELECT_REGIONS = "booking/SET_CAN_SELECT_REGIONS";
 const SET_CAN_SELECT_THEATERS = "booking/SET_CAN_SELECT_THEATERS";
 const SET_CAN_SELECT_MOVIES = "booking/SET_CAN_SELECT_MOVIES";
@@ -195,7 +196,7 @@ const getSchedules = () => async (dispatch, state) => {
   }
 };
 
-// 날짜 or 날짜 & 타이틀로 상영 가능한 지역과 영화관 정보 가져오는 Thunk
+// 사가로 바꿔야함 날짜 or 날짜 & 타이틀로 상영 가능한 지역과 영화관 정보 가져오는 Thunk
 const getTheatersCanBooking = (movies = []) => async (dispatch, state) => {
   const selectedOption = state().Booking.selectedOption;
   const selectedMovies = selectedOption.selectedMovies;
@@ -287,13 +288,6 @@ const getTheatersCanBooking = (movies = []) => async (dispatch, state) => {
   // 상영관 선택과 지역 선택 처리
   dispatch(setSelectTheaters(newSelectedTheaters));
   dispatch(setSelectRegion(newSelectedRegion));
-  // if (newSelectedTheaters.length) {
-  //   dispatch(
-  //     setSelectRegion(
-  //       newSelectedTheaters[newSelectedTheaters.length - 1].region
-  //     )
-  //   );
-  // } else dispatch(setSelectRegion(""));
 };
 
 // 사가 진입용 액션들
@@ -391,11 +385,12 @@ const initialState = {
     },
     theaters: [],
     logs: [],
+    loading: false,
   },
-
   schedule: {
     schedules: [],
     scheduleLogs: [],
+    loading: false,
   },
   selectedOption: {
     selectedDate: "2020-07-01",
@@ -510,6 +505,7 @@ const bookingReducer = (state = initialState, action) => {
         canSelectLocation: {
           ...state.canSelectLocation,
           regions: action.regions,
+          loading: false,
         },
       };
     case SET_CAN_SELECT_THEATERS:
@@ -518,6 +514,7 @@ const bookingReducer = (state = initialState, action) => {
         canSelectLocation: {
           ...state.canSelectLocation,
           theaters: action.theaters,
+          loading: false,
         },
       };
     case SET_CAN_SELECT_MOVIES:
