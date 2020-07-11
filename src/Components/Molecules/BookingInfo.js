@@ -133,16 +133,20 @@ const BookingInfo = ({ props, goBack, goNext }) => {
   const goPayment = async () => {
     try {
       const SeatIds = await movieApi.getSeatId(scheduleId, selectedSeat);
-      await movieApi.makeReservation(
+      const reservationInfos = await movieApi.makeReservation(
         scheduleId,
         SeatIds.data.map((v) => v.seat_id).reverse(),
         seatPersonalType
       );
+
       dispatch(
         setDefaultTicketInfo({
           seats: SeatIds.data,
           ticketType: seatPersonalType,
           price: totalPrice,
+          reservationInfos: reservationInfos.data.map(
+            (data) => data.reservation
+          ),
         })
       );
       goNext();
