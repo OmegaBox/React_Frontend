@@ -24,9 +24,12 @@
   border-bottom: 2px solid $colorMainLight;
 }
 
-.carouselCal.disabled {
+.carouselCalendarContainer .carouselCal.disabled {
   cursor: default;
   color: $colorGrayD8;
+  span {
+    color: $colorGrayD8;
+  }
 }
 
 .carouselCalendarContainer button {
@@ -38,6 +41,14 @@
   color: none;
   font-size: 1.5rem;
   min-width: initial;
+
+  .dayBlue {
+    color: $colorBlue;
+  }
+
+  .dayRed {
+    color: $colorRed;
+  }
 }
 
 .slick-slide > div {
