@@ -129,6 +129,24 @@
   li:first-child {margin-left: 0;}
 }
 
+.scoreGraphWrap {
+  width: 225.750px;
+  height: 186px;
+  margin: 30px auto 0;
+  div {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 30px;
+    background-color: $colorMainLight;
+    border-radius: 50%;
+    strong {
+      line-height: 120px;
+      font-size: 30px;
+      color: $colorWhite;
+    }
+  }
+}
+
 .movieCommentWrap {
   width: 1100px;
   margin: 0 auto;

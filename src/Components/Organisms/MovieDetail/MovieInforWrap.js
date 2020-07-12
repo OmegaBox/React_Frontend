@@ -83,7 +83,13 @@ const MovieInforWrap = () => {
         <li>
           <h3 className="title">실관람 평점</h3>
           <p className="content">{movie.average_point}</p>
-          <div className="graph"></div>
+          <div className="scoreGraphWrap">
+            <div className="scoreGraph">
+              <strong>{movie.average_point}</strong>
+            </div>
+            <span>관람 후</span>
+          </div>
+
         </li>
         <li>
           <h3 className="title">예매율</h3>
