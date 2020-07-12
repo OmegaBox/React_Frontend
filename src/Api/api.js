@@ -2,6 +2,7 @@ import axios from "axios";
 import cookie from "react-cookies";
 import BootPay from "bootpay-js";
 import { transformDateFormat } from "../Utils/ultil";
+import key from "../../key.json";
 
 export const refreshValidation = async () => {
   try {
@@ -39,7 +40,7 @@ export const billing = ({
 }) => {
   return BootPay.request({
     price, //실제 결제되는 가격
-    application_id: "5f0927a34f74b40026f2c4a0",
+    application_id: key.applicationId,
     name: `오메가박스 영화티켓-${title}`, //결제창에서 보여질 이름
     // pg: "[[ pg ]]",
     // method: "[[ method ]]", //결제수단, 입력하지 않으면 결제수단 선택부터 화면이 시작합니다.
