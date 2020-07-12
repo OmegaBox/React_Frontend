@@ -6,6 +6,7 @@ import { setDefaultTicketInfo } from "../../Reducer/bookingReducer";
 import { Link } from "react-router-dom";
 import Skeleton from "react-loading-skeleton";
 import SkeletonTimeSelect from "../Atoms/SkeletonTimeSelect";
+import EmptySchedules from "../Atoms/EmptySchedules";
 
 const BookingSelectTime = () => {
   const schedules = useSelector((state) => state.Booking.schedule.schedules);
@@ -16,7 +17,7 @@ const BookingSelectTime = () => {
     <ol className="BookingSelectTimeContainer">
       {isLoading ? (
         <SkeletonTimeSelect />
-      ) : (
+      ) : schedules.length ? (
         schedules.map((schedule) => {
           const ticket = {
             selectedDate: schedule.date,
@@ -66,6 +67,8 @@ const BookingSelectTime = () => {
             </li>
           );
         })
+      ) : (
+        <EmptySchedules />
       )}
     </ol>
   );
