@@ -8,24 +8,25 @@ export const refreshValidation = async () => {
     const newAccessToken = await axios.post("/members/token/refresh/", {
       refresh: refreshToken,
     });
+
     cookie.remove("accessToken", {
       path: "/",
     });
     cookie.save("accessToken", newAccessToken.data.access, {
       path: "/",
     });
+
     return true;
   } catch (e) {
-    console.log("refresh 실패, 로그아웃 처리 필요");
     return false;
   }
 };
 
 export const isLogin = async () => {
   const accessToken = cookie.load("accessToken");
-  console.log("isLogin 체크", accessToken);
 
   if (accessToken) return true;
+
   return await refreshValidation();
 };
 
@@ -42,13 +43,8 @@ export const movieApi = {
     if (date) date = transformDateFormat(date).dateStringNoDash;
 
     if (date && theaterId && !movies) {
-      console.log(`theaters/${theaterId}/schedules/${date}`);
-
       return axios.get(`theaters/${theaterId}/schedules/${date}`);
     } else {
-      console.log(
-        `theaters/${theaterId}/schedules/${date}/?movies=${movieIds}`
-      );
       return axios.get(
         `theaters/${theaterId}/schedules/${date}/?movies=${movieIds}`
       );
@@ -95,7 +91,9 @@ export const movieApi = {
     // 인원별 모든 값이 0일 때 실행 안함.
     if (Object.values(personalCount).every((val) => val === 0))
       return {
-        data: { total_price: 0 },
+        data: {
+          total_price: 0,
+        },
       };
     const urlString =
       `/theaters/schedules/${scheduleId}/price/?` +
@@ -104,6 +102,36 @@ export const movieApi = {
         .map((key) => `${key}s=${personalCount[key]}`)
         .join("&");
     return axios.get(urlString);
+  },
+  getSeatId: (scheduleId, seatArr) => {
+    console.log(scheduleId, seatArr.join("+"));
+    return axios.get(
+      `/theaters/schedules/${scheduleId}/seats/?names=${seatArr.join("+")}`
+    );
+  },
+  makeReservation: (scheduleId, seatIdArr, seatPersonalType) => {
+    console.log(scheduleId, seatIdArr, seatPersonalType);
+    const accessToken = cookie.load("accessToken");
+    if (!accessToken) return;
+    console.log(accessToken);
+    const seatPersonalTypeArr = [];
+    Object.keys(seatPersonalType).forEach((key) => {
+      for (let i = 0; i < seatPersonalType[key]; i++) {
+        seatPersonalTypeArr.push(key);
+      }
+    });
+
+    const body = seatIdArr.map((id, index) => ({
+      grade: seatPersonalTypeArr[index],
+      seat_id: id,
+      schedule_id: scheduleId,
+    }));
+
+    return axios.post("/reservations/", body, {
+      headers: {
+        Authorization: "Bearer " + accessToken,
+      },
+    });
   },
 };
 
@@ -126,12 +154,6 @@ export const userApi = {
     });
   },
   logout: () => {
-    cookie.remove("accessToken", {
-      path: "/",
-    });
-    cookie.remove("refreshToken", {
-      path: "/",
-    });
     return axios.post("/members/logout/");
   },
   memberDetail: ({ id }) => {

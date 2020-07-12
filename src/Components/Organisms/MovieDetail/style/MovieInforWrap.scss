@@ -88,10 +88,21 @@
       padding: 0 8px 0 4px;
     }
   }
-  span {display: inline-block;}
-  .genre span {
-    min-width: 90px;
+
+  .director span {
+    text-align: center;
+    min-width: 50px;
   }
+
+  .cast span {
+    text-align: center;
+    min-width: 50px;
+  }
+  span {display: inline-block;} 
+  .genre .movieGenre {
+    
+  }
+  .runningTime {text-align: center;}
 }
 
 .movieInfoGraphicWrap {
