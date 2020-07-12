@@ -2,14 +2,15 @@ import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 
 import "./style/LoginForm.scss";
-import { userApi } from "../../Api/api";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { startLogin } from "../../Reducer/userInfoReducer";
 
 const LoginForm = () => {
   const [inputId, setInputId] = useState("");
   const [inputPw, setInputPw] = useState("");
-  const [error, setError] = useState("");
+  const errorMessage = useSelector(
+    (state) => state.userInfo.login.errorMessage
+  );
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -52,7 +53,21 @@ const LoginForm = () => {
             type="password"
             id="userPw"
             placeholder="비밀번호"
-            onChange={(e) => setInputPw(e.target.value)}
+            onChange={(e) => {
+              setInputPw(e.target.value);
+            }}
+            onKeyUp={(e) => {
+              if (e.keyCode === 13)
+                dispatch(
+                  startLogin(
+                    {
+                      id: inputId,
+                      pw: inputPw,
+                    },
+                    history
+                  )
+                );
+            }}
           />
           <div className="inputWrap saveIdWrap">
             {/* <input type="checkbox" id="saveId" />
@@ -60,7 +75,7 @@ const LoginForm = () => {
               <span className="inputIcon" />
               아이디 저장
             </label> */}
-            <span className="loginError">{error}</span>
+            <span className="loginError">{errorMessage}</span>
           </div>
           <button
             className={["btnLogin", "btn", "large"].join(" ")}
@@ -72,8 +87,7 @@ const LoginForm = () => {
                     id: inputId,
                     pw: inputPw,
                   },
-                  history,
-                  setError
+                  history
                 )
               );
             }}

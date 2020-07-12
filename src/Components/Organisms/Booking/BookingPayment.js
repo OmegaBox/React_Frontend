@@ -1,7 +1,10 @@
 import React from "react";
+import { useSelector } from "react-redux";
+
 import "./style/BookingPayment.scss";
 
 const BookingPayment = () => {
+  console.log(useSelector((state) => state.Booking.ticket));
   return (
     <div className="bookingPaymentWrap">
       <h2 className="title">빠른예매</h2>

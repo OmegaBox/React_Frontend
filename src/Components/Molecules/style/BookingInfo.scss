@@ -185,7 +185,7 @@
       cursor: default;
     }
 
-    &.next[ disabled ] {
+    &.next:not([ disabled ]) {
       color: $colorWhite;
       background-color: $colorSubLight;
       cursor: pointer;
