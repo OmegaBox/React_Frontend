@@ -2,7 +2,7 @@ import axios from "axios";
 import cookie from "react-cookies";
 import BootPay from "bootpay-js";
 import { transformDateFormat } from "../Utils/ultil";
-import key from "../../key.json";
+import key from "../key.json";
 
 export const refreshValidation = async () => {
   try {
