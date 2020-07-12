@@ -1,6 +1,5 @@
 import { put, takeLatest } from "redux-saga/effects";
 import { userApi, isLogin } from "../Api/api";
-
 import cookie from "react-cookies";
 
 const SUCCESS = "userInfo/SUCCESS";

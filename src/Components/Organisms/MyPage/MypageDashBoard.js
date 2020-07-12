@@ -44,6 +44,7 @@ const MypageDashBoard = () => {
   return (
     <div>
       {isLogin ? "" : "링크로 돌림"}
+
       <div className="mypageDashBoard">
         <h3 className="a11yHidden">마이페이지 정보</h3>
         <section className="mypagePersnalInfo">

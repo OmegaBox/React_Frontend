@@ -62,7 +62,7 @@ export const movieApi = {
 
     const call = `theaters/schedules/regions/${date}/${
       movies ? "?movies=" + movieIds : ""
-      }
+    }
     `;
 
     console.log(call);
@@ -77,7 +77,7 @@ export const movieApi = {
 
     const call = `theaters/schedules/${date}/${
       movies ? "?movies=" + movieIds : ""
-      }
+    }
     `;
 
     console.log(call);
@@ -135,8 +135,14 @@ export const userApi = {
     return axios.post("/members/logout/");
   },
   memberDetail: ({ id }) => {
-    return axios.post(`/members/${id}`, {
-      username: id,
-    });
+    return axios.post(
+      `/members/${cookie.load("id")}`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${cookie.load("accessToken")}`,
+        },
+      }
+    );
   },
 };
