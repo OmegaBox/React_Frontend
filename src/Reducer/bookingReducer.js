@@ -405,8 +405,8 @@ const initialState = {
     selectedTheaters: [], // 선택한 영화관들
     nearbyTheaters: [], // 가까운 영화관
     selectedMovies: [],
-    movieAgeGrade: "All",
-    screenHall: "2관",
+    movieAgeGrade: "",
+    screenHall: "",
     selectedHour: "0",
     selectedTime: "0",
     endTime: "",
@@ -414,20 +414,20 @@ const initialState = {
   },
   ticket: {
     reservationInfos: [],
-    selectedDate: "2020-07-10",
-    selectedTheather: "강남",
-    selectedMovieTitle: "살아있다",
-    movieAgeGrade: "All",
-    screenHall: "2관",
-    seletedTime: "19:40",
-    endTime: "",
-    seats: [],
+    selectedDate: "2020-07-01",
+    selectedTheather: "강남대로(씨티)",
+    selectedMovieTitle: "결백",
+    movieAgeGrade: "15+",
+    screenHall: "1관",
+    seletedTime: "23:21",
+    endTime: "01:11",
+    seats: [{ seat_name: "B12", seat_id: 28 }],
     ticketType: {
       adult: 0,
-      teen: 0,
+      teen: 1,
       preferential: 0,
     },
-    price: 0,
+    price: 8250,
   },
 };
 
