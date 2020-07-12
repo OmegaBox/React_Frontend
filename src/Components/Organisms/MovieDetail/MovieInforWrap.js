@@ -1,6 +1,7 @@
 import React from "react";
 import "./style/MovieInforWrap.scss";
 import { useSelector } from "react-redux";
+import RatingChart from "../../Molecules/ChartBookingRating";
 
 const MovieInforWrap = () => {
   const movie = useSelector((state) => state.Movie.detail);
@@ -87,7 +88,9 @@ const MovieInforWrap = () => {
         <li>
           <h3 className="title">예매율</h3>
           <p className="content">{movie.reservation_rate}%</p>
-          <div className="graph"></div>
+          <div className="graph">
+            < RatingChart />
+          </div>
         </li>
         <li>
           <h3 className="title">일자별 관객수</h3>
