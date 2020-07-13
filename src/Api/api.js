@@ -1,7 +1,7 @@
 import axios from "axios";
 import cookie from "react-cookies";
 import BootPay from "bootpay-js";
-import { transformDateFormat } from "../Utils/ultil";
+import { transformDateFormat } from "../Utils/util";
 import key from "../key.json";
 import { setTicketNumber } from "../Reducer/bookingReducer";
 
@@ -33,7 +33,7 @@ export const isLogin = async () => {
   return await refreshValidation();
 };
 
-export const clientBilling = ({
+export const billing = ({
   title,
   price,
   reservations,
@@ -111,7 +111,6 @@ export const clientBilling = ({
     .done(async function (data) {
       //결제가 정상적으로 완료되면 수행됩니다
       //비즈니스 로직을 수행하기 전에 결제 유효성 검증을 하시길 추천합니다.
-      console.log(reservations);
       const accessToken = cookie.load("accessToken");
       const reservations_id = reservations.map((reservation) => reservation.id);
       const body = {
@@ -125,12 +124,9 @@ export const clientBilling = ({
         },
       });
       if (res.status === 200 || res.status === 201) {
-        dispatch(setTicketNumber(res.code));
+        dispatch(setTicketNumber(res.data.code));
         history.push("/booking/ticket");
       }
-
-      console.log("서버검증결과", res);
-      return data;
     });
 };
 
@@ -185,6 +181,7 @@ export const movieApi = {
     return axios.get(call);
   },
   getReservedSeats: (scheduleId) => {
+    console.log("예약된 좌석 요청중...");
     return axios.get(`/schedules/${scheduleId}/reserved-seats/`);
   },
   getTotalPrice: (scheduleId, personalCount) => {
@@ -259,5 +256,59 @@ export const userApi = {
   },
   logout: () => {
     return axios.post("/members/logout/");
+  },
+  memberDetail: () => {
+    console.log("멤버디테일 id", cookie.load("id"));
+
+    return axios.post(
+      `/members/${cookie.load("id")}`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${cookie.load("accessToken")}`,
+        },
+      }
+    );
+  },
+  timelineLike: () => {
+    return axios.post(
+      `/members/${cookie.load("id")}/timeline/like-movies/`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${cookie.load("accessToken")}`,
+        },
+      }
+    );
+  },
+  timelineRating: () => {
+    return axios.post(
+      `/members/${cookie.load("id")}/timeline/rating-movies/`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${cookie.load("accessToken")}`,
+        },
+      }
+    );
+  },
+  timelineWatched: () => {
+    return axios.post(
+      `/members/${cookie.load("id")}/timeline/watched-movies/`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${cookie.load("accessToken")}`,
+        },
+      }
+    );
+  },
+  idDoubleCheck: (id) => {
+    return axios.post(
+      "https://www.omegabox.xyz/members/signup/check-username/",
+      {
+        username: id,
+      }
+    );
   },
 };

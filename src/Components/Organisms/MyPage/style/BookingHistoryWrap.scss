@@ -1,0 +1,129 @@
+@import "../../../../commonVariable.scss";
+
+/* 예매내역 */
+.bookingHistoryWrap .bookingHistory,
+.bookingHistoryWrap .bookingCancel,
+.bookingHistoryWrap .useInfo {width: 100%;}
+.bookingHistoryWrap .bookingCondition {
+  display: flex;
+  align-items: center;
+  padding: 24px;
+  background-color: $whiteGrayBg;
+}
+.bookingHistoryWrap .bookingCondition .btnTermSorting {
+  display: flex;
+  align-items: center;
+  margin-left: 16px;
+  button {margin:0;}
+  button:nth-child(1) {border-radius: 4px 0 0 4px;}
+  button:nth-child(2), button:nth-child(3) {
+    margin-left: -1px;
+    border-radius: 0;
+  }
+  button:nth-child(4) {
+    margin-left: -1px;
+    border-radius: 0 4px 4px 0;
+  }
+}
+
+.bookingHistory li:last-child .movieItem {margin-bottom: 0;}
+.bookingHistory .movieItem {
+  align-items: flex-start;
+  margin-bottom: 24px;
+  padding: 32px 24px 32px;
+  border: 1px solid $border;
+  border-radius: 8px;
+  .poster {
+    width: 135px;
+    margin-right: 24px;
+  }
+  .info {
+    position: relative;
+    width: 615px;
+  }
+  .info li {padding: 4px 0;}
+  .info .bookingNumber,
+  .info .title,
+  .info .paymentDate {width: 100%;}
+  .info .theater,
+  .info .peopleCounter,
+  .info .viewingDate,
+  .info .viewingSeat,
+  
+  .info .viewingDate,
+  .info .point {width: 50%;}
+  .info h5 {
+    width: 80px;
+    font-size: 1.4rem;
+    font-weight: 600;
+    text-align: right;
+  }
+  .info .peopleCounter h5,
+  .viewingSeat h5 {width: 73px;}
+  .info .point h5 {width: 90px;}
+  .info p {font-size: 1.4rem;}
+  .info .bookingNumber p {
+    font-size: 1.6rem;
+    color: $colorSub;
+  }
+  .info .paymentDate,
+  .info .point {
+    padding: 8px 0;
+    background-color: $whiteGrayBg;
+  }
+  .info .paymentDate {border-radius: 8px;}
+  .info .point {border-radius: 0 8px 8px 0;}
+  .info .btnWrap {
+    position: absolute;
+    bottom: -56px;
+    justify-content: flex-end;
+    margin-top: 12px;
+  }
+}
+
+.bookingHistoryWrap .bookingCancel {
+  margin-top: 64px;
+  .cancelList td {text-align: center;}
+  .cancelList td:nth-child(1) {width: 20%;}
+  .cancelList td:nth-child(2) {
+    width: 30%;
+    text-align: left;
+  }
+  .cancelList td:nth-child(3) {width: 15%;}
+  .cancelList td:nth-child(4) {width: 23%;}
+  .cancelList td:nth-child(5) {
+    width: 12%;
+    text-align: right;
+    color: $colorRed;
+  }
+}
+
+.bookingHistoryWrap .useInfo {
+  margin-top: 64px;
+  margin-bottom: 40px;
+  button {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin: 0;
+    color: $colorPrimaryText;
+    font-weight: 500;
+  }
+  .explanation {
+    display: none;
+    padding: 24px 16px 0;
+  }
+  .explanation.open {display: block;}
+  .explanation > ul {
+    margin-top: 4px;
+    margin-bottom: 24px;
+  }
+  .explanation li ul {margin: 4px 0 8px;}
+  .explanation li li {padding-left: 16px;}
+  .explanation li li:before {
+    left: 4px;
+    width: 6px;
+    height: 1px;
+  }
+}

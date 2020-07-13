@@ -9,7 +9,7 @@ const MyMegaBox = () => {
   return (
     <div>
       <Header />
-      <main className="clearfix">
+      <main className={["myMegaBox", "clearfix"].join(" ")}>
         <Snb />
         <h2 className="a11yHidden">마이페이지</h2>
         <SubMypageRouter />
