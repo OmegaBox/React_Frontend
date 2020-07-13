@@ -4,7 +4,7 @@ import { all } from "redux-saga/effects";
 import { bookingReducer, bookingSaga } from "../Reducer/bookingReducer";
 import { movieReducer } from "../Reducer/movieReducer";
 import { userInfoReducer, userInfoSaga } from "../Reducer/userInfoReducer";
-import seatReducer from "../Reducer/bookingSeatReducer";
+import seatReducer, { seatSaga } from "../Reducer/bookingSeatReducer";
 import modalReducer from "../Reducer/modalReducer";
 
 const rootReducer = combineReducers({
@@ -16,7 +16,7 @@ const rootReducer = combineReducers({
 });
 
 function* rootSaga() {
-  yield all([bookingSaga(), userInfoSaga()]);
+  yield all([bookingSaga(), userInfoSaga(), seatSaga()]);
 }
 
 export { rootReducer, rootSaga };

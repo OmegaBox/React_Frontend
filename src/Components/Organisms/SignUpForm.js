@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-
+import logo from "../../images/omegabox_logo.jpg";
 import "./style/SignUpForm.scss";
 
 import { getToday, regExp } from "../../Utils/util";
@@ -24,6 +24,9 @@ const SignUpForm = ({ history }) => {
   const dispatch = useDispatch();
   // 회원가입 상태
   const [inputState, setInput] = useState(initSignState);
+
+  // 중복 체크 상태
+  const [checkDoubleState, doubleDispatch] = useState(null);
 
   // 경고 문구 출력 여부
   const [alertState, setAlert] = useState({
@@ -51,9 +54,6 @@ const SignUpForm = ({ history }) => {
     email: useRef(),
   };
   const btnCheckDoubleRef = useRef();
-
-  // 중복 체크
-  const [checkDoubleState, doubleDispatch] = useState(null);
 
   // 정규식 체크
   const checkRegExp = (key) => {
@@ -104,8 +104,13 @@ const SignUpForm = ({ history }) => {
   };
 
   // 아이디 중복체크
-  const checkDouble = () => {
-    doubleDispatch(true);
+  const checkDouble = async (id) => {
+    try {
+      await userApi.idDoubleCheck(id);
+      doubleDispatch(true);
+    } catch (e) {
+      doubleDispatch(false);
+    }
     setAlert({
       ...alertState,
       id: false,
@@ -165,16 +170,25 @@ const SignUpForm = ({ history }) => {
   return (
     <div className="signWrap">
       <section className="signUpSec">
+        <span className="omega_logo">
+          <img src={logo} alt="omegabox Logo" />
+        </span>
         <h2>회원가입</h2>
         <p className="textInfo">서비스를 이용하려면 가입하세요.</p>
-        <button
-          className={["btnGoogleSignUp", "btn", "white", "fill", "large"].join(
-            " "
-          )}
-        >
-          <span className="logo"></span>
-          <span>구글 회원 가입</span>
-        </button>
+        <div className="googleSignUp">
+          <button
+            className={[
+              "btnGoogleSignUp",
+              "btn",
+              "white",
+              "fill",
+              "large",
+            ].join(" ")}
+          >
+            <span className="logo"></span>
+            <span>구글 회원 가입</span>
+          </button>
+        </div>
         <div className={["nameWrap", "inputWrap"].join(" ")}>
           <label htmlFor="name">이름</label>
           <input

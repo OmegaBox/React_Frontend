@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
-
+import logo from "../../images/omegabox_logo.jpg";
 import "./style/LoginForm.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { startLogin } from "../../Reducer/userInfoReducer";
@@ -16,14 +16,17 @@ const LoginForm = () => {
   const history = useHistory();
 
   return (
-    <div className={["popupWrap"].join(" ")}>
+    <div className={["loginWrap"].join(" ")}>
       <div
-        className={["popupBox", "notice"].join(" ")}
+        className={["loginBox"].join(" ")}
         style={{
-          width: "427px",
-          height: "489px",
+          width: "480px",
+          height: "500px",
         }}
       >
+        <span className="omega_logo">
+          <img src={logo} alt="omegabox Logo" />
+        </span>
         <h2>로그인</h2>
         <button
           className={["btn", "xSmall", "closed"].join(" ")}
