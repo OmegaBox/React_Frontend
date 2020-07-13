@@ -25,6 +25,9 @@ const SignUpForm = ({ history }) => {
   // 회원가입 상태
   const [inputState, setInput] = useState(initSignState);
 
+  // 중복 체크 상태
+  const [checkDoubleState, doubleDispatch] = useState(null);
+
   // 경고 문구 출력 여부
   const [alertState, setAlert] = useState({
     name: false,
@@ -51,9 +54,6 @@ const SignUpForm = ({ history }) => {
     email: useRef(),
   };
   const btnCheckDoubleRef = useRef();
-
-  // 중복 체크
-  const [checkDoubleState, doubleDispatch] = useState(null);
 
   // 정규식 체크
   const checkRegExp = (key) => {
@@ -104,8 +104,13 @@ const SignUpForm = ({ history }) => {
   };
 
   // 아이디 중복체크
-  const checkDouble = () => {
-    doubleDispatch(true);
+  const checkDouble = async (id) => {
+    try {
+      await userApi.idDoubleCheck(id);
+      doubleDispatch(true);
+    } catch (e) {
+      doubleDispatch(false);
+    }
     setAlert({
       ...alertState,
       id: false,

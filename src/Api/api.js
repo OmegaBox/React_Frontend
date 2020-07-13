@@ -159,6 +159,7 @@ export const movieApi = {
     return axios.get(call);
   },
   getReservedSeats: (scheduleId) => {
+    console.log("예약된 좌석 요청중...");
     return axios.get(`/schedules/${scheduleId}/reserved-seats/`);
   },
   getTotalPrice: (scheduleId, personalCount) => {
@@ -233,5 +234,13 @@ export const userApi = {
   },
   logout: () => {
     return axios.post("/members/logout/");
+  },
+  idDoubleCheck: (id) => {
+    return axios.post(
+      "https://www.omegabox.xyz/members/signup/check-username/",
+      {
+        username: id,
+      }
+    );
   },
 };
