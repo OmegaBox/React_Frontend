@@ -6,6 +6,8 @@ import { openModal } from "./modalReducer";
 const RESET = "seat/RESET";
 const CHANGE_COUNT = "seat/CHANGE_COUNT";
 const SET_SELECTSEAT = "seat/SET_SELECTSEAT";
+const START_LOADING = "seat/START_LOADING";
+const END_LOADING = "seat/END_LOADING";
 
 // saga 진입용
 const SET_SELECT_SEAT_SAGA = "seat/SET_SELECT_SEAT_SAGA";
@@ -32,6 +34,12 @@ export const setSelectSeat = (seat) => ({
   type: SET_SELECTSEAT,
   selected: seat,
 });
+export const startLoading = () => ({
+  type: START_LOADING,
+});
+export const endLoading = () => ({
+  type: END_LOADING,
+});
 export const selectSeatSaga = (seat) => ({
   type: SET_SELECT_SEAT_SAGA,
   seat,
@@ -44,12 +52,14 @@ export const resetThunk = (url) => (dispatch) => {
 
 function* setSelectSeatSaga(action) {
   const state = yield select();
+
   if (state.Seat.selectedSeat.indexOf(action.seat) > -1)
     yield put(setSelectSeat(action.seat));
   else {
     try {
       // 로딩 처리
       console.log("로딩");
+      yield put(startLoading());
       // 예약된 좌석 정보 불려오기
       const getReservation = yield call(
         movieApi.getReservedSeats,
@@ -57,6 +67,7 @@ function* setSelectSeatSaga(action) {
       );
       // 로딩 끝
       console.log(getReservation, "로딩끝");
+      yield put(endLoading());
       // 예약된 좌석이면 팝업 오픈
       if (
         getReservation.data
@@ -100,6 +111,16 @@ const seatReducer = (state = initSeatState, action) => {
                   a[0].charCodeAt() - b[0].charCodeAt() ||
                   +a.slice(1) - +b.slice(1)
               ),
+      };
+    case START_LOADING:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case END_LOADING:
+      return {
+        ...state,
+        isLoading: false,
       };
     default:
       return state;
