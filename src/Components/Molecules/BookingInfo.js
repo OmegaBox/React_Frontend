@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { movieApi } from "../../Api/api";
 import { numWithComma } from "../../Utils/ultil";
 
-import { setDefaultTicketInfo } from "../../Reducer/bookingReducer";
+import { setReservation } from "../../Reducer/bookingReducer";
 
 import "./style/BookingInfo.scss";
 
@@ -130,29 +130,41 @@ const BookingInfo = ({ props, goBack, goNext }) => {
   };
 
   // 다음 이동 이벤트
-  const goPayment = async () => {
-    try {
-      const SeatIds = await movieApi.getSeatId(scheduleId, selectedSeat);
-      const reservationInfos = await movieApi.makeReservation(
-        scheduleId,
-        SeatIds.data.map((v) => v.seat_id).reverse(),
-        seatPersonalType
-      );
+  // const goPayment = async () => {
+  //   try {
+  //     const SeatIds = await movieApi.getSeatId(scheduleId, selectedSeat);
+  //     const reservationInfos = await movieApi.makeReservation(
+  //       scheduleId,
+  //       SeatIds.data.map((v) => v.seat_id).reverse(),
+  //       seatPersonalType
+  //     );
 
-      dispatch(
-        setDefaultTicketInfo({
-          seats: SeatIds.data,
-          ticketType: seatPersonalType,
-          price: totalPrice,
-          reservationInfos: reservationInfos.data.map(
-            (data) => data.reservation
-          ),
-        })
-      );
-      goNext();
-    } catch (e) {
-      console.error(e.response);
-    }
+  //     dispatch(
+  //       setDefaultTicketInfo({
+  //         seats: SeatIds.data,
+  //         ticketType: seatPersonalType,
+  //         price: totalPrice,
+  //         reservationInfos: reservationInfos.data.map(
+  //           (data) => data.reservation
+  //         ),
+  //       })
+  //     );
+  //     goNext();
+  //   } catch (e) {
+  //     console.error(e.response);
+  //   }
+  // };
+
+  const goPayment = () => {
+    dispatch(
+      setReservation(
+        scheduleId,
+        selectedSeat,
+        seatPersonalType,
+        totalPrice,
+        goNext
+      )
+    );
   };
 
   useEffect(() => {
