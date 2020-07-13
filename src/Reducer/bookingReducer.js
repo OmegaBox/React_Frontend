@@ -187,6 +187,34 @@ const getSchedules = () => async (dispatch, state) => {
   }
 };
 
+const setReservation = (
+  scheduleId,
+  selectedSeat,
+  seatPersonalType,
+  totalPrice,
+  nextFunc
+) => async (dispatch) => {
+  try {
+    const SeatIds = await movieApi.getSeatId(scheduleId, selectedSeat);
+    const reservationInfos = await movieApi.makeReservation(
+      scheduleId,
+      SeatIds.data.map((v) => v.seat_id).reverse(),
+      seatPersonalType
+    );
+    dispatch(
+      setDefaultTicketInfo({
+        seats: SeatIds.data,
+        ticketType: seatPersonalType,
+        price: totalPrice,
+        reservationInfos: reservationInfos.data.map((data) => data.reservation),
+      })
+    );
+    nextFunc();
+  } catch (e) {
+    console.error(e.response);
+  }
+};
+
 // 사가로 바꿔야함 날짜 or 날짜 & 타이틀로 상영 가능한 지역과 영화관 정보 가져오는 Thunk
 const getTheatersCanBooking = (movies = []) => async (dispatch, state) => {
   dispatch({ type: GET_THEATERS_CAN_BOOKING });
@@ -419,12 +447,18 @@ const initialState = {
     selectedMovieTitle: "결백",
     movieAgeGrade: "15+",
     screenHall: "1관",
+    screenType: "",
     seletedTime: "23:21",
     endTime: "01:11",
     seats: [{ seat_name: "B12", seat_id: 28 }],
     ticketType: {
       adult: 0,
-      teen: 1,
+      teen: 0,
+      preferential: 0,
+    },
+    priceList: {
+      adult: 0,
+      teen: 0,
       preferential: 0,
     },
     price: 8250,
@@ -597,5 +631,6 @@ export {
   getSchedules,
   getTheatersCanBooking,
   getPossibleMovies,
+  setReservation,
   selectDate,
 };

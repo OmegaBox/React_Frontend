@@ -3,11 +3,12 @@ import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 
 import "./style/BookingPayment.scss";
-import { billing } from "../../../Api/api";
+import { clientBilling } from "../../../Api/api";
 
 const BookingPayment = () => {
   const history = useHistory();
   const ticketState = useSelector((state) => state.Booking.ticket);
+  console.log(ticketState);
 
   let iconClassName = "icon";
   switch (ticketState.movieAgeGrade) {
@@ -142,7 +143,7 @@ const BookingPayment = () => {
             type="button"
             className={["btn", "fill", "sub", "regular"].join(" ")}
             onClick={() =>
-              billing({
+              clientBilling({
                 title: ticketState.selectedMovieTitle,
                 price: ticketState.price,
               })
