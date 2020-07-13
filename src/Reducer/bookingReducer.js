@@ -37,7 +37,7 @@ const GET_SCHEDULES_SUCCESS = "booking/GET_SCHEDULES_SUCCESS";
 const GET_SCHEDULES_ERROR = "booking/GET_SCHEDULES_ERROR";
 
 // 예매 가능한 영화목록 가져오기
-const GET_POSSIBLE_MOVIES = "booking/GET_POSSIBLE_MOVIES_LOADING";
+const GET_POSSIBLE_MOVIES = "booking/GET_POSSIBLE_MOVIES";
 const GET_POSSIBLE_MOVIES_SUCCESS = "booking/GET_POSSIBLE_MOVIES_SUCCESS";
 const GET_POSSIBLE_MOVIES_ERROR = "booking/GET_POSSIBLE_MOVIES_ERROR";
 
@@ -184,6 +184,34 @@ const getSchedules = () => async (dispatch, state) => {
     );
   } catch (e) {
     console.log("에러발생", e);
+  }
+};
+
+const setReservation = (
+  scheduleId,
+  selectedSeat,
+  seatPersonalType,
+  totalPrice,
+  nextFunc
+) => async (dispatch) => {
+  try {
+    const SeatIds = await movieApi.getSeatId(scheduleId, selectedSeat);
+    const reservationInfos = await movieApi.makeReservation(
+      scheduleId,
+      SeatIds.data.map((v) => v.seat_id).reverse(),
+      seatPersonalType
+    );
+    dispatch(
+      setDefaultTicketInfo({
+        seats: SeatIds.data,
+        ticketType: seatPersonalType,
+        price: totalPrice,
+        reservationInfos: reservationInfos.data.map((data) => data.reservation),
+      })
+    );
+    nextFunc();
+  } catch (e) {
+    console.error(e.response);
   }
 };
 
@@ -405,8 +433,8 @@ const initialState = {
     selectedTheaters: [], // 선택한 영화관들
     nearbyTheaters: [], // 가까운 영화관
     selectedMovies: [],
-    movieAgeGrade: "All",
-    screenHall: "2관",
+    movieAgeGrade: "",
+    screenHall: "",
     selectedHour: "0",
     selectedTime: "0",
     endTime: "",
@@ -414,20 +442,26 @@ const initialState = {
   },
   ticket: {
     reservationInfos: [],
-    selectedDate: "2020-07-10",
-    selectedTheather: "강남",
-    selectedMovieTitle: "살아있다",
-    movieAgeGrade: "All",
-    screenHall: "2관",
-    seletedTime: "19:40",
-    endTime: "",
-    seats: [],
+    selectedDate: "2020-07-01",
+    selectedTheather: "강남대로(씨티)",
+    selectedMovieTitle: "결백",
+    movieAgeGrade: "15+",
+    screenHall: "1관",
+    screenType: "",
+    seletedTime: "23:21",
+    endTime: "01:11",
+    seats: [{ seat_name: "B12", seat_id: 28 }],
     ticketType: {
       adult: 0,
       teen: 0,
       preferential: 0,
     },
-    price: 0,
+    priceList: {
+      adult: 0,
+      teen: 0,
+      preferential: 0,
+    },
+    price: 8250,
   },
 };
 
@@ -597,5 +631,6 @@ export {
   getSchedules,
   getTheatersCanBooking,
   getPossibleMovies,
+  setReservation,
   selectDate,
 };
