@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { movieApi } from "../../Api/api";
-import { numWithComma } from "../../Utils/ultil";
+import { numWithComma } from "../../Utils/util";
 
 import { setReservation } from "../../Reducer/bookingReducer";
 

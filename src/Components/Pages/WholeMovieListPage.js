@@ -1,16 +1,16 @@
 import React, { useEffect } from "react";
 import WholeMovieList from "../Templates/WholeMovieList";
-import "./mypage.scss";
+import "./style/mypage.scss";
 import { useDispatch } from "react-redux";
 import { getMovies } from "../../Reducer/movieReducer";
 
 const WholeMovieListPage = () => {
   const dispatch = useDispatch();
   useEffect(() => {
-    window.scrollTo(0, 0)
+    window.scrollTo(0, 0);
     dispatch(getMovies());
-  }, [dispatch])
-  return <WholeMovieList />
+  }, [dispatch]);
+  return <WholeMovieList />;
 };
 
 export default WholeMovieListPage;
