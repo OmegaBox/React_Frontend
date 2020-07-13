@@ -8,16 +8,13 @@ const RaderChartKeyPoint = () => {
   const options = {
     legend: {
       display: false,
-
     },
     scales: {
-      angleLines: {
-        display: false,
-      },
-      ticks: {
-        suggestedMin: 30,
-        suggestedMax: 150
-      }
+      display: false,
+    },
+    ticks: {
+      suggestedMin: 30,
+      suggestedMax: 150,
     },
     maintainAspectRatio: false
   };

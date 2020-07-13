@@ -87,7 +87,6 @@ const getAgeBooking = (id) => async (dispatch) => {
   try {
     const res = await movieApi.getAgeBooking(id);
     if (res.status === 200) {
-      console.log(res.data);
       dispatch(setSuccessBookingAgeRating(id, res.data));
     } else {
       dispatch({

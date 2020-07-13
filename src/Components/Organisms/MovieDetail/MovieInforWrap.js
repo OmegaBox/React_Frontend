@@ -7,7 +7,7 @@ import RaderChartKeyPoint from "../../Molecules/RaderChartKeyPoint";
 
 const MovieInforWrap = () => {
   const movie = useSelector((state) => state.Movie.detail);
-  // console.log(movie.actors !== undefined && movie.actors.splice(5))
+  console.log(typeof movie);
 
   return (
     <div className="movieDetailInforLayout">
@@ -47,7 +47,7 @@ const MovieInforWrap = () => {
         <li className="director">
           <h3 className="title">감독</h3>
           {movie.directors !== undefined && movie.directors.map((director, i) => {
-            return <span key={director}>{director.name}</span>
+            return <span key={`movie.$${director}`}>{director}</span>
           })
           }
         </li>
@@ -55,7 +55,7 @@ const MovieInforWrap = () => {
           <h3 className="title">장르</h3>
           <span >
             {movie.genres !== undefined && movie.genres.map((genre, i) => {
-              return <span key={genre} className="movieGenre">{genre.name}</span>
+              return <span key={`movie.${genre}`} className="movieGenre">{genre}</span>
             })
             }
           </span>/
@@ -72,7 +72,7 @@ const MovieInforWrap = () => {
         <li className="cast">
           <h3 className="title">출연진</h3>
           {movie.actors !== undefined && movie.actors.map((actor, i) => {
-            return <span key={movie.actor}>{actor.name},</span>
+            return <span key={`movie.${actor}`}>{actor},</span>
           })}
         </li>
       </ul>
