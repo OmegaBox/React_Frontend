@@ -1,4 +1,5 @@
 import React from "react";
+import "./style/EditOption.scss";
 
 const EditOption = () => {
   return (

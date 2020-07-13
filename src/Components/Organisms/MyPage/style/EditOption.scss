@@ -1,0 +1,16 @@
+@import "../../../../commonVariable.scss";
+
+.editOption li, .genre {
+  display: flex;
+  align-items: center;
+  span {
+    display: inline-block;
+    width: 60px;
+  }
+  select {width: 160px;}
+}
+.editOption .preferredTime {
+  display: flex;
+  flex-wrap: wrap;
+  li {width: 30%;}
+}

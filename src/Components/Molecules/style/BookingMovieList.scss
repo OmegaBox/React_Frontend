@@ -27,6 +27,15 @@
   margin-top: 10px;
   border: solid 1px $colorGrayEa;
 
+  .disable {
+    button {
+      cursor: default;
+      span {
+        color: $colorGrayEa;
+      }
+    }
+  }
+
   button {
     display: flex;
     align-items: center;
@@ -82,4 +91,9 @@
       font-size: 1.5rem;
     }
   }
+}
+
+.emptySeletedList {
+  width: 100%;
+  border: 1px solid $colorGrayEa;
 }

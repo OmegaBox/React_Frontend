@@ -1,7 +1,7 @@
-import { select, put, takeLatest } from "redux-saga/effects";
-import { userApi } from "../Api/api";
-
+import { put, call, takeLatest, take } from "redux-saga/effects";
+import { userApi, isLogin } from "../Api/api";
 import cookie from "react-cookies";
+import { removeCookies } from "../Utils/ultil";
 
 const SUCCESS = "userInfo/SUCCESS";
 const ERROR = "userInfo/ERROR";
@@ -10,51 +10,68 @@ const LOADING = "userInfo/LOADING";
 const LOGIN = "userInfo/LOGIN";
 const LOGIN_LOADING = "userInfo/LOGIN_LOADING";
 const LOGIN_SUCCESS = "userInfo/LOGIN_SUCCESS";
+const LOGIN_ERROR = "userInfo/LOGIN_ERROR";
+const ALREADY_LOGIN = "userInfo/ALREADY_LOGIN";
+
+const LOGOUT_SUCCESS = "userInfo/LOGOUT";
+
+export const GET_MEMBER_DETAIL = "userInfo/GET_MEMBER_DETAIL"; // 사가진입용 액션
+
+const GET_MEMBER_DETAIL_LOADING = "userInfo/GET_MEMBER_DETAIL_LOADING";
+const GET_MEMBER_DETAIL_SUCCESS = "userInfo/GET_MEMBER_DETAIL_SUCCESS";
+const GET_MEMBER_DETAIL_ERROR = "userInfo/GET_MEMBER_DETAIL_ERROR";
+
+const checkLogin = () => async (dispatch) => {
+  const res = await isLogin();
+  console.log("로그인여부 확인", res);
+
+  if (res) dispatch({ type: ALREADY_LOGIN });
+  else dispatch({ type: LOGOUT_SUCCESS });
+};
+
+const startLogout = () => async (dispatch) => {
+  await userApi.logout();
+  removeCookies();
+  console.log("로그아웃");
+
+  dispatch({ type: LOGOUT_SUCCESS });
+};
 
 // 사가 진입용 액션
-const startLogin = (user, history) => ({ type: LOGIN, user, history });
+const startLogin = (user, history, setError) => ({
+  type: LOGIN,
+  user,
+  history,
+  setError,
+});
 
 function* loginSaga(action) {
   yield put({ type: LOGIN_LOADING });
 
   try {
-    const res = yield userApi.login(action.user);
+    const res = yield call(userApi.login, action.user);
     console.log(res);
 
     if (res.status === 200) {
-      // console.log(cookie.load("accessToken"));
-      if (cookie.load("accessToken")) {
-        console.log("진입함 엑세스");
-
-        cookie.remove("accessToken", {
-          path: "/",
-          httpOnly: true,
-        });
-      }
-      if (cookie.load("refreshToken")) {
-        console.log("진입함 리프레시");
-
-        cookie.remove("refreshToken", {
-          path: "/",
-          httpOnly: true,
-        });
-      }
+      removeCookies();
 
       cookie.save("accessToken", res.data.access, {
         path: "/",
-        httpOnly: true,
-      });
-      cookie.save("refreshToken", res.data.refresh, {
-        path: "/",
-        httpOnly: true,
+        maxAge: 3600,
       });
 
-      console.log(res.data.access);
-      console.log(res.data.refresh);
+      cookie.save("refreshToken", res.data.refresh, {
+        path: "/",
+        maxAge: 86400,
+      });
+      cookie.save("id", res.data.id, {
+        path: "/",
+        maxAge: 86400,
+      });
 
       yield put({
         type: LOGIN_SUCCESS,
-        id: res.data.username,
+        userName: res.data.username,
         name: res.data.name,
         email: res.data.email,
         mobile: res.data.mobile,
@@ -62,28 +79,68 @@ function* loginSaga(action) {
       });
       action.history.push("/");
     } else {
-      console.log("통신은 성공했으나 에러발생", res);
+      yield put({
+        type: LOGIN_ERROR,
+        errorMessage: "서버와의 연결이 원활하지 않습니다",
+      });
     }
   } catch (e) {
-    console.log(e.response);
+    yield put({
+      type: LOGIN_ERROR,
+      errorMessage: "아이디/비밀번호를 확인 해주세요",
+    });
+  }
+}
+
+function* memberDetail(action) {
+  yield put({ type: GET_MEMBER_DETAIL_LOADING });
+
+  try {
+    const res = yield call(userApi.memberDetail, { id: action.id });
+    console.log("memberDetail", res);
+    if (res.status === 200 || res.status === 201) {
+      yield put({ type: GET_MEMBER_DETAIL_SUCCESS, payload: res.data });
+    } else {
+      yield put({
+        // api 연결엔 성공했으니 뭔가 이상한게 넘어옴.
+        type: GET_MEMBER_DETAIL_ERROR, // 필수
+        errorMessage: "실패하다!",
+      });
+    }
+  } catch (e) {
+    console.log("멤버디테일 에러", e.response);
+
+    yield put({
+      // api 연결에 문제가 있을때 이쪽으로 넘어옴.
+      type: GET_MEMBER_DETAIL_ERROR, // 필수
+      errorMessage: "실패하다!",
+    });
   }
 }
 
 function* userInfoSaga() {
   yield takeLatest(LOGIN, loginSaga);
+
+  yield takeLatest(GET_MEMBER_DETAIL, memberDetail);
 }
 
 const initialState = {
   isLogin: false,
-  id: "omegaman",
+  userName: "omegaman",
   name: "홍길동",
   email: "xxxxx@naver.com",
-  point: 18000,
   mobile: "+821011111111",
   birthDate: "2020-07-08",
-  loading: false,
-  error: false,
+  login: {
+    loading: false,
+    error: false,
+    errorMessgae: "",
+  },
   errorMessage: "",
+  profile: {
+    tier: "basic",
+    point: 500,
+  },
   bookingHistory: [
     {
       id: 0,
@@ -221,15 +278,80 @@ const initialState = {
 
 const userInfoReducer = (state = initialState, action) => {
   switch (action.type) {
+    case LOGIN_LOADING:
+      return {
+        ...state,
+        login: {
+          ...state.login,
+          loading: true,
+        },
+      };
     case LOGIN_SUCCESS:
       return {
         ...state,
-        id: action.id,
+        isLogin: true,
+        userName: action.userName,
         name: action.name,
         email: action.email,
         mobile: action.mobile,
         birthDate: action.birthDate,
+        login: {
+          ...state.login,
+          loading: false,
+        },
       };
+
+    case LOGIN_ERROR:
+      return {
+        ...state,
+        login: {
+          ...state.login,
+          loading: false,
+          error: true,
+          errorMessage: action.errorMessage,
+        },
+      };
+    case LOGOUT_SUCCESS:
+      return {
+        ...state,
+        isLogin: false,
+      };
+
+    case ALREADY_LOGIN:
+      return {
+        ...state,
+        isLogin: true,
+      };
+    case GET_MEMBER_DETAIL_ERROR:
+      return {
+        ...state,
+        isLogin: false,
+        login: {
+          ...state.login,
+          loading: false,
+          error: true,
+          errorMessage: action.errorMessage,
+        },
+      };
+    case GET_MEMBER_DETAIL_LOADING:
+      return {
+        ...state,
+        login: {
+          ...state.login,
+          loading: true,
+        },
+      };
+    // case GET_MEMBER_DETAIL:
+    //   return {
+    //     ...state,
+    //     name: action.name,
+    //     profile: {
+    //       ...state.profile,
+    //       id: action.profile.id,
+    //       tier: action.profile.tier,
+    //       point: action.profile.point,
+    //     },
+    //   };
     case ERROR:
     case LOADING:
     default:
@@ -237,4 +359,11 @@ const userInfoReducer = (state = initialState, action) => {
   }
 };
 
-export { userInfoReducer, userInfoSaga, startLogin };
+export {
+  userInfoReducer,
+  userInfoSaga,
+  checkLogin,
+  startLogin,
+  startLogout,
+  memberDetail,
+};

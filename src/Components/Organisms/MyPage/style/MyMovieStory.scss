@@ -1,0 +1,243 @@
+@import "../../../../commonVariable.scss";
+
+/* 나의 무비스토리 */
+.myMovieStoryWrap .myMovieStoryTab {
+  display: flex;
+  & li {
+    width: 25%;
+    margin-left: -1px;
+  }
+  & li a {
+    width: 100%;
+    padding: 10px 8px 6px;
+    font-weight: 500;
+    text-align: center;
+    border: 1px solid $border;
+  }
+  & li:nth-child(1) {margin-left: 0;}
+  & li.active {
+    background-color: $darkBg;
+    color: $colorWhite;
+    border: none;
+  }
+}
+
+
+/* 무비타임라인 */
+.timeLine .yearCarouselWrap {
+  display: flex;
+  width: 100%;
+  margin: 32px 0;
+  button {
+    min-width: initial;
+    margin: 0;
+    padding: 0;
+    border-radius: 0;
+  }
+  button.btnPrev,
+  button.btnNext {
+    width: 31px;
+    height: 50px;
+    border: 1px solid $border;
+  }
+  button.btnPrev {
+    margin-right: -1px;
+    background: url("https://img.megabox.co.kr/static/pc/images/mypage/btn-timeline-prev.png")
+      no-repeat center;
+  }
+  button.btnNext {
+    margin-left: -1px;
+    background: url("https://img.megabox.co.kr/static/pc/images/mypage/btn-timeline-next.png")
+      no-repeat center;
+  }
+}
+.timeLine .dateDivision {
+  border-top: 1px solid $colorSub;
+  .date {
+    width: 120px;
+    margin: -16px auto 0;
+    padding: 6px 0 2px;
+    text-align: center;
+    border-radius: 16px;
+    background-color: $colorSub;
+    color: $colorWhite;
+  }
+}
+.myMovieStoryWrap .timeLine .movieItem {padding: 8px 8px 16px;}
+
+.myMovieStoryWrap .timeLine .movieItem,
+.myMovieStoryWrap .comment .movieItem {
+  .poster {
+    width: 90px;
+    margin-right: 24px;
+  }
+  .info li {
+    width: 100%;
+    padding-top: 2px;
+    padding-left: 8px;
+  }
+  .info .tag {
+    margin-bottom: 8px;
+    padding-left: 0;
+  }
+  .info .tag p {
+    padding: 3px 16px 0;
+    border: 1px solid $darkBorder;
+    border-radius: 16px;
+  }
+  .info .title p {
+    font-size: 1.8rem;
+    font-weight: 700;
+  }
+  .info .evalPoint p {
+    margin-right: 8px;
+    font-size: 2.4rem;
+    font-weight: 500;
+    color: $colorSub;
+  }
+  .info .evalPoint .hashTag {
+    display: inline-block;
+    padding: 6px 4px 0;
+  }
+  .info h5::after {
+    content: ":";
+    display: inline-block;
+    margin-left: 8px;
+  }
+  .info .writeDate {
+    width: 50%;
+    padding-top: 8px;
+  }
+  .info .writeDate p {
+    display: flex;
+    align-content: center;
+    span {margin-right: 4px;}
+  }
+  .info .btnWrap {
+    float: right;
+    width: initial;
+    text-align: right;
+    button {
+      min-width: initial;
+      height: 24px;
+      margin-top: 6px;
+      padding: 0 8px;
+    }
+  }
+}
+section.comment, section.watched, section.likeMovie {margin-top: 40px;}
+.comment .movieList {border-top: 1px solid $darkBorder;}
+.comment .movieItem {
+  align-items: flex-start;
+  padding: 28px 8px 20px;
+  border-bottom: 1px solid $border;
+}
+
+.watched .movieList li {float: left;}
+.watched .watchedMovie {
+  width: 49%;
+  margin: 0 0.5%;
+}
+.watched .movieItem {
+  position: relative;
+  flex-wrap: nowrap;
+  padding: 20px 24px 60px;
+  border: 1px solid $border;
+  border-radius: 8px;
+  .poster {
+    width: 90px;
+    margin-right: 24px;
+  }
+  .info {
+    flex-grow: 1;
+    li {
+      width: 100%;
+      margin-right: 0;
+      padding: 3px 0;
+    }
+    .title p {font-size: 1.8rem;}
+  }
+  .btnWrap {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    width: 100%;
+    margin: 0 0 -1px 0;
+    padding: 0;
+    button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 50%;
+      height: 40px;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+      border-color: $border;
+    }
+    button:nth-child(1) {
+      border-width: 1px 0 0 0;
+      border-radius: 0 0 0 8px;
+    }
+    button:nth-child(2) {
+      border-width: 1px 0 0 1px;
+      border-radius: 0 0 8px 0;
+    }
+    button .icon {margin-right: 8px;}
+  }
+}
+
+.likeMovie .movieList li {float: left;}
+.likeMovie .wantMovie {
+  width: 24%;
+  margin: 0 0.5%;
+}
+.likeMovie .movieItem {
+  flex-wrap: wrap;
+  padding: 8px 4px 16px;
+  .info {margin: 0;}
+  .poster,
+  .info {width: 100%;}
+  .info .title p {
+    display: flex;
+    align-content: center;
+    margin-top: 8px;
+    padding-top: 4px;
+    font-size: 2rem;
+  }
+  .btnWrap {
+    display: flex;
+    margin-top: 8px;
+    padding: 0;
+    button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 49%;
+      flex-grow: 1;
+    }
+    button:nth-child(1) {
+      margin-left: 0;
+      .icon {margin-right: 8px;}
+    }
+    button:nth-child(2) {margin-right: 0;}
+  }
+}
+
+/* 본영화 */
+.myMovieStoryWrap .watched {
+  .notice {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .bullet li {
+    padding-left: 16px;
+    &::before {
+      top: 10px;
+      left: 4px;
+    }
+  }
+}

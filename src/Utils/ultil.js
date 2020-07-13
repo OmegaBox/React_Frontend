@@ -1,3 +1,5 @@
+import cookie from "react-cookies";
+
 const getToday = () => new Date().toISOString().slice(0, 10);
 const getCurrentHour = () => new Date().getHours();
 
@@ -90,4 +92,22 @@ export {
   transformDateFormat,
   numWithComma,
   regExp,
+};
+
+export const removeCookies = () => {
+  if (cookie.load("accessToken")) {
+    cookie.remove("accessToken", {
+      path: "/",
+    });
+  }
+  if (cookie.load("refreshToken")) {
+    cookie.remove("refreshToken", {
+      path: "/",
+    });
+  }
+  if (cookie.load("id")) {
+    cookie.remove("id", {
+      path: "/",
+    });
+  }
 };

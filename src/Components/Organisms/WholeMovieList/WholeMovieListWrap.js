@@ -55,7 +55,7 @@ const WholeMovieListWrap = () => {
           }
           return (
             <li className="wholeMovie" key={i}>
-              <Link to={"movieDetail/" + movie.id}>
+              <Link to={"detail/" + movie.id}>
                 <p className="mainRank">{movie.rank}</p>
                 <img
                   className="wholeMoviePoster"
@@ -96,14 +96,15 @@ const WholeMovieListWrap = () => {
                   <span className="icon favorite"></span>
                   <span className="wholeFavoriteScore">{movie.acc_favorite}</span>
                 </button>
-                <Link to="/booking"><button onClick={() =>
-                  dispatch(
-                    selectMovie({
-                      title: movie.name_kor,
-                      poster: movie.poster,
-                      id: movie.id,
-                    })
-                  )}
+                <Link to="/booking"><button
+                  onClick={() =>
+                    dispatch(
+                      selectMovie({
+                        title: movie.name_kor,
+                        poster: movie.poster,
+                        id: movie.id,
+                      })
+                    )}
                   className={[
                     "wholeBookingBtn",
                     "btn",

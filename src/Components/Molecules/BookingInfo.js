@@ -1,7 +1,10 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
+import { movieApi } from "../../Api/api";
 import { numWithComma } from "../../Utils/ultil";
+
+import { setReservation } from "../../Reducer/bookingReducer";
 
 import "./style/BookingInfo.scss";
 
@@ -50,8 +53,10 @@ const date = (dateValue) => {
   return `${dateValue.split("-").join(".")}(${dateString})`;
 };
 
-const BookingInfo = ({ props, goBack }) => {
+const BookingInfo = ({ props, goBack, goNext }) => {
+  const dispatch = useDispatch();
   const {
+    scheduleId,
     selectedMovieTitle,
     screenType,
     movieAgeGrade,
@@ -63,14 +68,13 @@ const BookingInfo = ({ props, goBack }) => {
     poster,
   } = props;
 
-  const [selectedSeat, personal, price] = useSelector((state) => [
-    state.Seat.selectedSeat,
-    state.Seat.personal,
-    state.Seat.price,
-  ]);
-
   let totalPrice = 0;
 
+  const [selectedSeat, personal] = useSelector((state) => [
+    state.Seat.selectedSeat,
+    state.Seat.personal,
+  ]);
+  // 좌석 선택 별 카운터
   const seatPersonalType = {
     adult: 0,
     teen: 0,
@@ -78,6 +82,18 @@ const BookingInfo = ({ props, goBack }) => {
   };
   // 각 인원별 수
   const personalTypeCounts = Object.values(personal);
+  // 영화 타입별 기본 금액
+  const basePrice = (() => {
+    switch (screenType) {
+      case "2D":
+      case "2Ds":
+        return 11000;
+      case "3D":
+        return 13000;
+      default:
+        return 0;
+    }
+  })();
   // 좌석 뷰 박스
   const seatBox = new Array(8).fill("-");
 
@@ -86,13 +102,13 @@ const BookingInfo = ({ props, goBack }) => {
 
     if (seatPersonalType.adult < personalTypeCounts[0]) {
       seatPersonalType.adult += 1;
-      totalPrice += price.adult;
+      totalPrice += basePrice;
     } else if (seatPersonalType.teen < personalTypeCounts[1]) {
       seatPersonalType.teen += 1;
-      totalPrice += price.teen;
+      totalPrice += basePrice * 0.75;
     } else if (seatPersonalType.preferential < personalTypeCounts[2]) {
       seatPersonalType.preferential += 1;
-      totalPrice += price.preferential;
+      totalPrice += basePrice * 0.75;
     } else console.error("잘못된 값입니다.");
   });
 
@@ -100,6 +116,60 @@ const BookingInfo = ({ props, goBack }) => {
 
   // 인원 총 원
   const totalCount = personalTypeCounts.reduce((p, n) => p + n, 0);
+
+  // 총 금액
+  const getTotalPrice = async () => {
+    try {
+      const res = await movieApi.getTotalPrice(scheduleId, seatPersonalType);
+      if (totalPrice !== res.data.total_price)
+        totalPriceString = res.data.total_price;
+    } catch (e) {
+      console.error(`error : ${e.state}`);
+      console.error(`${e.response}`);
+    }
+  };
+
+  // 다음 이동 이벤트
+  // const goPayment = async () => {
+  //   try {
+  //     const SeatIds = await movieApi.getSeatId(scheduleId, selectedSeat);
+  //     const reservationInfos = await movieApi.makeReservation(
+  //       scheduleId,
+  //       SeatIds.data.map((v) => v.seat_id).reverse(),
+  //       seatPersonalType
+  //     );
+
+  //     dispatch(
+  //       setDefaultTicketInfo({
+  //         seats: SeatIds.data,
+  //         ticketType: seatPersonalType,
+  //         price: totalPrice,
+  //         reservationInfos: reservationInfos.data.map(
+  //           (data) => data.reservation
+  //         ),
+  //       })
+  //     );
+  //     goNext();
+  //   } catch (e) {
+  //     console.error(e.response);
+  //   }
+  // };
+
+  const goPayment = () => {
+    dispatch(
+      setReservation(
+        scheduleId,
+        selectedSeat,
+        seatPersonalType,
+        totalPrice,
+        goNext
+      )
+    );
+  };
+
+  useEffect(() => {
+    getTotalPrice();
+  }, [totalPriceString]);
 
   return (
     <section className="bookingInfo">
@@ -172,7 +242,8 @@ const BookingInfo = ({ props, goBack }) => {
         </button>
         <button
           className="btn regular next"
-          disabled={totalCount !== 0 && totalCount === selectedSeat.length}
+          onClick={goPayment}
+          disabled={totalCount === 0 || totalCount !== selectedSeat.length}
         >
           다음
         </button>

@@ -12,7 +12,10 @@ const BookingMovieList = () => {
   );
   const unSelectedMovies = new Array(3 - selectedMovies.length).fill(0);
 
-  const movies = useSelector((state) => state.Booking.movies); // 호영이가 상태 만들면 교체해야 함
+  const movies = useSelector((state) => state.Booking.movies.allMovies); // 호영이가 상태 만들면 교체해야 함
+  const canSelectMovies = useSelector(
+    (state) => state.Booking.movies.canSelectMovies
+  );
 
   return (
     <div className="bookingMovieList">
@@ -40,11 +43,24 @@ const BookingMovieList = () => {
           selectedClassName += selectedMovies.find(
             (selectedMovie) => selectedMovie.title === movie.name_kor
           )
-            ? "selectedInfoDarker"
+            ? "selectedInfoDarker "
             : "";
 
+          let disableClassName =
+            canSelectMovies.find(
+              (canSelectedMovie) => canSelectedMovie.name_kor === movie.name_kor
+            ) ||
+            canSelectMovies.find(
+              (canSelectedMovie) => canSelectedMovie.movie === movie.name_kor
+            )
+              ? ""
+              : "disable";
+
           return (
-            <li key={`movieList${movie.id}`} className={selectedClassName}>
+            <li
+              key={`movieList${movie.id}`}
+              className={selectedClassName + disableClassName}
+            >
               <button
                 type="button"
                 onClick={() =>
@@ -56,6 +72,7 @@ const BookingMovieList = () => {
                     })
                   )
                 }
+                disabled={!!disableClassName}
               >
                 <span className={iconClassName} />
                 <span>{movie.name_kor}</span>

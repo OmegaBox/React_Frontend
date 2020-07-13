@@ -1,15 +1,16 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from "react";
 import MovieDetail from "../Templates/MovieDetail";
 import { useDispatch } from "react-redux";
 import { getMovie } from "../../Reducer/movieReducer";
 
-const MovieDetailPage = () => {
+const MovieDetailPage = ({ match }) => {
   const dispatch = useDispatch();
   useEffect(() => {
-    window.scrollTo(0, 0)
-    dispatch(getMovie());
-  }, [dispatch])
-  return <MovieDetail />
+    window.scrollTo(0, 0);
+    dispatch(getMovie(`${match.params.idx}`));
+  }, [dispatch]);
+  return <MovieDetail />;
 };
 
 export default MovieDetailPage;
