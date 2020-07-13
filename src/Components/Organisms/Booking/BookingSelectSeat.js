@@ -10,6 +10,7 @@ import PopupNotice from "../../Molecules/PopupNotice";
 import BookingFastTitle from "../../Atoms/BookingFastTitle";
 
 import { resetThunk } from "../../../Reducer/bookingSeatReducer";
+import { setPriceList } from "../../../Reducer/bookingReducer";
 
 import "./style/BookingSelectSeat.scss";
 
@@ -27,6 +28,8 @@ const BookingSelectSeat = ({ history }) => {
     ];
   });
 
+  console.log(ticket);
+
   const {
     scheduleId,
     seatType,
@@ -39,6 +42,7 @@ const BookingSelectSeat = ({ history }) => {
     screenType,
     seletedTime,
     endTime,
+    priceList,
   } = ticket;
 
   const checkTicket = () => {
@@ -59,6 +63,7 @@ const BookingSelectSeat = ({ history }) => {
     console.log("didMount");
     if (!checkTicket()) history.push("/");
     dispatch(resetThunk(history.location.pathname));
+    dispatch(setPriceList(screenType));
     return () => {
       console.log("unMount");
     };
@@ -87,6 +92,7 @@ const BookingSelectSeat = ({ history }) => {
           selectedDate,
           endTime,
           poster,
+          priceList,
         }}
         goBack={() => {
           history.goBack();

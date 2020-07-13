@@ -554,7 +554,8 @@ p {
     right: 0;
     margin: auto;
     background: $colorWhite;
-    border-radius: 2px;
+    border-radius: 4px;
+    overflow: hidden;
     .btnWrap {
       position: absolute;
       bottom: 24px;
