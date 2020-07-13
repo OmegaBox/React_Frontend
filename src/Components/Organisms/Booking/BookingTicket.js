@@ -1,22 +1,39 @@
 import React from "react";
 import "./style/BookingTicket.scss";
 import BookingNotice from "../../Molecules/BookingNotice";
+import { useSelector } from "react-redux";
+import { numWithComma } from "../../../Utils/ultil";
 
 //booking/payment-successcomplete
 
 const BookingTicket = () => {
+  const ticketState = useSelector((state) => state.Booking.ticket);
+  let members = ticketState.ticketType.adult
+    ? `성인 ${ticketState.ticketType.adult}명`
+    : "";
+
+  members += ticketState.ticketType.teen
+    ? ` 청소년 ${ticketState.ticketType.teen}명`
+    : "";
+
+  members += ticketState.ticketType.preferential
+    ? ` 우대 ${ticketState.ticketType.preferential}명`
+    : "";
+
+  const seatNumber = ticketState.seats.reduce(
+    (acc, cur) => cur.seat_name + ` ${acc}`,
+    ""
+  );
+
   return (
     <div className="ticketWrap">
       <h2 className="pageTitle">예매완료</h2>
       <div className={["ticket", "clearfix"].join(" ")}>
         <div className="ticketNumberPoster">
           <h3 className="ticketNumberTitle">티켓 예매번호</h3>
-          <p className="ticketNumber">9207-117-46921</p>
+          <p className="ticketNumber">{ticketState.number}</p>
           <div className="poster">
-            <img
-              src="https://img.megabox.co.kr/SharedImg/2020/05/26/4DpEOKISeL20EXabwXkfsfaeeJW27heu_230.jpg"
-              alt=""
-            />
+            <img src={ticketState.poster} alt="" />
           </div>
         </div>
         <div className="bookingInfoTicket">
@@ -30,36 +47,43 @@ const BookingTicket = () => {
           <ul className="bookingMovieInfo">
             <li>
               <h4 className="title">예매영화</h4>
-              <p className="content">결백 / 2D</p>
+              <p className="content">
+                {ticketState.selectedMovieTitle} / {ticketState.screenType}
+              </p>
             </li>
             <li>
               <h4 className="title">관람극장/상영관</h4>
-              <p className="content">송파파크하비오 / 5관</p>
+              <p className="content">
+                {ticketState.selectedTheather} / {ticketState.screenHall}
+              </p>
             </li>
             <li>
               <h4 className="title">관람일시</h4>
-              <p className="content">2020.06.28(일) 18:35</p>
+              <p className="content">
+                {ticketState.selectedDate} {ticketState.seletedTime}
+              </p>
             </li>
             <li>
               <h4 className="title">관람인원</h4>
-              <p className="content">성인 1명</p>
+              <p className="content">{members}</p>
             </li>
             <li>
               <h4 className="title">좌석번호</h4>
-              <p className="content">I열 1명</p>
+              <p className="content">{seatNumber}</p>
             </li>
-            <li>
+            {/* <li>
               <h4 className="title">전화번호</h4>
               <p className="content">010-7137-1722</p>
-            </li>
+            </li> */}
             <li>
               <h4 className="title">결제정보</h4>
               <p className="content">
-                <span className="price">11,000</span>원
+                <span className="price">{numWithComma(ticketState.price)}</span>
+                원
               </p>
             </li>
           </ul>
-          <div className="bookingMessage">
+          {/* <div className="bookingMessage">
             <h4 className="title">
               <span>예매정보 추가 발송</span>
               <span className={["icon", "question"].join(" ")}></span>
@@ -74,13 +98,13 @@ const BookingTicket = () => {
             >
               전송
             </button>
-          </div>
+          </div> */}
         </div>
       </div>
       <div className="btnWrap">
-        <button className={["btn", "main", "outLine", "regular"].join(" ")}>
+        {/* <button className={["btn", "main", "outLine", "regular"].join(" ")}>
           교환권출력
-        </button>
+        </button> */}
         <button className={["btn", "main", "fill", "regular"].join(" ")}>
           예매 내역
         </button>

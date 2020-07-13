@@ -92,8 +92,6 @@ const getPossibleMovies = () => async (dispatch) => {
 };
 
 const getCanSelectMovies = () => async (dispatch, state) => {
-  console.log("진입성공");
-
   const movies = state().Booking.movies.allMovies;
   const schedules = state().Booking.schedule.schedules;
   // const selectedTheaters = state().Booking.selectedOption.selectedTheaters;
@@ -109,7 +107,6 @@ const getCanSelectMovies = () => async (dispatch, state) => {
   const canSelectMovies = schedules.filter((schedule) =>
     movies.find((movie) => movie.name_kor === schedule.movie)
   );
-  console.log(canSelectMovies);
 
   dispatch({
     type: SET_CAN_SELECT_MOVIES,
@@ -463,7 +460,7 @@ const initialState = {
       preferential: 0,
     },
     priceList: {
-      adult: 0,
+      adult: 11000,
       teen: 0,
       preferential: 0,
     },
@@ -617,6 +614,7 @@ const bookingReducer = (state = initialState, action) => {
         },
       };
     case SET_TICKET_NUMBER:
+      console.log("티켓넘버", action.number);
       return {
         ...state,
         ticket: {

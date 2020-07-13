@@ -33,7 +33,7 @@ export const isLogin = async () => {
   return await refreshValidation();
 };
 
-export const clientBilling = ({
+export const billing = ({
   title,
   price,
   reservations,
@@ -111,7 +111,6 @@ export const clientBilling = ({
     .done(async function (data) {
       //결제가 정상적으로 완료되면 수행됩니다
       //비즈니스 로직을 수행하기 전에 결제 유효성 검증을 하시길 추천합니다.
-      console.log(reservations);
       const accessToken = cookie.load("accessToken");
       const reservations_id = reservations.map((reservation) => reservation.id);
       const body = {
@@ -125,12 +124,9 @@ export const clientBilling = ({
         },
       });
       if (res.status === 200 || res.status === 201) {
-        dispatch(setTicketNumber(res.code));
+        dispatch(setTicketNumber(res.data.code));
         history.push("/booking/ticket");
       }
-
-      console.log("서버검증결과", res);
-      return data;
     });
 };
 
