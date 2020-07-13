@@ -9,7 +9,6 @@
     "axios": "^0.19.2",
     "chart.js": "^2.9.3",
     "bootpay-js": "^3.2.6",
-
     "flatpickr": "^4.6.3",
     "http-proxy-middleware": "^1.0.4",
     "node-sass": "^4.14.1",
