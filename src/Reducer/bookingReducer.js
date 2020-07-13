@@ -6,54 +6,54 @@ const SUCCESS = "booking/SUCCESS";
 const ERROR = "booking/ERROR";
 const LOADING = "booking/LOADING";
 
+// 사가 진입용
+const SELECT_MOVIE = "booking/SELECT_MOVIE";
+const SELECT_THEATER = "booking/SELECT_THEATER";
+const SELECT_DATE = "booking/SELECT_DATE";
+
+// 상태 설정용
 const SET_SELECTED_MOVIE = "booking/SELECTED_MOVIE";
 const SET_SELECTED_DATE = "booking/SELECTED_DATE";
 const SET_SELECTED_HOUR = "booking/SELECTED_HOUR";
 const SET_SELECTED_REGION = "booking/SELECTED_REGION";
 const SET_SELECTED_THEATERS = "booking/SELECTED_THEATER";
 const SET_NEARBY_THEATERS = "booking/NEARBY_THEATERS";
-const SET_CAN_SELECT_REGIONS = "booking/SET_CAN_SELECT_REGIONS";
-const SET_CAN_SELECT_THEATERS = "booking/SET_CAN_SELECT_THEATERS";
+
 const SET_CAN_SELECT_MOVIES = "booking/SET_CAN_SELECT_MOVIES";
 
 const SET_SCHEDULES_LOG = "booking/SET_SCHEDULES_LOG";
 const SET_REGION_THEATER_LOG = "booking/SET_REGION_THEATER_LOG";
 
-const SELECT_MOVIE = "booking/SELECT_MOVIE";
-const SELECT_THEATER = "booking/SELECT_THEATER";
-const SELECT_DATE = "booking/SELECT_DATE";
-
 const SET_DEFAULT_TICKET_INFO = "booking/SET_DEFAULT_TICKET_INFO";
 
+// 영화관 가져오기
+const GET_THEATERS_CAN_BOOKING = "booking/GET_THEATERS_CAN_BOOKING";
+const GET_THEATERS_CAN_BOOKING_SUCCESS =
+  "booking/GET_THEATERS_CAN_BOOKING_SUCCESS";
+
+// 영화 스케쥴 가져오기
 const GET_SCHEDULES = "booking/GET_SCHEDULES";
 const GET_SCHEDULES_SUCCESS = "booking/GET_SCHEDULES_SUCCESS";
 const GET_SCHEDULES_ERROR = "booking/GET_SCHEDULES_ERROR";
 
-const GET_POSSIBLE_MOVIES_LOADING = "booking/GET_POSSIBLE_MOVIES_LOADING";
+// 예매 가능한 영화목록 가져오기
+const GET_POSSIBLE_MOVIES = "booking/GET_POSSIBLE_MOVIES";
 const GET_POSSIBLE_MOVIES_SUCCESS = "booking/GET_POSSIBLE_MOVIES_SUCCESS";
 const GET_POSSIBLE_MOVIES_ERROR = "booking/GET_POSSIBLE_MOVIES_ERROR";
 
+// 전체 영화 목록
 const GET_MOVIES_SUCCESS = "booking/GET_MOVIES_SUCCESS";
 
-// 단순 상태 변환용 액션들
+// 티겟 상태 설정
+const SET_PRICE_LIST = "SET_PRICE_LIST";
+
+// 단순 상태 변환용 액션들 (리듀서 외부에서 사용)
 const setSelectedMovies = (movies) => ({ type: SET_SELECTED_MOVIE, movies });
 const setSelectedDate = (date) => ({ type: SET_SELECTED_DATE, date });
 const setSelectedHour = (hour) => ({ type: SET_SELECTED_HOUR, hour });
 const setSelectRegion = (region) => ({ type: SET_SELECTED_REGION, region });
-const setSelectTheaters = (theaters) => ({
-  type: SET_SELECTED_THEATERS,
-  theaters,
-});
 const setNearbyTheaters = (theaters) => ({
   type: SET_NEARBY_THEATERS,
-  theaters,
-});
-const setCanSelectRegions = (regions) => ({
-  type: SET_CAN_SELECT_REGIONS,
-  regions,
-});
-const setCanSelectTheaters = (theaters) => ({
-  type: SET_CAN_SELECT_THEATERS,
   theaters,
 });
 const setDefaultTicketInfo = (payload) => ({
@@ -61,10 +61,34 @@ const setDefaultTicketInfo = (payload) => ({
   payload,
 });
 
+const setPriceList = (screenType) => {
+  const basePrice = (() => {
+    switch (screenType) {
+      case "2D":
+      case "2Ds":
+        return 11000;
+      case "3D":
+        return 13000;
+      default:
+        return 0;
+    }
+  })();
+  const priceList = {
+    adult: basePrice,
+    teen: basePrice * 0.75,
+    preferential: basePrice * 0.75,
+  };
+
+  return {
+    type: SET_PRICE_LIST,
+    priceList,
+  };
+};
+
 // Thunk
 const getPossibleMovies = () => async (dispatch) => {
   try {
-    dispatch({ type: GET_POSSIBLE_MOVIES_LOADING });
+    dispatch({ type: GET_POSSIBLE_MOVIES });
     const res = await movieApi.getMovies();
     if (res.status === 200) {
       dispatch({ type: GET_POSSIBLE_MOVIES_SUCCESS, movies: res.data.results });
@@ -78,12 +102,12 @@ const getPossibleMovies = () => async (dispatch) => {
         },
       });
     }
-  } catch (error) {
+  } catch (e) {
     dispatch({
-      type: "ERROR",
+      type: GET_POSSIBLE_MOVIES_ERROR,
       error: {
         state: true,
-        message: error.message,
+        message: e.response,
       },
     });
   }
@@ -92,15 +116,11 @@ const getPossibleMovies = () => async (dispatch) => {
 const getCanSelectMovies = () => async (dispatch, state) => {
   console.log("진입성공");
 
-  const movies = state().Booking.movies;
+  const movies = state().Booking.movies.allMovies;
   const schedules = state().Booking.schedule.schedules;
-  const selectedTheaters = state().Booking.selectedOption.selectedTheaters;
+  // const selectedTheaters = state().Booking.selectedOption.selectedTheaters;
 
-  console.log("영화리스트", movies);
-  console.log("스케쥴", schedules);
-  console.log("선택한 영화관", selectedTheaters);
-
-  if (!selectedTheaters.length) {
+  if (!schedules.length) {
     dispatch({
       type: SET_CAN_SELECT_MOVIES,
       movies,
@@ -108,7 +128,6 @@ const getCanSelectMovies = () => async (dispatch, state) => {
     return;
   }
 
-  // const canSelectTitle = selectedTheaters.filter(theater => schedules.find(schedule => schedule.movie === ))
   const canSelectMovies = schedules.filter((schedule) =>
     movies.find((movie) => movie.name_kor === schedule.movie)
   );
@@ -195,8 +214,38 @@ const getSchedules = () => async (dispatch, state) => {
   }
 };
 
-// 날짜 or 날짜 & 타이틀로 상영 가능한 지역과 영화관 정보 가져오는 Thunk
+const setReservation = (
+  scheduleId,
+  selectedSeat,
+  seatPersonalType,
+  totalPrice,
+  nextFunc
+) => async (dispatch) => {
+  try {
+    const SeatIds = await movieApi.getSeatId(scheduleId, selectedSeat);
+    const reservationInfos = await movieApi.makeReservation(
+      scheduleId,
+      SeatIds.data.map((v) => v.seat_id).reverse(),
+      seatPersonalType
+    );
+    dispatch(
+      setDefaultTicketInfo({
+        seats: SeatIds.data,
+        ticketType: seatPersonalType,
+        price: totalPrice,
+        reservationInfos: reservationInfos.data.map((data) => data.reservation),
+      })
+    );
+    nextFunc();
+  } catch (e) {
+    console.error(e.response);
+  }
+};
+
+// 사가로 바꿔야함 날짜 or 날짜 & 타이틀로 상영 가능한 지역과 영화관 정보 가져오는 Thunk
 const getTheatersCanBooking = (movies = []) => async (dispatch, state) => {
+  dispatch({ type: GET_THEATERS_CAN_BOOKING });
+
   const selectedOption = state().Booking.selectedOption;
   const selectedMovies = selectedOption.selectedMovies;
   const selectedTheaters = selectedOption.selectedTheaters;
@@ -221,8 +270,11 @@ const getTheatersCanBooking = (movies = []) => async (dispatch, state) => {
   );
 
   if (pastLog) {
-    dispatch(setCanSelectRegions(pastLog.regions));
-    dispatch(setCanSelectTheaters(pastLog.theaters));
+    dispatch({
+      type: GET_THEATERS_CAN_BOOKING_SUCCESS,
+      regions: pastLog.regions,
+      theaters: pastLog.theaters,
+    });
   } else {
     try {
       const resRegions = await movieApi.getScreeningRegions(
@@ -250,8 +302,12 @@ const getTheatersCanBooking = (movies = []) => async (dispatch, state) => {
           regions[resRegions.data.results[i].region_name] =
             resRegions.data.results[i].region_count;
         }
-        dispatch(setCanSelectRegions(regions));
-        dispatch(setCanSelectTheaters(resTheaters.data.results));
+
+        dispatch({
+          type: GET_THEATERS_CAN_BOOKING_SUCCESS,
+          regions,
+          theaters: resTheaters.data.results,
+        });
 
         // 로그로 기록하기
         newRegionTheaterLog.regions = regions;
@@ -285,15 +341,10 @@ const getTheatersCanBooking = (movies = []) => async (dispatch, state) => {
   }
 
   // 상영관 선택과 지역 선택 처리
-  dispatch(setSelectTheaters(newSelectedTheaters));
-  dispatch(setSelectRegion(newSelectedRegion));
-  // if (newSelectedTheaters.length) {
-  //   dispatch(
-  //     setSelectRegion(
-  //       newSelectedTheaters[newSelectedTheaters.length - 1].region
-  //     )
-  //   );
-  // } else dispatch(setSelectRegion(""));
+  // dispatch(setSelectTheaters(newSelectedTheaters));
+  dispatch({ type: SET_SELECTED_THEATERS, theaters: newSelectedTheaters });
+  // dispatch(setSelectRegion(newSelectedRegion));
+  dispatch({ type: SET_SELECTED_REGION, region: newSelectedRegion });
 };
 
 // 사가 진입용 액션들
@@ -355,8 +406,8 @@ function* selectTheaterSaga(action) {
     newSelectedTheaters.push(action.theater);
   }
 
-  // yield put(setSelectedHour(getCurrentHour())); // 현재 시간을 선택
-  yield put(setSelectTheaters(newSelectedTheaters)); // 상영관 선택 처리
+  // yield put(setSelectTheaters(newSelectedTheaters)); // 상영관 선택 처리
+  yield put({ type: SET_SELECTED_THEATERS, theaters: newSelectedTheaters });
   yield put(getSchedules());
 }
 
@@ -377,6 +428,11 @@ function* bookingSaga() {
 }
 
 const initialState = {
+  movies: {
+    allMovies: [],
+    canSelectMovies: [],
+    loading: false,
+  },
   canSelectLocation: {
     regions: {
       "가까운 영화관": 3,
@@ -391,11 +447,12 @@ const initialState = {
     },
     theaters: [],
     logs: [],
+    loading: false,
   },
-
   schedule: {
     schedules: [],
     scheduleLogs: [],
+    loading: false,
   },
   selectedOption: {
     selectedDate: "2020-07-01",
@@ -403,31 +460,36 @@ const initialState = {
     selectedTheaters: [], // 선택한 영화관들
     nearbyTheaters: [], // 가까운 영화관
     selectedMovies: [],
-    movieAgeGrade: "All",
-    screenHall: "2관",
+    movieAgeGrade: "",
+    screenHall: "",
     selectedHour: "0",
     selectedTime: "0",
     endTime: "",
     seletedSeat: [],
   },
   ticket: {
-    selectedDate: "2020-07-10",
-    selectedTheather: "강남",
-    selectedMovieTitle: "살아있다",
-    movieAgeGrade: "All",
-    screenHall: "2관",
-    seletedTime: "19:40",
-    endTime: "",
-    seats: [],
+    reservationInfos: [],
+    selectedDate: "2020-07-01",
+    selectedTheather: "강남대로(씨티)",
+    selectedMovieTitle: "결백",
+    movieAgeGrade: "15+",
+    screenHall: "1관",
+    screenType: "",
+    seletedTime: "23:21",
+    endTime: "01:11",
+    seats: [{ seat_name: "B12", seat_id: 28 }],
     ticketType: {
+      adult: 0,
+      teen: 0,
+      preferential: 0,
+    },
+    priceList: {
       adult: 0,
       teen: 0,
       preferential: 0,
     },
     price: 0,
   },
-  canSelectMovies: [],
-  movies: [],
 };
 
 const bookingReducer = (state = initialState, action) => {
@@ -435,17 +497,36 @@ const bookingReducer = (state = initialState, action) => {
     case GET_MOVIES_SUCCESS:
       return {
         ...state,
-        movies: action.movies,
+        movies: {
+          ...state.movies,
+          allMovies: action.movies,
+          loading: false,
+        },
+      };
+    case GET_POSSIBLE_MOVIES:
+      return {
+        ...state,
+        movies: {
+          ...state.movies,
+          loading: true,
+        },
       };
     case GET_POSSIBLE_MOVIES_SUCCESS:
       return {
         ...state,
-        canSelectMovies: action.movies,
+        movies: {
+          ...state.movies,
+          canSelectMovies: action.movies,
+          loading: false,
+        },
       };
     case GET_SCHEDULES:
       return {
         ...state,
-        isLoading: state.isLoading + 1,
+        schedule: {
+          ...state.schedule,
+          loading: true,
+        },
       };
     case GET_SCHEDULES_SUCCESS:
       return {
@@ -453,8 +534,8 @@ const bookingReducer = (state = initialState, action) => {
         schedule: {
           ...state.schedule,
           schedules: action.payload,
+          loading: false,
         },
-        isLoading: state.isLoading - 1,
       };
     case SET_SELECTED_MOVIE:
       return {
@@ -504,26 +585,31 @@ const bookingReducer = (state = initialState, action) => {
           nearbyTheaters: action.theaters,
         },
       };
-    case SET_CAN_SELECT_REGIONS:
+    case GET_THEATERS_CAN_BOOKING:
+      return {
+        ...state,
+        canSelectLocation: {
+          ...state.canSelectLocation,
+          loading: true,
+        },
+      };
+    case GET_THEATERS_CAN_BOOKING_SUCCESS:
       return {
         ...state,
         canSelectLocation: {
           ...state.canSelectLocation,
           regions: action.regions,
-        },
-      };
-    case SET_CAN_SELECT_THEATERS:
-      return {
-        ...state,
-        canSelectLocation: {
-          ...state.canSelectLocation,
           theaters: action.theaters,
+          loading: false,
         },
       };
     case SET_CAN_SELECT_MOVIES:
       return {
         ...state,
-        canSelectMovies: action.movies,
+        movies: {
+          ...state.movies,
+          canSelectMovies: action.movies,
+        },
       };
 
     case SET_SCHEDULES_LOG:
@@ -550,6 +636,14 @@ const bookingReducer = (state = initialState, action) => {
           ...action.payload,
         },
       };
+    case SET_PRICE_LIST:
+      return {
+        ...state,
+        ticket: {
+          ...state.ticket,
+          priceList: action.priceList,
+        },
+      };
 
     case SUCCESS:
     case ERROR:
@@ -572,5 +666,7 @@ export {
   getSchedules,
   getTheatersCanBooking,
   getPossibleMovies,
+  setReservation,
   selectDate,
+  setPriceList,
 };

@@ -12,9 +12,10 @@ const BookingMovieList = () => {
   );
   const unSelectedMovies = new Array(3 - selectedMovies.length).fill(0);
 
-  const movies = useSelector((state) => state.Booking.movies); // 호영이가 상태 만들면 교체해야 함
-  const canSelectMovies = useSelector((state) => state.Booking.canSelectMovies);
-  console.log("영화리스트 선택 가능한것들", canSelectMovies);
+  const movies = useSelector((state) => state.Booking.movies.allMovies); // 호영이가 상태 만들면 교체해야 함
+  const canSelectMovies = useSelector(
+    (state) => state.Booking.movies.canSelectMovies
+  );
 
   return (
     <div className="bookingMovieList">
