@@ -10,7 +10,6 @@ const BookingPayment = () => {
   const history = useHistory();
   const ticketState = useSelector((state) => state.Booking.ticket);
   const dispatch = useDispatch();
-  console.log(ticketState);
 
   let iconClassName = "icon";
   switch (ticketState.movieAgeGrade) {
@@ -29,7 +28,7 @@ const BookingPayment = () => {
       break;
   }
 
-  // if (!ticketState.reservationInfos.length) history.push("/booking");
+  if (!ticketState.reservationInfos.length) history.push("/booking");
 
   return (
     <div className="bookingPaymentWrap">

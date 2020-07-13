@@ -3,11 +3,13 @@ import "./style/BookingTicket.scss";
 import BookingNotice from "../../Molecules/BookingNotice";
 import { useSelector } from "react-redux";
 import { numWithComma } from "../../../Utils/util";
+import { useHistory } from "react-router-dom";
 
 //booking/payment-successcomplete
 
 const BookingTicket = () => {
   const ticketState = useSelector((state) => state.Booking.ticket);
+  const history = useHistory();
   let members = ticketState.ticketType.adult
     ? `성인 ${ticketState.ticketType.adult}명`
     : "";
@@ -24,6 +26,8 @@ const BookingTicket = () => {
     (acc, cur) => cur.seat_name + ` ${acc}`,
     ""
   );
+
+  if (!ticketState.reservationInfos.length) history.push("/booking");
 
   return (
     <div className="ticketWrap">
