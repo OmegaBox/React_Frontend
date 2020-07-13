@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import Slider from "react-slick";
 
 import { selectDate } from "../../Reducer/bookingReducer";
-import { getDateRangeData } from "../../Utils/ultil";
+import { getDateRangeData } from "../../Utils/util";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -39,6 +39,13 @@ const CarouselCalendar = () => {
 
           addClass += i > 6 ? " disabled" : "";
 
+          const dayColor =
+            date.dayOfWeek === "토"
+              ? "dayBlue"
+              : date.dayOfWeek === "일"
+              ? "dayRed"
+              : "";
+
           return (
             <button
               key={`carouselDate${i}`}
@@ -48,7 +55,7 @@ const CarouselCalendar = () => {
               disabled={i > 6}
               // styl={{}}
             >
-              <span style={{}}>
+              <span className={dayColor}>
                 {date.day}·{date.dayOfWeek}
               </span>
             </button>

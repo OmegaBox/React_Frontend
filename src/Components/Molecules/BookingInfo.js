@@ -2,9 +2,9 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { movieApi } from "../../Api/api";
-import { numWithComma } from "../../Utils/ultil";
+import { numWithComma } from "../../Utils/util";
 
-import { setDefaultTicketInfo } from "../../Reducer/bookingReducer";
+import { setReservation } from "../../Reducer/bookingReducer";
 
 import "./style/BookingInfo.scss";
 
@@ -55,6 +55,15 @@ const date = (dateValue) => {
 
 const BookingInfo = ({ props, goBack, goNext }) => {
   const dispatch = useDispatch();
+
+  let totalPrice = 0;
+
+  const [selectedSeat, personal, ticket] = useSelector((state) => [
+    state.Seat.selectedSeat,
+    state.Seat.personal,
+    state.Booking.ticket,
+  ]);
+
   const {
     scheduleId,
     selectedMovieTitle,
@@ -66,14 +75,9 @@ const BookingInfo = ({ props, goBack, goNext }) => {
     selectedDate,
     endTime,
     poster,
+    priceList,
   } = props;
 
-  let totalPrice = 0;
-
-  const [selectedSeat, personal] = useSelector((state) => [
-    state.Seat.selectedSeat,
-    state.Seat.personal,
-  ]);
   // 좌석 선택 별 카운터
   const seatPersonalType = {
     adult: 0,
@@ -82,18 +86,7 @@ const BookingInfo = ({ props, goBack, goNext }) => {
   };
   // 각 인원별 수
   const personalTypeCounts = Object.values(personal);
-  // 영화 타입별 기본 금액
-  const basePrice = (() => {
-    switch (screenType) {
-      case "2D":
-      case "2Ds":
-        return 11000;
-      case "3D":
-        return 13000;
-      default:
-        return 0;
-    }
-  })();
+  console.log(priceList);
   // 좌석 뷰 박스
   const seatBox = new Array(8).fill("-");
 
@@ -102,13 +95,13 @@ const BookingInfo = ({ props, goBack, goNext }) => {
 
     if (seatPersonalType.adult < personalTypeCounts[0]) {
       seatPersonalType.adult += 1;
-      totalPrice += basePrice;
+      totalPrice += priceList.adult;
     } else if (seatPersonalType.teen < personalTypeCounts[1]) {
       seatPersonalType.teen += 1;
-      totalPrice += basePrice * 0.75;
+      totalPrice += priceList.teen;
     } else if (seatPersonalType.preferential < personalTypeCounts[2]) {
       seatPersonalType.preferential += 1;
-      totalPrice += basePrice * 0.75;
+      totalPrice += priceList.preferential;
     } else console.error("잘못된 값입니다.");
   });
 
@@ -130,29 +123,16 @@ const BookingInfo = ({ props, goBack, goNext }) => {
   };
 
   // 다음 이동 이벤트
-  const goPayment = async () => {
-    try {
-      const SeatIds = await movieApi.getSeatId(scheduleId, selectedSeat);
-      const reservationInfos = await movieApi.makeReservation(
+  const goPayment = () => {
+    dispatch(
+      setReservation(
         scheduleId,
-        SeatIds.data.map((v) => v.seat_id).reverse(),
-        seatPersonalType
-      );
-
-      dispatch(
-        setDefaultTicketInfo({
-          seats: SeatIds.data,
-          ticketType: seatPersonalType,
-          price: totalPrice,
-          reservationInfos: reservationInfos.data.map(
-            (data) => data.reservation
-          ),
-        })
-      );
-      goNext();
-    } catch (e) {
-      console.error(e.response);
-    }
+        selectedSeat,
+        seatPersonalType,
+        totalPrice,
+        goNext
+      )
+    );
   };
 
   useEffect(() => {

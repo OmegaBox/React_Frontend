@@ -16,7 +16,6 @@ const BookingMovieList = () => {
   const canSelectMovies = useSelector(
     (state) => state.Booking.movies.canSelectMovies
   );
-  console.log("영화리스트 선택 가능한것들", canSelectMovies);
 
   return (
     <div className="bookingMovieList">

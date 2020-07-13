@@ -1,10 +1,35 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 import "./style/BookingPayment.scss";
+import { billing } from "../../../Api/api";
+import { numWithComma } from "../../../Utils/util";
 
 const BookingPayment = () => {
-  console.log(useSelector((state) => state.Booking.ticket));
+  const history = useHistory();
+  const ticketState = useSelector((state) => state.Booking.ticket);
+  const dispatch = useDispatch();
+
+  let iconClassName = "icon";
+  switch (ticketState.movieAgeGrade) {
+    case "18+":
+      iconClassName += " ageGrade19Small";
+      break;
+    case "15+":
+      iconClassName += " ageGrade15Small";
+      break;
+    case "12+":
+      iconClassName += " ageGrade12Small";
+      break;
+    case "all":
+    default:
+      iconClassName += " ageGradeSmall";
+      break;
+  }
+
+  if (!ticketState.reservationInfos.length) history.push("/booking");
+
   return (
     <div className="bookingPaymentWrap">
       <h2 className="title">빠른예매</h2>
@@ -34,75 +59,76 @@ const BookingPayment = () => {
       </div>
       <div className="paymentInfoWrap">
         <div className="moviePoster">
-          <img
-            src="https://img.megabox.co.kr/SharedImg/2020/05/26/4DpEOKISeL20EXabwXkfsfaeeJW27heu_230.jpg"
-            alt=""
-          />
+          <img src={`${ticketState.poster}`} alt="" />
         </div>
         <div className="paymentInfo">
           <ul className="movieInfo">
-            <li className={["grade", "icon", "ageGradeSmall"].join(" ")}>
+            <li className={["grade", { iconClassName }].join(" ")}>
               <h4 className="a11yHidden">관람등급</h4>
-              <span className="a11yHidden">15세 이상</span>
+              <span className="a11yHidden">{ticketState.movieAgeGrade}</span>
+              <span className={iconClassName} />
             </li>
             <li className="title">
               <h4 className="a11yHidden">영화 제목</h4>
-              <span>반도</span>
+              <span>{ticketState.selectedMovieTitle}</span>
             </li>
             <li className="type">
-              <h4 className="a11yHidden">영화 type</h4>
+              <h4 className="a11yHidden">{ticketState.screenType}</h4>
               <span>2D</span>
             </li>
             <li className="theater">
               <h4 className="a11yHidden">관람 극장 및 상영관</h4>
-              <span>송파파크하비오</span> / <span>1</span>관
+              <span>{ticketState.selectedTheather}</span> /{" "}
+              <span>{ticketState.screenHall}</span>
             </li>
             <li className="date">
               <h4 className="a11yHidden">관람 날짜</h4>
-              <span>2020.07.15 (수)</span>
+              <span>{ticketState.selectedDate}</span>
             </li>
             <li className="time">
               <h4 className="a11yHidden">관람 시간</h4>
               <span className={["icon", "time"].join(" ")}></span>
-              <span>09:30~11:36</span>
+              <span>
+                {ticketState.seletedTime}~{ticketState.endTime}
+              </span>
             </li>
           </ul>
           <div className="dcEx">
             <ul className="priceProcess">
               <li>
-                <h4 className="person">
-                  성인 <span>1</span>
-                </h4>
-                <p className="price">8,000</p>
+                <h4 className="person">성인</h4>
+                <p className="price">
+                  {numWithComma(ticketState.priceList.adult)}
+                </p>
               </li>
               <li>
-                <h4 className="person">
-                  청소년 <span>1</span>
-                </h4>
-                <p className="price">8,000</p>
+                <h4 className="person">청소년</h4>
+                <p className="price">
+                  {numWithComma(ticketState.priceList.teen)}
+                </p>
               </li>
               <li>
-                <h4 className="person">
-                  우대 <span>1</span>
-                </h4>
-                <p className="price">8,000</p>
+                <h4 className="person">우대</h4>
+                <p className="price">
+                  {numWithComma(ticketState.priceList.preferential)}
+                </p>
               </li>
             </ul>
             <h4 className="subTitle">금액</h4>
             <p className="totalPrice">
-              <span>19,000</span>원
+              <span>{numWithComma(ticketState.price)}</span>원
             </p>
           </div>
           <div className="usePoint">
             <h4 className="subTitle">포인트 사용</h4>
             <p className="dcPrice">
-              <span className="">2,000</span>원
+              <span className="">0</span>원
             </p>
           </div>
           <div className="finalPaymentWrap">
             <h4 className="subTitle">최종결제금액</h4>
             <p className="payment">
-              <span>19,000</span>원
+              <span>{numWithComma(ticketState.price)}</span>원
             </p>
           </div>
         </div>
@@ -110,12 +136,22 @@ const BookingPayment = () => {
           <button
             type="button"
             className={["btn", "fill", "darkGray", "regular"].join(" ")}
+            onClick={() => history.goBack()}
           >
             이전
           </button>
           <button
             type="button"
             className={["btn", "fill", "sub", "regular"].join(" ")}
+            onClick={() => {
+              billing({
+                title: ticketState.selectedMovieTitle,
+                price: ticketState.price,
+                reservations: ticketState.reservationInfos,
+                history,
+                dispatch,
+              });
+            }}
           >
             결제
           </button>
