@@ -98,19 +98,25 @@ const BookingPayment = () => {
               <li>
                 <h4 className="person">성인</h4>
                 <p className="price">
-                  {numWithComma(ticketState.priceList.adult)}
+                  {ticketState.priceList.adult === 0
+                    ? "-"
+                    : numWithComma(ticketState.priceList.adult)}
                 </p>
               </li>
               <li>
                 <h4 className="person">청소년</h4>
                 <p className="price">
-                  {numWithComma(ticketState.priceList.teen)}
+                  {ticketState.priceList.teen === 0
+                    ? "-"
+                    : numWithComma(ticketState.priceList.teen)}
                 </p>
               </li>
               <li>
                 <h4 className="person">우대</h4>
                 <p className="price">
-                  {numWithComma(ticketState.priceList.preferential)}
+                  {ticketState.priceList.preferential === 0
+                    ? "-"
+                    : numWithComma(ticketState.priceList.preferential)}
                 </p>
               </li>
             </ul>

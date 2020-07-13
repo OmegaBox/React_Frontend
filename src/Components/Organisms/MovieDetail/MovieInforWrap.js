@@ -1,10 +1,13 @@
 import React from "react";
 import "./style/MovieInforWrap.scss";
 import { useSelector } from "react-redux";
+import RatingChart from "../../Molecules/ChartBookingRating";
+import DayAudienceLine from "../../Molecules/LineDayAudience";
+import RaderChartKeyPoint from "../../Molecules/RaderChartKeyPoint";
 
 const MovieInforWrap = () => {
   const movie = useSelector((state) => state.Movie.detail);
-  console.log(movie.actors !== undefined && movie.actors.splice(5))
+  console.log(typeof movie);
 
   return (
     <div className="movieDetailInforLayout">
@@ -44,7 +47,7 @@ const MovieInforWrap = () => {
         <li className="director">
           <h3 className="title">감독</h3>
           {movie.directors !== undefined && movie.directors.map((director, i) => {
-            return <span key={director}>{director.name}</span>
+            return <span key={`movie.$${director}`}>{director}</span>
           })
           }
         </li>
@@ -52,7 +55,7 @@ const MovieInforWrap = () => {
           <h3 className="title">장르</h3>
           <span >
             {movie.genres !== undefined && movie.genres.map((genre, i) => {
-              return <span key={genre} className="movieGenre">{genre.name}</span>
+              return <span key={`movie.${genre}`} className="movieGenre">{genre}</span>
             })
             }
           </span>/
@@ -69,7 +72,7 @@ const MovieInforWrap = () => {
         <li className="cast">
           <h3 className="title">출연진</h3>
           {movie.actors !== undefined && movie.actors.map((actor, i) => {
-            return <span key={movie.actor}>{actor.name},</span>
+            return <span key={`movie.${actor}`}>{actor},</span>
           })}
         </li>
       </ul>
@@ -77,22 +80,34 @@ const MovieInforWrap = () => {
         <li>
           <h3 className="title">관람포인트</h3>
           <p className="content">배우.연출</p>
-          <div className="graph"></div>
+          <div className="graph">
+            <RaderChartKeyPoint />
+          </div>
         </li>
         <li>
           <h3 className="title">실관람 평점</h3>
           <p className="content">{movie.average_point}</p>
-          <div className="graph"></div>
+          <div className="scoreGraphWrap">
+            <div className="scoreGraph">
+              <strong>{movie.average_point}</strong>
+            </div>
+            <span>관람 후</span>
+          </div>
+
         </li>
         <li>
           <h3 className="title">예매율</h3>
           <p className="content">{movie.reservation_rate}%</p>
-          <div className="graph"></div>
+          <div className="graph">
+            < RatingChart />
+          </div>
         </li>
         <li>
           <h3 className="title">일자별 관객수</h3>
           <p className="content">{movie.acc_audience}</p>
-          <div className="graph"></div>
+          <div className="dayAudienceGraph">
+            <DayAudienceLine />
+          </div>
         </li>
       </ul>
       <div className="movieCommentWrap">
