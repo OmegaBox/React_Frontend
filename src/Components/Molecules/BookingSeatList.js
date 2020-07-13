@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import { setSelectSeat } from "../../Reducer/bookingSeatReducer";
+import { selectSeatSaga } from "../../Reducer/bookingSeatReducer";
 
 import "./style/BookingSeatList.scss";
 import { movieApi } from "../../Api/api";
@@ -166,7 +166,7 @@ const BookingSeatList = ({ scheduleId, seatType = 0 }) => {
                     booked || except || social || !(selectable || selected)
                   }
                   onClick={(e) => {
-                    dispatch(setSelectSeat(e.target.value));
+                    dispatch(selectSeatSaga(e.target.value));
                   }}
                 >
                   {num}

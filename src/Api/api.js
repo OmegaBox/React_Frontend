@@ -159,6 +159,7 @@ export const movieApi = {
     return axios.get(call);
   },
   getReservedSeats: (scheduleId) => {
+    console.log("예약된 좌석 요청중...");
     return axios.get(`/schedules/${scheduleId}/reserved-seats/`);
   },
   getTotalPrice: (scheduleId, personalCount) => {
