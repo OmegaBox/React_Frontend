@@ -325,13 +325,12 @@ const userInfoReducer = (state = initialState, action) => {
     case GET_MEMBER_DETAIL_ERROR:
       return {
         ...state,
-        isLogin: false,
-        login: {
-          ...state.login,
-          loading: false,
-          error: true,
-          errorMessage: action.errorMessage,
-        },
+        // login: {
+        //   ...state.login,
+        //   loading: false,
+        //   error: true,
+        //   errorMessage: action.errorMessage,
+        // },
       };
     case GET_MEMBER_DETAIL_LOADING:
       return {
