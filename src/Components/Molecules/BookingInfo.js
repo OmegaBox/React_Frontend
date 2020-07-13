@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { movieApi } from "../../Api/api";
-import { numWithComma } from "../../Utils/ultil";
+import { numWithComma } from "../../Utils/util";
 
 import { setReservation } from "../../Reducer/bookingReducer";
 
@@ -58,10 +58,9 @@ const BookingInfo = ({ props, goBack, goNext }) => {
 
   let totalPrice = 0;
 
-  const [selectedSeat, personal, ticket] = useSelector((state) => [
+  const [selectedSeat, personal] = useSelector((state) => [
     state.Seat.selectedSeat,
     state.Seat.personal,
-    state.Booking.ticket,
   ]);
 
   const {
@@ -75,18 +74,28 @@ const BookingInfo = ({ props, goBack, goNext }) => {
     selectedDate,
     endTime,
     poster,
-    priceList,
   } = props;
 
-  // 좌석 선택 별 카운터
+  // 인원 선택 별 카운터
   const seatPersonalType = {
     adult: 0,
     teen: 0,
     preferential: 0,
   };
+  // 기본 성인 가격
+  const basePrice = (() => {
+    switch (screenType) {
+      case "2D":
+      case "2Ds":
+        return 11000;
+      case "3D":
+        return 13000;
+      default:
+        return 0;
+    }
+  })();
   // 각 인원별 수
   const personalTypeCounts = Object.values(personal);
-  console.log(priceList);
   // 좌석 뷰 박스
   const seatBox = new Array(8).fill("-");
 
@@ -95,13 +104,13 @@ const BookingInfo = ({ props, goBack, goNext }) => {
 
     if (seatPersonalType.adult < personalTypeCounts[0]) {
       seatPersonalType.adult += 1;
-      totalPrice += priceList.adult;
+      totalPrice += basePrice;
     } else if (seatPersonalType.teen < personalTypeCounts[1]) {
       seatPersonalType.teen += 1;
-      totalPrice += priceList.teen;
+      totalPrice += basePrice * 0.75;
     } else if (seatPersonalType.preferential < personalTypeCounts[2]) {
       seatPersonalType.preferential += 1;
-      totalPrice += priceList.preferential;
+      totalPrice += basePrice * 0.75;
     } else console.error("잘못된 값입니다.");
   });
 
@@ -130,6 +139,7 @@ const BookingInfo = ({ props, goBack, goNext }) => {
         selectedSeat,
         seatPersonalType,
         totalPrice,
+        basePrice,
         goNext
       )
     );

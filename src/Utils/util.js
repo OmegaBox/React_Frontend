@@ -65,6 +65,7 @@ const transformDateFormat = (date) => {
 
 // 문자열 숫자에 천단위 콤마 찍기
 const numWithComma = (numStr) => {
+  numStr = numStr + "";
   if (numStr.length <= 3) return numStr;
   const arr = [...numStr];
   let counter = 1;

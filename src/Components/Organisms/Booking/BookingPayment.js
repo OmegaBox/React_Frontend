@@ -1,14 +1,15 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 
 import "./style/BookingPayment.scss";
-import { clientBilling } from "../../../Api/api";
+import { billing } from "../../../Api/api";
+import { numWithComma } from "../../../Utils/util";
 
 const BookingPayment = () => {
   const history = useHistory();
   const ticketState = useSelector((state) => state.Booking.ticket);
-  console.log(ticketState);
+  const dispatch = useDispatch();
 
   let iconClassName = "icon";
   switch (ticketState.movieAgeGrade) {
@@ -27,7 +28,7 @@ const BookingPayment = () => {
       break;
   }
 
-  // if (!ticketState.reservationInfos.length) history.push("/booking");
+  if (!ticketState.reservationInfos.length) history.push("/booking");
 
   return (
     <div className="bookingPaymentWrap">
@@ -72,7 +73,7 @@ const BookingPayment = () => {
               <span>{ticketState.selectedMovieTitle}</span>
             </li>
             <li className="type">
-              <h4 className="a11yHidden">영화 type</h4>
+              <h4 className="a11yHidden">{ticketState.screenType}</h4>
               <span>2D</span>
             </li>
             <li className="theater">
@@ -95,39 +96,45 @@ const BookingPayment = () => {
           <div className="dcEx">
             <ul className="priceProcess">
               <li>
-                <h4 className="person">
-                  성인 <span>1</span>
-                </h4>
-                <p className="price">8,000</p>
+                <h4 className="person">성인</h4>
+                <p className="price">
+                  {ticketState.priceList.adult === 0
+                    ? "-"
+                    : numWithComma(ticketState.priceList.adult)}
+                </p>
               </li>
               <li>
-                <h4 className="person">
-                  청소년 <span>1</span>
-                </h4>
-                <p className="price">8,000</p>
+                <h4 className="person">청소년</h4>
+                <p className="price">
+                  {ticketState.priceList.teen === 0
+                    ? "-"
+                    : numWithComma(ticketState.priceList.teen)}
+                </p>
               </li>
               <li>
-                <h4 className="person">
-                  우대 <span>1</span>
-                </h4>
-                <p className="price">8,000</p>
+                <h4 className="person">우대</h4>
+                <p className="price">
+                  {ticketState.priceList.preferential === 0
+                    ? "-"
+                    : numWithComma(ticketState.priceList.preferential)}
+                </p>
               </li>
             </ul>
             <h4 className="subTitle">금액</h4>
             <p className="totalPrice">
-              <span>{ticketState.price}</span>원
+              <span>{numWithComma(ticketState.price)}</span>원
             </p>
           </div>
           <div className="usePoint">
             <h4 className="subTitle">포인트 사용</h4>
             <p className="dcPrice">
-              <span className="">2,000</span>원
+              <span className="">0</span>원
             </p>
           </div>
           <div className="finalPaymentWrap">
             <h4 className="subTitle">최종결제금액</h4>
             <p className="payment">
-              <span>{ticketState.price}</span>원
+              <span>{numWithComma(ticketState.price)}</span>원
             </p>
           </div>
         </div>
@@ -142,12 +149,15 @@ const BookingPayment = () => {
           <button
             type="button"
             className={["btn", "fill", "sub", "regular"].join(" ")}
-            onClick={() =>
-              clientBilling({
+            onClick={() => {
+              billing({
                 title: ticketState.selectedMovieTitle,
                 price: ticketState.price,
-              })
-            }
+                reservations: ticketState.reservationInfos,
+                history,
+                dispatch,
+              });
+            }}
           >
             결제
           </button>

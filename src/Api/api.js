@@ -1,8 +1,9 @@
 import axios from "axios";
 import cookie from "react-cookies";
 import BootPay from "bootpay-js";
-import { transformDateFormat } from "../Utils/ultil";
+import { transformDateFormat } from "../Utils/util";
 import key from "../key.json";
+import { setTicketNumber } from "../Reducer/bookingReducer";
 
 export const refreshValidation = async () => {
   try {
@@ -32,9 +33,12 @@ export const isLogin = async () => {
   return await refreshValidation();
 };
 
-export const clientBilling = ({
+export const billing = ({
   title,
   price,
+  reservations,
+  history,
+  dispatch,
   username = "오메가맨",
   email = "omegaman@gmail.com",
 }) => {
@@ -76,11 +80,13 @@ export const clientBilling = ({
   })
     .error(function (data) {
       //결제 진행시 에러가 발생하면 수행됩니다.
-      console.log(data);
+      console.log("에러", data);
+      return data;
     })
     .cancel(function (data) {
       //결제가 취소되면 수행됩니다.
-      console.log(data);
+      console.log("취소시", data);
+      return data;
     })
     .ready(function (data) {
       // 가상계좌 입금 계좌번호가 발급되면 호출되는 함수입니다.
@@ -99,12 +105,28 @@ export const clientBilling = ({
     })
     .close(function (data) {
       // 결제창이 닫힐때 수행됩니다. (성공,실패,취소에 상관없이 모두 수행됨)
-      console.log(data);
+      console.log("닫힐때", data);
+      return data;
     })
-    .done(function (data) {
+    .done(async function (data) {
       //결제가 정상적으로 완료되면 수행됩니다
       //비즈니스 로직을 수행하기 전에 결제 유효성 검증을 하시길 추천합니다.
-      console.log(data);
+      const accessToken = cookie.load("accessToken");
+      const reservations_id = reservations.map((reservation) => reservation.id);
+      const body = {
+        receipt_id: data.receipt_id,
+        price,
+        reservations_id,
+      };
+      const res = await axios.post("/reservations/payment/", body, {
+        headers: {
+          Authorization: "Bearer " + accessToken,
+        },
+      });
+      if (res.status === 200 || res.status === 201) {
+        dispatch(setTicketNumber(res.data.code));
+        history.push("/booking/ticket");
+      }
     });
 };
 
@@ -234,6 +256,52 @@ export const userApi = {
   },
   logout: () => {
     return axios.post("/members/logout/");
+  },
+  memberDetail: () => {
+    console.log("멤버디테일 id", cookie.load("id"));
+
+    return axios.get(
+      `/members/${cookie.load("id")}/`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${cookie.load("accessToken")}`,
+        },
+      }
+    );
+  },
+  timelineLike: () => {
+    return axios.post(
+      `/members/${cookie.load("id")}/timeline/like-movies/`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${cookie.load("accessToken")}`,
+        },
+      }
+    );
+  },
+  timelineRating: () => {
+    return axios.post(
+      `/members/${cookie.load("id")}/timeline/rating-movies/`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${cookie.load("accessToken")}`,
+        },
+      }
+    );
+  },
+  timelineWatched: () => {
+    return axios.post(
+      `/members/${cookie.load("id")}/timeline/watched-movies/`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${cookie.load("accessToken")}`,
+        },
+      }
+    );
   },
   idDoubleCheck: (id) => {
     return axios.post(

@@ -3,6 +3,7 @@ import MyMovieStoryTimeLine from "../../Molecules/MyMovieStoryTimeLine";
 import MyMovieStoryFavorite from "../../Molecules/MyMovieStoryFavorite";
 import MyMovieStoryComment from "../../Molecules/MyMovieStoryComment";
 import MyMovieStoryWatched from "../../Molecules/MyMovieStoryWatched";
+import "./style/MyMovieStory.scss";
 
 const MyMovieStory = () => {
   const [currentView, setCurrentView] = useState({
@@ -26,6 +27,7 @@ const MyMovieStory = () => {
           <a href="#">보고싶어</a>
         </li>
       </ul>
+
       <MyMovieStoryTimeLine />
       <MyMovieStoryComment />
       <MyMovieStoryWatched />

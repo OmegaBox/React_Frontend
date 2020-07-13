@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import Slider from "react-slick";
 
 import { selectDate } from "../../Reducer/bookingReducer";
-import { getDateRangeData } from "../../Utils/ultil";
+import { getDateRangeData } from "../../Utils/util";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
