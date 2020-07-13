@@ -6,7 +6,7 @@ import Flatpickr from "react-flatpickr";
 import "flatpickr/dist/themes/material_green.css";
 import "./style/Calendar.scss";
 import { Korean } from "flatpickr/dist/l10n/ko.js";
-import { transformDateFormat } from "../../Utils/ultil";
+import { transformDateFormat } from "../../Utils/util";
 
 // flatpickr(".flatpickr", { wrap: true });
 
