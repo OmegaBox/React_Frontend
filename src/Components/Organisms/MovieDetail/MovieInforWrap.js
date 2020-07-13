@@ -7,7 +7,7 @@ import RaderChartKeyPoint from "../../Molecules/RaderChartKeyPoint";
 
 const MovieInforWrap = () => {
   const movie = useSelector((state) => state.Movie.detail);
-  console.log(movie.actors !== undefined && movie.actors.splice(5))
+  // console.log(movie.actors !== undefined && movie.actors.splice(5))
 
   return (
     <div className="movieDetailInforLayout">

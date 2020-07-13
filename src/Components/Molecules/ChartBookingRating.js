@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Bar } from "react-chartjs-2";
+import { useSelector } from "react-redux";
 
 const RatingChart = () => {
-  const [chartData, setChartData] = useState({});
+  const bookingRate = useSelector((state) => state.Movie.ageBooking);
+
 
   const options = {
     legend: {
@@ -34,39 +36,33 @@ const RatingChart = () => {
     maintainAspectRatio: false
   };
 
-  const data = () => {
-    setChartData({
-
-      labels: ["10대", "20대", "30대", "40대", "50대"],
-      datasets: [
-        {
-          label: false,
-          data: [
-            100,
-            100,
-            100,
-            100,
-            100
-          ],
-          backgroundColor: [
-            '#309eb0',
-            '#309eb0',
-            '#309eb0',
-            '#309eb0',
-            '#309eb0',
-          ]
-        }
-      ]
-    })
+  const data = {
+    labels: ["10대", "20대", "30대", "40대", "50대"],
+    datasets: [
+      {
+        label: false,
+        data: [
+          bookingRate.teens,
+          bookingRate.twenties,
+          bookingRate.thirties,
+          bookingRate.fourties,
+          bookingRate.fifties,
+        ],
+        backgroundColor: [
+          '#309eb0',
+          '#309eb0',
+          '#309eb0',
+          '#309eb0',
+          '#309eb0',
+        ]
+      }
+    ]
   }
-  useEffect(() => {
-    data()
-  }, []);
 
   return (
     <div>
       <Bar
-        data={chartData}
+        data={data}
         width={216}
         height={216}
         options={options}

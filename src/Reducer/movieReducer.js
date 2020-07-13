@@ -9,8 +9,8 @@ const MOVIE_DETAIL_ERROR = "movies/ERROR";
 const MOVIE_DETAIL_LOADING = "movies/LOADING";
 
 const BOOKING_AGE_RATING_SUCCESS = "ageBooking/SUCCESS"
-const BOOKING_AGE_RATING_ERROR = "ageBooking/SUCCESS"
-const BOOKING_AGE_RATING_LOADING = "ageBooking/SUCCESS"
+const BOOKING_AGE_RATING_ERROR = "ageBooking/ERROR"
+const BOOKING_AGE_RATING_LOADING = "ageBooking/LOADING"
 
 
 // const SEARCH_SPACE = "movies/SEARCH_SPACE";
@@ -24,7 +24,7 @@ const setSuccessMovieDetail = (data) => ({ type: MOVIE_DETAIL_SUCCESS, data })
 const setLoadingMovieDetail = () => ({ type: MOVIE_DETAIL_LOADING });
 const setErrorMovieDetail = (error) => ({ type: MOVIE_DETAIL_ERROR, error });
 
-const setSuccessBookingAgeRating = (id) => ({ type: BOOKING_AGE_RATING_SUCCESS, id })
+const setSuccessBookingAgeRating = (id, data) => ({ type: BOOKING_AGE_RATING_SUCCESS, id, data })
 const setLoadingBookingAgeRating = () => ({ type: BOOKING_AGE_RATING_LOADING, })
 const setErrorBookingAgeRating = (error) => ({ type: BOOKING_AGE_RATING_ERROR, error })
 
@@ -61,7 +61,6 @@ const getMovie = (id) => async (dispatch) => {
   try {
     const res = await movieApi.getMovie(id);
     if (res.status === 200) {
-      console.log(res.data)
       dispatch(setSuccessMovieDetail(res.data));
     } else {
       dispatch({
@@ -88,8 +87,8 @@ const getAgeBooking = (id) => async (dispatch) => {
   try {
     const res = await movieApi.getAgeBooking(id);
     if (res.status === 200) {
-      console.log(res.id);
-      dispatch(setSuccessBookingAgeRating(res.id));
+      console.log(res.data);
+      dispatch(setSuccessBookingAgeRating(id, res.data));
     } else {
       dispatch({
         type: "ERROR",
@@ -115,8 +114,7 @@ const initialState = {
   loading: false,
   error: false,
   errorMessage: "",
-  movies: [
-  ],
+  movies: [],
   detail: {},
   ageBooking: {},
 };
@@ -171,7 +169,8 @@ const movieReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        ageBooking: action.id,
+        ageBooking: action.data,
+        // page: action.page,
         error: null,
       }
     case BOOKING_AGE_RATING_LOADING:
