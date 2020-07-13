@@ -8,19 +8,14 @@ import { useLocation } from "react-router-dom";
 import { startLogout } from "../../Reducer/userInfoReducer";
 import ModalPortal from "../../Modules/ModalPortal";
 import PopupNotice from "../Molecules/PopupNotice";
-import { openModal } from "../../Reducer/modalReducer"
-
+import { openModal } from "../../Reducer/modalReducer";
 
 const MainHeader = () => {
   const dispatch = useDispatch();
   // const [questionLogin, setQuestionState] = useState(false)
   const [modal, text, event] = useSelector((state) => {
     const Modal = state.modal;
-    return [
-      Modal.modal,
-      Modal.text,
-      Modal.event,
-    ];
+    return [Modal.modal, Modal.text, Modal.event];
   });
 
   const history = useHistory();
@@ -49,7 +44,7 @@ const MainHeader = () => {
   const logOutPopup = () => {
     dispatch(startLogout());
     history.push("/");
-  }
+  };
   const changeHeader = useSelector((state) => state.userInfo.isLogin);
 
   return (
@@ -80,22 +75,31 @@ const MainHeader = () => {
               {changeHeader === true ? (
                 <>
                   <li>
-                    <Link to="/"
+                    <Link
+                      to="/"
                       onClick={() => {
-                        dispatch(openModal("로그아웃하시겠습니까?", logOutPopup))
+                        dispatch(
+                          openModal("로그아웃하시겠습니까?", logOutPopup)
+                        );
                       }}
                     >
                       로그아웃
                     </Link>
                   </li>
-                  <li><Link to="/">알림</Link></li>
+                  <li>
+                    <Link to="/">알림</Link>
+                  </li>
                 </>
               ) : (
-                  <>
-                    <li><Link to="/memberlogin">로그인</Link></li>
-                    <li><Link to="/membersignup">회원가입</Link></li>
-                  </>
-                )}
+                <>
+                  <li>
+                    <Link to="/memberlogin">로그인</Link>
+                  </li>
+                  <li>
+                    <Link to="/membersignup">회원가입</Link>
+                  </li>
+                </>
+              )}
               <li>
                 <Link to="/Booking">빠른예매</Link>
               </li>
@@ -128,7 +132,12 @@ const MainHeader = () => {
             </ul>
           </div>
         </nav>
-        <div className="pageUtil">
+        <div
+          className={[
+            "pageUtil",
+            `${location.pathname === `/detail/` ? "none" : ""}`,
+          ].join(" ")}
+        >
           <ul>
             <li className="home">
               <Link to="/"></Link>
@@ -138,13 +147,11 @@ const MainHeader = () => {
             </li>
           </ul>
         </div>
-        {modal &&
+        {modal && (
           <ModalPortal>
-            <PopupNotice
-              text={text}
-              onEvent={event} />
+            <PopupNotice text={text} onEvent={event} />
           </ModalPortal>
-        }
+        )}
       </header>
     </div>
   );
