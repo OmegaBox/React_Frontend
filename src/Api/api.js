@@ -1,7 +1,7 @@
 import axios from "axios";
 import cookie from "react-cookies";
 import BootPay from "bootpay-js";
-import { transformDateFormat } from "../Utils/ultil";
+import { transformDateFormat } from "../Utils/util";
 import key from "../key.json";
 import { setTicketNumber } from "../Reducer/bookingReducer";
 

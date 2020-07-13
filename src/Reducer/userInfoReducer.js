@@ -2,7 +2,7 @@ import { put, call, takeLatest } from "redux-saga/effects";
 import { userApi, isLogin } from "../Api/api";
 
 import cookie from "react-cookies";
-import { removeCookies } from "../Utils/ultil";
+import { removeCookies } from "../Utils/util";
 
 const SUCCESS = "userInfo/SUCCESS";
 const ERROR = "userInfo/ERROR";

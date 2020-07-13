@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 
 import "./style/BookingPayment.scss";
 import { billing } from "../../../Api/api";
-import { numWithComma } from "../../../Utils/ultil";
+import { numWithComma } from "../../../Utils/util";
 
 const BookingPayment = () => {
   const history = useHistory();

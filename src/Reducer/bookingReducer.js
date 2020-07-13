@@ -1,5 +1,5 @@
 import { select, put, takeLatest } from "redux-saga/effects";
-import { transformDateFormat } from "../Utils/ultil";
+import { transformDateFormat } from "../Utils/util";
 import { movieApi } from "../Api/api";
 
 const SUCCESS = "booking/SUCCESS";

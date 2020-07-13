@@ -2,7 +2,7 @@ import React from "react";
 import "./style/BookingTicket.scss";
 import BookingNotice from "../../Molecules/BookingNotice";
 import { useSelector } from "react-redux";
-import { numWithComma } from "../../../Utils/ultil";
+import { numWithComma } from "../../../Utils/util";
 
 //booking/payment-successcomplete
 
