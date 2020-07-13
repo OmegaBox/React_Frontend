@@ -4,8 +4,6 @@ import { useSelector } from "react-redux";
 
 const RatingChart = () => {
   const bookingRate = useSelector((state) => state.Movie.ageBooking);
-
-
   const options = {
     legend: {
       display: false,
