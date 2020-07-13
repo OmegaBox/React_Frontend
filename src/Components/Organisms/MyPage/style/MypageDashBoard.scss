@@ -1,0 +1,208 @@
+@import "../../../../commonVariable.scss";
+
+/* mypage Main */
+.mypageDashBoard {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  .mypagePersnalInfo, .mypageBookingHistory {width: 100%;}
+  .mypageMovieStoryInfo, .mypagePreferenceInfo {width: 400px;}
+  .mypageBookingHistory, .mypageMovieStoryInfo, .mypagePreferenceInfo {margin-top: 70px;}
+}
+
+
+/* 개인정보 */
+.mypagePersnalInfo {
+  display: flex;
+  justify-content: space-around;
+  padding: 24px 8px;
+  border-radius: 8px;
+  background-color: $lightBg;
+  .grade,
+  .point,
+  .likeTheater {padding: 0 24px;}
+  .grade {flex-grow: 1;}
+  .point {flex-grow: 0.7;}
+  .grade {border-right: 1px solid $border;}
+  .name {
+    margin-top: 4px;
+    margin-bottom: 16px;
+    font-size: 2.8rem;
+    font-weight: 500;
+    color: $colorPrimaryText;
+  }
+  .btnPersnalEdit {
+    display: flex;
+    align-content: center;
+  }
+  .point .subTitleWrap,
+  .likeTheater .subTitleWrap {
+    height: 28px;
+    margin-bottom: 4px;
+    padding-left: 8px;
+    .titleText {
+      font-size: 1.8rem;
+      color: $colorPrimaryText;
+    }
+  }
+  .point p {
+    display: inline-block;
+    width: 50%;
+    padding: 0 8px;
+  }
+  .point .totalPoint {
+    width: 100%;
+    margin: 8px 0 16px;
+    padding: 0 8px 8px;
+    font-size: 2.8rem;
+    color: $colorSub;
+    border-bottom: 1px solid $border;
+  }
+
+  /* 선호 영화관 선택 삭제로 인한 미사용
+  .likeTheater {
+    flex-grow: 1;
+    button {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 24px;
+      margin: 0;
+      padding: 0;
+    }
+    ul {
+      margin-top: 8px;
+    }
+    li {
+      padding: 4px;
+      counter-increment: number;
+      &::before {
+        content: counter(number);
+        display: inline-block;
+        margin-right: 8px;
+        font-style: italic;
+        font-weight: 700;
+      }
+    }
+  } */
+}
+
+/* 선호 영화관 선택 삭제로 인한 미사용
+.popupBox.likeTheater {
+  width: 500px;
+  height: 360px;
+  .termWrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 16px;
+    border-radius: 8px;
+    background-color: $whiteGrayBg;
+    select {
+      padding: 3px 8px;
+    }
+  }
+  .selectList {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 24px;
+    li {
+      width: 90px;
+      height: 90px;
+      margin: 0 8px;
+      border: 1px solid $border;
+      border-radius: 50%;
+      background-image: url("https://img.megabox.co.kr/static/pc/images/reserve/bg-empty-cell-circle.png");
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+    li.selectComplete {
+      position: relative;
+      padding: 34px 0;
+      text-align: center;
+      background-color: $lightBg;
+      background-image: initial;
+      border: none;
+      button {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 24px;
+        height: 24px;
+        padding: 0;
+        margin: 0;
+        border-radius: 50%;
+        overflow: hidden;
+        .icon {
+          width: 22px;
+          height: 22px;
+        }
+      }
+    }
+  }  
+}
+*/
+
+.mypageMovieStoryInfo .subTitleWrap, .mypagePreferenceInfo .subTitleWrap {margin-bottom: 16px;}
+.mypageMovieStoryInfo .movieStoryInfoList {display: flex;}
+.mypageMovieStoryInfo li {flex-grow: 1;}
+.mypageMovieStoryInfo a {
+  display: block;
+  text-align: center;
+  font-weight: 500;
+}
+.mypageMovieStoryInfo .amount {
+  display: block;
+  font-size: 3rem;
+  color: $colorSub;
+}
+.mypagePreferenceInfo .roundBox {
+  padding: 18px 16px 19px;
+}
+.mypagePreferenceInfo li {
+  padding: 4px 16px 4px 24px;
+  font-weight: 500;
+  color: $colorSub;
+}
+.mypagePreferenceInfo .bullet li::before {top: 14px;}
+.mypageBookingHistory .btnMore {
+  display: flex;
+  align-items: center;
+}
+
+/* mypageBookingHistory 무비리스트 */
+.mypageBookingHistory .movieList {border-top: 1px solid $darkBorder;}
+.mypageBookingHistory .movieItem {
+  border-bottom: 1px solid $border;
+  .poster {
+    width: 70px;
+    margin-right: 24px;
+    img {width: 100%;}
+  }
+  h5::after {
+    content: ":";
+    display: inline-block;
+    margin-left: 8px;
+  }
+  .info .paymentDate,
+  .info .theater,
+  .info .viewingDate {width: 100%;}
+  .info .paymentDate {
+    padding-bottom: 8px;
+    font-weight: 500;
+  }
+  .info .bookingNumber {
+    font-weight: 500;
+    color: $colorSub;
+  }
+  .info .bookingNumber::after {
+    content: "";
+    display: inline-block;
+    width: 1px;
+    height: 20px;
+    margin: 0 8px;
+    background-color: $border;
+  }
+}

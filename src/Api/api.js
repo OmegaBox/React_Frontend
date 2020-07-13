@@ -235,6 +235,52 @@ export const userApi = {
   logout: () => {
     return axios.post("/members/logout/");
   },
+  memberDetail: () => {
+    console.log("멤버디테일 id", cookie.load("id"));
+
+    return axios.post(
+      `/members/${cookie.load("id")}`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${cookie.load("accessToken")}`,
+        },
+      }
+    );
+  },
+  timelineLike: () => {
+    return axios.post(
+      `/members/${cookie.load("id")}/timeline/like-movies/`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${cookie.load("accessToken")}`,
+        },
+      }
+    );
+  },
+  timelineRating: () => {
+    return axios.post(
+      `/members/${cookie.load("id")}/timeline/rating-movies/`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${cookie.load("accessToken")}`,
+        },
+      }
+    );
+  },
+  timelineWatched: () => {
+    return axios.post(
+      `/members/${cookie.load("id")}/timeline/watched-movies/`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${cookie.load("accessToken")}`,
+        },
+      }
+    );
+  },
   idDoubleCheck: (id) => {
     return axios.post(
       "https://www.omegabox.xyz/members/signup/check-username/",

@@ -1,4 +1,5 @@
 import React from "react";
+import "./style/ConfirmPassword.scss";
 
 const ConfirmPassword = () => {
   return (

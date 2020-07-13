@@ -1,6 +1,5 @@
-import { put, call, takeLatest } from "redux-saga/effects";
+import { put, call, takeLatest, take } from "redux-saga/effects";
 import { userApi, isLogin } from "../Api/api";
-
 import cookie from "react-cookies";
 import { removeCookies } from "../Utils/ultil";
 
@@ -15,6 +14,12 @@ const LOGIN_ERROR = "userInfo/LOGIN_ERROR";
 const ALREADY_LOGIN = "userInfo/ALREADY_LOGIN";
 
 const LOGOUT_SUCCESS = "userInfo/LOGOUT";
+
+export const GET_MEMBER_DETAIL = "userInfo/GET_MEMBER_DETAIL"; // 사가진입용 액션
+
+const GET_MEMBER_DETAIL_LOADING = "userInfo/GET_MEMBER_DETAIL_LOADING";
+const GET_MEMBER_DETAIL_SUCCESS = "userInfo/GET_MEMBER_DETAIL_SUCCESS";
+const GET_MEMBER_DETAIL_ERROR = "userInfo/GET_MEMBER_DETAIL_ERROR";
 
 const checkLogin = () => async (dispatch) => {
   const res = await isLogin();
@@ -87,8 +92,36 @@ function* loginSaga(action) {
   }
 }
 
+function* memberDetail(action) {
+  yield put({ type: GET_MEMBER_DETAIL_LOADING });
+
+  try {
+    const res = yield call(userApi.memberDetail, { id: action.id });
+    console.log("memberDetail", res);
+    if (res.status === 200 || res.status === 201) {
+      yield put({ type: GET_MEMBER_DETAIL_SUCCESS, payload: res.data });
+    } else {
+      yield put({
+        // api 연결엔 성공했으니 뭔가 이상한게 넘어옴.
+        type: GET_MEMBER_DETAIL_ERROR, // 필수
+        errorMessage: "실패하다!",
+      });
+    }
+  } catch (e) {
+    console.log("멤버디테일 에러", e.response);
+
+    yield put({
+      // api 연결에 문제가 있을때 이쪽으로 넘어옴.
+      type: GET_MEMBER_DETAIL_ERROR, // 필수
+      errorMessage: "실패하다!",
+    });
+  }
+}
+
 function* userInfoSaga() {
   yield takeLatest(LOGIN, loginSaga);
+
+  yield takeLatest(GET_MEMBER_DETAIL, memberDetail);
 }
 
 const initialState = {
@@ -96,7 +129,6 @@ const initialState = {
   userName: "omegaman",
   name: "홍길동",
   email: "xxxxx@naver.com",
-  point: 18000,
   mobile: "+821011111111",
   birthDate: "2020-07-08",
   login: {
@@ -105,6 +137,10 @@ const initialState = {
     errorMessgae: "",
   },
   errorMessage: "",
+  profile: {
+    tier: "basic",
+    point: 500,
+  },
   bookingHistory: [
     {
       id: 0,
@@ -286,7 +322,36 @@ const userInfoReducer = (state = initialState, action) => {
         ...state,
         isLogin: true,
       };
-
+    case GET_MEMBER_DETAIL_ERROR:
+      return {
+        ...state,
+        isLogin: false,
+        login: {
+          ...state.login,
+          loading: false,
+          error: true,
+          errorMessage: action.errorMessage,
+        },
+      };
+    case GET_MEMBER_DETAIL_LOADING:
+      return {
+        ...state,
+        login: {
+          ...state.login,
+          loading: true,
+        },
+      };
+    // case GET_MEMBER_DETAIL:
+    //   return {
+    //     ...state,
+    //     name: action.name,
+    //     profile: {
+    //       ...state.profile,
+    //       id: action.profile.id,
+    //       tier: action.profile.tier,
+    //       point: action.profile.point,
+    //     },
+    //   };
     case ERROR:
     case LOADING:
     default:
@@ -294,4 +359,11 @@ const userInfoReducer = (state = initialState, action) => {
   }
 };
 
-export { userInfoReducer, userInfoSaga, checkLogin, startLogin, startLogout };
+export {
+  userInfoReducer,
+  userInfoSaga,
+  checkLogin,
+  startLogin,
+  startLogout,
+  memberDetail,
+};

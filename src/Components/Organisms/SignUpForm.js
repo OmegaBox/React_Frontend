@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-
+import logo from "../../images/omegabox_logo.jpg";
 import "./style/SignUpForm.scss";
 
 import { getToday, regExp } from "../../Utils/ultil";
@@ -170,16 +170,25 @@ const SignUpForm = ({ history }) => {
   return (
     <div className="signWrap">
       <section className="signUpSec">
+        <span className="omega_logo">
+          <img src={logo} alt="omegabox Logo" />
+        </span>
         <h2>회원가입</h2>
         <p className="textInfo">서비스를 이용하려면 가입하세요.</p>
-        <button
-          className={["btnGoogleSignUp", "btn", "white", "fill", "large"].join(
-            " "
-          )}
-        >
-          <span className="logo"></span>
-          <span>구글 회원 가입</span>
-        </button>
+        <div className="googleSignUp">
+          <button
+            className={[
+              "btnGoogleSignUp",
+              "btn",
+              "white",
+              "fill",
+              "large",
+            ].join(" ")}
+          >
+            <span className="logo"></span>
+            <span>구글 회원 가입</span>
+          </button>
+        </div>
         <div className={["nameWrap", "inputWrap"].join(" ")}>
           <label htmlFor="name">이름</label>
           <input
