@@ -1,5 +1,53 @@
 @import "../../../commonVariable.scss";
 
+.loginWrap {
+  position: relative;
+  min-height: 100vh;
+  background-color: $whiteGrayBg;
+  .loginBox {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    margin: auto;
+    padding: 48px 40px;
+    border: 1px solid $border;
+    border-radius: 8px;
+    background-color: $colorWhite;
+    text-align: center;
+    .omega_logo {
+      display: inline-block;
+      width: 120px;
+      margin-bottom: 16px;
+      img {
+        width: 100%;
+        height: auto;
+      }
+    }
+    h2 {
+      margin-bottom: 16px;
+      font-size: 5rem;
+      font-weight: 300;
+      text-align: center;
+      letter-spacing: 0.1em;
+      background-color: none;
+    }
+    .btn.closed {
+      position: absolute;
+      top: 10px;
+      right: 4px;
+      min-width: initial;
+      padding: 0 8px;
+    }
+  }
+
+}
+
+
+
+
 $checkBoxSize: 14px;
 
 #userId,
