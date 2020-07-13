@@ -1,0 +1,180 @@
+@import "../../../commonVariable.scss";
+
+main.myMegaBox {
+  width: 1100px;
+  margin: auto;
+  padding: 40px 0;
+}
+
+/* mypage common style */
+a {display: inline-block;}
+
+.bullet li, p.bullet {
+  position: relative;
+  padding-left: 24px;
+  &::before {
+    content: "";
+    position: absolute;
+    top: 8px;
+    left: 16px;
+    display: block;
+    width: 2px;
+    height: 2px;
+    background-color: $colorDisabledText;
+  }
+}
+p.bullet {padding-left: 16px;}
+p.bullet::before {left: 8px;}
+
+/* mypage content area common style */
+main.myMegaBox .mypageDashBoard,
+main.myMegaBox .bookingHistoryWrap,
+main.myMegaBox .pointWrap,
+main.myMegaBox .myMovieStoryWrap,
+main.myMegaBox .confirmPassword,
+main.myMegaBox .editUserInfo,
+main.myMegaBox .editPassword,
+main.myMegaBox .editOption {
+  float: right;
+  width: 840px;
+}
+.mypageTitle {
+  margin-bottom: 24px;
+  font-size: 2.8rem;
+  font-weight: 500;
+}
+
+.subTitleWrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 32px;
+  margin-bottom: 16px;
+}
+.titleText, .subTitleWrap .titleText {
+  font-size: 2.2rem;
+  font-weight: 500;
+  color: $colorMain;
+}
+.roundBox {
+  padding: 16px 8px;
+  border: 1px solid $border;
+  border-radius: 8px;
+}
+.listCounter {
+  margin-top: 24px;
+  margin-bottom: 8px;
+  padding-left: 4px;
+  font-weight: 700;
+  color: $colorPrimaryText;
+  letter-spacing: 0.15em;
+  span {color: $colorSub;}
+}
+table {
+  width: 100%;
+  border-top: 1px solid $darkBorder;
+  thead {
+    background-color: $whiteGrayBg;
+    th {
+      padding: 12px 4px;
+      border-bottom: 1px solid $border;
+    }
+  }
+  tbody {
+    th {
+      text-align: left;
+      background-color: $whiteGrayBg;
+    }
+    th, td {
+      padding: 8px;
+      border-bottom: 1px solid $border;
+    }
+  }
+}
+.paging {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 24px;
+  a {
+    width: 32px;
+    height: 32px;
+    padding-top: 2px;
+    font-weight: 500;
+    line-height: 32px;
+    text-align: center;
+    border-radius: 4px;
+    background-color: $colorSub;
+    color: $colorWhite;
+  }
+}
+.carousel {
+  flex-grow: 1;
+  display: flex;
+  border: 1px solid $border;
+  li {width: 11.111%;}
+  button {
+    width: 100%;
+    height: 100%;
+    padding-top: 4px;
+    font-size: 1.8rem;
+    color: $colorPrimaryText;
+    text-align: center;
+    border-bottom: 4px solid $colorWhite;
+  }
+  button.active {
+    font-weight: 500;
+    border-color: $colorMain;
+  }
+}
+.btnWrap {
+  width: 100%;
+  padding-top: 32px;
+  text-align: center;
+}
+
+.movieList {width: 100%;}
+.movieList .listNull {
+  width: 100%;
+  margin-top: -1px;
+  padding: 80px 0;
+  font-size: 1.8rem;
+  text-align: center;
+  border-top: 1px solid $darkBorder;
+  border-bottom: 1px solid $border;
+}
+.movieItem {
+  display: flex;
+  align-items: center;
+  padding: 24px 8px;
+  .info {flex-grow: 1;}
+  .poster img {width: 100%;}
+}
+.movieList .info li {
+  display: flex;
+  float: left;
+  h5 {
+    margin-right: 8px;
+    font-size: 1.6rem;
+    font-weight: 500;
+  }
+}
+
+/* 개인정보 수정, 비밀번호 변경, 선택정보 수정 */
+.editUserInfo table th,
+.editUserInfo table td,
+.editPassword table th,
+.editPassword table td,
+.editOption table th,
+.editOption table td {padding: 16px;}
+.editUserInfo table th,
+.editPassword table th,
+.editOption table th {width: 180px;}
+.editPassword table {margin-bottom: 16px;}
+.editPassword .bullet li {
+  padding-left: 16px;
+  &::before {
+    top: 10px;
+    left: 4px;
+  }
+}

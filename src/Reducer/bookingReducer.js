@@ -1,5 +1,5 @@
 import { select, put, takeLatest } from "redux-saga/effects";
-import { transformDateFormat } from "../Utils/ultil";
+import { transformDateFormat } from "../Utils/util";
 import { movieApi } from "../Api/api";
 
 const SUCCESS = "booking/SUCCESS";
@@ -25,6 +25,7 @@ const SET_SCHEDULES_LOG = "booking/SET_SCHEDULES_LOG";
 const SET_REGION_THEATER_LOG = "booking/SET_REGION_THEATER_LOG";
 
 const SET_DEFAULT_TICKET_INFO = "booking/SET_DEFAULT_TICKET_INFO";
+const SET_TICKET_NUMBER = "booking/SET_TICKET_NUMBER";
 
 // 영화관 가져오기
 const GET_THEATERS_CAN_BOOKING = "booking/GET_THEATERS_CAN_BOOKING";
@@ -44,6 +45,9 @@ const GET_POSSIBLE_MOVIES_ERROR = "booking/GET_POSSIBLE_MOVIES_ERROR";
 // 전체 영화 목록
 const GET_MOVIES_SUCCESS = "booking/GET_MOVIES_SUCCESS";
 
+// 티겟 상태 설정
+const SET_PRICE_LIST = "SET_PRICE_LIST";
+
 // 단순 상태 변환용 액션들 (리듀서 외부에서 사용)
 const setSelectedMovies = (movies) => ({ type: SET_SELECTED_MOVIE, movies });
 const setSelectedDate = (date) => ({ type: SET_SELECTED_DATE, date });
@@ -57,6 +61,34 @@ const setDefaultTicketInfo = (payload) => ({
   type: SET_DEFAULT_TICKET_INFO,
   payload,
 });
+const setTicketNumber = (number) => ({
+  type: SET_TICKET_NUMBER,
+  number,
+});
+
+const setPriceList = (screenType) => {
+  const basePrice = (() => {
+    switch (screenType) {
+      case "2D":
+      case "2Ds":
+        return 11000;
+      case "3D":
+        return 13000;
+      default:
+        return 0;
+    }
+  })();
+  const priceList = {
+    adult: basePrice,
+    teen: basePrice * 0.75,
+    preferential: basePrice * 0.75,
+  };
+
+  return {
+    type: SET_PRICE_LIST,
+    priceList,
+  };
+};
 
 // Thunk
 const getPossibleMovies = () => async (dispatch) => {
@@ -87,8 +119,6 @@ const getPossibleMovies = () => async (dispatch) => {
 };
 
 const getCanSelectMovies = () => async (dispatch, state) => {
-  console.log("진입성공");
-
   const movies = state().Booking.movies.allMovies;
   const schedules = state().Booking.schedule.schedules;
   // const selectedTheaters = state().Booking.selectedOption.selectedTheaters;
@@ -104,7 +134,6 @@ const getCanSelectMovies = () => async (dispatch, state) => {
   const canSelectMovies = schedules.filter((schedule) =>
     movies.find((movie) => movie.name_kor === schedule.movie)
   );
-  console.log(canSelectMovies);
 
   dispatch({
     type: SET_CAN_SELECT_MOVIES,
@@ -441,16 +470,17 @@ const initialState = {
     seletedSeat: [],
   },
   ticket: {
+    number: "",
     reservationInfos: [],
-    selectedDate: "2020-07-01",
-    selectedTheather: "강남대로(씨티)",
-    selectedMovieTitle: "결백",
-    movieAgeGrade: "15+",
-    screenHall: "1관",
+    selectedDate: "",
+    selectedTheather: "",
+    selectedMovieTitle: "",
+    movieAgeGrade: "",
+    screenHall: "",
     screenType: "",
-    seletedTime: "23:21",
-    endTime: "01:11",
-    seats: [{ seat_name: "B12", seat_id: 28 }],
+    seletedTime: "",
+    endTime: "",
+    seats: [],
     ticketType: {
       adult: 0,
       teen: 0,
@@ -461,7 +491,8 @@ const initialState = {
       teen: 0,
       preferential: 0,
     },
-    price: 8250,
+    price: 0,
+    poster: "",
   },
 };
 
@@ -609,6 +640,23 @@ const bookingReducer = (state = initialState, action) => {
           ...action.payload,
         },
       };
+    case SET_TICKET_NUMBER:
+      // console.log("티켓넘버", action.number);
+      return {
+        ...state,
+        ticket: {
+          ...state.ticket,
+          number: action.number,
+        },
+      };
+    case SET_PRICE_LIST:
+      return {
+        ...state,
+        ticket: {
+          ...state.ticket,
+          priceList: action.priceList,
+        },
+      };
 
     case SUCCESS:
     case ERROR:
@@ -633,4 +681,6 @@ export {
   getPossibleMovies,
   setReservation,
   selectDate,
+  setTicketNumber,
+  setPriceList,
 };
