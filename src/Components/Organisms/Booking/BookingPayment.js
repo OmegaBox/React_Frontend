@@ -1,5 +1,5 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 
 import "./style/BookingPayment.scss";
@@ -8,6 +8,7 @@ import { clientBilling } from "../../../Api/api";
 const BookingPayment = () => {
   const history = useHistory();
   const ticketState = useSelector((state) => state.Booking.ticket);
+  const dispatch = useDispatch();
   console.log(ticketState);
 
   let iconClassName = "icon";
@@ -72,7 +73,7 @@ const BookingPayment = () => {
               <span>{ticketState.selectedMovieTitle}</span>
             </li>
             <li className="type">
-              <h4 className="a11yHidden">영화 type</h4>
+              <h4 className="a11yHidden">{ticketState.screenType}</h4>
               <span>2D</span>
             </li>
             <li className="theater">
@@ -142,12 +143,16 @@ const BookingPayment = () => {
           <button
             type="button"
             className={["btn", "fill", "sub", "regular"].join(" ")}
-            onClick={() =>
-              clientBilling({
+            onClick={async () => {
+              const cb = await clientBilling({
                 title: ticketState.selectedMovieTitle,
                 price: ticketState.price,
-              })
-            }
+                reservations: ticketState.reservationInfos,
+                history,
+                dispatch,
+              });
+              console.log("이제 검증할차례", cb);
+            }}
           >
             결제
           </button>

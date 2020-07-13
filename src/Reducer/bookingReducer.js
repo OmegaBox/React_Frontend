@@ -25,6 +25,7 @@ const SET_SCHEDULES_LOG = "booking/SET_SCHEDULES_LOG";
 const SET_REGION_THEATER_LOG = "booking/SET_REGION_THEATER_LOG";
 
 const SET_DEFAULT_TICKET_INFO = "booking/SET_DEFAULT_TICKET_INFO";
+const SET_TICKET_NUMBER = "booking/SET_TICKET_NUMBER";
 
 // 영화관 가져오기
 const GET_THEATERS_CAN_BOOKING = "booking/GET_THEATERS_CAN_BOOKING";
@@ -56,6 +57,10 @@ const setNearbyTheaters = (theaters) => ({
 const setDefaultTicketInfo = (payload) => ({
   type: SET_DEFAULT_TICKET_INFO,
   payload,
+});
+const setTicketNumber = (number) => ({
+  type: SET_TICKET_NUMBER,
+  number,
 });
 
 // Thunk
@@ -441,6 +446,7 @@ const initialState = {
     seletedSeat: [],
   },
   ticket: {
+    number: "",
     reservationInfos: [],
     selectedDate: "2020-07-01",
     selectedTheather: "강남대로(씨티)",
@@ -462,6 +468,7 @@ const initialState = {
       preferential: 0,
     },
     price: 8250,
+    poster: "",
   },
 };
 
@@ -609,6 +616,14 @@ const bookingReducer = (state = initialState, action) => {
           ...action.payload,
         },
       };
+    case SET_TICKET_NUMBER:
+      return {
+        ...state,
+        ticket: {
+          ...state.ticket,
+          number: action.number,
+        },
+      };
 
     case SUCCESS:
     case ERROR:
@@ -633,4 +648,5 @@ export {
   getPossibleMovies,
   setReservation,
   selectDate,
+  setTicketNumber,
 };
