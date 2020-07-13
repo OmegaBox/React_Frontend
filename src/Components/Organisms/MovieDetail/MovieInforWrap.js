@@ -1,10 +1,13 @@
 import React from "react";
 import "./style/MovieInforWrap.scss";
 import { useSelector } from "react-redux";
+import RatingChart from "../../Molecules/ChartBookingRating";
+import DayAudienceLine from "../../Molecules/LineDayAudience";
+import RaderChartKeyPoint from "../../Molecules/RaderChartKeyPoint";
 
 const MovieInforWrap = () => {
   const movie = useSelector((state) => state.Movie.detail);
-  console.log(movie.actors !== undefined && movie.actors.splice(5))
+  // console.log(movie.actors !== undefined && movie.actors.splice(5))
 
   return (
     <div className="movieDetailInforLayout">
@@ -77,22 +80,34 @@ const MovieInforWrap = () => {
         <li>
           <h3 className="title">관람포인트</h3>
           <p className="content">배우.연출</p>
-          <div className="graph"></div>
+          <div className="graph">
+            <RaderChartKeyPoint />
+          </div>
         </li>
         <li>
           <h3 className="title">실관람 평점</h3>
           <p className="content">{movie.average_point}</p>
-          <div className="graph"></div>
+          <div className="scoreGraphWrap">
+            <div className="scoreGraph">
+              <strong>{movie.average_point}</strong>
+            </div>
+            <span>관람 후</span>
+          </div>
+
         </li>
         <li>
           <h3 className="title">예매율</h3>
           <p className="content">{movie.reservation_rate}%</p>
-          <div className="graph"></div>
+          <div className="graph">
+            < RatingChart />
+          </div>
         </li>
         <li>
           <h3 className="title">일자별 관객수</h3>
           <p className="content">{movie.acc_audience}</p>
-          <div className="graph"></div>
+          <div className="dayAudienceGraph">
+            <DayAudienceLine />
+          </div>
         </li>
       </ul>
       <div className="movieCommentWrap">
