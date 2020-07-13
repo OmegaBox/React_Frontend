@@ -1,5 +1,6 @@
 import React, { useEffect, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import ContentLoader from "react-content-loader";
 
 import "./style/BookingTheaterList.scss";
 import {
@@ -11,12 +12,13 @@ import {
   theaterLocation,
   findNearbyTheaters,
 } from "../../Utils/theaterLocation";
+import SkeletonRegion from "../Atoms/SkeletonRegion";
+import SkeletonTheater from "../Atoms/SkeletonTheater";
 
 const BookingTheaterList = () => {
-  const dispatchNearby = useCallback(async () =>
-    dispatch(setNearbyTheaters(await findNearbyTheaters()))
+  const isLoading = useSelector(
+    (state) => state.Booking.canSelectLocation.loading
   );
-
   const selectedOption = useSelector((state) => state.Booking.selectedOption);
   const canSelectRegions = useSelector(
     (state) => state.Booking.canSelectLocation.regions
@@ -30,6 +32,10 @@ const BookingTheaterList = () => {
 
   const theaterLocs = theaterLocation.slice();
   const nearbyTheaters = selectedOption.nearbyTheaters; // 가까운 영화관들
+
+  const dispatchNearby = useCallback(async () =>
+    dispatch(setNearbyTheaters(await findNearbyTheaters()))
+  );
 
   if (!theaterLocs.find((theater) => theater.region === "가까운 영화관")) {
     theaterLocs.unshift({
@@ -54,66 +60,73 @@ const BookingTheaterList = () => {
       <h3 className="theaterHeading">극장</h3>
       <div className="theaterLocationList">
         <ul className="region">
-          {theaterLocs.map((theater, i) => {
-            let className =
-              canSelectRegions[theater.region] ||
-              theater.region === "가까운 영화관"
-                ? ""
-                : " disabled";
+          {isLoading ? (
+            <SkeletonRegion />
+          ) : (
+            theaterLocs.map((theater, i) => {
+              let className =
+                canSelectRegions[theater.region] ||
+                theater.region === "가까운 영화관"
+                  ? ""
+                  : " disabled";
 
-            className +=
-              theater.region === selectedOption.selectedRegion
-                ? "selectedInfoLighter"
-                : "";
+              className +=
+                theater.region === selectedOption.selectedRegion
+                  ? "selectedInfoLighter"
+                  : "";
 
-            return (
-              <li key={`selectedRegion${i}`} className={className}>
-                <button
-                  type="button"
-                  disabled={!canSelectRegions[theater.region]}
-                  onClick={() => {
-                    dispatch(setSelectRegion(theater.region));
-                  }}
-                >
-                  <span>
-                    {theater.region}
-                    {theater.region !== "가까운 영화관"
-                      ? `(${canSelectRegions[theater.region]})`
-                      : ""}
-                  </span>
-                </button>
-              </li>
-            );
-          })}
+              return (
+                <li key={`selectedRegion${i}`} className={className}>
+                  <button
+                    type="button"
+                    disabled={!canSelectRegions[theater.region]}
+                    onClick={() => {
+                      dispatch(setSelectRegion(theater.region));
+                    }}
+                  >
+                    <span>
+                      {theater.region}
+                      {theater.region !== "가까운 영화관"
+                        ? `(${canSelectRegions[theater.region]})`
+                        : ""}
+                    </span>
+                  </button>
+                </li>
+              );
+            })
+          )}
         </ul>
         <ul className="localRegionTheater">
-          {selectedRegion
-            ? selectedRegion.theaters.map((theater, i) => {
-                const isSelected = selectedTheaters.find(
-                  (th) => th.name === theater.name
-                );
-                const CanSelected = canSelectTheaters.find(
-                  (th) => th.name === theater.name
-                );
+          {isLoading ? (
+            <SkeletonTheater />
+          ) : (
+            selectedRegion &&
+            selectedRegion.theaters.map((theater, i) => {
+              const isSelected = selectedTheaters.find(
+                (th) => th.name === theater.name
+              );
+              const CanSelected = canSelectTheaters.find(
+                (th) => th.name === theater.name
+              );
 
-                if (CanSelected) theater.theater_id = CanSelected.theater_id;
+              if (CanSelected) theater.theater_id = CanSelected.theater_id;
 
-                let className = "theater";
-                className += isSelected ? " selectedTheater" : "";
-                className += CanSelected ? "" : " disabled";
+              let className = "theater";
+              className += isSelected ? " selectedTheater" : "";
+              className += CanSelected ? "" : " disabled";
 
-                return (
-                  <li key={`slectedTheater${i}`} className={className}>
-                    <button
-                      disabled={!CanSelected}
-                      onClick={() => dispatch(selectTheater(theater))}
-                    >
-                      <span>{theater.name}</span>
-                    </button>
-                  </li>
-                );
-              })
-            : ""}
+              return (
+                <li key={`slectedTheater${i}`} className={className}>
+                  <button
+                    disabled={!CanSelected}
+                    onClick={() => dispatch(selectTheater(theater))}
+                  >
+                    <span>{theater.name}</span>
+                  </button>
+                </li>
+              );
+            })
+          )}
         </ul>
       </div>
       <ul className="seletedTheaterLists">
