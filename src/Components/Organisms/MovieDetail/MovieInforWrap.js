@@ -2,6 +2,8 @@ import React from "react";
 import "./style/MovieInforWrap.scss";
 import { useSelector } from "react-redux";
 import RatingChart from "../../Molecules/ChartBookingRating";
+import DayAudienceLine from "../../Molecules/LineDayAudience";
+import RaderChartKeyPoint from "../../Molecules/RaderChartKeyPoint";
 
 const MovieInforWrap = () => {
   const movie = useSelector((state) => state.Movie.detail);
@@ -78,7 +80,9 @@ const MovieInforWrap = () => {
         <li>
           <h3 className="title">관람포인트</h3>
           <p className="content">배우.연출</p>
-          <div className="graph"></div>
+          <div className="graph">
+            <RaderChartKeyPoint />
+          </div>
         </li>
         <li>
           <h3 className="title">실관람 평점</h3>
@@ -101,7 +105,9 @@ const MovieInforWrap = () => {
         <li>
           <h3 className="title">일자별 관객수</h3>
           <p className="content">{movie.acc_audience}</p>
-          <div className="graph"></div>
+          <div className="dayAudienceGraph">
+            <DayAudienceLine />
+          </div>
         </li>
       </ul>
       <div className="movieCommentWrap">

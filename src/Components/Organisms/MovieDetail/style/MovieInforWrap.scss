@@ -121,6 +121,7 @@
       font-size: 1.6rem;
     }
     .content {
+      padding-bottom: 30px;
       font-size: 3rem;
       font-weight: 600;
       color: $colorMain;
@@ -144,6 +145,10 @@
       font-size: 30px;
       color: $colorWhite;
     }
+  }
+  .dayAudienceGraph {
+    width: 220px;
+    height: 205px;
   }
 }
 

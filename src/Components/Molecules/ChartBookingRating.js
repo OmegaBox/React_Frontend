@@ -6,14 +6,15 @@ const RatingChart = () => {
 
   const options = {
     legend: {
-      dispay: false,
+      display: false,
     },
     scales: {
       yAxes: [{
         ticks: {
           autoSkip: true,
           stepSize: 1,
-          beginAtZero: true
+          beginAtZero: true,
+          display: false,
         },
         gridLines: {
           display: false,
@@ -35,6 +36,7 @@ const RatingChart = () => {
 
   const data = () => {
     setChartData({
+
       labels: ["10대", "20대", "30대", "40대", "50대"],
       datasets: [
         {
