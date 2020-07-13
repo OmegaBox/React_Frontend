@@ -472,26 +472,26 @@ const initialState = {
   ticket: {
     number: "",
     reservationInfos: [],
-    selectedDate: "2020-07-01",
-    selectedTheather: "강남대로(씨티)",
-    selectedMovieTitle: "결백",
-    movieAgeGrade: "15+",
-    screenHall: "1관",
+    selectedDate: "",
+    selectedTheather: "",
+    selectedMovieTitle: "",
+    movieAgeGrade: "",
+    screenHall: "",
     screenType: "",
-    seletedTime: "23:21",
-    endTime: "01:11",
-    seats: [{ seat_name: "B12", seat_id: 28 }],
+    seletedTime: "",
+    endTime: "",
+    seats: [],
     ticketType: {
       adult: 0,
       teen: 0,
       preferential: 0,
     },
     priceList: {
-      adult: 11000,
+      adult: 0,
       teen: 0,
       preferential: 0,
     },
-    price: 8250,
+    price: 0,
     poster: "",
   },
 };
@@ -681,9 +681,6 @@ export {
   getPossibleMovies,
   setReservation,
   selectDate,
-<<<<<<< HEAD
   setTicketNumber,
-=======
   setPriceList,
->>>>>>> c45086d7cd3d818e87a427e345e875c00b350d8c
 };

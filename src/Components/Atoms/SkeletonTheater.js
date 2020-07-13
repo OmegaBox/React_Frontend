@@ -4,7 +4,7 @@ import ContentLoader from "react-content-loader";
 const SkeletonTheater = () => {
   return (
     <ContentLoader
-      viewBox="0 0 150 360"
+      viewBox="0 0 150 350"
       backgroundColor={"#d8d8d8"}
       foregroundColor={"#eaeaea"}
     >
