@@ -260,8 +260,8 @@ export const userApi = {
   memberDetail: () => {
     console.log("멤버디테일 id", cookie.load("id"));
 
-    return axios.post(
-      `/members/${cookie.load("id")}`,
+    return axios.get(
+      `/members/${cookie.load("id")}/`,
       {},
       {
         headers: {
