@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import logo from "../../images/omegabox_logo.jpg";
 import "./style/SignUpForm.scss";
 
-import { getToday, regExp } from "../../Utils/ultil";
+import { getToday, regExp } from "../../Utils/util";
 import { userApi } from "../../Api/api";
 
 import { openModal, setSize, setOneBtn } from "../../Reducer/modalReducer";

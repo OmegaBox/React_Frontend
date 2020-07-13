@@ -1,7 +1,7 @@
 import { put, call, takeLatest, take } from "redux-saga/effects";
 import { userApi, isLogin } from "../Api/api";
 import cookie from "react-cookies";
-import { removeCookies } from "../Utils/ultil";
+import { removeCookies } from "../Utils/util";
 
 const SUCCESS = "userInfo/SUCCESS";
 const ERROR = "userInfo/ERROR";
@@ -325,13 +325,12 @@ const userInfoReducer = (state = initialState, action) => {
     case GET_MEMBER_DETAIL_ERROR:
       return {
         ...state,
-        isLogin: false,
-        login: {
-          ...state.login,
-          loading: false,
-          error: true,
-          errorMessage: action.errorMessage,
-        },
+        // login: {
+        //   ...state.login,
+        //   loading: false,
+        //   error: true,
+        //   errorMessage: action.errorMessage,
+        // },
       };
     case GET_MEMBER_DETAIL_LOADING:
       return {
