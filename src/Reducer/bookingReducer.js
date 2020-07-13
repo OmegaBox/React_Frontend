@@ -187,6 +187,34 @@ const getSchedules = () => async (dispatch, state) => {
   }
 };
 
+const setReservation = (
+  scheduleId,
+  selectedSeat,
+  seatPersonalType,
+  totalPrice,
+  nextFunc
+) => async (dispatch) => {
+  try {
+    const SeatIds = await movieApi.getSeatId(scheduleId, selectedSeat);
+    const reservationInfos = await movieApi.makeReservation(
+      scheduleId,
+      SeatIds.data.map((v) => v.seat_id).reverse(),
+      seatPersonalType
+    );
+    dispatch(
+      setDefaultTicketInfo({
+        seats: SeatIds.data,
+        ticketType: seatPersonalType,
+        price: totalPrice,
+        reservationInfos: reservationInfos.data.map((data) => data.reservation),
+      })
+    );
+    nextFunc();
+  } catch (e) {
+    console.error(e.response);
+  }
+};
+
 // 사가로 바꿔야함 날짜 or 날짜 & 타이틀로 상영 가능한 지역과 영화관 정보 가져오는 Thunk
 const getTheatersCanBooking = (movies = []) => async (dispatch, state) => {
   dispatch({ type: GET_THEATERS_CAN_BOOKING });
@@ -597,5 +625,6 @@ export {
   getSchedules,
   getTheatersCanBooking,
   getPossibleMovies,
+  setReservation,
   selectDate,
 };
