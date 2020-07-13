@@ -234,4 +234,12 @@ export const userApi = {
   logout: () => {
     return axios.post("/members/logout/");
   },
+  idDoubleCheck: (id) => {
+    return axios.post(
+      "https://www.omegabox.xyz/members/signup/check-username/",
+      {
+        username: id,
+      }
+    );
+  },
 };
