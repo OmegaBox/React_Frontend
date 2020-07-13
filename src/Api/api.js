@@ -32,7 +32,7 @@ export const isLogin = async () => {
   return await refreshValidation();
 };
 
-export const billing = ({
+export const clientBilling = ({
   title,
   price,
   username = "오메가맨",
