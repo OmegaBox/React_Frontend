@@ -118,7 +118,7 @@ export const billing = ({
         price,
         reservations_id,
       };
-      const res = await axios.post("/reservations/payment/", body, {
+      const res = await axios.post("/reservations/payments/", body, {
         headers: {
           Authorization: "Bearer " + accessToken,
         },
@@ -133,7 +133,8 @@ export const billing = ({
 export const movieApi = {
   getMovies: () => axios.get("movies/"),
   getMovie: (id) => axios.get(`/movies/detail/${id}`),
-  // getSearch: (keyword) => axios.get(`movies/?searchName=${keyword}`),
+  getAgeBooking: (id) => axios.get(`/movies/detail/${id}/age-booking/`),
+  getSearch: (keyword) => axios.get(`movies/?searchName=${keyword}`),
   getSchedules: ({ date, movies, theaterId }) => {
     let movieIds = "";
     if (movies) {
@@ -270,9 +271,20 @@ export const userApi = {
       }
     );
   },
-  timelineLike: () => {
-    return axios.post(
-      `/members/${cookie.load("id")}/timeline/like-movies/`,
+  myReserved: () => {
+    return axios.get(
+      `/members/${cookie.load("id")}/reserved-movies/`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${cookie.load("accessToken")}`,
+        },
+      }
+    );
+  },
+  myReservedCancel: () => {
+    return axios.get(
+      `/members/${cookie.load("id")}/reserved-movies/canceled/`,
       {},
       {
         headers: {
@@ -282,8 +294,8 @@ export const userApi = {
     );
   },
   timelineRating: () => {
-    return axios.post(
-      `/members/${cookie.load("id")}/timeline/rating-movies/`,
+    return axios.get(
+      `/members/${cookie.load("id")}/rating-movies/`,
       {},
       {
         headers: {
@@ -293,8 +305,19 @@ export const userApi = {
     );
   },
   timelineWatched: () => {
-    return axios.post(
-      `/members/${cookie.load("id")}/timeline/watched-movies/`,
+    return axios.get(
+      `/members/${cookie.load("id")}/watched-movies/`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${cookie.load("accessToken")}`,
+        },
+      }
+    );
+  },
+  timelineLike: () => {
+    return axios.get(
+      `/members/${cookie.load("id")}/like-movies/`,
       {},
       {
         headers: {
