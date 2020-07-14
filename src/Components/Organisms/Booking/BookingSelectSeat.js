@@ -10,7 +10,6 @@ import PopupNotice from "../../Molecules/PopupNotice";
 import BookingFastTitle from "../../Atoms/BookingFastTitle";
 
 import { resetThunk } from "../../../Reducer/bookingSeatReducer";
-import { setPriceList } from "../../../Reducer/bookingReducer";
 
 import "./style/BookingSelectSeat.scss";
 

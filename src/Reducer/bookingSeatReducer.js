@@ -131,7 +131,7 @@ const seatReducer = (state = initSeatState, action) => {
         ...state,
         selectedSeat:
           state.selectedSeat.indexOf(action.selected) > -1
-            ? state.selectedSeat.filter((seat) => seat != action.selected)
+            ? state.selectedSeat.filter((seat) => seat !== action.selected)
             : [...state.selectedSeat, action.selected].sort(
                 (a, b) =>
                   a[0].charCodeAt() - b[0].charCodeAt() ||
