@@ -1,13 +1,14 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 
-import { resetSeat } from "../../Reducer/bookingSeatReducer";
+import { resetSeat, setReservedSeat } from "../../Reducer/bookingSeatReducer";
 import { openModal, setSize } from "../../Reducer/modalReducer";
 
 const BookingSeatReset = () => {
   const dispatch = useDispatch();
   const resetEvent = () => {
     dispatch(resetSeat());
+    dispatch(setReservedSeat());
   };
   return (
     <button
