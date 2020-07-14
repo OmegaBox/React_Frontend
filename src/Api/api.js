@@ -118,7 +118,7 @@ export const billing = ({
         price,
         reservations_id,
       };
-      const res = await axios.post("/reservations/payment/", body, {
+      const res = await axios.post("/reservations/payments/", body, {
         headers: {
           Authorization: "Bearer " + accessToken,
         },
@@ -159,7 +159,7 @@ export const movieApi = {
 
     const call = `theaters/schedules/regions/${date}/${
       movies ? "?movies=" + movieIds : ""
-      }
+    }
     `;
 
     console.log(call);
@@ -174,7 +174,7 @@ export const movieApi = {
 
     const call = `theaters/schedules/${date}/${
       movies ? "?movies=" + movieIds : ""
-      }
+    }
     `;
 
     console.log(call);
