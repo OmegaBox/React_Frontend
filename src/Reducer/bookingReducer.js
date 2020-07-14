@@ -1,6 +1,8 @@
 import { select, put, takeLatest } from "redux-saga/effects";
 import { transformDateFormat, makeRefs } from "../Utils/util";
 import { movieApi } from "../Api/api";
+import { setReservedSeat, resetSeat } from "./bookingSeatReducer";
+import { openModal, setOneBtn } from "./modalReducer";
 
 const SUCCESS = "booking/SUCCESS";
 const ERROR = "booking/ERROR";
@@ -211,7 +213,6 @@ const setReservation = (
       SeatIds.data.map((v) => v.seat_id).reverse(),
       seatPersonalType
     );
-    // preferential
     dispatch(
       setDefaultTicketInfo({
         seats: SeatIds.data,
@@ -228,6 +229,15 @@ const setReservation = (
     nextFunc();
   } catch (e) {
     console.error(e.response);
+    if (e.response.status === 400) {
+      dispatch(setOneBtn());
+      dispatch(
+        openModal(e.response.data.detail, () => {
+          dispatch(setReservedSeat());
+          dispatch(resetSeat());
+        })
+      );
+    }
   }
 };
 
