@@ -260,12 +260,9 @@ export const userApi = {
     return axios.post("/members/logout/");
   },
   memberDetail: () => {
-    console.log("멤버디테일 accessToken", cookie.load("accessToken"));
-    const accessToken = cookie.load("accessToken");
-
     return axios.get("/members/detail/", {
       headers: {
-        Authorization: "Bearer " + accessToken,
+        Authorization: `Bearer ${cookie.load("accessToken")}`,
       },
     });
   },
