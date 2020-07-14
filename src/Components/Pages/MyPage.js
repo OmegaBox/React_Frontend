@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import MyMegaBox from "../Templates/MyMegaBox";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   checkLogin,
   GET_RESERVED,
@@ -10,10 +10,16 @@ import {
   GET_TIMELINE_WATCHED,
   GET_TIMELINE_LIKE,
 } from "../../Reducer/userInfoReducer";
+import { setOneBtn } from "../../Reducer/modalReducer";
+import ModalPortal from "../../Modules/ModalPortal";
+import PopupNotice from "../Molecules/PopupNotice";
 import "./style/mypage.scss";
 
-const MyPage = () => {
+const MyPage = ({ history }) => {
   const dispatch = useDispatch();
+  const isLoginCheck = useSelector((state) => state.userInfo.isLogin);
+
+  if (!isLoginCheck) dispatch(setOneBtn());
   useEffect(() => {
     window.scrollTo(0, 0);
     dispatch(checkLogin());
@@ -26,9 +32,19 @@ const MyPage = () => {
   }, [dispatch]);
 
   return (
-    <>
-      <MyMegaBox />
-    </>
+    <div>
+      <MyMegaBox history={history} />
+      {!isLoginCheck && (
+        <ModalPortal>
+          <PopupNotice
+            text={"로그인이 필요한 페이지 입니다"}
+            onEvent={() => {
+              history.push("/memberlogin");
+            }}
+          />
+        </ModalPortal>
+      )}
+    </div>
   );
 };
 
