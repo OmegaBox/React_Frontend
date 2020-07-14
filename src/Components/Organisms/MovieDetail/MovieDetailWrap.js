@@ -31,9 +31,7 @@ const MovieDetailWrap = () => {
                   "favorite",
                 ].join(" ")}
               >
-                <span
-                  className={["icon", "favoriteOutLine"].join(" ")}
-                ></span>
+                <span className={["icon", "favoriteOutLine"].join(" ")}></span>
                 <span>{movie.acc_favorite}</span>
               </button>
               <button
@@ -41,7 +39,7 @@ const MovieDetailWrap = () => {
                 className={["btn", "outLine", "regular", "white"].join(" ")}
               >
                 공유하기
-                  </button>
+              </button>
             </div>
             <ul className="eval">
               <li>
@@ -54,24 +52,20 @@ const MovieDetailWrap = () => {
               <li>
                 <h4 className="title">예매율</h4>
                 <div className="bookingRate">
-                  <span
-                    className={["icon", "bookingRate"].join(" ")}
-                  ></span>
+                  <span className={["icon", "bookingRate"].join(" ")}></span>
                   <span>{movie.rank}</span>
                   <span className="smallTxt">
                     위 ({movie.reservation_rate}%)
-                      </span>
+                  </span>
                 </div>
               </li>
               <li className="acc">
                 <h4 className="title">
                   누적관객수
-                      <span className={["icon", "info"].join(" ")}></span>
+                  <span className={["icon", "info"].join(" ")}></span>
                 </h4>
                 <div className="accCumlative">
-                  <span
-                    className={["icon", "accCumlative"].join(" ")}
-                  ></span>
+                  <span className={["icon", "accCumlative"].join(" ")}></span>
                   <span>{movie.acc_audience}</span>
                   <span className="smallTxt">명</span>
                 </div>
@@ -91,12 +85,19 @@ const MovieDetailWrap = () => {
                       poster: movie.poster,
                       id: movie.id,
                     })
-                  )}
+                  )
+                }
                 type="button"
-                className={["btn", "fill", "regular", "sub", "detailBookingBtn"].join(" ")}
+                className={[
+                  "btn",
+                  "fill",
+                  "regular",
+                  "sub",
+                  "detailBookingBtn",
+                ].join(" ")}
               >
                 예매
-                </button>
+              </button>
             </Link>
           </div>
         </div>

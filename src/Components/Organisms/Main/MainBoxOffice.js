@@ -121,13 +121,7 @@ const MainBoxOffice = () => {
       </div>
       <div className="moviePosterBg">
         {movieBox.map((movie, i) => {
-          return (
-            <img
-              key={i}
-              src={movie.poster}
-              alt={movie.title}
-            />
-          )
+          return <img key={i} src={movie.poster} alt={movie.title} />;
         })}
       </div>
     </div>
