@@ -1,5 +1,5 @@
 import { select, put, takeLatest } from "redux-saga/effects";
-import { transformDateFormat } from "../Utils/util";
+import { transformDateFormat, makeRefs } from "../Utils/util";
 import { movieApi } from "../Api/api";
 
 const SUCCESS = "booking/SUCCESS";
@@ -21,6 +21,7 @@ const SET_NEARBY_THEATERS = "booking/NEARBY_THEATERS";
 
 const SET_CAN_SELECT_MOVIES = "booking/SET_CAN_SELECT_MOVIES";
 
+const SET_SCHEDULE_REF = "booking/SET_SCHEDULE_REF";
 const SET_SCHEDULES_LOG = "booking/SET_SCHEDULES_LOG";
 const SET_REGION_THEATER_LOG = "booking/SET_REGION_THEATER_LOG";
 
@@ -61,6 +62,11 @@ const setDefaultTicketInfo = (payload) => ({
 const setTicketNumber = (number) => ({
   type: SET_TICKET_NUMBER,
   number,
+});
+
+const setScheduleRef = (payload) => ({
+  type: SET_SCHEDULE_REF,
+  payload,
 });
 
 // Thunk
@@ -142,6 +148,7 @@ const getSchedules = () => async (dispatch, state) => {
   );
   if (pastLog) {
     dispatch({ type: GET_SCHEDULES_SUCCESS, payload: pastLog.schedules });
+    dispatch(setScheduleRef(makeRefs(pastLog.schedules)));
     dispatch(
       setSelectedHour(
         pastLog.schedules.length
@@ -434,6 +441,7 @@ const initialState = {
   schedule: {
     schedules: [],
     scheduleLogs: [],
+    refs: {},
     loading: false,
   },
   selectedOption: {
@@ -596,6 +604,14 @@ const bookingReducer = (state = initialState, action) => {
         },
       };
 
+    case SET_SCHEDULE_REF:
+      return {
+        ...state,
+        schedule: {
+          ...state.schedule,
+          refs: action.payload,
+        },
+      };
     case SET_SCHEDULES_LOG:
       return {
         ...state,
@@ -649,6 +665,7 @@ export {
   setNearbyTheaters,
   setDefaultTicketInfo,
   getSchedules,
+  setScheduleRef,
   getTheatersCanBooking,
   getPossibleMovies,
   setReservation,
