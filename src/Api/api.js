@@ -212,6 +212,7 @@ export const movieApi = {
     );
   },
   makeReservation: (scheduleId, seatIdArr, seatPersonalType) => {
+    console.log("예약만들기 진입");
     console.log(scheduleId, seatIdArr, seatPersonalType);
     const accessToken = cookie.load("accessToken");
     if (!accessToken) return;
@@ -259,72 +260,46 @@ export const userApi = {
     return axios.post("/members/logout/");
   },
   memberDetail: () => {
-    console.log("멤버디테일 id", cookie.load("id"));
-
-    return axios.get(
-      `/members/${cookie.load("id")}/`,
-      {},
-      {
-        headers: {
-          Authorization: `Bearer ${cookie.load("accessToken")}`,
-        },
-      }
-    );
+    return axios.get("/members/detail/", {
+      headers: {
+        Authorization: `Bearer ${cookie.load("accessToken")}`,
+      },
+    });
   },
   myReserved: () => {
-    return axios.get(
-      `/members/${cookie.load("id")}/reserved-movies/`,
-      {},
-      {
-        headers: {
-          Authorization: `Bearer ${cookie.load("accessToken")}`,
-        },
-      }
-    );
+    return axios.get(`/members/reserved-movies/`, {
+      headers: {
+        Authorization: `Bearer ${cookie.load("accessToken")}`,
+      },
+    });
   },
   myReservedCancel: () => {
-    return axios.get(
-      `/members/${cookie.load("id")}/reserved-movies/canceled/`,
-      {},
-      {
-        headers: {
-          Authorization: `Bearer ${cookie.load("accessToken")}`,
-        },
-      }
-    );
+    return axios.get(`/members/reserved-movies/canceled/`, {
+      headers: {
+        Authorization: `Bearer ${cookie.load("accessToken")}`,
+      },
+    });
   },
   timelineRating: () => {
-    return axios.get(
-      `/members/${cookie.load("id")}/rating-movies/`,
-      {},
-      {
-        headers: {
-          Authorization: `Bearer ${cookie.load("accessToken")}`,
-        },
-      }
-    );
+    return axios.get(`/members/rating-movies/`, {
+      headers: {
+        Authorization: `Bearer ${cookie.load("accessToken")}`,
+      },
+    });
   },
   timelineWatched: () => {
-    return axios.get(
-      `/members/${cookie.load("id")}/watched-movies/`,
-      {},
-      {
-        headers: {
-          Authorization: `Bearer ${cookie.load("accessToken")}`,
-        },
-      }
-    );
+    return axios.get(`/members/watched-movies/`, {
+      headers: {
+        Authorization: `Bearer ${cookie.load("accessToken")}`,
+      },
+    });
   },
   timelineLike: () => {
-    return axios.get(
-      `/members/${cookie.load("id")}/like-movies/`,
-      {},
-      {
-        headers: {
-          Authorization: `Bearer ${cookie.load("accessToken")}`,
-        },
-      }
-    );
+    return axios.get(`/members/like-movies/`, {
+      headers: {
+        Authorization: `Bearer ${cookie.load("accessToken")}`,
+      },
+    });
   },
   idDoubleCheck: (id) => {
     return axios.post("/members/signup/check-username/", {
