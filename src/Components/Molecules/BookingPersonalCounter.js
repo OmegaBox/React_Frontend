@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 import {
   resetSeat,
+  setReservedSeat,
   changePersonalCount,
 } from "../../Reducer/bookingSeatReducer";
 import { openModal, setSize } from "../../Reducer/modalReducer";
@@ -22,6 +23,7 @@ const BookingPersonalCounter = ({ type }) => {
   // reset 이벤트
   const resetEvent = () => {
     dispatch(resetSeat());
+    dispatch(setReservedSeat());
   };
 
   // reset popup 열기
