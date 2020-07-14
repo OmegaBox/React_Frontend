@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import BookingCancel from "../../Molecules/BookingCancel";
-import PopupNotice from "../../Molecules/PopupNotice";
-import ModalPortal from "../../../Modules/ModalPortal";
 import { numWithComma } from "../../../Utils/util";
 import "./style/BookingHistoryWrap.scss";
 
@@ -24,12 +22,6 @@ const BookingHistoryWrap = () => {
       open: !useInfo.open,
     });
   };
-
-  /* 모달 팝업 */
-  const [modal, text, event, w, h] = useSelector((state) => {
-    const Modal = state.modal;
-    return [Modal.modal, Modal.text, Modal.event, Modal.width, Modal.height];
-  });
 
   const now = new Date();
 
@@ -182,18 +174,6 @@ const BookingHistoryWrap = () => {
             </li>
           )}
         </ul>
-        {modal && (
-          <ModalPortal>
-            <PopupNotice
-              text={text}
-              onEvent={event}
-              popupSize={{
-                width: w,
-                height: h,
-              }}
-            />
-          </ModalPortal>
-        )}
       </section>
       <section className="bookingCancel">
         <div className="subTitleWrap">

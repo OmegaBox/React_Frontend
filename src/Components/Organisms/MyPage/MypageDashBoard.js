@@ -2,8 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import BookingCancel from "../../Molecules/BookingCancel";
-import PopupNotice from "../../Molecules/PopupNotice";
-import ModalPortal from "../../../Modules/ModalPortal";
 import { numWithComma } from "../../../Utils/util";
 import "./style/MypageDashBoard.scss";
 
@@ -36,12 +34,6 @@ const MypageDashBoard = () => {
     favoriteMovies: state.userInfo.favoriteMovies,
     favoriteMoviesCount: state.userInfo.likeMoviesCount,
   }));
-
-  /* 모달 팝업 */
-  const [modal, text, event, w, h] = useSelector((state) => {
-    const Modal = state.modal;
-    return [Modal.modal, Modal.text, Modal.event, Modal.width, Modal.height];
-  });
 
   return (
     <div>
@@ -188,19 +180,6 @@ const MypageDashBoard = () => {
               </li>
             )}
           </ul>
-
-          {modal && (
-            <ModalPortal>
-              <PopupNotice
-                text={text}
-                onEvent={event}
-                popupSize={{
-                  width: w,
-                  height: h,
-                }}
-              />
-            </ModalPortal>
-          )}
         </section>
       </div>
     </div>
