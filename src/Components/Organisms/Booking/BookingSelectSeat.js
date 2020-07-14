@@ -63,7 +63,6 @@ const BookingSelectSeat = ({ history }) => {
     console.log("didMount");
     if (!checkTicket()) history.push("/");
     dispatch(resetThunk(history.location.pathname));
-    dispatch(setPriceList(screenType));
     return () => {
       console.log("unMount");
     };

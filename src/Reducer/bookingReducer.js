@@ -45,9 +45,6 @@ const GET_POSSIBLE_MOVIES_ERROR = "booking/GET_POSSIBLE_MOVIES_ERROR";
 // 전체 영화 목록
 const GET_MOVIES_SUCCESS = "booking/GET_MOVIES_SUCCESS";
 
-// 티겟 상태 설정
-const SET_PRICE_LIST = "SET_PRICE_LIST";
-
 // 단순 상태 변환용 액션들 (리듀서 외부에서 사용)
 const setSelectedMovies = (movies) => ({ type: SET_SELECTED_MOVIE, movies });
 const setSelectedDate = (date) => ({ type: SET_SELECTED_DATE, date });
@@ -65,30 +62,6 @@ const setTicketNumber = (number) => ({
   type: SET_TICKET_NUMBER,
   number,
 });
-
-const setPriceList = (screenType) => {
-  const basePrice = (() => {
-    switch (screenType) {
-      case "2D":
-      case "2Ds":
-        return 11000;
-      case "3D":
-        return 13000;
-      default:
-        return 0;
-    }
-  })();
-  const priceList = {
-    adult: basePrice,
-    teen: basePrice * 0.75,
-    preferential: basePrice * 0.75,
-  };
-
-  return {
-    type: SET_PRICE_LIST,
-    priceList,
-  };
-};
 
 // Thunk
 const getPossibleMovies = () => async (dispatch) => {
@@ -221,6 +194,7 @@ const setReservation = (
   selectedSeat,
   seatPersonalType,
   totalPrice,
+  basePrice,
   nextFunc
 ) => async (dispatch) => {
   try {
@@ -230,12 +204,18 @@ const setReservation = (
       SeatIds.data.map((v) => v.seat_id).reverse(),
       seatPersonalType
     );
+    // preferential
     dispatch(
       setDefaultTicketInfo({
         seats: SeatIds.data,
         ticketType: seatPersonalType,
         price: totalPrice,
         reservationInfos: reservationInfos.data.map((data) => data.reservation),
+        priceList: {
+          adult: basePrice * seatPersonalType.adult,
+          teen: basePrice * 0.75 * seatPersonalType.teen,
+          preferential: basePrice * 0.75 * seatPersonalType.preferential,
+        },
       })
     );
     nextFunc();
@@ -649,14 +629,6 @@ const bookingReducer = (state = initialState, action) => {
           number: action.number,
         },
       };
-    case SET_PRICE_LIST:
-      return {
-        ...state,
-        ticket: {
-          ...state.ticket,
-          priceList: action.priceList,
-        },
-      };
 
     case SUCCESS:
     case ERROR:
@@ -682,5 +654,4 @@ export {
   setReservation,
   selectDate,
   setTicketNumber,
-  setPriceList,
 };

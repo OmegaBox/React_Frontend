@@ -1,10 +1,14 @@
 import React from "react";
 import "./style/MovieInforWrap.scss";
 import { useSelector } from "react-redux";
+import RatingChart from "../../Molecules/ChartBookingRating";
+import DayAudienceLine from "../../Molecules/LineDayAudience";
+import RaderChartKeyPoint from "../../Molecules/RaderChartKeyPoint";
+import { numWithComma } from "../../../Utils/util";
 
 const MovieInforWrap = () => {
   const movie = useSelector((state) => state.Movie.detail);
-  console.log(movie.actors !== undefined && movie.actors.splice(5))
+  console.log();
 
   return (
     <div className="movieDetailInforLayout">
@@ -44,7 +48,7 @@ const MovieInforWrap = () => {
         <li className="director">
           <h3 className="title">감독</h3>
           {movie.directors !== undefined && movie.directors.map((director, i) => {
-            return <span key={director}>{director.name}</span>
+            return <span key={`movie.$${director}`}>{director}</span>
           })
           }
         </li>
@@ -52,7 +56,7 @@ const MovieInforWrap = () => {
           <h3 className="title">장르</h3>
           <span >
             {movie.genres !== undefined && movie.genres.map((genre, i) => {
-              return <span key={genre} className="movieGenre">{genre.name}</span>
+              return <span key={`movie.${genre}`} className="movieGenre">{genre}</span>
             })
             }
           </span>/
@@ -69,30 +73,42 @@ const MovieInforWrap = () => {
         <li className="cast">
           <h3 className="title">출연진</h3>
           {movie.actors !== undefined && movie.actors.map((actor, i) => {
-            return <span key={movie.actor}>{actor.name},</span>
+            return <span key={`movie.${actor}`}>{actor}</span>
           })}
         </li>
       </ul>
       <ul className="movieInfoGraphicWrap">
         <li>
           <h3 className="title">관람포인트</h3>
-          <p className="content">배우.연출</p>
-          <div className="graph"></div>
+          <p className="content">배우·연출</p>
+          <div className="graph">
+            <RaderChartKeyPoint />
+          </div>
         </li>
         <li>
           <h3 className="title">실관람 평점</h3>
           <p className="content">{movie.average_point}</p>
-          <div className="graph"></div>
+          <div className="scoreGraphWrap">
+            <div className="scoreGraph">
+              <strong>{movie.average_point}</strong>
+            </div>
+            <span>관람 후</span>
+          </div>
+
         </li>
         <li>
           <h3 className="title">예매율</h3>
           <p className="content">{movie.reservation_rate}%</p>
-          <div className="graph"></div>
+          <div className="graph">
+            < RatingChart />
+          </div>
         </li>
         <li>
           <h3 className="title">일자별 관객수</h3>
-          <p className="content">{movie.acc_audience}</p>
-          <div className="graph"></div>
+          <p className="content">{numWithComma(movie.acc_audience)}</p>
+          <div className="dayAudienceGraph">
+            <DayAudienceLine />
+          </div>
         </li>
       </ul>
       <div className="movieCommentWrap">
@@ -125,29 +141,33 @@ const MovieInforWrap = () => {
           </div>
         </div>
         <ul className="commentList">
-          <li className="movieComment">
-            <div className="profile">
-              <div className="photo"></div>
-              <p className="id">honggildo**</p>
-            </div>
-            <div className="box">
-              <h3 className="title">관람평</h3>
-              <p className="ratePoint">8</p>
-              <p className="hashTag">
-                <span>스토리</span>
-                <span>OST</span>
-              </p>
-              <p className="comment">좋아요</p>
-              <button type="button">
-                <span className={["icon", "like"].join(" ")}></span>
-                <span>0</span>
-              </button>
-              <button type="button">
-                <span className={["icon", "btnMore"].join(" ")}></span>
-              </button>
-            </div>
-            <div className="writeDateCount">5일전</div>
-          </li>
+          {movie.ratings !== undefined && movie.ratings.map((rating, i) => {
+            return (
+              <li key={`rating.${i}`} className="movieComment">
+                <div className="profile">
+                  <div className="photo"></div>
+                  <p className="id">{rating.member}</p>
+                </div>
+                <div className="box">
+                  <h3 className="title">관람평</h3>
+                  <p className="ratePoint">{rating.score}</p>
+                  <p className="hashTag">
+                    <span>{rating.key_point}</span>
+                  </p>
+                  <p className="comment">{rating.comment}</p>
+                  <button type="button">
+                    <span className={["icon", "like"].join(" ")}></span>
+                    <span>0</span>
+                  </button>
+                  <button type="button">
+                    <span className={["icon", "btnMore"].join(" ")}></span>
+                  </button>
+                </div>
+                <div className="writeDateCount">5일전</div>
+              </li>
+            )
+          })}
+
         </ul>
       </div>
       <div className="moviePostWrap">

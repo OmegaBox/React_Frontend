@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "./style/MainHeader.scss";
 import logo from "../../images/omegaWhite.png";
 import { Link, useHistory } from "react-router-dom";
@@ -12,7 +12,6 @@ import { openModal } from "../../Reducer/modalReducer";
 
 const MainHeader = () => {
   const dispatch = useDispatch();
-  // const [questionLogin, setQuestionState] = useState(false)
   const [modal, text, event] = useSelector((state) => {
     const Modal = state.modal;
     return [Modal.modal, Modal.text, Modal.event];
@@ -76,7 +75,10 @@ const MainHeader = () => {
                 <>
                   <li>
                     <Link
+<<<<<<< HEAD
                       to="/"
+=======
+>>>>>>> cfa01f66f01271e6fcf1b67c830e03042d9b1081
                       onClick={() => {
                         dispatch(
                           openModal("로그아웃하시겠습니까?", logOutPopup)
@@ -149,7 +151,14 @@ const MainHeader = () => {
         </div>
         {modal && (
           <ModalPortal>
+<<<<<<< HEAD
             <PopupNotice text={text} onEvent={event} />
+=======
+            <PopupNotice
+              text={text}
+              onEvent={event}
+            />
+>>>>>>> cfa01f66f01271e6fcf1b67c830e03042d9b1081
           </ModalPortal>
         )}
       </header>
