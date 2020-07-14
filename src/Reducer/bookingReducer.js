@@ -2,6 +2,7 @@ import { select, put, takeLatest } from "redux-saga/effects";
 import { transformDateFormat } from "../Utils/util";
 import { movieApi } from "../Api/api";
 import { setReservedSeat, resetSeat } from "./bookingSeatReducer";
+import { checkLogin } from "./userInfoReducer";
 import { openModal, setOneBtn } from "./modalReducer";
 
 const SUCCESS = "booking/SUCCESS";
@@ -197,40 +198,49 @@ const setReservation = (
   seatPersonalType,
   totalPrice,
   basePrice,
-  nextFunc
-) => async (dispatch) => {
-  try {
-    const SeatIds = await movieApi.getSeatId(scheduleId, selectedSeat);
-    const reservationInfos = await movieApi.makeReservation(
-      scheduleId,
-      SeatIds.data.map((v) => v.seat_id).reverse(),
-      seatPersonalType
-    );
-    dispatch(
-      setDefaultTicketInfo({
-        seats: SeatIds.data,
-        ticketType: seatPersonalType,
-        price: totalPrice,
-        reservationInfos: reservationInfos.data.map((data) => data.reservation),
-        priceList: {
-          adult: basePrice * seatPersonalType.adult,
-          teen: basePrice * 0.75 * seatPersonalType.teen,
-          preferential: basePrice * 0.75 * seatPersonalType.preferential,
-        },
-      })
-    );
-    nextFunc();
-  } catch (e) {
-    console.error(e.response);
-    if (e.response.status === 400) {
-      dispatch(setOneBtn());
+  nextFunc,
+  LoginFalseFunc
+) => async (dispatch, useState) => {
+  await dispatch(checkLogin());
+  if (useState().userInfo.isLogin) {
+    try {
+      const SeatIds = await movieApi.getSeatId(scheduleId, selectedSeat);
+      const reservationInfos = await movieApi.makeReservation(
+        scheduleId,
+        SeatIds.data.map((v) => v.seat_id).reverse(),
+        seatPersonalType
+      );
       dispatch(
-        openModal(e.response.data.detail, () => {
-          dispatch(setReservedSeat());
-          dispatch(resetSeat());
+        setDefaultTicketInfo({
+          seats: SeatIds.data,
+          ticketType: seatPersonalType,
+          price: totalPrice,
+          reservationInfos: reservationInfos.data.map(
+            (data) => data.reservation
+          ),
+          priceList: {
+            adult: basePrice * seatPersonalType.adult,
+            teen: basePrice * 0.75 * seatPersonalType.teen,
+            preferential: basePrice * 0.75 * seatPersonalType.preferential,
+          },
         })
       );
+      nextFunc();
+    } catch (e) {
+      console.error(e.response);
+      if (e.response.status === 400) {
+        dispatch(setOneBtn());
+        dispatch(
+          openModal(e.response.data.detail, () => {
+            dispatch(setReservedSeat());
+            dispatch(resetSeat());
+          })
+        );
+      }
     }
+  } else {
+    console.error("로그인 만료");
+    LoginFalseFunc();
   }
 };
 
