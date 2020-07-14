@@ -143,7 +143,7 @@ const MovieInforWrap = () => {
         <ul className="commentList">
           {movie.ratings !== undefined && movie.ratings.map((rating, i) => {
             return (
-              <li key={`rating.${rating}`} className="movieComment">
+              <li key={`rating.${i}`} className="movieComment">
                 <div className="profile">
                   <div className="photo"></div>
                   <p className="id">{rating.member}</p>

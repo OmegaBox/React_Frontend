@@ -1,13 +1,24 @@
-import React from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect } from "react";
 import "./style/MovieDetailWrap.scss";
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { selectMovie } from "../../../Reducer/bookingReducer";
+import { resetMovies } from "../../../Reducer/movieReducer";
 import { numWithComma } from "../../../Utils/util";
 
+
 const MovieDetailWrap = () => {
+  const history = useHistory();
+  const url = history.location.pathname;
   const movie = useSelector((state) => state.Movie.detail);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    return () => {
+      if (url.slice(0, 7) === "/detail") dispatch(resetMovies());
+    }
+  }, [url]);
 
   return (
     <div className="movieVisual">

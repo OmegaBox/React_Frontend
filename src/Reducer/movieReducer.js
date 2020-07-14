@@ -30,7 +30,7 @@ const setSuccessBookingAgeRating = (id, data) => ({ type: BOOKING_AGE_RATING_SUC
 const setLoadingBookingAgeRating = () => ({ type: BOOKING_AGE_RATING_LOADING, })
 const setErrorBookingAgeRating = (error) => ({ type: BOOKING_AGE_RATING_ERROR, error })
 
-const resetMoviePage = () => ({ type: RESET_MOVIE_PAGE });
+const resetMoviePage = (state, data) => ({ type: RESET_MOVIE_PAGE, state, data });
 
 const getMovies = () => async (dispatch) => {
   try {
@@ -122,9 +122,9 @@ const initialState = {
 };
 
 
-
-export const resetMovies = (url) => (dispatch) => {
-  if (url === "/") dispatch(resetMoviePage());
+const resetMovies = (url) => (dispatch) => {
+  console.log("리셋");
+  dispatch(resetMoviePage());
 }
 
 
@@ -179,7 +179,6 @@ const movieReducer = (state = initialState, action) => {
         ...state,
         loading: false,
         ageBooking: action.data,
-        // page: action.page,
         error: null,
       }
     case BOOKING_AGE_RATING_LOADING:
@@ -197,7 +196,9 @@ const movieReducer = (state = initialState, action) => {
         loading: false
       }
     case RESET_MOVIE_PAGE:
-      return { ...initialState };
+      return {
+        ...initialState
+      };
     default:
       return state;
   }
@@ -207,6 +208,7 @@ export {
   getMovies,
   getMovie,
   getAgeBooking,
+  resetMovies,
   // getSearch,
   movieReducer,
   setSuccessMovie,

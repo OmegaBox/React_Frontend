@@ -1,25 +1,16 @@
-import React, { useEffect } from "react";
-// import { movieApi } from "../../../Api/api";
+import React from "react";
 import "./style/MainBoxOffice.scss";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { selectMovie } from "../../../Reducer/bookingReducer";
-import { resetMovies } from "../../../Reducer/movieReducer";
 
 const MainBoxOffice = () => {
   let movieBox = useSelector((state) => state.Movie.movies);
   movieBox = movieBox.filter((_, i) => i < 4);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    console.log("Mount");
-    dispatch(resetMovies());
-    return () => {
-      console.log("UNMount");
-    }
-  }, []);
-
   return (
+
     <div className="mainBoxOfficeLayout">
       <div className="mainBoxOffice">
         <div className="mainBoxOfficeHeader">
