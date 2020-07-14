@@ -1,7 +1,8 @@
 import { select, put, takeLatest } from "redux-saga/effects";
-import { transformDateFormat } from "../Utils/util";
+import { transformDateFormat, makeRefs } from "../Utils/util";
 import { movieApi } from "../Api/api";
 import { setReservedSeat, resetSeat } from "./bookingSeatReducer";
+import { checkLogin } from "./userInfoReducer";
 import { openModal, setOneBtn } from "./modalReducer";
 
 const SUCCESS = "booking/SUCCESS";
@@ -23,6 +24,7 @@ const SET_NEARBY_THEATERS = "booking/NEARBY_THEATERS";
 
 const SET_CAN_SELECT_MOVIES = "booking/SET_CAN_SELECT_MOVIES";
 
+const SET_SCHEDULE_REF = "booking/SET_SCHEDULE_REF";
 const SET_SCHEDULES_LOG = "booking/SET_SCHEDULES_LOG";
 const SET_REGION_THEATER_LOG = "booking/SET_REGION_THEATER_LOG";
 
@@ -63,6 +65,11 @@ const setDefaultTicketInfo = (payload) => ({
 const setTicketNumber = (number) => ({
   type: SET_TICKET_NUMBER,
   number,
+});
+
+const setScheduleRef = (payload) => ({
+  type: SET_SCHEDULE_REF,
+  payload,
 });
 
 // Thunk
@@ -144,6 +151,7 @@ const getSchedules = () => async (dispatch, state) => {
   );
   if (pastLog) {
     dispatch({ type: GET_SCHEDULES_SUCCESS, payload: pastLog.schedules });
+    dispatch(setScheduleRef(makeRefs(pastLog.schedules)));
     dispatch(
       setSelectedHour(
         pastLog.schedules.length
@@ -177,6 +185,7 @@ const getSchedules = () => async (dispatch, state) => {
     );
 
     dispatch({ type: GET_SCHEDULES_SUCCESS, payload: newSearchLog.schedules });
+    dispatch(setScheduleRef(makeRefs(newSearchLog.schedules)));
     dispatch({ type: SET_SCHEDULES_LOG, payload: newSearchLog });
     dispatch(getCanSelectMovies());
     dispatch(
@@ -197,40 +206,49 @@ const setReservation = (
   seatPersonalType,
   totalPrice,
   basePrice,
-  nextFunc
-) => async (dispatch) => {
-  try {
-    const SeatIds = await movieApi.getSeatId(scheduleId, selectedSeat);
-    const reservationInfos = await movieApi.makeReservation(
-      scheduleId,
-      SeatIds.data.map((v) => v.seat_id).reverse(),
-      seatPersonalType
-    );
-    dispatch(
-      setDefaultTicketInfo({
-        seats: SeatIds.data,
-        ticketType: seatPersonalType,
-        price: totalPrice,
-        reservationInfos: reservationInfos.data.map((data) => data.reservation),
-        priceList: {
-          adult: basePrice * seatPersonalType.adult,
-          teen: basePrice * 0.75 * seatPersonalType.teen,
-          preferential: basePrice * 0.75 * seatPersonalType.preferential,
-        },
-      })
-    );
-    nextFunc();
-  } catch (e) {
-    console.error(e.response);
-    if (e.response.status === 400) {
-      dispatch(setOneBtn());
+  nextFunc,
+  LoginFalseFunc
+) => async (dispatch, useState) => {
+  await dispatch(checkLogin());
+  if (useState().userInfo.isLogin) {
+    try {
+      const SeatIds = await movieApi.getSeatId(scheduleId, selectedSeat);
+      const reservationInfos = await movieApi.makeReservation(
+        scheduleId,
+        SeatIds.data.map((v) => v.seat_id).reverse(),
+        seatPersonalType
+      );
       dispatch(
-        openModal(e.response.data.detail, () => {
-          dispatch(setReservedSeat());
-          dispatch(resetSeat());
+        setDefaultTicketInfo({
+          seats: SeatIds.data,
+          ticketType: seatPersonalType,
+          price: totalPrice,
+          reservationInfos: reservationInfos.data.map(
+            (data) => data.reservation
+          ),
+          priceList: {
+            adult: basePrice * seatPersonalType.adult,
+            teen: basePrice * 0.75 * seatPersonalType.teen,
+            preferential: basePrice * 0.75 * seatPersonalType.preferential,
+          },
         })
       );
+      nextFunc();
+    } catch (e) {
+      console.error(e.response);
+      if (e.response.status === 400) {
+        dispatch(setOneBtn());
+        dispatch(
+          openModal(e.response.data.detail, () => {
+            dispatch(setReservedSeat());
+            dispatch(resetSeat());
+          })
+        );
+      }
     }
+  } else {
+    console.error("로그인 만료");
+    LoginFalseFunc();
   }
 };
 
@@ -444,6 +462,7 @@ const initialState = {
   schedule: {
     schedules: [],
     scheduleLogs: [],
+    refs: {},
     loading: false,
   },
   selectedOption: {
@@ -606,6 +625,14 @@ const bookingReducer = (state = initialState, action) => {
         },
       };
 
+    case SET_SCHEDULE_REF:
+      return {
+        ...state,
+        schedule: {
+          ...state.schedule,
+          refs: action.payload,
+        },
+      };
     case SET_SCHEDULES_LOG:
       return {
         ...state,
@@ -659,6 +686,7 @@ export {
   setNearbyTheaters,
   setDefaultTicketInfo,
   getSchedules,
+  setScheduleRef,
   getTheatersCanBooking,
   getPossibleMovies,
   setReservation,
