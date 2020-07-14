@@ -327,11 +327,8 @@ export const userApi = {
     );
   },
   idDoubleCheck: (id) => {
-    return axios.post(
-      "https://www.omegabox.xyz/members/signup/check-username/",
-      {
-        username: id,
-      }
-    );
+    return axios.post("/members/signup/check-username/", {
+      username: id,
+    });
   },
 };
