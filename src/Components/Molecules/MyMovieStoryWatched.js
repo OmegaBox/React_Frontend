@@ -29,29 +29,30 @@ const MyMovieStoryWatched = () => {
       <ul className={["movieList", "clearfix"].join(" ")}>
         {watchedMovie.length ? (
           watchedMovie.map((movie) => (
-            <li key={movie.id} className="watchedMovie">
+            <li key={movie.payment_id} className="watchedMovie">
               <article className="movieItem">
                 <div className="poster">
-                  <img src={movie.poster} alt={`${movie.title} 포스터`} />
+                  <img
+                    src={movie.movie.poster}
+                    alt={`${movie.movie.movie_name} 포스터`}
+                  />
                 </div>
                 <ul className={["info", "clearfix"].join(" ")}>
                   <li className="title">
                     <h5 className="a11yHidden">영화명</h5>
-                    <p>{movie.title}</p>
+                    <p>{movie.movie.movie_name}</p>
                   </li>
                   <li className="theater">
                     <h5 className="a11yHidden">극장</h5>
-                    <p>{movie.theater}</p>
+                    <p>{movie.theater_name}</p>
                   </li>
                   <li className="theater2">
                     <h5 className="a11yHidden">상영관</h5>
-                    <p>{movie.screeningHall}</p>
+                    <p>{movie.screen_name}</p>
                   </li>
                   <li className="viewingDate">
                     <h5 className="a11yHidden">관람일시</h5>
-                    <p>
-                      {movie.date} {movie.time} {`${movie.round}회차`}
-                    </p>
+                    <p>{movie.start_time}</p>
                   </li>
                 </ul>
                 <div className="btnWrap">
