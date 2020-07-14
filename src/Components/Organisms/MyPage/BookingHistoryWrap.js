@@ -62,17 +62,15 @@ const BookingHistoryWrap = () => {
     selectTerm = `${year}/${month < 10 ? "0" + month : month}/${
       date < 10 ? "0" + date : date
     }`;
-    console.log(selectTerm);
     return selectTerm;
   };
   const [_bookingHistory, set_BookingHistory] = useState(bookingHistory);
-  console.log(_bookingHistory);
 
   const selectTerm = (now, term) => {
     set_BookingHistory(
       bookingHistory.filter(
         (booking) =>
-          Date.parse(getSelectTerm(now, term)) < Date.parse(booking.paymentDate)
+          Date.parse(getSelectTerm(now, term)) < Date.parse(booking.payed_at)
       )
     );
   };
@@ -120,27 +118,27 @@ const BookingHistoryWrap = () => {
         <ul className="movieList">
           {bookingHistory.length ? (
             _bookingHistory.map((booking) => (
-              <li key={booking.id}>
+              <li key={booking.reservation_id}>
                 <article className="movieItem">
                   <div className="poster">
                     <img
                       src={booking.poster}
-                      alt={[booking.title, "포스터"].join(" ")}
+                      alt={[booking.movie_name, "포스터"].join(" ")}
                     />
                   </div>
                   <ul className={["info", "clearfix"].join(" ")}>
                     <li className="bookingNumber">
                       <h5>예매번호</h5>
-                      <p>{booking.ticketNumber}</p>
+                      <p>{booking.reservation_code}</p>
                     </li>
                     <li className="title">
                       <h5>영화명</h5>
-                      <p>{booking.title}</p>
+                      <p>{booking.movie_name}</p>
                     </li>
                     <li className="theater">
                       <h5>극장/상영관</h5>
                       <p>
-                        {booking.theater} / {booking.screeningHall}
+                        {booking.theater_name} / {booking.screen_name}
                       </p>
                     </li>
                     <li className="peopleCounter">
@@ -149,18 +147,16 @@ const BookingHistoryWrap = () => {
                     </li>
                     <li className="viewingDate">
                       <h5>관람일시</h5>
-                      <p>
-                        {booking.date} ({booking.time})
-                      </p>
+                      <p>{booking.start_time}</p>
                     </li>
                     <li className="viewingSeat">
                       <h5>관람좌석</h5>
-                      <p>{booking.seats}</p>
+                      <p>{booking.seat_name}</p>
                     </li>
                     <li className="paymentDate">
                       <h5>결제일시</h5>
                       <p>
-                        {booking.paymentDate} ({booking.paymentTime})
+                        {booking.payed_at} ({booking.paymentTime})
                       </p>
                     </li>
                     <li className="btnWrap">
@@ -219,16 +215,14 @@ const BookingHistoryWrap = () => {
           <tbody>
             {cancelMovies.length ? (
               cancelMovies.map((cancelMovie) => (
-                <tr key={cancelMovie.id}>
+                <tr key={cancelMovie.reservation_id}>
+                  <td>{cancelMovie.canceled_at}</td>
+                  <td>{cancelMovie.movie_name}</td>
+                  <td>{cancelMovie.theater_name}</td>
+                  <td>{cancelMovie.start_time}</td>
                   <td>
-                    {cancelMovie.cancelDate} ({cancelMovie.cancelTime})
+                    {numWithComma(String(cancelMovie.canceled_payment))}원
                   </td>
-                  <td>{cancelMovie.title}</td>
-                  <td>{cancelMovie.theater}</td>
-                  <td>
-                    {cancelMovie.date} {cancelMovie.time}
-                  </td>
-                  <td>{numWithComma(String(cancelMovie.price))}원</td>
                 </tr>
               ))
             ) : (
