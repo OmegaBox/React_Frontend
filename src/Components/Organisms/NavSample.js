@@ -3,6 +3,18 @@ import { Link } from "react-router-dom";
 import cookie from "react-cookies";
 import { useDispatch } from "react-redux";
 import { startLogout } from "../../Reducer/userInfoReducer";
+import {
+  checkLogin,
+  GET_RESERVED,
+  GET_MEMBER_DETAIL,
+  GET_RESERVED_CANCELED,
+  GET_TIMELINE_RATING,
+  GET_TIMELINE_WATCHED,
+  GET_TIMELINE_LIKE,
+  GET_MEMBER_DETAIL_ERROR,
+  GET_MEMBER_DETAIL_SUCCESS,
+} from "../../Reducer/userInfoReducer";
+import { userApi } from "../../Api/api";
 
 const NavSample = () => {
   const dispatch = useDispatch();
@@ -71,6 +83,42 @@ const NavSample = () => {
         }}
       >
         로그아웃
+      </button>
+      <button
+        onClick={async () => {
+          try {
+            const res = await userApi.memberDetail();
+            console.log("마이페이지", res.data);
+            if (res.status === 200 || res.status === 201) {
+              dispatch({
+                type: GET_MEMBER_DETAIL_SUCCESS,
+                payload: res.data,
+                name: res.data.name,
+                profile: res.data.profile,
+                likeMoviesCount: res.data.like_movies_count,
+                ratingMoviesCount: res.data.rating_movies_count,
+                reservedMoviesCount: res.data.reserved_movies_count,
+                watchedMoviesCount: res.data.watched_movies_count,
+              });
+            } else {
+              dispatch({
+                // api 연결엔 성공했으니 뭔가 이상한게 넘어옴.
+                type: GET_MEMBER_DETAIL_ERROR, // 필수
+                errorMessage: "실패하다!",
+              });
+            }
+          } catch (e) {
+            console.log("마이페이지 에러", e.response);
+
+            dispatch({
+              // api 연결에 문제가 있을때 이쪽으로 넘어옴.
+              type: GET_MEMBER_DETAIL_ERROR, // 필수
+              errorMessage: "실패하다!",
+            });
+          }
+        }}
+      >
+        멤버디테일
       </button>
     </div>
   );
