@@ -118,7 +118,7 @@ export const billing = ({
         price,
         reservations_id,
       };
-      const res = await axios.post("/reservations/payment/", body, {
+      const res = await axios.post("/reservations/payments/", body, {
         headers: {
           Authorization: "Bearer " + accessToken,
         },
@@ -134,7 +134,7 @@ export const movieApi = {
   getMovies: () => axios.get("movies/"),
   getMovie: (id) => axios.get(`/movies/detail/${id}`),
   getAgeBooking: (id) => axios.get(`/movies/detail/${id}/age-booking/`),
-  // getSearch: (keyword) => axios.get(`movies/?searchName=${keyword}`),
+  getSearch: (keyword) => axios.get(`movies/?searchName=${keyword}`),
   getSchedules: ({ date, movies, theaterId }) => {
     let movieIds = "";
     if (movies) {
@@ -159,7 +159,7 @@ export const movieApi = {
 
     const call = `theaters/schedules/regions/${date}/${
       movies ? "?movies=" + movieIds : ""
-      }
+    }
     `;
 
     console.log(call);
@@ -174,7 +174,7 @@ export const movieApi = {
 
     const call = `theaters/schedules/${date}/${
       movies ? "?movies=" + movieIds : ""
-      }
+    }
     `;
 
     console.log(call);
@@ -305,11 +305,8 @@ export const userApi = {
     );
   },
   idDoubleCheck: (id) => {
-    return axios.post(
-      "https://www.omegabox.xyz/members/signup/check-username/",
-      {
-        username: id,
-      }
-    );
+    return axios.post("/members/signup/check-username/", {
+      username: id,
+    });
   },
 };
