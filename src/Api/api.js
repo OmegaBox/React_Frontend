@@ -112,20 +112,25 @@ export const billing = ({
       //결제가 정상적으로 완료되면 수행됩니다
       //비즈니스 로직을 수행하기 전에 결제 유효성 검증을 하시길 추천합니다.
       const accessToken = cookie.load("accessToken");
-      const reservations_id = reservations.map((reservation) => reservation.id);
+      const reservation_id = reservations[0].id;
+      console.log("예약 검증", data.receipt_id, "예약아이디들", reservations);
       const body = {
         receipt_id: data.receipt_id,
         price,
-        reservations_id,
+        reservation_id,
       };
-      const res = await axios.post("/reservations/payments/", body, {
-        headers: {
-          Authorization: "Bearer " + accessToken,
-        },
-      });
-      if (res.status === 200 || res.status === 201) {
-        dispatch(setTicketNumber(res.data.code));
-        history.push("/booking/ticket");
+      try {
+        const res = await axios.post("/reservations/payments/", body, {
+          headers: {
+            Authorization: "Bearer " + accessToken,
+          },
+        });
+        if (res.status === 200 || res.status === 201) {
+          dispatch(setTicketNumber(res.data.code));
+          history.push("/booking/ticket");
+        }
+      } catch (e) {
+        console.log("검증에러", e.response);
       }
     });
 };
