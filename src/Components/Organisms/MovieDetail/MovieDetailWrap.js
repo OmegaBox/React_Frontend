@@ -3,6 +3,7 @@ import "./style/MovieDetailWrap.scss";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { selectMovie } from "../../../Reducer/bookingReducer";
+import { numWithComma } from "../../../Utils/util";
 
 const MovieDetailWrap = () => {
   const movie = useSelector((state) => state.Movie.detail);
@@ -72,7 +73,7 @@ const MovieDetailWrap = () => {
                   <span
                     className={["icon", "accCumlative"].join(" ")}
                   ></span>
-                  <span>{movie.acc_audience}</span>
+                  <span>{numWithComma(movie.acc_audience)}</span>
                   <span className="smallTxt">명</span>
                 </div>
               </li>
