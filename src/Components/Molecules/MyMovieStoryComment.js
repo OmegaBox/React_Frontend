@@ -19,7 +19,6 @@ const MyMovieStoryComment = () => {
     newFormat = newFormat.join("");
     return newFormat;
   };
-
   return (
     <section className="comment">
       <h4 className="a11yHidden">한줄평</h4>
@@ -29,10 +28,13 @@ const MyMovieStoryComment = () => {
       <ul className="movieList">
         {commentMovie.length ? (
           commentMovie.map((movie) => (
-            <li key={movie.id}>
+            <li key={movie.rating_id}>
               <article className="movieItem">
                 <div className="poster">
-                  <img src={movie.poster} alt={`${movie.title} 포스터`} />
+                  <img
+                    src={movie.movie.poster}
+                    alt={`${movie.movie.movie_name} 포스터`}
+                  />
                 </div>
                 <ul className={["info", "clearfix"].join(" ")}>
                   <li className="tag">
@@ -41,27 +43,24 @@ const MyMovieStoryComment = () => {
                   </li>
                   <li className="title">
                     <h5 className="a11yHidden">영화명</h5>
-                    <p>{movie.title}</p>
+                    <p>{movie.movie.movie_name}</p>
                   </li>
                   <li className="evalPoint">
                     <h5 className="a11yHidden">평가점수</h5>
-                    <p>{movie.rating}</p>
-                    {movie.hashTag.map((tag) => (
-                      <span key={tag.id} className="hashTag">
-                        {tag.tag}
-                      </span>
-                    ))}
+                    <p>{movie.score}</p>
+                    <span className="hashTag">{movie.key_point}</span>
                   </li>
                   <li className="evalComment">
                     <h5 className="a11yHidden">관람평</h5>
-                    <p>{movie.commentText}</p>
+                    <p>{movie.comment}</p>
                   </li>
                   <li className="writeDate">
                     <h5 className="a11yHidden">작성일시</h5>
                     <p>
                       <span className={["icon", "like"].join(" ")}></span>
-                      {getWriteTime("2020-07-05")} 일전
+                      {getWriteTime(movie.created_at)} 일전
                     </p>
+                    <p>{movie.created_at}</p>
                   </li>
                   <li className="btnWrap">
                     <button
