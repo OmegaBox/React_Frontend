@@ -2,10 +2,7 @@ import React, { useEffect } from "react";
 
 import "./style/BookingSelectTime.scss";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  setDefaultTicketInfo,
-  setScheduleRef,
-} from "../../Reducer/bookingReducer";
+import { setDefaultTicketInfo } from "../../Reducer/bookingReducer";
 import { Link } from "react-router-dom";
 import SkeletonTimeSelect from "../Atoms/SkeletonTimeSelect";
 import EmptySchedules from "../Atoms/EmptySchedules";
@@ -13,10 +10,9 @@ import EmptySchedules from "../Atoms/EmptySchedules";
 const BookingSelectTime = () => {
   const schedules = useSelector((state) => state.Booking.schedule.schedules);
   const isLoading = useSelector((state) => state.Booking.schedule.loading);
-  const refs = useSelector((state) => state.Booking.schedule.loading);
+  const refs = useSelector((state) => state.Booking.schedule.refs);
   const dispatch = useDispatch();
 
-  const scheduleRef = {};
   const TimeSelect = schedules.length ? (
     schedules.map((schedule) => {
       const ticket = {
@@ -45,9 +41,8 @@ const BookingSelectTime = () => {
 
       // if (!scheduleRef[hour].current) scheduleRef[hour] = ref;
       let ref = React.createRef();
-      if (scheduleRef[hour]) {
-        ref = !scheduleRef[hour].current ? scheduleRef[hour] : ref;
-        console.log("들어온 후 ref 설정", !scheduleRef[hour].current);
+      if (refs[hour]) {
+        ref = !refs[hour].current ? refs[hour] : ref;
       }
 
       return (

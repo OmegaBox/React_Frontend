@@ -184,6 +184,7 @@ const getSchedules = () => async (dispatch, state) => {
     );
 
     dispatch({ type: GET_SCHEDULES_SUCCESS, payload: newSearchLog.schedules });
+    dispatch(setScheduleRef(makeRefs(newSearchLog.schedules)));
     dispatch({ type: SET_SCHEDULES_LOG, payload: newSearchLog });
     dispatch(getCanSelectMovies());
     dispatch(

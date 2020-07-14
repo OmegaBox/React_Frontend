@@ -13,6 +13,7 @@ const timeArray = Array.from(Array(29).keys());
 const CarouselTimeline = () => {
   const selectedOption = useSelector((state) => state.Booking.selectedOption);
   const schedules = useSelector((state) => state.Booking.schedule.schedules);
+  const refs = useSelector((state) => state.Booking.schedule.refs);
 
   let refSlider = null;
   let nowIndex = false;
@@ -41,7 +42,9 @@ const CarouselTimeline = () => {
             addClass +=
               +selectedOption.selectedHour === +time ? " selectedTime" : "";
             addClass +=
-              +time < +nowHour || !schedules.length ? " disabledTimeline" : "";
+              +time < +nowHour || !schedules.length || !refs[time]
+                ? " disabledTimeline"
+                : "";
 
             if (+time > +nowHour && !nowIndex) nowIndex = i - 1;
 
@@ -50,8 +53,15 @@ const CarouselTimeline = () => {
                 key={`carouselTime${i}`}
                 className={addClass}
                 id={i}
-                onClick={() => dispatch(setSelectedHour(time))}
-                disabled={+time < +nowHour}
+                onClick={() => {
+                  dispatch(setSelectedHour(time));
+                  refs[time].current.scrollIntoView({
+                    behavior: "smooth",
+                    block: "nearest",
+                    inline: "start",
+                  });
+                }}
+                disabled={+time < +nowHour || !refs[time]}
               >
                 <span>{time}</span>
               </button>
