@@ -1,5 +1,4 @@
 import React from "react";
-// import { movieApi } from "../../../Api/api";
 import "./style/MainBoxOffice.scss";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
@@ -11,6 +10,7 @@ const MainBoxOffice = () => {
   const dispatch = useDispatch();
 
   return (
+
     <div className="mainBoxOfficeLayout">
       <div className="mainBoxOffice">
         <div className="mainBoxOfficeHeader">

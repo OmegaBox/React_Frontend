@@ -8,9 +8,11 @@ const MOVIE_DETAIL_SUCCESS = "movies/SUCCESS";
 const MOVIE_DETAIL_ERROR = "movies/ERROR";
 const MOVIE_DETAIL_LOADING = "movies/LOADING";
 
-const BOOKING_AGE_RATING_SUCCESS = "ageBooking/SUCCESS"
-const BOOKING_AGE_RATING_ERROR = "ageBooking/ERROR"
-const BOOKING_AGE_RATING_LOADING = "ageBooking/LOADING"
+const BOOKING_AGE_RATING_SUCCESS = "ageBooking/SUCCESS";
+const BOOKING_AGE_RATING_ERROR = "ageBooking/ERROR";
+const BOOKING_AGE_RATING_LOADING = "ageBooking/LOADING";
+
+const RESET_MOVIE_PAGE = "movie/RESET_MOVIEPAGE";
 
 
 // const SEARCH_SPACE = "movies/SEARCH_SPACE";
@@ -28,6 +30,7 @@ const setSuccessBookingAgeRating = (id, data) => ({ type: BOOKING_AGE_RATING_SUC
 const setLoadingBookingAgeRating = () => ({ type: BOOKING_AGE_RATING_LOADING, })
 const setErrorBookingAgeRating = (error) => ({ type: BOOKING_AGE_RATING_ERROR, error })
 
+const resetMoviePage = (state, data) => ({ type: RESET_MOVIE_PAGE, state, data });
 
 const getMovies = () => async (dispatch) => {
   try {
@@ -118,6 +121,13 @@ const initialState = {
   ageBooking: {},
 };
 
+
+const resetMovies = (url) => (dispatch) => {
+  console.log("리셋");
+  dispatch(resetMoviePage());
+}
+
+
 const movieReducer = (state = initialState, action) => {
   switch (action.type) {
     case MOVIE_SUCCESS:
@@ -169,7 +179,6 @@ const movieReducer = (state = initialState, action) => {
         ...state,
         loading: false,
         ageBooking: action.data,
-        // page: action.page,
         error: null,
       }
     case BOOKING_AGE_RATING_LOADING:
@@ -186,6 +195,10 @@ const movieReducer = (state = initialState, action) => {
         errorMessage: action.error.message,
         loading: false
       }
+    case RESET_MOVIE_PAGE:
+      return {
+        ...initialState
+      };
     default:
       return state;
   }
@@ -195,6 +208,7 @@ export {
   getMovies,
   getMovie,
   getAgeBooking,
+  resetMovies,
   // getSearch,
   movieReducer,
   setSuccessMovie,
