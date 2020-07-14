@@ -1,13 +1,24 @@
-import React from "react";
+import React, { useState, useRef } from "react";
 // import { movieApi } from "../../../Api/api";
 import { useSelector, useDispatch } from "react-redux";
 import "./style/WholeMovieListWrap.scss"
 import { Link } from "react-router-dom";
 import { selectMovie } from "../../../Reducer/bookingReducer";
+import { getSearchMovie } from "../../../Reducer/movieReducer";
 
 const WholeMovieListWrap = () => {
   const movies = useSelector((state) => state.Movie.movies);
   const dispatch = useDispatch();
+
+  const [searchState, setSearchState] = useState([]);
+
+
+  const enterKeyword = (e) => {
+    if (e.keyCode === 13) {
+      dispatch(getSearchMovie(e.target.value))
+      // setSearchState();
+    }
+  };
 
   return (
     <div className="WholeMovieListLayout">
@@ -32,8 +43,14 @@ const WholeMovieListWrap = () => {
           className="wholeMovieSearchBar"
           placeholder="영화명 검색"
           title="영화 검색"
+          onKeyDown={enterKeyword}
         />
-        <button type="button" className="iconSearchBtn"></button>
+        <button
+          type="button"
+          className="iconSearchBtn"
+        >
+
+        </button>
       </div>
       <ul className="wholeMovieList">
         {movies.map((movie, i) => {

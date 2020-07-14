@@ -33,6 +33,7 @@ const setSearchMovies = (data) => ({ type: SEARCH_MOVIES, data })
 
 const resetMoviePage = () => ({ type: RESET_MOVIE_PAGE });
 
+
 const getMovies = () => async (dispatch) => {
   try {
     dispatch(setLoadingMovie());
@@ -113,6 +114,37 @@ const getAgeBooking = (id) => async (dispatch) => {
 };
 
 
+const getSearchMovie = (keyword) => async (dispatch) => {
+  try {
+    const search = await movieApi.getSearch(keyword);
+    await (search.data.results)
+    if (search.status === 200) {
+      dispatch(setSearchMovies(search.data.results));
+    } else {
+      dispatch({
+        type: "ERROR",
+        error: {
+          state: true,
+          message: test.statusText,
+        },
+      });
+    }
+  } catch (error) {
+    dispatch({
+      type: "ERROR",
+      error: {
+        state: true,
+        message: error.message,
+      },
+    });
+  }
+};
+
+
+const resetMovies = (url) => (dispatch) => {
+  dispatch(resetMoviePage());
+}
+
 const initialState = {
   page: 0,
   loading: false,
@@ -123,11 +155,6 @@ const initialState = {
   ageBooking: {},
 };
 
-const resetMovies = (url) => (dispatch) => {
-  dispatch(resetMoviePage());
-}
-
-
 const movieReducer = (state = initialState, action) => {
   switch (action.type) {
     case MOVIE_SUCCESS:
@@ -136,7 +163,6 @@ const movieReducer = (state = initialState, action) => {
         loading: false,
         movies: action.data,
         error: null,
-        page: action.page
       }
     case MOVIE_ERROR:
       return {
@@ -150,7 +176,6 @@ const movieReducer = (state = initialState, action) => {
         ...state,
         loading: true,
         error: null,
-        page: state.page,
       }
     case MOVIE_DETAIL_SUCCESS:
       return {
@@ -158,7 +183,6 @@ const movieReducer = (state = initialState, action) => {
         loading: false,
         detail: action.data,
         error: null,
-        page: action.page
       }
     case MOVIE_DETAIL_ERROR:
       return {
@@ -199,6 +223,12 @@ const movieReducer = (state = initialState, action) => {
       return {
         ...initialState
       };
+    case SEARCH_MOVIES:
+      return {
+        ...state,
+        movies: action.data
+
+      }
     default:
       return state;
   }
@@ -209,6 +239,7 @@ export {
   getMovie,
   getAgeBooking,
   resetMovies,
+  getSearchMovie,
   setSearchMovies,
   movieReducer,
   setSuccessMovie,
