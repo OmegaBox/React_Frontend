@@ -1,36 +1,50 @@
 @import "../../../../common.scss";
 
-.movieTrailerLayout {
-  width: 100%;
-  margin: 40px 0;
-}
-
-.movieTrailerLayout .tab {
-  display: flex;
+.trailerWrap {
   width: 1100px;
   margin: 0 auto;
-  margin-bottom: 24px;
-  border-bottom: 1px solid $colorMain;
+}
+
+.trailerHeader {
+  margin-top: 50px;
+  color: $colorMain;
+  border-bottom: 1px solid #ebebeb;
+  font-weight: 400;
+}
+
+.videoWrap {
+  
+  padding-top: 50px;
+  margin-bottom: 150px;
+}
+.trailerPlayer {
+  margin: 0 auto;
+}
+
+.iconWrap {
+  position: relative;
   li {
-    width: 25%;
-    flex-grow: 1;
-    margin-left: -1px;
-    margin-bottom: -1px;
-    
-    border-width: 1px 1px 0 1px;
-    border-style: solid;
-    border-color: $ligthBorder;
-    text-align: center;
-    button {
-      width: 100%;
-      padding: 18px 0 14px;
-      border-radius: 0;
+    width: 64px;
+    height: 95px;
+    background: no-repeat center;
+    p {
+      position: absolute;
+      width: 64px;
+      text-align: center;
+      bottom: -20px;
+      
     }
   }
-  li:first-child {margin-left: 0;}
-  li.active {
-    border-color: $colorMain;
-    border-bottom: 1px solid $colorWhite;
+  .prevIcon {
+    position: absolute;
+    top: 160px;
+    background-image: url(https://img.megabox.co.kr/static/pc/images/common/ico/ico-prev-circle.png);
   }
-  li.active + li {border-left: 1px solid $colorMain;}
+  .nextIcon {
+    position: absolute;
+    top: 160px;
+    right: 0px;
+
+    background-image: url(https://img.megabox.co.kr/static/pc/images/common/ico/ico-next-circle.png);
+  }
 }

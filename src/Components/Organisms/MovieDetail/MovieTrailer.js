@@ -1,23 +1,33 @@
 import React from "react";
 import "./style/MovieTrailer.scss";
+import { useSelector } from "react-redux";
+import ReactPlayer from 'react-player'
 
 const MovieTrailer = () => {
+  window.scrollTo(0, 786);
+
+  const movie = useSelector((state) => state.Movie.detail);
   return (
-    <div className="movieTrailerLayout">
-      <ul className="tab">
-        <li className="active">
-          <button type="button">주요정보</button>
-        </li>
-        <li>
-          <button type="button">한줄평</button>
-        </li>
-        <li>
-          <button type="button">무비포스트</button>
-        </li>
-        <li>
-          <button type="button">예고편/스틸컷</button>
-        </li>
-      </ul>
+    <div className="trailerWrap">
+      <h2 className="trailerHeader">메인 예고편</h2>
+
+      <div className="videoWrap">
+        <ul className="iconWrap">
+          <li className="prevIcon">
+            <p>이전 영상</p>
+          </li>
+          <li className="nextIcon">
+            <p>다음 영상</p>
+          </li>
+        </ul>
+        <ReactPlayer
+          url={movie.trailer}
+          controls
+          className="trailerPlayer"
+          width="800px"
+          height="450px"
+        />
+      </div>
     </div>
   )
 }
