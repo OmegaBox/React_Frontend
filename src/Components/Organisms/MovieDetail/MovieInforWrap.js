@@ -8,7 +8,6 @@ import { numWithComma } from "../../../Utils/util";
 
 const MovieInforWrap = () => {
   const movie = useSelector((state) => state.Movie.detail);
-  console.log();
 
   return (
     <div className="movieDetailInforLayout">
@@ -87,10 +86,10 @@ const MovieInforWrap = () => {
         </li>
         <li>
           <h3 className="title">실관람 평점</h3>
-          <p className="content">{movie.average_point}</p>
+          <p className="content">{Math.ceil(movie.average_point * 10) / 10}</p>
           <div className="scoreGraphWrap">
             <div className="scoreGraph">
-              <strong>{movie.average_point}</strong>
+              <strong>{Math.ceil(movie.average_point * 10) / 10}</strong>
             </div>
             <span>관람 후</span>
           </div>

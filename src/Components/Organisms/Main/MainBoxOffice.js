@@ -49,7 +49,7 @@ const MainBoxOffice = () => {
                       <div className="boxOfficeMovieScore">
                         <div>
                           <p>관람평</p>
-                          <strong>{(movie.average_point).toFixed(1)}</strong>
+                          <strong>{Math.ceil(movie.average_point * 10) / 10}</strong>
                         </div>
                       </div>
                     </div>

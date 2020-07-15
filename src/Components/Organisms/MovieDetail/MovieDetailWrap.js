@@ -57,7 +57,7 @@ const MovieDetailWrap = () => {
                 <h4 className="title">실관람 평점</h4>
                 <div className="rating">
                   <span className={["icon", "rating"].join(" ")}></span>
-                  <span>{movie.average_point}</span>
+                  <span>{Math.ceil(movie.average_point * 10) / 10}</span>
                 </div>
               </li>
               <li>
