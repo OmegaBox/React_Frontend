@@ -19,9 +19,9 @@ const LOGOUT_SUCCESS = "userInfo/LOGOUT";
 // memberDetail
 export const GET_MEMBER_DETAIL = "userInfo/GET_MEMBER_DETAIL"; // 사가진입용 액션
 
-const GET_MEMBER_DETAIL_LOADING = "userInfo/GET_MEMBER_DETAIL_LOADING";
-const GET_MEMBER_DETAIL_SUCCESS = "userInfo/GET_MEMBER_DETAIL_SUCCESS";
-const GET_MEMBER_DETAIL_ERROR = "userInfo/GET_MEMBER_DETAIL_ERROR";
+export const GET_MEMBER_DETAIL_LOADING = "userInfo/GET_MEMBER_DETAIL_LOADING";
+export const GET_MEMBER_DETAIL_SUCCESS = "userInfo/GET_MEMBER_DETAIL_SUCCESS";
+export const GET_MEMBER_DETAIL_ERROR = "userInfo/GET_MEMBER_DETAIL_ERROR";
 
 // reserved
 export const GET_RESERVED = "userInfo/GET_RESERVED"; // 사가진입용 액션
@@ -134,7 +134,7 @@ function* memberDetail(action) {
   yield put({ type: GET_MEMBER_DETAIL_LOADING });
 
   try {
-    const res = yield call(userApi.memberDetail, { id: action.id });
+    const res = yield call(userApi.memberDetail);
     console.log("마이페이지", res.data);
     if (res.status === 200 || res.status === 201) {
       yield put({
