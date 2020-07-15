@@ -68,7 +68,7 @@ function* setSelectSeatSaga(action) {
   else {
     try {
       // 로딩 처리
-      console.log("로딩");
+      console.log("로딩: 좌석 선택");
       yield put(startLoading());
       // 예약된 좌석 정보 불려오기
       const getReservation = yield call(
@@ -76,7 +76,7 @@ function* setSelectSeatSaga(action) {
         state.Booking.ticket.scheduleId
       );
       // 로딩 끝
-      console.log(getReservation, "로딩끝");
+      console.log("로딩끝", getReservation);
       yield put(endLoading());
       // 예약된 좌석이면 팝업 오픈
       if (
@@ -96,6 +96,8 @@ function* setSelectSeatSaga(action) {
 
 function* setReservedSeatSaga() {
   const state = yield select();
+  console.log("로딩: 예약 생성");
+  yield put(startLoading());
   try {
     const getReservation = yield call(
       movieApi.getReservedSeats,
@@ -107,6 +109,8 @@ function* setReservedSeatSaga() {
     console.error(`error : ${e.state}`);
     console.error(`${e.response}`);
   }
+  console.log("로딩끝");
+  yield put(endLoading());
 }
 
 export function* seatSaga() {
