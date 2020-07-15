@@ -7,6 +7,8 @@ import { selectMovie } from "../../../Reducer/bookingReducer";
 
 const MainCuration = () => {
   const movie = useSelector((state) => state.Movie.movies);
+  const movieInfor = movie.filter((movie) => movie.id === 10)
+
   const dispatch = useDispatch();
   return (
     <div className="mainCurationLayout">
@@ -19,33 +21,37 @@ const MainCuration = () => {
           </div>
         </div>
         <div className="curationPoster">
-          <div>
-            <img
-              className="curationImg"
-              src="https://img.megabox.co.kr/SharedImg/2020/05/26/4DpEOKISeL20EXabwXkfsfaeeJW27heu_420.jpg"
-              alt="야구소녀"
-            />
-            <Link to="/detail/10">
-              <button
-                className={["btn", "outLine", "lightGray", "xLarge", "curationdetailButton"].join(" ")}>
-                상세정보
-            </button>
-            </Link>
-            <Link to="/booking">
-              <button
-                onClick={() =>
-                  dispatch(
-                    selectMovie({
-                      title: movie.name_kor,
-                      poster: movie.poster,
-                      id: movie.id,
-                    })
-                  )}
-                className={["btn", "fill", "subDark", "main", "xLarge", "curationBookingButton"].join(" ")}>
-                예매
-            </button>
-            </Link>
-          </div>
+          {movieInfor.map((movie) => {
+            return (
+              <div>
+                <img
+                  className="curationImg"
+                  src={movie.poster}
+                  alt="야구소녀"
+                />
+                <Link to="/detail/10">
+                  <button
+                    className={["btn", "outLine", "lightGray", "xLarge", "curationdetailButton"].join(" ")}>
+                    상세정보
+              </button>
+                </Link>
+                <Link to="/booking">
+                  <button
+                    onClick={() =>
+                      dispatch(
+                        selectMovie({
+                          title: movie.name_kor,
+                          poster: movie.poster,
+                          id: movie.id,
+                        })
+                      )}
+                    className={["btn", "fill", "subDark", "main", "xLarge", "curationBookingButton"].join(" ")}>
+                    예매
+              </button>
+                </Link>
+              </div>
+            )
+          })}
           <div className="filmSociety"></div>
           <div className="curationComment">
             <h2>#필름소사이어티</h2>
