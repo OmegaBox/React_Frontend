@@ -1,13 +1,12 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import ModalPortal from "../../../Modules/ModalPortal";
 
 import BookingSeatReset from "../../Molecules/BookingSeatReset";
 import BookingPersonalSetting from "../../Molecules/BookingPersonalSetting";
 import BookingSeatList from "../../Molecules/BookingSeatList";
 import BookingInfo from "../../Molecules/BookingInfo";
-import PopupNotice from "../../Molecules/PopupNotice";
 import BookingFastTitle from "../../Atoms/BookingFastTitle";
+import Loading from "../../Atoms/Loading";
 
 import { resetThunk } from "../../../Reducer/bookingSeatReducer";
 
@@ -94,6 +93,7 @@ const BookingSelectSeat = ({ history }) => {
           history.push("/booking/payment");
         }}
       />
+      <Loading />
     </section>
   );
 };

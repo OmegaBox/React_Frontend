@@ -224,12 +224,6 @@ export const movieApi = {
       }
     });
 
-    // const body = seatIdArr.map((id, index) => ({
-    //   grade: seatPersonalTypeArr[index],
-    //   seat_id: id,
-    //   schedule_id: scheduleId,
-    // }));
-
     const body = {
       schedule_id: scheduleId,
       grades: seatPersonalTypeArr,
