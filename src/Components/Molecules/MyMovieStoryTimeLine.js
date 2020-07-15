@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
+import CarouselMovieStory from "./CarouselMovieStory";
 
 const MyMovieStoryTimeLine = () => {
   const { commentMovie, favoriteMovies, watchedMovies } = useSelector(
@@ -16,6 +17,7 @@ const MyMovieStoryTimeLine = () => {
   return (
     <section className="timeLine">
       <h4 className="a11yHidden">무비타임라인</h4>
+      {/* <CarouselMovieStory /> */}
       <div className="yearCarouselWrap">
         <button type="button" className="btnPrev"></button>
         <ul className="carousel">
