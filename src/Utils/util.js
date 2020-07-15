@@ -164,7 +164,6 @@ export const createDay = (date) => {
 };
 
 export const changeKeyPoint = (keyPoint) => {
-  console.log(keyPoint);
   switch (keyPoint) {
     case "prod":
       return "연출력";

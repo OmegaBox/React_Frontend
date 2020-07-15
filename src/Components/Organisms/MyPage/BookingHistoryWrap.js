@@ -311,4 +311,4 @@ const BookingHistoryWrap = () => {
   );
 };
 
-export default BookingHistoryWrap;
+export default React.memo(BookingHistoryWrap);

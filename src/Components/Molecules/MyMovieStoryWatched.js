@@ -95,4 +95,4 @@ const MyMovieStoryWatched = () => {
   );
 };
 
-export default MyMovieStoryWatched;
+export default React.memo(MyMovieStoryWatched);

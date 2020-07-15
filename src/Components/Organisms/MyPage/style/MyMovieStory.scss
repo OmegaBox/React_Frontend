@@ -54,15 +54,17 @@
       no-repeat center;
   }
 }
+.timeLine .movieList {padding-top: 16px;}
 .timeLine .dateDivision {
-  border-top: 1px solid $colorSub;
+  padding: 16px 0 40px;
+  border-top: 1px solid $colorSubLight;
   .date {
     width: 120px;
-    margin: -16px auto 0;
+    margin: -32px auto 0;
     padding: 6px 0 2px;
     text-align: center;
     border-radius: 16px;
-    background-color: $colorSub;
+    background-color: $colorSubLight;
     color: $colorWhite;
   }
 }

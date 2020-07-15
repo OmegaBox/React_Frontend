@@ -82,4 +82,4 @@ const MyMovieStoryFavorite = () => {
   );
 };
 
-export default MyMovieStoryFavorite;
+export default React.memo(MyMovieStoryFavorite);

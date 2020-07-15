@@ -110,4 +110,4 @@ const EditUserInfo = () => {
   );
 };
 
-export default EditUserInfo;
+export default React.memo(EditUserInfo);

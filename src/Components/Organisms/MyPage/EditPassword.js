@@ -68,4 +68,4 @@ const EditPassword = () => {
   );
 };
 
-export default EditPassword;
+export default React.memo(EditPassword);

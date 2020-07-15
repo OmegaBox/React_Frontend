@@ -96,4 +96,4 @@ const MyMovieStoryComment = () => {
   );
 };
 
-export default MyMovieStoryComment;
+export default React.memo(MyMovieStoryComment);

@@ -78,13 +78,11 @@ const MypageDashBoard = () => {
             </div>
             <p className="totalPoint">{numWithComma(String(point))} P</p>
             <p>
-              적립예정 <span className="textMedium">500 P</span>
+              적립예정 <span className="textMedium">P</span>
             </p>
             <p>
               소멸예정{" "}
-              <span className={["textRed", "textMedium"].join(" ")}>
-                1,200 P
-              </span>
+              <span className={["textRed", "textMedium"].join(" ")}>P</span>
             </p>
           </article>
         </section>
@@ -203,4 +201,4 @@ const MypageDashBoard = () => {
   );
 };
 
-export default MypageDashBoard;
+export default React.memo(MypageDashBoard);

@@ -65,4 +65,4 @@ const Snb = () => {
   );
 };
 
-export default Snb;
+export default React.memo(Snb);
