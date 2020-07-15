@@ -8,9 +8,12 @@ import { setTicketNumber } from "../Reducer/bookingReducer";
 export const refreshValidation = async () => {
   try {
     const refreshToken = cookie.load("refreshToken");
-    const newAccessToken = await axios.post("/members/token/refresh/", {
-      refresh: refreshToken,
-    });
+    const newAccessToken = await axios.post(
+      "https://www.omegabox.xyz/members/token/refresh/",
+      {
+        refresh: refreshToken,
+      }
+    );
 
     cookie.remove("accessToken", {
       path: "/",
@@ -121,11 +124,15 @@ export const billing = ({
         discount_price: 0, // 나중에 포인트 상태로 수정 필수
       };
       try {
-        const res = await axios.post("/reservations/payments/", body, {
-          headers: {
-            Authorization: "Bearer " + accessToken,
-          },
-        });
+        const res = await axios.post(
+          "https://www.omegabox.xyz/reservations/payments/",
+          body,
+          {
+            headers: {
+              Authorization: "Bearer " + accessToken,
+            },
+          }
+        );
         if (res.status === 200 || res.status === 201) {
           dispatch(setTicketNumber(res.data.code));
           history.push("/booking/ticket");
@@ -137,10 +144,19 @@ export const billing = ({
 };
 
 export const movieApi = {
-  getMovies: () => axios.get("movies/"),
-  getMovie: (id) => axios.get(`/movies/detail/${id}`),
-  getAgeBooking: (id) => axios.get(`/movies/detail/${id}/age-booking/`),
-  getSearch: (keyword) => axios.get(`/movies/?searchName=${keyword}`),
+  getMovies: () =>
+    axios.get("https://www.omegabox.xyz/movies/", {
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        "X-Requested-With": "XMLHttpRequest",
+      },
+    }),
+  getMovie: (id) => axios.get(`https://www.omegabox.xyz/movies/detail/${id}`),
+  getAgeBooking: (id) =>
+    axios.get(`https://www.omegabox.xyz/movies/detail/${id}/age-booking/`),
+  getSearch: (keyword) =>
+    axios.get(`https://www.omegabox.xyz/movies/?searchName=${keyword}`),
   getSchedules: ({ date, movies, theaterId }) => {
     let movieIds = "";
     if (movies) {
@@ -150,10 +166,12 @@ export const movieApi = {
     if (date) date = transformDateFormat(date).dateStringNoDash;
 
     if (date && theaterId && !movies) {
-      return axios.get(`theaters/${theaterId}/schedules/${date}`);
+      return axios.get(
+        `https://www.omegabox.xyz/theaters/${theaterId}/schedules/${date}`
+      );
     } else {
       return axios.get(
-        `theaters/${theaterId}/schedules/${date}/?movies=${movieIds}`
+        `https://www.omegabox.xyz/theaters/${theaterId}/schedules/${date}/?movies=${movieIds}`
       );
     }
   },
@@ -163,9 +181,9 @@ export const movieApi = {
       movieIds = movies.reduce((acc, cur) => acc + "+" + cur.id, "").slice(1);
     }
 
-    const call = `theaters/schedules/regions/${date}/${
+    const call = `https://www.omegabox.xyz/theaters/schedules/regions/${date}/${
       movies ? "?movies=" + movieIds : ""
-      }
+    }
     `;
 
     console.log(call);
@@ -178,9 +196,9 @@ export const movieApi = {
       movieIds = movies.reduce((acc, cur) => acc + "+" + cur.id, "").slice(1);
     }
 
-    const call = `theaters/schedules/${date}/${
+    const call = `https://www.omegabox.xyz/theaters/schedules/${date}/${
       movies ? "?movies=" + movieIds : ""
-      }
+    }
     `;
 
     console.log(call);
@@ -189,7 +207,9 @@ export const movieApi = {
   },
   getReservedSeats: (scheduleId) => {
     console.log("예약된 좌석 요청중...");
-    return axios.get(`/schedules/${scheduleId}/reserved-seats/`);
+    return axios.get(
+      `https://www.omegabox.xyz/schedules/${scheduleId}/reserved-seats/`
+    );
   },
   getTotalPrice: (scheduleId, personalCount) => {
     console.log(scheduleId, personalCount);
@@ -204,7 +224,7 @@ export const movieApi = {
         },
       };
     const urlString =
-      `/theaters/schedules/${scheduleId}/price/?` +
+      `https://www.omegabox.xyz/theaters/schedules/${scheduleId}/price/?` +
       Object.keys(personalCount)
         .filter((key) => personalCount[key] !== 0)
         .map((key) => `${key}s=${personalCount[key]}`)
@@ -214,7 +234,9 @@ export const movieApi = {
   getSeatId: (scheduleId, seatArr) => {
     console.log(scheduleId, seatArr.join("+"));
     return axios.get(
-      `/theaters/schedules/${scheduleId}/seats/?names=${seatArr.join("+")}`
+      `https://www.omegabox.xyz/theaters/schedules/${scheduleId}/seats/?names=${seatArr.join(
+        "+"
+      )}`
     );
   },
   makeReservation: (scheduleId, seatIdArr, seatPersonalType) => {
@@ -236,7 +258,7 @@ export const movieApi = {
       seat_ids: seatIdArr,
     };
 
-    return axios.post("/reservations/", body, {
+    return axios.post("https://www.omegabox.xyz/reservations/", body, {
       headers: {
         Authorization: "Bearer " + accessToken,
       },
@@ -246,7 +268,7 @@ export const movieApi = {
 
 export const userApi = {
   signup: ({ name, id, pw, pwCheck, birth, tell, email }) => {
-    return axios.post("/members/signup/", {
+    return axios.post("https://www.omegabox.xyz/members/signup/", {
       username: id,
       email: email,
       password1: pw,
@@ -257,59 +279,65 @@ export const userApi = {
     });
   },
   login: ({ id, pw }) => {
-    return axios.post("/members/login/", {
+    return axios.post("https://www.omegabox.xyz/members/login/", {
       username: id,
       password: pw,
     });
   },
   logout: () => {
-    return axios.post("/members/logout/");
+    return axios.post("https://www.omegabox.xyz/members/logout/");
   },
   memberDetail: () => {
-    return axios.get("/members/detail/", {
+    return axios.get("https://www.omegabox.xyz/members/detail/", {
       headers: {
         Authorization: `Bearer ${cookie.load("accessToken")}`,
       },
     });
   },
   myReserved: () => {
-    return axios.get(`/members/reserved-movies/`, {
+    return axios.get(`https://www.omegabox.xyz/members/reserved-movies/`, {
       headers: {
         Authorization: `Bearer ${cookie.load("accessToken")}`,
       },
     });
   },
   myReservedCancel: () => {
-    return axios.get(`/members/reserved-movies/canceled/`, {
-      headers: {
-        Authorization: `Bearer ${cookie.load("accessToken")}`,
-      },
-    });
+    return axios.get(
+      `https://www.omegabox.xyz/members/reserved-movies/canceled/`,
+      {
+        headers: {
+          Authorization: `Bearer ${cookie.load("accessToken")}`,
+        },
+      }
+    );
   },
   timelineRating: () => {
-    return axios.get(`/members/rating-movies/`, {
+    return axios.get(`https://www.omegabox.xyz/members/rating-movies/`, {
       headers: {
         Authorization: `Bearer ${cookie.load("accessToken")}`,
       },
     });
   },
   timelineWatched: () => {
-    return axios.get(`/members/watched-movies/`, {
+    return axios.get(`https://www.omegabox.xyz/members/watched-movies/`, {
       headers: {
         Authorization: `Bearer ${cookie.load("accessToken")}`,
       },
     });
   },
   timelineLike: () => {
-    return axios.get(`/members/like-movies/`, {
+    return axios.get(`https://www.omegabox.xyz/members/like-movies/`, {
       headers: {
         Authorization: `Bearer ${cookie.load("accessToken")}`,
       },
     });
   },
   idDoubleCheck: (id) => {
-    return axios.post("/members/signup/check-username/", {
-      username: id,
-    });
+    return axios.post(
+      "https://www.omegabox.xyz/members/signup/check-username/",
+      {
+        username: id,
+      }
+    );
   },
 };
