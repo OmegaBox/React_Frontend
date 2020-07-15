@@ -12,9 +12,9 @@ import { openModal } from "../../Reducer/modalReducer";
 
 const MainHeader = () => {
   const dispatch = useDispatch();
-  const [modal, text, event] = useSelector((state) => {
+  const [modal, text, event, w, h] = useSelector((state) => {
     const Modal = state.modal;
-    return [Modal.modal, Modal.text, Modal.event];
+    return [Modal.modal, Modal.text, Modal.event, Modal.width, Modal.height];
   });
 
   const history = useHistory();
@@ -147,7 +147,14 @@ const MainHeader = () => {
         </div>
         {modal && (
           <ModalPortal>
-            <PopupNotice text={text} onEvent={event} />
+            <PopupNotice
+              text={text}
+              onEvent={event}
+              popupSize={{
+                width: w,
+                height: h,
+              }}
+            />
           </ModalPortal>
         )}
       </header>
