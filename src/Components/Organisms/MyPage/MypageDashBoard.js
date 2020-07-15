@@ -2,8 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import BookingCancel from "../../Molecules/BookingCancel";
-import PopupNotice from "../../Molecules/PopupNotice";
-import ModalPortal from "../../../Modules/ModalPortal";
 import { numWithComma } from "../../../Utils/util";
 import "./style/MypageDashBoard.scss";
 
@@ -19,27 +17,23 @@ const MypageDashBoard = () => {
   const { bookingHistory } = useSelector((state) => ({
     bookingHistory: state.userInfo.bookingHistory,
   }));
-
   /* 한줄평 작성 */
-  const { commentMovies } = useSelector((state) => ({
+  const { commentMovies, commentMoviesCount } = useSelector((state) => ({
     commentMovies: state.userInfo.commentMovies,
+    commentMoviesCount: state.userInfo.ratingMoviesCount,
   }));
 
   /* 본 영화 */
-  const { watchedMovies } = useSelector((state) => ({
+  const { watchedMovies, watchedMoviesCount } = useSelector((state) => ({
     watchedMovies: state.userInfo.watchedMovies,
+    watchedMoviesCount: state.userInfo.watchedMoviesCount,
   }));
 
   /* 보고싶은영화 */
-  const { favoriteMovies } = useSelector((state) => ({
+  const { favoriteMovies, favoriteMoviesCount } = useSelector((state) => ({
     favoriteMovies: state.userInfo.favoriteMovies,
+    favoriteMoviesCount: state.userInfo.likeMoviesCount,
   }));
-
-  /* 모달 팝업 */
-  const [modal, text, event, w, h] = useSelector((state) => {
-    const Modal = state.modal;
-    return [Modal.modal, Modal.text, Modal.event, Modal.width, Modal.height];
-  });
 
   return (
     <div>
@@ -91,17 +85,17 @@ const MypageDashBoard = () => {
           <ul className={["roundBox", "movieStoryInfoList"].join(" ")}>
             <li>
               <Link to="/mypage/myMovieStory">
-                <span className="amount">{watchedMovies.length}</span>본영화
+                <span className="amount">{watchedMoviesCount}</span>본영화
               </Link>
             </li>
             <li>
               <Link to="/mypage/myMovieStory">
-                <span className="amount">{commentMovies.length}</span>한줄평
+                <span className="amount">{commentMoviesCount}</span>한줄평
               </Link>
             </li>
             <li>
               <Link to="/mypage/myMovieStory">
-                <span className="amount">{favoriteMovies.length}</span>
+                <span className="amount">{favoriteMoviesCount}</span>
                 보고싶어
               </Link>
             </li>
@@ -136,40 +130,40 @@ const MypageDashBoard = () => {
           <ul className="movieList">
             {bookingHistory.length ? (
               bookingHistory.map((booking) => (
-                <li key={booking.id}>
+                <li key={booking.reservation_id}>
                   <article className="movieItem">
                     <div className="poster">
                       <img
                         src={booking.poster}
-                        alt={[booking.title, "포스터"].join(" ")}
+                        alt={[booking.movie_name, "포스터"].join(" ")}
                       />
                     </div>
                     <ul className={["info", "clearfix"].join(" ")}>
                       <li className="paymentDate">
                         <h5>결제일시</h5>
                         <p>
-                          {booking.paymentDate} ({booking.paymentTime})
+                          {booking.payed_at} ({booking.paymentTime})
                         </p>
                       </li>
                       <li className="bookingNumber">
                         <h5 className="a11yHidden">예매번호</h5>
-                        <p>{booking.ticketNumber}</p>
+                        <p>{booking.reservation_code}</p>
                       </li>
                       <li className="title">
                         <h5 className="a11yHidden">영화명</h5>
-                        <p>{booking.title}</p>
+                        <p>
+                          {booking.movie_name} / {booking.screen_type}
+                        </p>
                       </li>
                       <li className="theater">
                         <h5 className="a11yHidden">극장/상영관</h5>
                         <p>
-                          {booking.theater} / {booking.screeningHall}
+                          {booking.theater_name} / {booking.screen_name}
                         </p>
                       </li>
                       <li className="viewingDate">
                         <h5 className="a11yHidden">관람일시</h5>
-                        <p>
-                          {booking.date} {booking.time}
-                        </p>
+                        <p>{booking.start_time}</p>
                       </li>
                     </ul>
                     <BookingCancel
@@ -186,19 +180,6 @@ const MypageDashBoard = () => {
               </li>
             )}
           </ul>
-
-          {modal && (
-            <ModalPortal>
-              <PopupNotice
-                text={text}
-                onEvent={event}
-                popupSize={{
-                  width: w,
-                  height: h,
-                }}
-              />
-            </ModalPortal>
-          )}
         </section>
       </div>
     </div>

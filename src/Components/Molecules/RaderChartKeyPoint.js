@@ -11,11 +11,13 @@ const RaderChartKeyPoint = () => {
     },
     scales: {
       display: false,
+      ticks: {
+        suggestedMin: 30,
+        suggestedMax: 150,
+
+      },
     },
-    ticks: {
-      suggestedMin: 30,
-      suggestedMax: 150,
-    },
+
     maintainAspectRatio: false
   };
 

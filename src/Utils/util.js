@@ -1,3 +1,4 @@
+import React from "react";
 import cookie from "react-cookies";
 
 const getToday = () => new Date().toISOString().slice(0, 10);
@@ -111,4 +112,17 @@ export const removeCookies = () => {
       path: "/",
     });
   }
+};
+
+export const makeRefs = (schedules) => {
+  const scheduleRef = {};
+
+  schedules.map((schedule) => {
+    const hour = schedule.start_time.slice(0, 2);
+    const ref = React.createRef();
+
+    if (!scheduleRef[hour]) scheduleRef[hour] = ref;
+  });
+
+  return scheduleRef;
 };
