@@ -1,13 +1,12 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import ModalPortal from "../../../Modules/ModalPortal";
 
 import BookingSeatReset from "../../Molecules/BookingSeatReset";
 import BookingPersonalSetting from "../../Molecules/BookingPersonalSetting";
 import BookingSeatList from "../../Molecules/BookingSeatList";
 import BookingInfo from "../../Molecules/BookingInfo";
-import PopupNotice from "../../Molecules/PopupNotice";
 import BookingFastTitle from "../../Atoms/BookingFastTitle";
+import Loading from "../../Atoms/Loading";
 
 import { resetThunk } from "../../../Reducer/bookingSeatReducer";
 
@@ -15,11 +14,9 @@ import "./style/BookingSelectSeat.scss";
 
 const BookingSelectSeat = ({ history }) => {
   const dispatch = useDispatch();
-  const ticket = useSelector((state) => {
-    return state.Booking.ticket;
+  const [ticket, isLoading] = useSelector((state) => {
+    return [state.Booking.ticket, state.Seat.isLoading];
   });
-
-  console.log(ticket);
 
   const {
     scheduleId,
@@ -51,13 +48,9 @@ const BookingSelectSeat = ({ history }) => {
   };
 
   useEffect(() => {
-    console.log("didMount");
     if (!checkTicket()) history.push("/");
     dispatch(resetThunk(history.location.pathname));
-    return () => {
-      console.log("unMount");
-    };
-  }, []);
+  }, [history.location.pathname]);
 
   return (
     <section className="bookingSelectSeat">
@@ -94,6 +87,7 @@ const BookingSelectSeat = ({ history }) => {
           history.push("/booking/payment");
         }}
       />
+      {isLoading && <Loading />}
     </section>
   );
 };

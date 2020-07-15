@@ -5,7 +5,7 @@
 
 .ticketWrap {
   width: 1100px;
-  margin: 40px  auto 120px;
+  margin: 40px auto 120px;
   .pageTitle {
     margin-bottom: 16px;
     font-size: 2.8rem;
@@ -61,17 +61,21 @@
       display: flex;
       align-items: flex-start;
       color: $darkBgText;
-      span {
+      padding-bottom: 20px span {
         display: inline-block;
         margin: 0 4px;
-        color: $colorSubLight
+        color: $colorSubLight;
       }
     }
     .bookingInfoTicket .bookingMovieInfo {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
       margin-bottom: 4px;
       padding: 16px 0 4px;
       color: $darkBgText;
       border-bottom: 1px solid $colorGray44;
+      height: 250px;
       li {
         position: relative;
         padding: 0 0 4px 20px;
@@ -87,12 +91,17 @@
         margin-top: -4px;
         background-color: $darkBgText;
       }
-      .title, .content {display: inline-block;}
+      .title,
+      .content {
+        display: inline-block;
+      }
       .title {
         width: 140px;
         font-weight: 400;
       }
-      .content {color: $colorWhite;}
+      .content {
+        color: $colorWhite;
+      }
       .content .price {
         padding-right: 4px;
         font-size: 2rem;

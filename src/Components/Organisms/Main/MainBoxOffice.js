@@ -1,16 +1,28 @@
 import React from "react";
 import "./style/MainBoxOffice.scss";
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { selectMovie } from "../../../Reducer/bookingReducer";
+import { getSearchMovie } from "../../../Reducer/movieReducer";
+import SkeletonMainMovies from "../../Atoms/SkeletonMainMovies";
+import { isLogin } from "../../../Api/api";
 
 const MainBoxOffice = () => {
-  let movieBox = useSelector((state) => state.Movie.movies);
-  movieBox = movieBox.filter((_, i) => i < 4);
+  const [movieBox, movieLoading] = useSelector((state) => [
+    state.Movie.movies.filter((_, i) => i < 4),
+    state.Movie.loading,
+  ]);
   const dispatch = useDispatch();
+  const history = useHistory();
+
+  const mainEnterKeyword = (e) => {
+    if (e.keyCode === 13) {
+      history.push("/listMovies");
+      dispatch(getSearchMovie(e.target.value));
+    }
+  };
 
   return (
-
     <div className="mainBoxOfficeLayout">
       <div className="mainBoxOffice">
         <div className="mainBoxOfficeHeader">
@@ -24,69 +36,75 @@ const MainBoxOffice = () => {
         </div>
         <div className="mainMovieList">
           <ul className="mainMoviesWrap">
-            {movieBox.map((movie, i) => {
-              return (
-                <li key={`movieList${movie.id}`}>
-                  <Link to={"detail/" + movie.id}>
-                    <p className="mainRank">{movie.rank}</p>
-                    <img
-                      className="boxOfficeMoviePoster"
-                      alt={movie.title}
-                      src={movie.poster}
-                    />
-                    <div className="boxOfficeMovieInforWrap">
-                      <div className="boxOfficeMovieSummary">
-                        <p>{movie.description}</p>
-                      </div>
-                      <div className="boxOfficeMovieScore">
-                        <div>
-                          <p>관람평</p>
-                          <strong>{movie.average_point}</strong>
+            {movieLoading
+              ? new Array(4).fill(0).map((v, i) => (
+                  <li key={`skelton${i}`} className="skeletonMainMovieLi">
+                    <SkeletonMainMovies />
+                  </li>
+                ))
+              : movieBox.map((movie) => (
+                  <li key={`movieList${movie.id}`}>
+                    <Link to={"detail/" + movie.id}>
+                      <p className="mainRank">{movie.rank}</p>
+                      <img
+                        className="boxOfficeMoviePoster"
+                        alt={movie.title}
+                        src={movie.poster}
+                      />
+                      <div className="boxOfficeMovieInforWrap">
+                        <div className="boxOfficeMovieSummary">
+                          <p>{movie.description}</p>
+                        </div>
+                        <div className="boxOfficeMovieScore">
+                          <div>
+                            <p>관람평</p>
+                            <strong>
+                              {Math.ceil(movie.average_point * 10) / 10}
+                            </strong>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </Link>
-                  <div className="boxOfficeBtnWrap">
-                    <button
-                      className={[
-                        "boxOfficeFavoriteBtn",
-                        "btn",
-                        "outLine",
-                        "lightGray",
-                        "small",
-                      ].join(" ")}
-                    >
-                      <span className="icon favoriteOutLine"></span>
-                      <span className="boxOfficeFavoriteScore">
-                        {movie.acc_favorite}
-                      </span>
-                    </button>
-                    <Link to="/booking">
+                    </Link>
+                    <div className="boxOfficeBtnWrap">
                       <button
-                        onClick={() =>
-                          dispatch(
-                            selectMovie({
-                              title: movie.name_kor,
-                              poster: movie.poster,
-                              id: movie.id,
-                            })
-                          )
-                        }
                         className={[
-                          "boxOfficeBookingBtn",
+                          "boxOfficeFavoriteBtn",
                           "btn",
-                          "fill",
-                          "subLight",
+                          "outLine",
+                          "lightGray",
                           "small",
                         ].join(" ")}
                       >
-                        예매
+                        <span className="icon favoriteOutLine"></span>
+                        <span className="boxOfficeFavoriteScore">
+                          {movie.acc_favorite}
+                        </span>
                       </button>
-                    </Link>
-                  </div>
-                </li>
-              );
-            })}
+                      <Link to="/booking">
+                        <button
+                          onClick={() =>
+                            dispatch(
+                              selectMovie({
+                                title: movie.name_kor,
+                                poster: movie.poster,
+                                id: movie.id,
+                              })
+                            )
+                          }
+                          className={[
+                            "boxOfficeBookingBtn",
+                            "btn",
+                            "fill",
+                            "subLight",
+                            "small",
+                          ].join(" ")}
+                        >
+                          예매
+                        </button>
+                      </Link>
+                    </div>
+                  </li>
+                ))}
           </ul>
         </div>
         <ul className="boxOfficeSubBarWrap">
@@ -94,8 +112,7 @@ const MainBoxOffice = () => {
             <form>
               <input
                 type="text"
-                // value={searchInputState}
-                // onChange={changeSearchInput}
+                onKeyDown={mainEnterKeyword}
                 className="boxOfficeSearchBar"
                 placeholder="영화명을 입력해주세요."
                 title="영화 검색"

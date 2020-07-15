@@ -34,7 +34,7 @@ const MyMovieStoryFavorite = () => {
       <ul className="movieList">
         {favoriteMovies ? (
           favoriteMovies.map((movie) => (
-            <li key={movie.id} className="wantMovie">
+            <li key={movie.movie_id} className="wantMovie">
               <article className="movieItem">
                 <div className="poster">
                   <img src={movie.poster} alt={`${movie.movie_name} 포스터`} />
@@ -82,4 +82,4 @@ const MyMovieStoryFavorite = () => {
   );
 };
 
-export default MyMovieStoryFavorite;
+export default React.memo(MyMovieStoryFavorite);

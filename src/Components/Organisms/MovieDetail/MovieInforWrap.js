@@ -8,24 +8,9 @@ import { numWithComma } from "../../../Utils/util";
 
 const MovieInforWrap = () => {
   const movie = useSelector((state) => state.Movie.detail);
-  console.log();
 
   return (
-    <div className="movieDetailInforLayout">
-      <ul className="tab">
-        <li className="active">
-          <button type="button">주요정보</button>
-        </li>
-        <li>
-          <button type="button">한줄평</button>
-        </li>
-        <li>
-          <button type="button">무비포스트</button>
-        </li>
-        <li>
-          <button type="button">예고편/스틸컷</button>
-        </li>
-      </ul>
+    <div>
       <div className="movieStoryWrap">
         {/* <h3 className="title">
           원인불명 증세의 사람들의 공격에 통제 불능에 빠진 도시
@@ -87,10 +72,10 @@ const MovieInforWrap = () => {
         </li>
         <li>
           <h3 className="title">실관람 평점</h3>
-          <p className="content">{movie.average_point}</p>
+          <p className="content">{Math.ceil(movie.average_point * 10) / 10}</p>
           <div className="scoreGraphWrap">
             <div className="scoreGraph">
-              <strong>{movie.average_point}</strong>
+              <strong>{Math.ceil(movie.average_point * 10) / 10}</strong>
             </div>
             <span>관람 후</span>
           </div>
@@ -155,10 +140,10 @@ const MovieInforWrap = () => {
                     <span>{rating.key_point}</span>
                   </p>
                   <p className="comment">{rating.comment}</p>
-                  <button type="button">
+                  {/* <button type="button">
                     <span className={["icon", "like"].join(" ")}></span>
                     <span>0</span>
-                  </button>
+                  </button> */}
                   <button type="button">
                     <span className={["icon", "btnMore"].join(" ")}></span>
                   </button>
