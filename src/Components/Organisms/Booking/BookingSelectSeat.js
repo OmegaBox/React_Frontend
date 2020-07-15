@@ -14,8 +14,8 @@ import "./style/BookingSelectSeat.scss";
 
 const BookingSelectSeat = ({ history }) => {
   const dispatch = useDispatch();
-  const ticket = useSelector((state) => {
-    return state.Booking.ticket;
+  const [ticket, isLoading] = useSelector((state) => {
+    return [state.Booking.ticket, state.Seat.isLoading];
   });
 
   console.log(ticket);
@@ -93,7 +93,7 @@ const BookingSelectSeat = ({ history }) => {
           history.push("/booking/payment");
         }}
       />
-      {false && <Loading />}
+      {isLoading && <Loading />}
     </section>
   );
 };

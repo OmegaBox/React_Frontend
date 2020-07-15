@@ -112,12 +112,13 @@ export const billing = ({
       //결제가 정상적으로 완료되면 수행됩니다
       //비즈니스 로직을 수행하기 전에 결제 유효성 검증을 하시길 추천합니다.
       const accessToken = cookie.load("accessToken");
-      const reservation_id = reservations[0].id;
+      const reservation_id = reservations.reservation_id;
       console.log("예약 검증", data.receipt_id, "예약아이디들", reservations);
       const body = {
         receipt_id: data.receipt_id,
         price,
         reservation_id,
+        discount_price: 0, // 나중에 포인트 상태로 수정 필수
       };
       try {
         const res = await axios.post("/reservations/payments/", body, {
