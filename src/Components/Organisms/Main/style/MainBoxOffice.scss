@@ -67,18 +67,57 @@
   text-align: right;
 }
 
+.mainMovieList {
+  & .skeleton {
+    border-radius: 4px;
+    background-color: transparentize($colorBlack, 0.65)
+  }
+}
+
 .mainMoviesWrap {
   position: relative;
   display: flex;
   justify-content: space-between;
+
   li {
     width: 245px;
+
     .boxOfficeMoviePoster {
       width: 245px;
       height: 352px;
       border-radius: 5px;
     }
+
+    &:not(.skeletonMainMovieLi) {
+      opacity: 0;
+      animation: movieAnimation .5s ease-in-out forwards;
+    }
+
+    &:nth-child(1) {
+      animation-delay: 0s;
+    }
+    &:nth-child(2) {
+      animation-delay: .15s;
+    }
+    &:nth-child(3) {
+      animation-delay: .3s;
+    }
+    &:nth-child(4) {
+      animation-delay: .45s;
+    }
   }
+
+  @keyframes movieAnimation {
+    0% {
+      opacity: 0;
+      transform: translateY(30%);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
   .mainRank {
     position: absolute;
     width: 245px;

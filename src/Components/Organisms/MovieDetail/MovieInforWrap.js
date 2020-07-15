@@ -10,21 +10,7 @@ const MovieInforWrap = () => {
   const movie = useSelector((state) => state.Movie.detail);
 
   return (
-    <div className="movieDetailInforLayout">
-      <ul className="tab">
-        <li className="active">
-          <button type="button">주요정보</button>
-        </li>
-        <li>
-          <button type="button">한줄평</button>
-        </li>
-        <li>
-          <button type="button">무비포스트</button>
-        </li>
-        <li>
-          <button type="button">예고편/스틸컷</button>
-        </li>
-      </ul>
+    <div>
       <div className="movieStoryWrap">
         {/* <h3 className="title">
           원인불명 증세의 사람들의 공격에 통제 불능에 빠진 도시

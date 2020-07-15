@@ -1,10 +1,12 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import logo from "../../images/omegabox_logo.jpg";
+import GoogleLogin, { GoogleLogout, useGoogleLogout } from "react-google-login";
+import key from "../../key.json";
 import "./style/SignUpForm.scss";
 
 import { getToday, regExp } from "../../Utils/util";
-import { userApi } from "../../Api/api";
+import { userApi, isLogin } from "../../Api/api";
 
 import { openModal, setSize, setOneBtn } from "../../Reducer/modalReducer";
 import ModalPortal from "../../Modules/ModalPortal";
@@ -48,6 +50,17 @@ const SignUpForm = ({ history }) => {
     },
   });
 
+  // 구글 로그인 상태
+  const [isGoogleSignup, setGoogleSignup] = useState(false);
+
+  // 구글 로그아웃
+  const { signOut } = useGoogleLogout({
+    clientId: key.googleClientId,
+    onLogoutSuccess: () => {
+      console.log("구글 로그아웃 성공");
+    },
+  });
+
   // 모달창 상태
   const [modal, text, event, w, h] = useSelector((state) => {
     const Modal = state.modal;
@@ -64,6 +77,11 @@ const SignUpForm = ({ history }) => {
     email: useRef(),
   };
   const btnCheckDoubleRef = useRef();
+
+  // 로그인 창으로
+  const goLogin = () => {
+    history.push("/memberlogin");
+  };
 
   // 정규식 체크
   const checkRegExp = (key) => {
@@ -112,6 +130,7 @@ const SignUpForm = ({ history }) => {
 
   // input onBluerEvent
   const bluerInput = (e) => {
+    console.log("블러");
     const name = e.target.name;
     if (inputState[name] === "") return;
     if (name === "pwCheck" && inputState.pw !== inputState.pwCheck) {
@@ -193,44 +212,34 @@ const SignUpForm = ({ history }) => {
   };
 
   // 회원가입 버튼 활성화
-  const signAble = Object.values(inputState).every((v) => v !== "");
+  const signAble = isGoogleSignup
+    ? checkRegExp("tell")
+    : Object.values(inputState).every((v) => v !== "");
 
   // 회원 가입 이벤트
   const signUpEvent = async () => {
     const keys = ["name", "pw", "pwCheck", "tell", "email"];
-    if (!checkDoubleState) {
-      setAlert({
-        onAlert: {
-          ...alertState.onAlert,
-          id: true,
-        },
-        alertText: {
-          ...alertState.alertText,
-          id: "중복체크를 해주세요",
-        },
-      });
-      btnCheckDoubleRef.current.focus();
-      return;
-    } else if (!keys.map((key) => alertState.onAlert[key]).every((on) => !on)) {
-      const alertKey = keys.find((key) => alertState.onAlert[key] === true);
-      inputRefs[alertKey].current.focus();
-    } else {
+    // 회원가입 요청
+    const sendSignup = async (isGoogle) => {
       try {
-        await userApi.signup({
-          name: inputState.name,
-          id: inputState.id,
-          pw: inputState.pw,
-          pwCheck: inputState.pwCheck,
-          birth: inputState.birth,
-          tell: inputState.tell,
-          email: inputState.email,
-        });
-        dispatch(setOneBtn());
-        dispatch(
-          openModal("회원가입에 성공하셨습니다.", () => {
-            history.push("/memberlogin");
-          })
-        );
+        if (isGoogle) {
+          console.log("구글 회원가입 성공");
+          setGoogleSignup(false);
+          signOut();
+          // goLogin();
+        } else {
+          await userApi.signup({
+            name: inputState.name,
+            id: inputState.id,
+            pw: inputState.pw,
+            pwCheck: inputState.pwCheck,
+            birth: inputState.birth,
+            tell: inputState.tell,
+            email: inputState.email,
+          });
+          dispatch(setOneBtn());
+          dispatch(openModal("회원가입에 성공하셨습니다.", goLogin));
+        }
       } catch ({ response }) {
         console.log(response);
         if (response.status === 400) {
@@ -286,8 +295,58 @@ const SignUpForm = ({ history }) => {
 detail: ${response.data.detail}`);
         }
       }
+    };
+
+    if (!checkDoubleState) {
+      setAlert({
+        onAlert: {
+          ...alertState.onAlert,
+          id: true,
+        },
+        alertText: {
+          ...alertState.alertText,
+          id: "중복체크를 해주세요",
+        },
+      });
+      btnCheckDoubleRef.current.focus();
+      return;
+    } else if (!keys.map((key) => alertState.onAlert[key]).every((on) => !on)) {
+      const alertKey = keys.find((key) => alertState.onAlert[key] === true);
+      inputRefs[alertKey].current.focus();
+    } else {
+      sendSignup(isGoogleSignup);
     }
   };
+
+  // 구글 회원가입
+  const responseGoogle = (response) => {
+    console.log(response);
+  };
+
+  const GoogleSuccess = async (response) => {
+    const res = response;
+    const GoogleId = `g.${res.profileObj.googleId}`;
+
+    try {
+      await userApi.idDoubleCheck(GoogleId);
+      checkDoubleDispatch(true);
+      setGoogleSignup(true);
+      setInput({
+        ...inputState,
+        name: res.profileObj.name,
+        id: GoogleId,
+        email: res.profileObj.email,
+      });
+    } catch (e) {
+      dispatch(openModal("이미 가입된 유저입니다"));
+    }
+  };
+
+  useEffect(() => {
+    return () => {
+      if (isLogin) signOut();
+    };
+  }, [history]);
 
   return (
     <div className="signWrap">
@@ -298,25 +357,38 @@ detail: ${response.data.detail}`);
         <h2>회원가입</h2>
         <p className="textInfo">서비스를 이용하려면 가입하세요.</p>
         <div className="googleSignUp">
-          <button
-            className={[
-              "btnGoogleSignUp",
-              "btn",
-              "white",
-              "fill",
-              "large",
-            ].join(" ")}
-          >
-            <span className="logo"></span>
-            <span>구글 회원 가입</span>
-          </button>
+          <GoogleLogin
+            clientId={key.googleClientId}
+            buttonText="Sign in with Google"
+            onSuccess={GoogleSuccess}
+            onFailure={responseGoogle}
+            cookiePolicy={"single_host_origin"}
+            isSignedIn={false}
+            render={(renderProps) => (
+              <button
+                className={[
+                  "btnGoogleSignUp",
+                  "btn",
+                  "white",
+                  "fill",
+                  "large",
+                ].join(" ")}
+                onClick={renderProps.onClick}
+                disabled={renderProps.disabled}
+              >
+                <span className="logo"></span>
+                <span>구글 회원 가입</span>
+              </button>
+            )}
+          />
         </div>
         <div className={["nameWrap", "inputWrap"].join(" ")}>
           <label htmlFor="name">이름</label>
           <input
             className={
               ["input", "large"].join(" ") +
-              (alertState.onAlert.name ? " alert" : "")
+              (alertState.onAlert.name ? " alert" : "") +
+              (isGoogleSignup ? "" : "")
             }
             id="name"
             name="name"
@@ -326,84 +398,90 @@ detail: ${response.data.detail}`);
             onChange={changeInput}
             onBlur={bluerInput}
             ref={inputRefs.name}
+            disabled={isGoogleSignup}
           />
           <div className="alertText" hidden={!alertState.onAlert.name}>
             {alertState.alertText.name}
           </div>
         </div>
-        <div className={["idWrap", "inputWrap"].join(" ")}>
-          <label htmlFor="id">아이디</label>
-          <input
-            className={
-              ["input", "large"].join(" ") +
-              (!checkDoubleState && alertState.onAlert.id ? " alert" : "")
-            }
-            id="id"
-            name="id"
-            type="text"
-            placeholder="6자리 이상 (대/소문자, 숫자, 특수문자(_))"
-            value={inputState.id}
-            onChange={changeInput}
-            ref={inputRefs.id}
-          />
-          <button
-            className={["btnCheckDouble", "btn"].join(" ")}
-            disabled={!regExp.id.test(inputState.id)}
-            onClick={checkDouble}
-            ref={btnCheckDoubleRef}
-          >
-            중복확인
-          </button>
-          <div
-            className={
-              ["alertText"].join(" ") +
-              (checkDoubleState ? " passibleId" : " impassibleId")
-            }
-            hidden={!alertState.onAlert.id}
-          >
-            {alertState.alertText.id}
-          </div>
-        </div>
-        <div className={["pwWrap", "inputWrap"].join(" ")}>
-          <label htmlFor="pw">비밀번호</label>
-          <input
-            className={
-              ["input", "large"].join(" ") +
-              (alertState.onAlert.pw ? " alert" : "")
-            }
-            id="pw"
-            name="pw"
-            type="password"
-            placeholder="특수문자(!@#$%^&*)를 포함한 8자리 이상"
-            value={inputState.pw}
-            onChange={changeInput}
-            onBlur={bluerInput}
-            ref={inputRefs.pw}
-          />
-          <div className="alertText" hidden={!alertState.onAlert.pw}>
-            {alertState.alertText.pw}
-          </div>
-        </div>
-        <div className={["pwCheckWrap", "inputWrap"].join(" ")}>
-          <label htmlFor="pw">비밀번호 확인</label>
-          <input
-            className={
-              ["input", "large"].join(" ") +
-              (alertState.onAlert.pwCheck ? " alert" : "")
-            }
-            id="pwCheck"
-            name="pwCheck"
-            type="password"
-            placeholder="비밀번호 확인"
-            value={inputState.pwCheck}
-            onChange={changeInput}
-            onBlur={bluerInput}
-            ref={inputRefs.pwCheck}
-          />
-          <div className="alertText" hidden={!alertState.onAlert.pwCheck}>
-            {alertState.alertText.pwCheck}
-          </div>
-        </div>
+        {!isGoogleSignup && (
+          <>
+            <div className={["idWrap", "inputWrap"].join(" ")}>
+              <label htmlFor="id">아이디</label>
+              <input
+                className={
+                  ["input", "large"].join(" ") +
+                  (!checkDoubleState && alertState.onAlert.id ? " alert" : "")
+                }
+                id="id"
+                name="id"
+                type="text"
+                placeholder="6자리 이상 (대/소문자, 숫자, 특수문자(_))"
+                value={inputState.id}
+                onChange={changeInput}
+                ref={inputRefs.id}
+                disabled={isGoogleSignup}
+              />
+              <button
+                className={["btnCheckDouble", "btn"].join(" ")}
+                disabled={!regExp.id.test(inputState.id)}
+                onClick={checkDouble}
+                ref={btnCheckDoubleRef}
+              >
+                중복확인
+              </button>
+              <div
+                className={
+                  ["alertText"].join(" ") +
+                  (checkDoubleState ? " passibleId" : " impassibleId")
+                }
+                hidden={!alertState.onAlert.id}
+              >
+                {alertState.alertText.id}
+              </div>
+            </div>
+            <div className={["pwWrap", "inputWrap"].join(" ")}>
+              <label htmlFor="pw">비밀번호</label>
+              <input
+                className={
+                  ["input", "large"].join(" ") +
+                  (alertState.onAlert.pw ? " alert" : "")
+                }
+                id="pw"
+                name="pw"
+                type="password"
+                placeholder="특수문자(!@#$%^&*)를 포함한 8자리 이상"
+                value={inputState.pw}
+                onChange={changeInput}
+                onBlur={bluerInput}
+                ref={inputRefs.pw}
+              />
+              <div className="alertText" hidden={!alertState.onAlert.pw}>
+                {alertState.alertText.pw}
+              </div>
+            </div>
+            <div className={["pwCheckWrap", "inputWrap"].join(" ")}>
+              <label htmlFor="pw">비밀번호 확인</label>
+              <input
+                className={
+                  ["input", "large"].join(" ") +
+                  (alertState.onAlert.pwCheck ? " alert" : "")
+                }
+                id="pwCheck"
+                name="pwCheck"
+                type="password"
+                placeholder="비밀번호 확인"
+                value={inputState.pwCheck}
+                onChange={changeInput}
+                onBlur={bluerInput}
+                ref={inputRefs.pwCheck}
+              />
+              <div className="alertText" hidden={!alertState.onAlert.pwCheck}>
+                {alertState.alertText.pwCheck}
+              </div>
+            </div>
+          </>
+        )}
         <div className={["birthWrap", "inputWrap"].join(" ")}>
           <label htmlFor="birth">생년월일</label>
           <input
@@ -452,6 +530,7 @@ detail: ${response.data.detail}`);
             onChange={changeInput}
             onBlur={bluerInput}
             ref={inputRefs.email}
+            disabled={isGoogleSignup}
           />
           <div className="alertText" hidden={!alertState.onAlert.email}>
             {alertState.alertText.email}
