@@ -1,4 +1,4 @@
-import { select, put, takeLatest, call } from "redux-saga/effects";
+import { select, put, takeLatest, call, takeEvery } from "redux-saga/effects";
 import { movieApi } from "../Api/api";
 
 import { openModal } from "./modalReducer";
