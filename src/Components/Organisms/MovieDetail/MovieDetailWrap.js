@@ -7,7 +7,6 @@ import { selectMovie } from "../../../Reducer/bookingReducer";
 import { resetMovies } from "../../../Reducer/movieReducer";
 import { numWithComma } from "../../../Utils/util";
 
-
 const MovieDetailWrap = () => {
   const history = useHistory();
   const url = history.location.pathname;
@@ -17,7 +16,7 @@ const MovieDetailWrap = () => {
   useEffect(() => {
     return () => {
       if (url.slice(0, 7) === "/detail") dispatch(resetMovies());
-    }
+    };
   }, [url]);
 
   return (
@@ -43,9 +42,7 @@ const MovieDetailWrap = () => {
                   "favorite",
                 ].join(" ")}
               >
-                <span
-                  className={["icon", "favoriteOutLine"].join(" ")}
-                ></span>
+                <span className={["icon", "favoriteOutLine"].join(" ")}></span>
                 <span>{movie.acc_favorite}</span>
               </button>
               <button
@@ -53,37 +50,33 @@ const MovieDetailWrap = () => {
                 className={["btn", "outLine", "regular", "white"].join(" ")}
               >
                 공유하기
-                  </button>
+              </button>
             </div>
             <ul className="eval">
               <li>
                 <h4 className="title">실관람 평점</h4>
                 <div className="rating">
                   <span className={["icon", "rating"].join(" ")}></span>
-                  <span>{movie.average_point}</span>
+                  <span>{Math.ceil(movie.average_point * 10) / 10}</span>
                 </div>
               </li>
               <li>
                 <h4 className="title">예매율</h4>
                 <div className="bookingRate">
-                  <span
-                    className={["icon", "bookingRate"].join(" ")}
-                  ></span>
+                  <span className={["icon", "bookingRate"].join(" ")}></span>
                   <span>{movie.rank}</span>
                   <span className="smallTxt">
                     위 ({movie.reservation_rate}%)
-                      </span>
+                  </span>
                 </div>
               </li>
               <li className="acc">
                 <h4 className="title">
                   누적관객수
-                      <span className={["icon", "info"].join(" ")}></span>
+                  <span className={["icon", "info"].join(" ")}></span>
                 </h4>
                 <div className="accCumlative">
-                  <span
-                    className={["icon", "accCumlative"].join(" ")}
-                  ></span>
+                  <span className={["icon", "accCumlative"].join(" ")}></span>
                   <span>{numWithComma(movie.acc_audience)}</span>
                   <span className="smallTxt">명</span>
                 </div>
@@ -103,12 +96,19 @@ const MovieDetailWrap = () => {
                       poster: movie.poster,
                       id: movie.id,
                     })
-                  )}
+                  )
+                }
                 type="button"
-                className={["btn", "fill", "regular", "sub", "detailBookingBtn"].join(" ")}
+                className={[
+                  "btn",
+                  "fill",
+                  "regular",
+                  "sub",
+                  "detailBookingBtn",
+                ].join(" ")}
               >
                 예매
-                </button>
+              </button>
             </Link>
           </div>
         </div>

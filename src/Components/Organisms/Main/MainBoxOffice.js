@@ -1,16 +1,24 @@
 import React from "react";
 import "./style/MainBoxOffice.scss";
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { selectMovie } from "../../../Reducer/bookingReducer";
+import { getSearchMovie } from "../../../Reducer/movieReducer";
 
 const MainBoxOffice = () => {
   let movieBox = useSelector((state) => state.Movie.movies);
   movieBox = movieBox.filter((_, i) => i < 4);
   const dispatch = useDispatch();
+  const history = useHistory();
+
+  const mainEnterKeyword = (e) => {
+    if (e.keyCode === 13) {
+      history.push("/listMovies")
+      dispatch(getSearchMovie(e.target.value))
+    }
+  };
 
   return (
-
     <div className="mainBoxOfficeLayout">
       <div className="mainBoxOffice">
         <div className="mainBoxOfficeHeader">
@@ -41,7 +49,7 @@ const MainBoxOffice = () => {
                       <div className="boxOfficeMovieScore">
                         <div>
                           <p>관람평</p>
-                          <strong>{movie.average_point}</strong>
+                          <strong>{Math.ceil(movie.average_point * 10) / 10}</strong>
                         </div>
                       </div>
                     </div>
@@ -94,8 +102,7 @@ const MainBoxOffice = () => {
             <form>
               <input
                 type="text"
-                // value={searchInputState}
-                // onChange={changeSearchInput}
+                onKeyDown={mainEnterKeyword}
                 className="boxOfficeSearchBar"
                 placeholder="영화명을 입력해주세요."
                 title="영화 검색"

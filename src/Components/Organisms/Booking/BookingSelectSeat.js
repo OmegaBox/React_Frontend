@@ -10,22 +10,13 @@ import PopupNotice from "../../Molecules/PopupNotice";
 import BookingFastTitle from "../../Atoms/BookingFastTitle";
 
 import { resetThunk } from "../../../Reducer/bookingSeatReducer";
-import { setPriceList } from "../../../Reducer/bookingReducer";
 
 import "./style/BookingSelectSeat.scss";
 
 const BookingSelectSeat = ({ history }) => {
   const dispatch = useDispatch();
-  const [modal, text, event, w, h, ticket] = useSelector((state) => {
-    const Modal = state.modal;
-    return [
-      Modal.modal,
-      Modal.text,
-      Modal.event,
-      Modal.width,
-      Modal.height,
-      state.Booking.ticket,
-    ];
+  const ticket = useSelector((state) => {
+    return state.Booking.ticket;
   });
 
   console.log(ticket);
@@ -63,7 +54,6 @@ const BookingSelectSeat = ({ history }) => {
     console.log("didMount");
     if (!checkTicket()) history.push("/");
     dispatch(resetThunk(history.location.pathname));
-    dispatch(setPriceList(screenType));
     return () => {
       console.log("unMount");
     };
@@ -94,6 +84,9 @@ const BookingSelectSeat = ({ history }) => {
           poster,
           priceList,
         }}
+        goHome={() => {
+          history.push("/");
+        }}
         goBack={() => {
           history.goBack();
         }}
@@ -101,18 +94,6 @@ const BookingSelectSeat = ({ history }) => {
           history.push("/booking/payment");
         }}
       />
-      {modal && (
-        <ModalPortal>
-          <PopupNotice
-            text={text}
-            onEvent={event}
-            popupSize={{
-              width: w,
-              height: h,
-            }}
-          />
-        </ModalPortal>
-      )}
     </section>
   );
 };
