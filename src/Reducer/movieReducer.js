@@ -151,7 +151,10 @@ const initialState = {
   error: false,
   errorMessage: "",
   movies: [],
-  detail: {},
+  detail: {
+    detail: {},
+    loading: false,
+  },
   ageBooking: {},
 };
 
