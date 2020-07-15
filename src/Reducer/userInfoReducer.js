@@ -134,6 +134,12 @@ function* memberDetail(action) {
   yield put({ type: GET_MEMBER_DETAIL_LOADING });
 
   try {
+    const loginCheck = yield isLogin();
+
+    if (!loginCheck) {
+      yield put(startLogout());
+      return;
+    }
     const res = yield call(userApi.memberDetail);
     console.log("마이페이지", res.data);
     if (res.status === 200 || res.status === 201) {
@@ -170,6 +176,12 @@ function* myReserved(action) {
   yield put({ type: GET_RESERVED_LOADING });
 
   try {
+    const loginCheck = yield isLogin();
+
+    if (!loginCheck) {
+      yield put(startLogout());
+      return;
+    }
     const res = yield call(userApi.myReserved, { id: action.id });
     console.log("예약내역", res.data.results);
     if (res.status === 200 || res.status === 201) {
@@ -232,6 +244,12 @@ function* timelineRating(action) {
   yield put({ type: GET_TIMELINE_RATING_LOADING });
 
   try {
+    const loginCheck = yield isLogin();
+
+    if (!loginCheck) {
+      yield put(startLogout());
+      return;
+    }
     const res = yield call(userApi.timelineRating, { id: action.id });
     console.log("한줄평", res.data.results);
     if (res.status === 200 || res.status === 201) {
@@ -263,6 +281,12 @@ function* timelineWatched(action) {
   yield put({ type: GET_TIMELINE_WATCHED_LOADING });
 
   try {
+    const loginCheck = yield isLogin();
+
+    if (!loginCheck) {
+      yield put(startLogout());
+      return;
+    }
     const res = yield call(userApi.timelineWatched, { id: action.id });
     console.log("본영화", res.data.results);
     if (res.status === 200 || res.status === 201) {
@@ -294,6 +318,12 @@ function* timelineLike(action) {
   yield put({ type: GET_TIMELINE_LIKE_LOADING });
 
   try {
+    const loginCheck = yield isLogin();
+
+    if (!loginCheck) {
+      yield put(startLogout());
+      return;
+    }
     const res = yield call(userApi.timelineLike, { id: action.id });
     console.log("보고싶은", res.data.results);
     if (res.status === 200 || res.status === 201) {
