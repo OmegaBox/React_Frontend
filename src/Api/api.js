@@ -165,7 +165,7 @@ export const movieApi = {
 
     const call = `theaters/schedules/regions/${date}/${
       movies ? "?movies=" + movieIds : ""
-      }
+    }
     `;
 
     console.log(call);
@@ -180,7 +180,7 @@ export const movieApi = {
 
     const call = `theaters/schedules/${date}/${
       movies ? "?movies=" + movieIds : ""
-      }
+    }
     `;
 
     console.log(call);
@@ -188,11 +188,9 @@ export const movieApi = {
     return axios.get(call);
   },
   getReservedSeats: (scheduleId) => {
-    console.log("예약된 좌석 요청중...");
     return axios.get(`/schedules/${scheduleId}/reserved-seats/`);
   },
   getTotalPrice: (scheduleId, personalCount) => {
-    console.log(scheduleId, personalCount);
     // 받은 personalCount가 객체가 아닐때
     if (typeof personalCount !== "object")
       return console.error("전달받은 값이 객체가 아닙니다.");
@@ -218,11 +216,8 @@ export const movieApi = {
     );
   },
   makeReservation: (scheduleId, seatIdArr, seatPersonalType) => {
-    console.log("예약만들기 진입");
-    console.log(scheduleId, seatIdArr, seatPersonalType);
     const accessToken = cookie.load("accessToken");
     if (!accessToken) return;
-    console.log(accessToken);
     const seatPersonalTypeArr = [];
     Object.keys(seatPersonalType).forEach((key) => {
       for (let i = 0; i < seatPersonalType[key]; i++) {
