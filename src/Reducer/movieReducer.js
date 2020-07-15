@@ -151,7 +151,10 @@ const initialState = {
   error: false,
   errorMessage: "",
   movies: [],
-  detail: {},
+  detail: {
+    detail: {},
+    loading: false,
+  },
   ageBooking: {},
 };
 
@@ -180,7 +183,7 @@ const movieReducer = (state = initialState, action) => {
     case MOVIE_DETAIL_SUCCESS:
       return {
         ...state,
-        loading: false,
+        loading: true,
         detail: action.data,
         error: null,
       }
