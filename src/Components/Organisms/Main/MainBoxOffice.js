@@ -15,7 +15,6 @@ const MainBoxOffice = () => {
     if (e.keyCode === 13) {
       history.push("/listMovies")
       dispatch(getSearchMovie(e.target.value))
-
     }
   };
 
@@ -129,7 +128,13 @@ const MainBoxOffice = () => {
       </div>
       <div className="moviePosterBg">
         {movieBox.map((movie, i) => {
-          return <img key={i} src={movie.poster} alt={movie.title} />;
+          return (
+            <img
+              key={i}
+              src={movie.poster}
+              alt={movie.title}
+            />
+          )
         })}
       </div>
     </div>
