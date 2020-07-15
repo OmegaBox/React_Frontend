@@ -21,9 +21,9 @@ const MainCuration = () => {
           </div>
         </div>
         <div className="curationPoster">
-          {movieInfor.map((movie) => {
+          {movieInfor.map((movie, i) => {
             return (
-              <div>
+              <div key={`movie.${i}`}>
                 <img
                   className="curationImg"
                   src={movie.poster}
