@@ -208,7 +208,7 @@ export const movieApi = {
   getReservedSeats: (scheduleId) => {
     console.log("예약된 좌석 요청중...");
     return axios.get(
-      `https://www.omegabox.xyz/schedules/${scheduleId}/reserved-seats/`
+      `https://www.omegabox.xyz/theaters/schedules/${scheduleId}/reserved-seats/`
     );
   },
   getTotalPrice: (scheduleId, personalCount) => {
