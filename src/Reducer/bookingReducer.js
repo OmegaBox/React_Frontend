@@ -218,14 +218,13 @@ const setReservation = (
         SeatIds.data.map((v) => v.seat_id).reverse(),
         seatPersonalType
       );
+      console.log(reservationInfos);
       dispatch(
         setDefaultTicketInfo({
           seats: SeatIds.data,
           ticketType: seatPersonalType,
           price: totalPrice,
-          reservationInfos: reservationInfos.data.map(
-            (data) => data.reservation
-          ),
+          reservationInfos: reservationInfos.data,
           priceList: {
             adult: basePrice * seatPersonalType.adult,
             teen: basePrice * 0.75 * seatPersonalType.teen,
@@ -236,10 +235,18 @@ const setReservation = (
       nextFunc();
     } catch (e) {
       console.error(e.response);
-      if (e.response.status === 400) {
+      if (e.status === 400) {
         dispatch(setOneBtn());
         dispatch(
           openModal(e.response.data.detail, () => {
+            dispatch(setReservedSeat());
+            dispatch(resetSeat());
+          })
+        );
+      } else {
+        dispatch(setOneBtn());
+        dispatch(
+          openModal("좌석 선택에 실패했습니다", () => {
             dispatch(setReservedSeat());
             dispatch(resetSeat());
           })
@@ -480,7 +487,7 @@ const initialState = {
   },
   ticket: {
     number: "",
-    reservationInfos: [],
+    reservationInfos: {},
     selectedDate: "",
     selectedTheather: "",
     selectedMovieTitle: "",
