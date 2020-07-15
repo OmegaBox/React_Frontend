@@ -6,20 +6,19 @@ const SkeletonDetailPage = () => {
     <div>
       <ContentLoader
         speed={2}
-        width={1100}
-        height={450}
-        viewBox="0 0 1100 450"
-        backgroundColor="#e81002"
-      // foregroundColor="#ecebeb"
+        width={1440}
+        height={520}
+        backgroundColor={"#444"}
+        foregroundColor="#ecebeb"
       >
-        <rect x="62" y="31" rx="5" ry="5" width="174" height="22" />
-        <rect x="62" y="57" rx="5" ry="5" width="174" height="19" />
-        <rect x="62" y="80" rx="0" ry="0" width="174" height="21" />
-        <rect x="67" y="176" rx="0" ry="0" width="40" height="22" />
-        <rect x="111" y="176" rx="0" ry="0" width="59" height="22" />
-        <rect x="175" y="176" rx="0" ry="0" width="80" height="22" />
-        <rect x="416" y="17" rx="0" ry="0" width="108" height="157" />
-        <rect x="415" y="179" rx="0" ry="0" width="110" height="18" />
+        <rect x="60" y="50" rx="3" ry="3" width="300" height="99" />
+        <rect x="60" y="100" rx="3" ry="3" width="300" height="99" />
+        <rect x="60" y="300" rx="3" ry="3" width="300" height="40" />
+        <rect x="200" y="450" rx="3" ry="3" width="80" height="40" />
+        <rect x="300" y="450" rx="3" ry="3" width="125" height="50" />
+        <rect x="400" y="450" rx="3" ry="3" width="200" height="50" />
+        <rect x="1000" y="50" rx="3" ry="3" width="260" height="374" />
+        <rect x="1000" y="430" rx="3" ry="3" width="228" height="40" />
       </ContentLoader>
     </div>
   )

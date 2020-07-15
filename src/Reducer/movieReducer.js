@@ -183,7 +183,7 @@ const movieReducer = (state = initialState, action) => {
     case MOVIE_DETAIL_SUCCESS:
       return {
         ...state,
-        loading: true,
+        loading: false,
         detail: action.data,
         error: null,
       }

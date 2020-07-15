@@ -25,7 +25,7 @@ const MovieDetailWrap = () => {
 
   return (
     <div className="movieVisual">
-      {true ? <SkeletonDetailPage /> :
+      {isLoading ? <SkeletonDetailPage /> :
         <div key={`movies${movie.id}`}>
           <div className="movieBg">
             <img src={movie.poster} alt={movie.title} />
