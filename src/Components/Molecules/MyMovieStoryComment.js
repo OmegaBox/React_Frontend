@@ -1,9 +1,10 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import { changeKeyPoint } from "../../Utils/util";
 
 const MyMovieStoryComment = () => {
-  const { commentMovie } = useSelector((state) => ({
-    commentMovie: state.userInfo.commentMovies,
+  const { commentMovies } = useSelector((state) => ({
+    commentMovies: state.userInfo.commentMovies,
   }));
   const getWriteTime = (writeTime) => {
     changeTimeFormat(writeTime);
@@ -19,22 +20,20 @@ const MyMovieStoryComment = () => {
     newFormat = newFormat.join("");
     return newFormat;
   };
+
   return (
     <section className="comment">
       <h4 className="a11yHidden">한줄평</h4>
       <p className="listCounter">
-        총<span>{commentMovie.length}</span>건
+        총<span>{commentMovies.length}</span>건
       </p>
       <ul className="movieList">
-        {commentMovie.length ? (
-          commentMovie.map((movie) => (
+        {commentMovies.length ? (
+          commentMovies.map((movie) => (
             <li key={movie.rating_id}>
               <article className="movieItem">
                 <div className="poster">
-                  <img
-                    src={movie.movie.poster}
-                    alt={`${movie.movie.movie_name} 포스터`}
-                  />
+                  <img src={movie.poster} alt={`${movie.movie_name} 포스터`} />
                 </div>
                 <ul className={["info", "clearfix"].join(" ")}>
                   <li className="tag">
@@ -43,12 +42,14 @@ const MyMovieStoryComment = () => {
                   </li>
                   <li className="title">
                     <h5 className="a11yHidden">영화명</h5>
-                    <p>{movie.movie.movie_name}</p>
+                    <p>{movie.movie_name}</p>
                   </li>
                   <li className="evalPoint">
                     <h5 className="a11yHidden">평가점수</h5>
                     <p>{movie.score}</p>
-                    <span className="hashTag">{movie.key_point}</span>
+                    <span className="hashTag">
+                      {changeKeyPoint(movie.key_point)}
+                    </span>
                   </li>
                   <li className="evalComment">
                     <h5 className="a11yHidden">관람평</h5>
@@ -56,11 +57,7 @@ const MyMovieStoryComment = () => {
                   </li>
                   <li className="writeDate">
                     <h5 className="a11yHidden">작성일시</h5>
-                    <p>
-                      <span className={["icon", "like"].join(" ")}></span>
-                      {getWriteTime(movie.created_at)} 일전
-                    </p>
-                    <p>{movie.created_at}</p>
+                    <p>{getWriteTime(movie.created_at)} 일전 </p>
                   </li>
                   <li className="btnWrap">
                     <button

@@ -213,6 +213,12 @@ function* myReservedCancel(action) {
   yield put({ type: GET_RESERVED_CANCELED_LOADING });
 
   try {
+    const loginCheck = yield isLogin();
+
+    if (!loginCheck) {
+      yield put(startLogout());
+      return;
+    }
     const res = yield call(userApi.myReservedCancel, { id: action.id });
     console.log("예약취소", res.data.results);
     if (res.status === 200 || res.status === 201) {
@@ -364,7 +370,7 @@ function* userInfoSaga() {
 const initialState = {
   isLogin: false,
   userName: "omegaman",
-  name: "홍길동",
+  name: "",
   email: "xxxxx@naver.com",
   mobile: "+821011111111",
   birthDate: "2020-07-08",
@@ -375,98 +381,98 @@ const initialState = {
   },
   errorMessage: "",
   profile: {
-    tier: "VIP",
-    point: 500,
+    tier: "비회원",
+    point: 0,
   },
-  likeMoviesCount: 5,
-  ratingMoviesCount: 5,
-  reservedMoviesCount: 5,
-  watchedMoviesCount: 5,
+  likeMoviesCount: 0,
+  ratingMoviesCount: 0,
+  reservedMoviesCount: 0,
+  watchedMoviesCount: 0,
   bookingHistory: [
-    {
-      movie_name: "소리꾼",
-      payed_at: "2020-07-12", // 결제 시간이 없음
-      poster:
-        "https://caloculator-s3.s3.ap-northeast-2.amazonaws.com/media/posters/20196201.jpg",
-      price: 3000,
-      reservation_code: "",
-      reservation_id: 170,
-      screen_name: "1관",
-      screen_type: "2D",
-      seat_grade: [{ adult: 1, teen: 0, preferential: 0 }],
-      seat_name: ["B7"],
-      start_time: "2020-07-15 18:36",
-      theater_name: "강남대로(씨티)",
-      theater_region: "서울",
-    },
+    // {
+    //   movie_name: "소리꾼",
+    //   payed_at: "2020-07-12", // 결제 시간이 없음
+    //   poster:
+    //     "https://caloculator-s3.s3.ap-northeast-2.amazonaws.com/media/posters/20196201.jpg",
+    //   price: 3000,
+    //   reservation_code: "",
+    //   reservation_id: 170,
+    //   screen_name: "1관",
+    //   screen_type: "2D",
+    //   seat_grade: [{ adult: 1, teen: 0, preferential: 0 }],
+    //   seat_name: ["B7"],
+    //   start_time: "2020-07-15 18:36",
+    //   theater_name: "강남대로(씨티)",
+    //   theater_region: "서울",
+    // },
   ],
   favoriteMovies: [
-    {
-      id: 0,
-      movie_name: "string",
-      poster:
-        "https://img.megabox.co.kr/SharedImg/2020/06/15/pjraLryYt5zQ1HEf6axtAdkXRhfhRZTZ_420.jpg",
-      grade: "all",
-      acc_favorite: "string",
-      open_date: "2020-07-14",
-      running_time: "string",
-      directors: "string",
-      genres: "string",
-      liked_at: "string",
-    },
+    // {
+    //   id: 0,
+    //   movie_name: "string",
+    //   poster:
+    //     "https://img.megabox.co.kr/SharedImg/2020/06/15/pjraLryYt5zQ1HEf6axtAdkXRhfhRZTZ_420.jpg",
+    //   grade: "all",
+    //   acc_favorite: "string",
+    //   open_date: "2020-07-14",
+    //   running_time: "string",
+    //   directors: "string",
+    //   genres: "string",
+    //   liked_at: "string",
+    // },
   ],
   commentMovies: [
-    {
-      rating_id: 0,
-      movie: {
-        movie_name: "string",
-        poster: "string",
-        grade: "all",
-        acc_favorite: "string",
-        open_date: "2020-07-14",
-        running_time: "string",
-        directors: "string",
-        genres: "string",
-      },
-      created_at: "2020-07-14",
-      score: 0,
-      key_point: "actor",
-      comment: "string",
-    },
+    // {
+    //   rating_id: 0,
+    //   movie: {
+    //     movie_name: "string",
+    //     poster: "string",
+    //     grade: "all",
+    //     acc_favorite: "string",
+    //     open_date: "2020-07-14",
+    //     running_time: "string",
+    //     directors: "string",
+    //     genres: "string",
+    //   },
+    //   created_at: "2020-07-14",
+    //   score: 0,
+    //   key_point: "actor",
+    //   comment: "string",
+    // },
   ],
   watchedMovies: [
-    {
-      payment_id: 0,
-      screen_type: "string",
-      screen_name: "string",
-      seat_grade: "string",
-      seat_name: "string",
-      theater_name: "string",
-      theater_region: "string",
-      start_time: "2020-07-14T05:45:46.143Z",
-      payed_at: "2020-07-14T05:45:46.143Z",
-      movie: {
-        movie_name: "string",
-        poster: "string",
-        grade: "all",
-        acc_favorite: "string",
-        open_date: "2020-07-14",
-        running_time: "string",
-        directors: "string",
-        genres: "string",
-      },
-    },
+    // {
+    //   payment_id: 0,
+    //   screen_type: "string",
+    //   screen_name: "string",
+    //   seat_grade: "string",
+    //   seat_name: "string",
+    //   theater_name: "string",
+    //   theater_region: "string",
+    //   start_time: "2020-07-14T05:45:46.143Z",
+    //   payed_at: "2020-07-14T05:45:46.143Z",
+    //   movie: {
+    //     movie_name: "string",
+    //     poster: "string",
+    //     grade: "all",
+    //     acc_favorite: "string",
+    //     open_date: "2020-07-14",
+    //     running_time: "string",
+    //     directors: "string",
+    //     genres: "string",
+    //   },
+    // },
   ],
   cancelMovies: [
-    {
-      reservation_id: 0,
-      canceled_at: "2020-07-14 03:35:35",
-      movie_name: "string",
-      theater_name: "string",
-      theater_region: "string",
-      start_time: "2020-07-14 03:35:35",
-      canceled_payment: 0,
-    },
+    // {
+    //   reservation_id: 0,
+    //   canceled_at: "2020-07-14 03:35:35",
+    //   movie_name: "string",
+    //   theater_name: "string",
+    //   theater_region: "string",
+    //   start_time: "2020-07-14 03:35:35",
+    //   canceled_payment: 0,
+    // },
   ],
 };
 

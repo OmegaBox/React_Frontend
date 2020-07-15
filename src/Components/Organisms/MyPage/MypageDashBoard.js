@@ -2,7 +2,13 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import BookingCancel from "../../Molecules/BookingCancel";
-import { numWithComma } from "../../../Utils/util";
+import {
+  numWithComma,
+  timeDateSplit,
+  sliceDate,
+  sliceTime,
+  createDay,
+} from "../../../Utils/util";
 import "./style/MypageDashBoard.scss";
 
 const MypageDashBoard = () => {
@@ -35,18 +41,27 @@ const MypageDashBoard = () => {
     favoriteMoviesCount: state.userInfo.likeMoviesCount,
   }));
 
+  /* 회원등급명 변경 */
+  const tierName = () => {
+    switch (tier) {
+      case "vip":
+        return "VIP회원";
+      case "basic":
+        return "일반회원";
+      default:
+        return "비회원";
+    }
+  };
   return (
     <div>
-      {isLogin ? "" : "링크로 돌림"}
-
       <div className="mypageDashBoard">
         <h3 className="a11yHidden">마이페이지 정보</h3>
         <section className="mypagePersnalInfo">
           <article className="grade">
             <p className="name">
-              {name}님은
+              {name !== "" ? `${name}님은` : ``}
               <br />
-              {tier}입니다.
+              {tierName()}입니다.
             </p>
             <Link to="/mypage/confirmpassword" className="btnPersnalEdit">
               개인정보수정
@@ -141,9 +156,7 @@ const MypageDashBoard = () => {
                     <ul className={["info", "clearfix"].join(" ")}>
                       <li className="paymentDate">
                         <h5>결제일시</h5>
-                        <p>
-                          {booking.payed_at} ({booking.paymentTime})
-                        </p>
+                        <p>{timeDateSplit(booking.payed_at)}</p>
                       </li>
                       <li className="bookingNumber">
                         <h5 className="a11yHidden">예매번호</h5>
@@ -163,7 +176,11 @@ const MypageDashBoard = () => {
                       </li>
                       <li className="viewingDate">
                         <h5 className="a11yHidden">관람일시</h5>
-                        <p>{booking.start_time}</p>
+                        <p>
+                          {sliceDate(booking.start_time)}{" "}
+                          {createDay(booking.start_time)}{" "}
+                          {sliceTime(booking.start_time)}
+                        </p>
                       </li>
                     </ul>
                     <BookingCancel
