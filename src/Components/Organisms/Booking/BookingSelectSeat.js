@@ -93,7 +93,7 @@ const BookingSelectSeat = ({ history }) => {
           history.push("/booking/payment");
         }}
       />
-      <Loading />
+      {false && <Loading />}
     </section>
   );
 };
