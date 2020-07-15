@@ -5,6 +5,7 @@ import RatingChart from "../../Molecules/ChartBookingRating";
 import DayAudienceLine from "../../Molecules/LineDayAudience";
 import RaderChartKeyPoint from "../../Molecules/RaderChartKeyPoint";
 import { numWithComma } from "../../../Utils/util";
+import { NavLink } from "react-router-dom";
 
 const MovieInforWrap = () => {
   const movie = useSelector((state) => state.Movie.detail);
@@ -22,7 +23,9 @@ const MovieInforWrap = () => {
           <button type="button">무비포스트</button>
         </li>
         <li>
-          <button type="button">예고편/스틸컷</button>
+          <NavLink to="/detail/:idx/trailer">
+            <button type="button">예고편/스틸컷</button>
+          </NavLink>
         </li>
       </ul>
       <div className="movieStoryWrap">
