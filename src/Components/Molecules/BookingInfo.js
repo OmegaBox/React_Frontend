@@ -5,6 +5,7 @@ import { movieApi } from "../../Api/api";
 import { numWithComma } from "../../Utils/util";
 
 import { setReservation } from "../../Reducer/bookingReducer";
+import { checkLogin } from "../../Reducer/userInfoReducer";
 
 import "./style/BookingInfo.scss";
 
@@ -53,7 +54,7 @@ const date = (dateValue) => {
   return `${dateValue.split("-").join(".")}(${dateString})`;
 };
 
-const BookingInfo = ({ props, goBack, goNext }) => {
+const BookingInfo = ({ props, goHome, goBack, goNext }) => {
   const dispatch = useDispatch();
 
   let totalPrice = 0;
@@ -140,7 +141,8 @@ const BookingInfo = ({ props, goBack, goNext }) => {
         seatPersonalType,
         totalPrice,
         basePrice,
-        goNext
+        goNext,
+        goHome
       )
     );
   };

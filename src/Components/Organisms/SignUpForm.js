@@ -26,16 +26,26 @@ const SignUpForm = ({ history }) => {
   const [inputState, setInput] = useState(initSignState);
 
   // 중복 체크 상태
-  const [checkDoubleState, doubleDispatch] = useState(null);
+  const [checkDoubleState, checkDoubleDispatch] = useState(false);
 
   // 경고 문구 출력 여부
   const [alertState, setAlert] = useState({
-    name: false,
-    id: false,
-    pw: false,
-    pwCheck: false,
-    tell: false,
-    email: false,
+    onAlert: {
+      name: false,
+      id: false,
+      pw: false,
+      pwCheck: false,
+      tell: false,
+      email: false,
+    },
+    alertText: {
+      name: false,
+      id: false,
+      pw: false,
+      pwCheck: false,
+      tell: false,
+      email: false,
+    },
   });
 
   // 모달창 상태
@@ -65,13 +75,31 @@ const SignUpForm = ({ history }) => {
     const name = e.target.name;
     let value = e.target.value.split(" ").join("");
 
-    if (alertState[name])
+    if (alertState.onAlert[name])
       setAlert({
-        ...alertState,
-        [name]: false,
+        onAlert: {
+          ...alertState.onAlert,
+          [name]: false,
+        },
+        alertText: {
+          ...alertState.alertText,
+          [name]: "",
+        },
       });
 
-    if (name === "id") doubleDispatch(null);
+    if (name === "id") checkDoubleDispatch(false);
+
+    if (name === "pw" && alertState.onAlert.pwCheck)
+      setAlert({
+        onAlert: {
+          ...alertState.onAlert,
+          pwCheck: false,
+        },
+        alertText: {
+          ...alertState.alertText,
+          pwCheck: "",
+        },
+      });
 
     if (name === "tell")
       value = [...value].filter((v) => /[0-9]/g.test(v)).join("");
@@ -89,32 +117,79 @@ const SignUpForm = ({ history }) => {
     if (name === "pwCheck" && inputState.pw !== inputState.pwCheck) {
       console.log("패스워드 체크");
       setAlert({
-        ...alertState,
-        [name]: true,
+        onAlert: {
+          ...alertState.onAlert,
+          pwCheck: true,
+        },
+        alertText: {
+          ...alertState.alertText,
+          pwCheck: "비밀번호와 일치하지 않습니다",
+        },
       });
     }
     if (!regExp[name] || name === "id") return;
     else if (!checkRegExp(name)) {
-      console.log("정규식 오류");
+      const alertText = (() => {
+        switch (name) {
+          case "name":
+            return "이름 형식에 맞지 않습니다";
+          case "pw":
+            return "비밀번호 규칙에 맞지 않습니다";
+          case "tell":
+            return "전화번호 형식이 아닙니다";
+          case "email":
+            return "이메일 형식이 아닙니다";
+          default:
+            return "경고 문구";
+        }
+      })();
       setAlert({
-        ...alertState,
-        [name]: true,
+        onAlert: {
+          ...alertState.onAlert,
+          [name]: true,
+        },
+        alertText: {
+          ...alertState.alertText,
+          [name]: alertText,
+        },
       });
     }
   };
 
   // 아이디 중복체크
-  const checkDouble = async (id) => {
+  const checkDouble = async (e) => {
+    const idAlert = (result) => {
+      setAlert({
+        onAlert: {
+          ...alertState.onAlert,
+          id: true,
+        },
+        alertText: {
+          ...alertState.alertText,
+          id: result ? "사용가능한 아이디입니다" : "중복되는 아이디입니다",
+        },
+      });
+    };
     try {
-      await userApi.idDoubleCheck(id);
-      doubleDispatch(true);
-    } catch (e) {
-      doubleDispatch(false);
+      await userApi.idDoubleCheck(inputState.id);
+      checkDoubleDispatch(true);
+      idAlert(true);
+    } catch ({ response }) {
+      if (
+        response.status !== 400 ||
+        response.data.detail !== "이미 가입된 아이디입니다."
+      ) {
+        console.error(response);
+        return;
+      }
+      checkDoubleDispatch(false);
+      idAlert(false);
+      setInput({
+        ...inputState,
+        id: "",
+      });
+      inputRefs.id.current.focus();
     }
-    setAlert({
-      ...alertState,
-      id: false,
-    });
   };
 
   // 회원가입 버튼 활성화
@@ -122,21 +197,26 @@ const SignUpForm = ({ history }) => {
 
   // 회원 가입 이벤트
   const signUpEvent = async () => {
-    if (checkDoubleState === null) {
+    const keys = ["name", "pw", "pwCheck", "tell", "email"];
+    if (!checkDoubleState) {
       setAlert({
-        ...alertState,
-        id: true,
+        onAlert: {
+          ...alertState.onAlert,
+          id: true,
+        },
+        alertText: {
+          ...alertState.alertText,
+          id: "중복체크를 해주세요",
+        },
       });
-      inputRefs.id.current.focus();
+      btnCheckDoubleRef.current.focus();
       return;
-    } else if (!Object.values(alertState).every((ale) => !ale)) {
-      const keys = ["name", "id", "pw", "pwCheck", "tell", "email"];
-      const alertKey = keys.find((key) => alertState[key] === true);
-      console.log(inputRefs[alertKey]);
+    } else if (!keys.map((key) => alertState.onAlert[key]).every((on) => !on)) {
+      const alertKey = keys.find((key) => alertState.onAlert[key] === true);
       inputRefs[alertKey].current.focus();
     } else {
       try {
-        const res = await userApi.signup({
+        await userApi.signup({
           name: inputState.name,
           id: inputState.id,
           pw: inputState.pw,
@@ -151,17 +231,59 @@ const SignUpForm = ({ history }) => {
             history.push("/memberlogin");
           })
         );
-      } catch (e) {
-        console.log(e.response);
-        if (e.response.status === 400) {
-          let errorText = "회원가입 실패:";
-          Object.keys(e.response.data).forEach((key) => {
-            const errorDetail = `${key}: ${e.response.data[key]}`;
-            errorText += `
-  ${errorDetail}`;
+      } catch ({ response }) {
+        console.log(response);
+        if (response.status === 400) {
+          let errorDetail = "";
+          Object.keys(response.data).forEach((key) => {
+            errorDetail = response.data[key];
           });
-          console.error(errorText);
-          // dispatch(openModal(errorText));
+          console.error(errorDetail);
+          dispatch(setOneBtn());
+          dispatch(
+            openModal(errorDetail, () => {
+              switch (errorDetail) {
+                case "이미 가입된 이메일 주소입니다.":
+                  inputRefs.email.current.focus();
+                  setAlert({
+                    onAlert: {
+                      ...alertState.onAlert,
+                      email: true,
+                    },
+                    alertText: {
+                      ...alertState.alertText,
+                      email: errorDetail,
+                    },
+                  });
+                  break;
+                case "이미 가입된 번호입니다.":
+                  inputRefs.tell.current.focus();
+                  setAlert({
+                    onAlert: {
+                      ...alertState.onAlert,
+                      tell: true,
+                    },
+                    alertText: {
+                      ...alertState.alertText,
+                      tell: errorDetail,
+                    },
+                  });
+                  break;
+                default:
+                  console.error("조건에 없는 에러입니다.");
+              }
+            })
+          );
+        } else if (response.status === 500) {
+          dispatch(setSize(null, "200px"));
+          dispatch(
+            openModal(
+              "서버 사용량이 많아 회원가입을 할 수 없습니다. 잠시 후에 다시 시도하십시요."
+            )
+          );
+        } else {
+          console.error(`status: ${response.status}
+detail: ${response.data.detail}`);
         }
       }
     }
@@ -193,7 +315,8 @@ const SignUpForm = ({ history }) => {
           <label htmlFor="name">이름</label>
           <input
             className={
-              ["input", "large"].join(" ") + (alertState.name ? " alert" : "")
+              ["input", "large"].join(" ") +
+              (alertState.onAlert.name ? " alert" : "")
             }
             id="name"
             name="name"
@@ -204,15 +327,16 @@ const SignUpForm = ({ history }) => {
             onBlur={bluerInput}
             ref={inputRefs.name}
           />
-          <div className="alertText" hidden={!alertState.name}>
-            이름 형식에 맞지 않습니다.
+          <div className="alertText" hidden={!alertState.onAlert.name}>
+            {alertState.alertText.name}
           </div>
         </div>
         <div className={["idWrap", "inputWrap"].join(" ")}>
           <label htmlFor="id">아이디</label>
           <input
             className={
-              ["input", "large"].join(" ") + (alertState.id ? " alert" : "")
+              ["input", "large"].join(" ") +
+              (!checkDoubleState && alertState.onAlert.id ? " alert" : "")
             }
             id="id"
             name="id"
@@ -230,26 +354,22 @@ const SignUpForm = ({ history }) => {
           >
             중복확인
           </button>
-          <div className="alertText" hidden={!alertState.id}>
-            중복체크를 해주세요
-          </div>
           <div
             className={
               ["alertText"].join(" ") +
               (checkDoubleState ? " passibleId" : " impassibleId")
             }
-            hidden={checkDoubleState === null}
+            hidden={!alertState.onAlert.id}
           >
-            {checkDoubleState
-              ? "사용가능한 아이디입니다."
-              : "중복되는 아이디입니다."}
+            {alertState.alertText.id}
           </div>
         </div>
         <div className={["pwWrap", "inputWrap"].join(" ")}>
           <label htmlFor="pw">비밀번호</label>
           <input
             className={
-              ["input", "large"].join(" ") + (alertState.pw ? " alert" : "")
+              ["input", "large"].join(" ") +
+              (alertState.onAlert.pw ? " alert" : "")
             }
             id="pw"
             name="pw"
@@ -260,8 +380,8 @@ const SignUpForm = ({ history }) => {
             onBlur={bluerInput}
             ref={inputRefs.pw}
           />
-          <div className="alertText" hidden={!alertState.pw}>
-            비밀번호를 규칙에 맞게 입력해주세요
+          <div className="alertText" hidden={!alertState.onAlert.pw}>
+            {alertState.alertText.pw}
           </div>
         </div>
         <div className={["pwCheckWrap", "inputWrap"].join(" ")}>
@@ -269,7 +389,7 @@ const SignUpForm = ({ history }) => {
           <input
             className={
               ["input", "large"].join(" ") +
-              (alertState.pwCheck ? " alert" : "")
+              (alertState.onAlert.pwCheck ? " alert" : "")
             }
             id="pwCheck"
             name="pwCheck"
@@ -280,8 +400,8 @@ const SignUpForm = ({ history }) => {
             onBlur={bluerInput}
             ref={inputRefs.pwCheck}
           />
-          <div className="alertText" hidden={!alertState.pwCheck}>
-            비밀번호가 일치하지 않습니다
+          <div className="alertText" hidden={!alertState.onAlert.pwCheck}>
+            {alertState.alertText.pwCheck}
           </div>
         </div>
         <div className={["birthWrap", "inputWrap"].join(" ")}>
@@ -301,7 +421,8 @@ const SignUpForm = ({ history }) => {
           <label htmlFor="tell">전화번호</label>
           <input
             className={
-              ["input", "large"].join(" ") + (alertState.tell ? " alert" : "")
+              ["input", "large"].join(" ") +
+              (alertState.onAlert.tell ? " alert" : "")
             }
             id="tell"
             name="tell"
@@ -312,15 +433,16 @@ const SignUpForm = ({ history }) => {
             onBlur={bluerInput}
             ref={inputRefs.tell}
           />
-          <div className="alertText" hidden={!alertState.tell}>
-            전화번호 형식이 아닙니다
+          <div className="alertText" hidden={!alertState.onAlert.tell}>
+            {alertState.alertText.tell}
           </div>
         </div>
         <div className={["emailWrap", "inputWrap"].join(" ")}>
           <label htmlFor="email">이메일</label>
           <input
             className={
-              ["input", "large"].join(" ") + (alertState.email ? " alert" : "")
+              ["input", "large"].join(" ") +
+              (alertState.onAlert.email ? " alert" : "")
             }
             id="email"
             name="email"
@@ -331,8 +453,8 @@ const SignUpForm = ({ history }) => {
             onBlur={bluerInput}
             ref={inputRefs.email}
           />
-          <div className="alertText" hidden={!alertState.email}>
-            이메일을 규칙에 맞게 입력해주세요
+          <div className="alertText" hidden={!alertState.onAlert.email}>
+            {alertState.alertText.email}
           </div>
         </div>
         <button
