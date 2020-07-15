@@ -112,20 +112,25 @@ export const billing = ({
       //결제가 정상적으로 완료되면 수행됩니다
       //비즈니스 로직을 수행하기 전에 결제 유효성 검증을 하시길 추천합니다.
       const accessToken = cookie.load("accessToken");
-      const reservations_id = reservations.map((reservation) => reservation.id);
+      const reservation_id = reservations[0].id;
+      console.log("예약 검증", data.receipt_id, "예약아이디들", reservations);
       const body = {
         receipt_id: data.receipt_id,
         price,
-        reservations_id,
+        reservation_id,
       };
-      const res = await axios.post("/reservations/payment/", body, {
-        headers: {
-          Authorization: "Bearer " + accessToken,
-        },
-      });
-      if (res.status === 200 || res.status === 201) {
-        dispatch(setTicketNumber(res.data.code));
-        history.push("/booking/ticket");
+      try {
+        const res = await axios.post("/reservations/payments/", body, {
+          headers: {
+            Authorization: "Bearer " + accessToken,
+          },
+        });
+        if (res.status === 200 || res.status === 201) {
+          dispatch(setTicketNumber(res.data.code));
+          history.push("/booking/ticket");
+        }
+      } catch (e) {
+        console.log("검증에러", e.response);
       }
     });
 };
@@ -133,7 +138,8 @@ export const billing = ({
 export const movieApi = {
   getMovies: () => axios.get("movies/"),
   getMovie: (id) => axios.get(`/movies/detail/${id}`),
-  // getSearch: (keyword) => axios.get(`movies/?searchName=${keyword}`),
+  getAgeBooking: (id) => axios.get(`/movies/detail/${id}/age-booking/`),
+  getSearch: (keyword) => axios.get(`movies/?searchName=${keyword}`),
   getSchedules: ({ date, movies, theaterId }) => {
     let movieIds = "";
     if (movies) {
@@ -211,6 +217,7 @@ export const movieApi = {
     );
   },
   makeReservation: (scheduleId, seatIdArr, seatPersonalType) => {
+    console.log("예약만들기 진입");
     console.log(scheduleId, seatIdArr, seatPersonalType);
     const accessToken = cookie.load("accessToken");
     if (!accessToken) return;
@@ -222,11 +229,11 @@ export const movieApi = {
       }
     });
 
-    const body = seatIdArr.map((id, index) => ({
-      grade: seatPersonalTypeArr[index],
-      seat_id: id,
+    const body = {
       schedule_id: scheduleId,
-    }));
+      grades: seatPersonalTypeArr,
+      seat_ids: seatIdArr,
+    };
 
     return axios.post("/reservations/", body, {
       headers: {
@@ -258,57 +265,50 @@ export const userApi = {
     return axios.post("/members/logout/");
   },
   memberDetail: () => {
-    console.log("멤버디테일 id", cookie.load("id"));
-
-    return axios.get(
-      `/members/${cookie.load("id")}/`,
-      {},
-      {
-        headers: {
-          Authorization: `Bearer ${cookie.load("accessToken")}`,
-        },
-      }
-    );
+    return axios.get("/members/detail/", {
+      headers: {
+        Authorization: `Bearer ${cookie.load("accessToken")}`,
+      },
+    });
   },
-  timelineLike: () => {
-    return axios.post(
-      `/members/${cookie.load("id")}/timeline/like-movies/`,
-      {},
-      {
-        headers: {
-          Authorization: `Bearer ${cookie.load("accessToken")}`,
-        },
-      }
-    );
+  myReserved: () => {
+    return axios.get(`/members/reserved-movies/`, {
+      headers: {
+        Authorization: `Bearer ${cookie.load("accessToken")}`,
+      },
+    });
+  },
+  myReservedCancel: () => {
+    return axios.get(`/members/reserved-movies/canceled/`, {
+      headers: {
+        Authorization: `Bearer ${cookie.load("accessToken")}`,
+      },
+    });
   },
   timelineRating: () => {
-    return axios.post(
-      `/members/${cookie.load("id")}/timeline/rating-movies/`,
-      {},
-      {
-        headers: {
-          Authorization: `Bearer ${cookie.load("accessToken")}`,
-        },
-      }
-    );
+    return axios.get(`/members/rating-movies/`, {
+      headers: {
+        Authorization: `Bearer ${cookie.load("accessToken")}`,
+      },
+    });
   },
   timelineWatched: () => {
-    return axios.post(
-      `/members/${cookie.load("id")}/timeline/watched-movies/`,
-      {},
-      {
-        headers: {
-          Authorization: `Bearer ${cookie.load("accessToken")}`,
-        },
-      }
-    );
+    return axios.get(`/members/watched-movies/`, {
+      headers: {
+        Authorization: `Bearer ${cookie.load("accessToken")}`,
+      },
+    });
+  },
+  timelineLike: () => {
+    return axios.get(`/members/like-movies/`, {
+      headers: {
+        Authorization: `Bearer ${cookie.load("accessToken")}`,
+      },
+    });
   },
   idDoubleCheck: (id) => {
-    return axios.post(
-      "https://www.omegabox.xyz/members/signup/check-username/",
-      {
-        username: id,
-      }
-    );
+    return axios.post("/members/signup/check-username/", {
+      username: id,
+    });
   },
 };

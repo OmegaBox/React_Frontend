@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import { selectSeatSaga } from "../../Reducer/bookingSeatReducer";
+import {
+  selectSeatSaga,
+  setReservedSeat,
+} from "../../Reducer/bookingSeatReducer";
 
 import "./style/BookingSeatList.scss";
 import { movieApi } from "../../Api/api";
@@ -81,12 +84,12 @@ const socialDistance = (row, seatNum) => {
 };
 
 const BookingSeatList = ({ scheduleId, seatType = 0 }) => {
-  const [reservedSeats, setReservedSeat] = useState([]);
   const dispatch = useDispatch();
 
-  const [select, personal] = useSelector((state) => [
+  const [select, personal, reserved] = useSelector((state) => [
     state.Seat.selectedSeat,
     state.Seat.personal,
+    state.Seat.reserved,
   ]);
 
   // 홀 타입
@@ -109,21 +112,13 @@ const BookingSeatList = ({ scheduleId, seatType = 0 }) => {
   // useEffect re-rendering 방지용 체크
   let checktReservedSeat = "";
   // 예매된 좌석 정보 가져오기
-  const callReservedSeatsApi = async (id) => {
-    try {
-      const res = await movieApi.getReservedSeats(id);
-      const reserved_seat = res.data.map((seat) => seat.reserved_seat);
-      setReservedSeat(reserved_seat);
-      checktReservedSeat = reserved_seat.join(" ");
-    } catch (e) {
-      console.error(`error : ${e.state}`);
-      console.error(`${e.response}`);
-    }
+  const callReservedSeatsApi = async () => {
+    dispatch(setReservedSeat());
+    checktReservedSeat = reserved.join("");
   };
 
   useEffect(() => {
-    if (scheduleId && checktReservedSeat === "")
-      callReservedSeatsApi(scheduleId);
+    if (scheduleId && checktReservedSeat === "") callReservedSeatsApi();
   }, [checktReservedSeat]);
 
   return (
@@ -139,7 +134,7 @@ const BookingSeatList = ({ scheduleId, seatType = 0 }) => {
         {rowNames.map((row) => (
           <li key={`row ${row}`}>
             {seatNums.map((num) => {
-              const booked = reservedSeats.includes(`${row}${num}`);
+              const booked = reserved.includes(`${row}${num}`);
               const except = screeningHallSeatInfo[hallType].except(row, num);
               const selected = select.includes(`${row}${num}`);
               const social = socialDistance(row, num);

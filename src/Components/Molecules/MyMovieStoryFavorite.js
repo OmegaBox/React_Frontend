@@ -37,18 +37,16 @@ const MyMovieStoryFavorite = () => {
             <li key={movie.id} className="wantMovie">
               <article className="movieItem">
                 <div className="poster">
-                  <img src={movie.poster} alt={`${movie.poster} 포스터`} />
+                  <img src={movie.poster} alt={`${movie.movie_name} 포스터`} />
                 </div>
                 <ul className={["info", "clearfix"].join(" ")}>
                   <li className="title">
                     <h5 className="a11yHidden">영화명</h5>
                     <p>
                       <span
-                        className={["icon", ageGrade(movie.movieAgeGrade)].join(
-                          " "
-                        )}
+                        className={["icon", ageGrade(movie.grade)].join(" ")}
                       ></span>
-                      {movie.title}
+                      {movie.movie_name}
                     </p>
                   </li>
                   <li className="btnWrap">
@@ -61,7 +59,7 @@ const MyMovieStoryFavorite = () => {
                       <span
                         className={["icon", "favorite", "select"].join(" ")}
                       ></span>
-                      {movie.favoriteCount}
+                      {movie.acc_favorite}
                     </button>
                     <button
                       type="button"
