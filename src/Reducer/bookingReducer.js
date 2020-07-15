@@ -218,14 +218,13 @@ const setReservation = (
         SeatIds.data.map((v) => v.seat_id).reverse(),
         seatPersonalType
       );
+      console.log(reservationInfos);
       dispatch(
         setDefaultTicketInfo({
           seats: SeatIds.data,
           ticketType: seatPersonalType,
           price: totalPrice,
-          reservationInfos: reservationInfos.data.map(
-            (data) => data.reservation
-          ),
+          reservationInfos: reservationInfos.data,
           priceList: {
             adult: basePrice * seatPersonalType.adult,
             teen: basePrice * 0.75 * seatPersonalType.teen,
@@ -480,7 +479,7 @@ const initialState = {
   },
   ticket: {
     number: "",
-    reservationInfos: [],
+    reservationInfos: {},
     selectedDate: "",
     selectedTheather: "",
     selectedMovieTitle: "",
