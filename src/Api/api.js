@@ -112,20 +112,26 @@ export const billing = ({
       //결제가 정상적으로 완료되면 수행됩니다
       //비즈니스 로직을 수행하기 전에 결제 유효성 검증을 하시길 추천합니다.
       const accessToken = cookie.load("accessToken");
-      const reservations_id = reservations.map((reservation) => reservation.id);
+      const reservation_id = reservations.reservation_id;
+      console.log("예약 검증", data.receipt_id, "예약아이디들", reservations);
       const body = {
         receipt_id: data.receipt_id,
         price,
-        reservations_id,
+        reservation_id,
+        discount_price: 0, // 나중에 포인트 상태로 수정 필수
       };
-      const res = await axios.post("/reservations/payments/", body, {
-        headers: {
-          Authorization: "Bearer " + accessToken,
-        },
-      });
-      if (res.status === 200 || res.status === 201) {
-        dispatch(setTicketNumber(res.data.code));
-        history.push("/booking/ticket");
+      try {
+        const res = await axios.post("/reservations/payments/", body, {
+          headers: {
+            Authorization: "Bearer " + accessToken,
+          },
+        });
+        if (res.status === 200 || res.status === 201) {
+          dispatch(setTicketNumber(res.data.code));
+          history.push("/booking/ticket");
+        }
+      } catch (e) {
+        console.log("검증에러", e.response);
       }
     });
 };
@@ -134,7 +140,7 @@ export const movieApi = {
   getMovies: () => axios.get("movies/"),
   getMovie: (id) => axios.get(`/movies/detail/${id}`),
   getAgeBooking: (id) => axios.get(`/movies/detail/${id}/age-booking/`),
-  getSearch: (keyword) => axios.get(`movies/?searchName=${keyword}`),
+  getSearch: (keyword) => axios.get(`/movies/?searchName=${keyword}`),
   getSchedules: ({ date, movies, theaterId }) => {
     let movieIds = "";
     if (movies) {
@@ -159,7 +165,7 @@ export const movieApi = {
 
     const call = `theaters/schedules/regions/${date}/${
       movies ? "?movies=" + movieIds : ""
-    }
+      }
     `;
 
     console.log(call);
@@ -174,7 +180,7 @@ export const movieApi = {
 
     const call = `theaters/schedules/${date}/${
       movies ? "?movies=" + movieIds : ""
-    }
+      }
     `;
 
     console.log(call);
@@ -224,11 +230,11 @@ export const movieApi = {
       }
     });
 
-    const body = seatIdArr.map((id, index) => ({
-      grade: seatPersonalTypeArr[index],
-      seat_id: id,
+    const body = {
       schedule_id: scheduleId,
-    }));
+      grades: seatPersonalTypeArr,
+      seat_ids: seatIdArr,
+    };
 
     return axios.post("/reservations/", body, {
       headers: {

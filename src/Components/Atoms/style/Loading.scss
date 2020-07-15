@@ -1,3 +1,7 @@
+@import "../../../commonVariable.scss";
+
+$loadingColor : $colorWhite;
+
 @keyframes ldio-8c1qn8nzs8x {
   0% {
     opacity: 1;
@@ -11,7 +15,7 @@
   top: 48px;
   position: absolute;
   animation: ldio-8c1qn8nzs8x linear 1s infinite;
-  background: #fe718d;
+  background: $loadingColor;
   width: 12px;
   height: 24px;
   border-radius: 6px / 12px;
@@ -20,80 +24,84 @@
 .ldio-8c1qn8nzs8x div:nth-child(1) {
   transform: rotate(0deg);
   animation-delay: -0.9166666666666666s;
-  background: #fe718d;
+  background: $loadingColor;
 }
 .ldio-8c1qn8nzs8x div:nth-child(2) {
   transform: rotate(30deg);
   animation-delay: -0.8333333333333334s;
-  background: #fe718d;
+  background: $loadingColor;
 }
 .ldio-8c1qn8nzs8x div:nth-child(3) {
   transform: rotate(60deg);
   animation-delay: -0.75s;
-  background: #fe718d;
+  background: $loadingColor;
 }
 .ldio-8c1qn8nzs8x div:nth-child(4) {
   transform: rotate(90deg);
   animation-delay: -0.6666666666666666s;
-  background: #fe718d;
+  background: $loadingColor;
 }
 .ldio-8c1qn8nzs8x div:nth-child(5) {
   transform: rotate(120deg);
   animation-delay: -0.5833333333333334s;
-  background: #fe718d;
+  background: $loadingColor;
 }
 .ldio-8c1qn8nzs8x div:nth-child(6) {
   transform: rotate(150deg);
   animation-delay: -0.5s;
-  background: #fe718d;
+  background: $loadingColor;
 }
 .ldio-8c1qn8nzs8x div:nth-child(7) {
   transform: rotate(180deg);
   animation-delay: -0.4166666666666667s;
-  background: #fe718d;
+  background: $loadingColor;
 }
 .ldio-8c1qn8nzs8x div:nth-child(8) {
   transform: rotate(210deg);
   animation-delay: -0.3333333333333333s;
-  background: #fe718d;
+  background: $loadingColor;
 }
 .ldio-8c1qn8nzs8x div:nth-child(9) {
   transform: rotate(240deg);
   animation-delay: -0.25s;
-  background: #fe718d;
+  background: $loadingColor;
 }
 .ldio-8c1qn8nzs8x div:nth-child(10) {
   transform: rotate(270deg);
   animation-delay: -0.16666666666666666s;
-  background: #fe718d;
+  background: $loadingColor;
 }
 .ldio-8c1qn8nzs8x div:nth-child(11) {
   transform: rotate(300deg);
   animation-delay: -0.08333333333333333s;
-  background: #fe718d;
+  background: $loadingColor;
 }
 .ldio-8c1qn8nzs8x div:nth-child(12) {
   transform: rotate(330deg);
   animation-delay: 0s;
-  background: #fe718d;
+  background: $loadingColor;
 }
 .loadingio-spinner-spinner-io5giizuf7s {
-  width: 200px;
-  height: 200px;
-  display: inline-block;
-  overflow: hidden;
-  background: #ffffff;
-  position: absolute;
+  position: fixed;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
-  margin: auto;
+  display: inline-block;
+  width: 100vw;
+  height: 100vh;
+  background: #000;
+  opacity: 0.5;
+  overflow: hidden;
+  z-index: 1000;
 }
 .ldio-8c1qn8nzs8x {
-  width: 100%;
-  height: 100%;
-  position: relative;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 200px;
+  height: 200px;
+  margin: -100px 0 0 -100px;
   transform: translateZ(0) scale(1);
   backface-visibility: hidden;
   transform-origin: 0 0; /* see note above */

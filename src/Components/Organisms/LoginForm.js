@@ -4,6 +4,8 @@ import logo from "../../images/omegabox_logo.jpg";
 import "./style/LoginForm.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { startLogin } from "../../Reducer/userInfoReducer";
+import GoogleLogin from "react-google-login";
+import key from "../../key.json";
 
 const LoginForm = () => {
   const [inputId, setInputId] = useState("");
@@ -14,6 +16,10 @@ const LoginForm = () => {
 
   const dispatch = useDispatch();
   const history = useHistory();
+
+  const responseGoogle = (response) => {
+    console.log(response);
+  };
 
   return (
     <div className={["loginWrap"].join(" ")}>
@@ -38,6 +44,23 @@ const LoginForm = () => {
           <span className={["icon", "closed"].join(" ")}></span>
         </button>
         <div className="popupContent">
+          <GoogleLogin
+            clientId={key.googleClientId}
+            buttonText="Sign in with Google"
+            onSuccess={responseGoogle}
+            onFailure={responseGoogle}
+            cookiePolicy={"single_host_origin"}
+            render={(renderProps) => (
+              <button
+                className="googleLogin"
+                onClick={renderProps.onClick}
+                disabled={renderProps.disabled}
+              >
+                This is my custom Google button
+              </button>
+            )}
+          />
+          ,
           <label className="a11yHidden" htmlFor="userId">
             아이디
           </label>

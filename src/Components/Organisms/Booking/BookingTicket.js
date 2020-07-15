@@ -27,7 +27,8 @@ const BookingTicket = () => {
     ""
   );
 
-  if (!ticketState.reservationInfos.length) history.push("/booking");
+  if (!Object.keys(ticketState.reservationInfos).length)
+    history.push("/booking");
 
   return (
     <div className="ticketWrap">
@@ -109,7 +110,10 @@ const BookingTicket = () => {
         {/* <button className={["btn", "main", "outLine", "regular"].join(" ")}>
           교환권출력
         </button> */}
-        <button className={["btn", "main", "fill", "regular"].join(" ")}>
+        <button
+          className={["btn", "main", "fill", "regular"].join(" ")}
+          onClick={() => history.push("/mypage/bookinghistory/")}
+        >
           예매 내역
         </button>
       </div>

@@ -28,7 +28,8 @@ const BookingPayment = () => {
       break;
   }
 
-  if (!ticketState.reservationInfos.length) history.push("/booking");
+  if (!Object.keys(ticketState.reservationInfos).length)
+    history.push("/booking");
 
   return (
     <div className="bookingPaymentWrap">

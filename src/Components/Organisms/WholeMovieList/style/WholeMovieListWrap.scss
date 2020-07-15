@@ -44,7 +44,11 @@
   }
   li.active + li {border-left: 1px solid $colorMain;}
 }
-
+.searchResults {
+  display: inline-block;
+  margin: 40px 0 15px 8px;
+  font-weight: 600;
+}
 .wholeMovieSearchBarWrap {
   position: relative;
   float: right;
