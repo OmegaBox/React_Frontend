@@ -23,12 +23,14 @@ const MyPage = ({ history }) => {
   useEffect(() => {
     window.scrollTo(0, 0);
     dispatch(checkLogin());
-    dispatch({ type: GET_MEMBER_DETAIL });
-    dispatch({ type: GET_RESERVED });
-    dispatch({ type: GET_RESERVED_CANCELED });
-    dispatch({ type: GET_TIMELINE_RATING });
-    dispatch({ type: GET_TIMELINE_WATCHED });
-    dispatch({ type: GET_TIMELINE_LIKE });
+    if (isLoginCheck) {
+      dispatch({ type: GET_MEMBER_DETAIL });
+      dispatch({ type: GET_RESERVED });
+      dispatch({ type: GET_RESERVED_CANCELED });
+      dispatch({ type: GET_TIMELINE_RATING });
+      dispatch({ type: GET_TIMELINE_WATCHED });
+      dispatch({ type: GET_TIMELINE_LIKE });
+    }
   }, [dispatch]);
 
   return (
