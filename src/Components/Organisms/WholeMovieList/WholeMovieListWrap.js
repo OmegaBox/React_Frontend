@@ -1,5 +1,4 @@
-import React, { useState, useRef } from "react";
-// import { movieApi } from "../../../Api/api";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import "./style/WholeMovieListWrap.scss"
 import { Link } from "react-router-dom";
@@ -10,13 +9,9 @@ const WholeMovieListWrap = () => {
   const movies = useSelector((state) => state.Movie.movies);
   const dispatch = useDispatch();
 
-  const [searchState, setSearchState] = useState([]);
-
-
   const enterKeyword = (e) => {
     if (e.keyCode === 13) {
       dispatch(getSearchMovie(e.target.value))
-      // setSearchState();
     }
   };
 
@@ -86,7 +81,7 @@ const WholeMovieListWrap = () => {
                   <div className="boxOfficeMovieScore">
                     <div>
                       <p>관람평</p>
-                      <strong>{movie.average_point}</strong>
+                      <strong>{(movie.average_point).toFixed(1)}</strong>
                     </div>
                   </div>
                 </div>
