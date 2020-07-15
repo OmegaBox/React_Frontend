@@ -1,7 +1,7 @@
 import React from "react";
 // import { movieApi } from "../../../Api/api";
 import { useSelector, useDispatch } from "react-redux";
-import "./style/WholeMovieListWrap.scss"
+import "./style/WholeMovieListWrap.scss";
 import { Link } from "react-router-dom";
 import { selectMovie } from "../../../Reducer/bookingReducer";
 
@@ -61,6 +61,7 @@ const WholeMovieListWrap = () => {
                   className="wholeMoviePoster"
                   alt={movie.title}
                   src={movie.poster}
+                  // style={{ backgroundColor: "gray" }}
                 />
                 <div className="wholeMovieInforWrap">
                   <div className="wholeMovieSummary">
@@ -79,8 +80,12 @@ const WholeMovieListWrap = () => {
                 <span className="movieListTitle">{movie.name_kor}</span>
               </div>
               <div className="movieListRateandDay">
-                <span className="movieListBookingRate">예매율{movie.reservation_rate}%</span>
-                <span className="movieListOpeningDay">개봉일{movie.open_date}</span>
+                <span className="movieListBookingRate">
+                  예매율{movie.reservation_rate}%
+                </span>
+                <span className="movieListOpeningDay">
+                  개봉일{movie.open_date}
+                </span>
               </div>
 
               <div className="wholeBtnWrap">
@@ -94,31 +99,35 @@ const WholeMovieListWrap = () => {
                   ].join(" ")}
                 >
                   <span className="icon favorite"></span>
-                  <span className="wholeFavoriteScore">{movie.acc_favorite}</span>
+                  <span className="wholeFavoriteScore">
+                    {movie.acc_favorite}
+                  </span>
                 </button>
-                <Link to="/booking"><button
-                  onClick={() =>
-                    dispatch(
-                      selectMovie({
-                        title: movie.name_kor,
-                        poster: movie.poster,
-                        id: movie.id,
-                      })
-                    )}
-                  className={[
-                    "wholeBookingBtn",
-                    "btn",
-                    "fill",
-                    "subLight",
-                    "small",
-                  ].join(" ")}
-                >
-                  예매
+                <Link to="/booking">
+                  <button
+                    onClick={() =>
+                      dispatch(
+                        selectMovie({
+                          title: movie.name_kor,
+                          poster: movie.poster,
+                          id: movie.id,
+                        })
+                      )
+                    }
+                    className={[
+                      "wholeBookingBtn",
+                      "btn",
+                      "fill",
+                      "subLight",
+                      "small",
+                    ].join(" ")}
+                  >
+                    예매
                   </button>
                 </Link>
               </div>
             </li>
-          )
+          );
         })}
       </ul>
       <div className="wholeMovieListMore">
@@ -128,8 +137,7 @@ const WholeMovieListWrap = () => {
         </button>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default WholeMovieListWrap;
-

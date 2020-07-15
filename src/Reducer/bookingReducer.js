@@ -235,10 +235,18 @@ const setReservation = (
       nextFunc();
     } catch (e) {
       console.error(e.response);
-      if (e.response.status === 400) {
+      if (e.status === 400) {
         dispatch(setOneBtn());
         dispatch(
           openModal(e.response.data.detail, () => {
+            dispatch(setReservedSeat());
+            dispatch(resetSeat());
+          })
+        );
+      } else {
+        dispatch(setOneBtn());
+        dispatch(
+          openModal("좌석 선택에 실패했습니다", () => {
             dispatch(setReservedSeat());
             dispatch(resetSeat());
           })
