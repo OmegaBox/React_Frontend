@@ -155,10 +155,10 @@ const MovieInforWrap = () => {
                     <span>{rating.key_point}</span>
                   </p>
                   <p className="comment">{rating.comment}</p>
-                  <button type="button">
+                  {/* <button type="button">
                     <span className={["icon", "like"].join(" ")}></span>
                     <span>0</span>
-                  </button>
+                  </button> */}
                   <button type="button">
                     <span className={["icon", "btnMore"].join(" ")}></span>
                   </button>

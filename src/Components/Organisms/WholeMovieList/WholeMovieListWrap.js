@@ -32,7 +32,11 @@ const WholeMovieListWrap = () => {
           <button type="button">클래식소사이어티</button>
         </li>
       </ul>
+      <p className="searchResults">
+        <span>{movies.length}</span>
+        개의 영화가 검색되었습니다.</p>
       <div className="wholeMovieSearchBarWrap">
+
         <input
           type="text"
           className="wholeMovieSearchBar"

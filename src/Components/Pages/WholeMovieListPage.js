@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import WholeMovieList from "../Templates/WholeMovieList";
 import "./style/mypage.scss";
 import { useDispatch } from "react-redux";
-import { getMovies, getSearchMovie } from "../../Reducer/movieReducer";
+import { getMovies } from "../../Reducer/movieReducer";
 
 const WholeMovieListPage = () => {
   const dispatch = useDispatch();
