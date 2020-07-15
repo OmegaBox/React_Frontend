@@ -67,6 +67,13 @@
   text-align: right;
 }
 
+.mainMovieList {
+  & .skeleton {
+    border-radius: 4px;
+    background-color: transparentize($colorBlack, 0.65)
+  }
+}
+
 .mainMoviesWrap {
   position: relative;
   display: flex;
@@ -74,13 +81,16 @@
 
   li {
     width: 245px;
-    opacity: 0;
-    animation: movieAnimation .5s ease-in-out forwards;
 
     .boxOfficeMoviePoster {
       width: 245px;
       height: 352px;
       border-radius: 5px;
+    }
+
+    &:not(.skeletonMainMovieLi) {
+      opacity: 0;
+      animation: movieAnimation .5s ease-in-out forwards;
     }
 
     &:nth-child(1) {
