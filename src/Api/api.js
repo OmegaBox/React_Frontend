@@ -278,6 +278,14 @@ export const userApi = {
   logout: () => {
     return axios.post("https://www.omegabox.xyz/members/logout/");
   },
+  socialLogin: ({ id, unique_id }) => {
+    console.log("id:", id, "unique_id:", unique_id);
+    return axios.post("https://www.omegabox.xyz/members/login/social/", {
+      username: id,
+      password: id,
+      unique_id,
+    });
+  },
   memberDetail: () => {
     return axios.get("https://www.omegabox.xyz/members/detail/", {
       headers: {
