@@ -600,10 +600,9 @@ const userInfoReducer = (state = initialState, action) => {
         socialSignupInfo: {
           boolean: true,
           profileObj: action.user.profileObj,
-          tokenId: action.user.unique_id,
+          tokenId: action.user.token_id,
         },
       };
-
     case ALREADY_LOGIN:
       return {
         ...state,
