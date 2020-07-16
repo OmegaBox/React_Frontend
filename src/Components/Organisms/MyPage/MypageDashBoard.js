@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import BookingCancel from "../../Molecules/BookingCancel";
@@ -11,6 +11,7 @@ import {
 } from "../../../Utils/util";
 import { changeView } from "../../../Reducer/myMovieStoryReducer";
 import "./style/MypageDashBoard.scss";
+import { checkLogin, getMemberProfile } from "../../../Reducer/userInfoReducer";
 
 const MypageDashBoard = () => {
   const dispatch = useDispatch();
@@ -50,6 +51,13 @@ const MypageDashBoard = () => {
         return "비회원";
     }
   };
+
+  useEffect(() => {
+    // window.scrollTo(0, 0);
+    dispatch(checkLogin());
+    dispatch(getMemberProfile());
+  }, [dispatch]);
+
   return (
     <div>
       <div className="mypageDashBoard">

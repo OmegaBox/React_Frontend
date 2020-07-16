@@ -1,27 +1,22 @@
-import React, { useState } from "react";
+import React from "react";
 import "./style/MainBoxOffice.scss";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
-import { selectMovie } from "../../../Reducer/bookingReducer";
+import {
+  selectMovie,
+  clearSelectedMovies,
+} from "../../../Reducer/bookingReducer";
 import { getSearchMovie } from "../../../Reducer/movieReducer";
 import SkeletonMainMovies from "../../Atoms/SkeletonMainMovies";
-import { setSize, openModal } from "../../../Reducer/modalReducer";
+import { isLogin } from "../../../Api/api";
 
 const MainBoxOffice = () => {
   const [movieBox, movieLoading] = useSelector((state) => [
     state.Movie.movies.filter((_, i) => i < 4),
     state.Movie.loading,
   ]);
-  const isLoginCheck = useSelector((state) => state.userInfo.isLogin);
-
   const dispatch = useDispatch();
   const history = useHistory();
-
-
-  const handleClick = () => {
-    dispatch(setSize(null, null));
-    dispatch(openModal("로그인 후 이용가능한 서비스입니다."))
-  }
 
   const mainEnterKeyword = (e) => {
     if (e.keyCode === 13) {
@@ -29,8 +24,6 @@ const MainBoxOffice = () => {
       dispatch(getSearchMovie(e.target.value));
     }
   };
-
-
 
   return (
     <div className="mainBoxOfficeLayout">
@@ -77,8 +70,6 @@ const MainBoxOffice = () => {
                   </Link>
                   <div className="boxOfficeBtnWrap">
                     <button
-
-                      onClick={isLoginCheck === true ? null : handleClick}
                       className={[
                         "boxOfficeFavoriteBtn",
                         "btn",
@@ -87,22 +78,23 @@ const MainBoxOffice = () => {
                         "small",
                       ].join(" ")}
                     >
-                      <span className="icon favoriteOutLine select"></span>
+                      <span className="icon favoriteOutLine"></span>
                       <span className="boxOfficeFavoriteScore">
                         {movie.acc_favorite}
                       </span>
                     </button>
                     <Link to="/booking">
                       <button
-                        onClick={() =>
+                        onClick={() => {
+                          dispatch(clearSelectedMovies());
                           dispatch(
                             selectMovie({
                               title: movie.name_kor,
                               poster: movie.poster,
                               id: movie.id,
                             })
-                          )
-                        }
+                          );
+                        }}
                         className={[
                           "boxOfficeBookingBtn",
                           "btn",

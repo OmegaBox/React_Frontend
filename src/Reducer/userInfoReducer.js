@@ -254,7 +254,7 @@ function* myReserved(action) {
       return;
     }
     const res = yield call(userApi.myReserved, { id: action.id });
-    // console.log("예약내역", res.data.results);
+    console.log("예약내역", res.data.results);
     if (res.status === 200 || res.status === 201) {
       yield put({
         type: GET_RESERVED_SUCCESS,

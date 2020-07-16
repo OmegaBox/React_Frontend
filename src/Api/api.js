@@ -178,27 +178,29 @@ export const movieApi = {
   },
   getScreeningRegions: (date, movies) => {
     let movieIds = "";
-    if (movies) {
+    if (movies.length) {
       movieIds = movies.reduce((acc, cur) => acc + "+" + cur.id, "").slice(1);
     }
 
     const call = `https://www.omegabox.xyz/theaters/schedules/regions/${date}/${
-      movies ? "?movies=" + movieIds : ""
+      movies.length ? "?movies=" + movieIds : ""
       }
     `;
+    console.log("지역 정보요청 url", call);
 
     return axios.get(call);
   },
   getScreeningTheaters: (date, movies) => {
     let movieIds = "";
-    if (movies) {
+    if (movies.length) {
       movieIds = movies.reduce((acc, cur) => acc + "+" + cur.id, "").slice(1);
     }
-
     const call = `https://www.omegabox.xyz/theaters/schedules/${date}/${
-      movies ? "?movies=" + movieIds : ""
+      movies.length ? "?movies=" + movieIds : ""
       }
     `;
+
+    console.log("상영관 정보요청 url", movies, call);
 
     return axios.get(call);
   },
