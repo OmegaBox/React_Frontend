@@ -9,8 +9,8 @@ import {
   sliceTime,
   createDay,
 } from "../../../Utils/util";
-import { changeView } from "../../../Reducer/myMovieStoryReducer";
 import "./style/MypageDashBoard.scss";
+import { changeView } from "../../../Reducer/myMovieStoryReducer";
 import { checkLogin, getMemberProfile } from "../../../Reducer/userInfoReducer";
 
 const MypageDashBoard = () => {
@@ -97,13 +97,13 @@ const MypageDashBoard = () => {
           <div className="subTitleWrap">
             <h4 className="titleText">나의 무비스토리</h4>
             <Link
-              to="/mypage/myMovieStory"
+              to="/mypage/mymoviestory"
               className={["icon", "arrowRight"].join(" ")}
             ></Link>
           </div>
           <ul className={["roundBox", "movieStoryInfoList"].join(" ")}>
             <li>
-              <Link to="/mypage/myMovieStory">
+              <Link to="/mypage/mymoviestory">
                 <button
                   type="button"
                   onClick={() => dispatch(changeView("watched"))}
@@ -113,7 +113,7 @@ const MypageDashBoard = () => {
               </Link>
             </li>
             <li>
-              <Link to="/mypage/myMovieStory">
+              <Link to="/mypage/mymoviestory">
                 <button
                   type="button"
                   onClick={() => dispatch(changeView("comment"))}
@@ -123,7 +123,7 @@ const MypageDashBoard = () => {
               </Link>
             </li>
             <li>
-              <Link to="/mypage/myMovieStory">
+              <Link to="/mypage/mymoviestory">
                 <button
                   type="button"
                   onClick={() => dispatch(changeView("favorite"))}
