@@ -6,6 +6,7 @@ import { selectMovie } from "../../../Reducer/bookingReducer";
 import { getSearchMovie } from "../../../Reducer/movieReducer";
 import SkeletonMainMovies from "../../Atoms/SkeletonMainMovies";
 import { isLogin } from "../../../Api/api";
+import { setSize, openModal } from "../../../Reducer/modalReducer";
 
 const MainBoxOffice = () => {
   const [movieBox, movieLoading] = useSelector((state) => [
@@ -17,11 +18,10 @@ const MainBoxOffice = () => {
   const history = useHistory();
 
 
-
-
-  // const isLogin = useSelector((state) => state.userInfo.isLogin);
-  // if (!isLogin) dispatch(setOneBtn());
-
+  const handleClick = () => {
+    dispatch(setSize(null, null));
+    dispatch(openModal("로그인 후 이용가능한 서비스입니다."))
+  }
 
   const mainEnterKeyword = (e) => {
     if (e.keyCode === 13) {
@@ -75,6 +75,7 @@ const MainBoxOffice = () => {
                   </Link>
                   <div className="boxOfficeBtnWrap">
                     <button
+                      onClick={handleClick}
                       className={[
                         "boxOfficeFavoriteBtn",
                         "btn",
