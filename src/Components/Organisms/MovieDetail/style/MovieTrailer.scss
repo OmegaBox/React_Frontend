@@ -24,15 +24,15 @@
 .iconWrap {
   position: relative;
   li {
-    width: 64px;
+    width: 70px;
     height: 95px;
     background: no-repeat center;
     p {
       position: absolute;
-      width: 64px;
+      width: 100%;
       text-align: center;
       bottom: -20px;
-      
+      letter-spacing: 0.025em;
     }
   }
   .prevIcon {
@@ -44,7 +44,6 @@
     position: absolute;
     top: 160px;
     right: 0px;
-
     background-image: url(https://img.megabox.co.kr/static/pc/images/common/ico/ico-next-circle.png);
   }
 }

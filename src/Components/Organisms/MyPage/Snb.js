@@ -10,7 +10,7 @@ const Snb = () => {
       </Link>
       <ul className="navList">
         <li>
-          <Link to="/mypage/bookinghistory">예매/구매내역</Link>
+          <Link to="/mypage/bookinghistory">예매내역</Link>
         </li>
         <li>
           <Link to="">영화/스토어 관람권</Link>

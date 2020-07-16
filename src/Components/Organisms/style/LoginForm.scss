@@ -65,14 +65,13 @@ $checkBoxSize: 14px;
 }
 
 .saveIdWrap.inputWrap {
+  position: absolute;
   display: flex;
   justify-content: center;
-  // width: 387px;
-  // height: 1.5rem;
-  margin: 0;
+  width: 398px;
+  margin: 0px 0 0 0;
   font-size: 1.4rem;
   text-align: left;
-  margin-top: 15px;
 
   & #saveId {
     width: $checkBoxSize;
