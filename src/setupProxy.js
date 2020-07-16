@@ -15,17 +15,17 @@ module.exports = (app) => {
     })
   );
   app.use(
-    createProxyMiddleware("/theaters", {
+    createProxyMiddleware("/theaters/", {
       target: "https://www.omegabox.xyz",
       changeOrigin: true,
     })
   );
-  app.use(
-    createProxyMiddleware("/schedules", {
-      target: "https://www.omegabox.xyz/theaters",
-      changeOrigin: true,
-    })
-  );
+  // app.use(
+  //   createProxyMiddleware("/schedules", {
+  //     target: "https://www.omegabox.xyz/theaters",
+  //     changeOrigin: true,
+  //   })
+  // );
   app.use(
     createProxyMiddleware("/reservations/", {
       target: "https://www.omegabox.xyz",

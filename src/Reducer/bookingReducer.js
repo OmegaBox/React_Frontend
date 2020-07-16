@@ -633,6 +633,7 @@ const bookingReducer = (state = initialState, action) => {
       };
 
     case SET_SCHEDULE_REF:
+      console.log("스케쥴 만든 것들", action.payload);
       return {
         ...state,
         schedule: {

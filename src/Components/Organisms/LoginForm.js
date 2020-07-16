@@ -46,21 +46,27 @@ const LoginForm = () => {
         <div className="popupContent">
           <GoogleLogin
             clientId={key.googleClientId}
-            buttonText="Sign in with Google"
             onSuccess={responseGoogle}
             onFailure={responseGoogle}
             cookiePolicy={"single_host_origin"}
             render={(renderProps) => (
               <button
-                className="googleLogin"
+                className={[
+                  "btnGoogleLogin",
+                  "btnGoogleSignUp",
+                  "btn",
+                  "white",
+                  "fill",
+                  "large",
+                ].join(" ")}
                 onClick={renderProps.onClick}
                 disabled={renderProps.disabled}
               >
-                This is my custom Google button
+                <span className="logo"></span>
+                <span className="loginText">구글 계정으로 로그인 하기</span>
               </button>
             )}
           />
-          ,
           <label className="a11yHidden" htmlFor="userId">
             아이디
           </label>
