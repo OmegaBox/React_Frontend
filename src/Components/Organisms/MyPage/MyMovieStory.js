@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import MyMovieStoryTimeLine from "../../Molecules/MyMovieStoryTimeLine";
 import MyMovieStoryFavorite from "../../Molecules/MyMovieStoryFavorite";
 import MyMovieStoryComment from "../../Molecules/MyMovieStoryComment";
@@ -6,6 +6,7 @@ import MyMovieStoryWatched from "../../Molecules/MyMovieStoryWatched";
 import { useSelector, useDispatch } from "react-redux";
 import "./style/MyMovieStory.scss";
 import { changeView } from "../../../Reducer/myMovieStoryReducer";
+import { checkLogin, getMemberProfile } from "../../../Reducer/userInfoReducer";
 
 const MyMovieStory = () => {
   const dispatch = useDispatch();
@@ -26,6 +27,13 @@ const MyMovieStory = () => {
         return <MyMovieStoryTimeLine />;
     }
   };
+
+  useEffect(() => {
+    // window.scrollTo(0, 0);
+    dispatch(checkLogin());
+    dispatch(getMemberProfile());
+  }, [dispatch]);
+
   return (
     <div className="myMovieStoryWrap">
       <h3 className="mypageTitle">나의 무비스토리</h3>
