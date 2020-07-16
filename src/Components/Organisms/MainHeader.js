@@ -27,7 +27,7 @@ const MainHeader = () => {
         page = "영화";
         break;
       case "/Booking":
-        page = "예매";
+        page = "빠른예매";
         break;
       case "/mypage":
         page = "나의 메가박스";
@@ -35,9 +35,59 @@ const MainHeader = () => {
       case "/event":
         page = "이벤트";
         break;
+      case "/booking/seat":
+        page = "빠른예매";
+        break;
+      case "/booking/payment":
+        page = "빠른예매";
+        break;
+      case "/booking/ticket":
+        page = "결제확인";
+        break;
+      case "/mypage/bookinghistory":
+        page = "예매내역";
+        break;
+      case "/mypage/mymoviestory":
+        page = "나의 무비스토리";
+        break;
       default:
     }
     return page;
+  };
+  let pageUtilClass = (pageLocation) => {
+    let utilClass = "";
+    switch (pageLocation) {
+      case "/listMovies":
+        utilClass = "";
+        break;
+      case "/Booking":
+        utilClass = "";
+        break;
+      case "/mypage":
+        utilClass = "";
+        break;
+      case "/event":
+        utilClass = "";
+        break;
+      case "/booking/seat":
+        utilClass = "";
+        break;
+      case "/booking/payment":
+        utilClass = "";
+        break;
+      case "/booking/ticket":
+        utilClass = "";
+        break;
+      case "/mypage/bookinghistory":
+        utilClass = "";
+        break;
+      case "/mypage/mymoviestory":
+        utilClass = "";
+        break;
+      default:
+        utilClass = "none";
+    }
+    return utilClass;
   };
 
   const logOutPopup = () => {
@@ -131,17 +181,16 @@ const MainHeader = () => {
           </div>
         </nav>
         <div
-          className={[
-            "pageUtil",
-            `${location.pathname === `/detail/` ? "none" : ""}`,
-          ].join(" ")}
+          className={["pageUtil", `${pageUtilClass(location.pathname)}`].join(
+            " "
+          )}
         >
           <ul>
             <li className="home">
               <Link to="/"></Link>
             </li>
             <li>
-              <Link to="">{pageName(location.pathname)}</Link>
+              <Link to={location.pathname}>{pageName(location.pathname)}</Link>
             </li>
           </ul>
         </div>
