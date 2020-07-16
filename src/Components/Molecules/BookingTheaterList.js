@@ -1,6 +1,5 @@
 import React, { useEffect, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import ContentLoader from "react-content-loader";
 
 import "./style/BookingTheaterList.scss";
 import {
