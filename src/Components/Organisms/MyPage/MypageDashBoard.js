@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import BookingCancel from "../../Molecules/BookingCancel";
 import {
   numWithComma,
@@ -9,12 +9,13 @@ import {
   sliceTime,
   createDay,
 } from "../../../Utils/util";
+import { changeView } from "../../../Reducer/myMovieStoryReducer";
 import "./style/MypageDashBoard.scss";
 
 const MypageDashBoard = () => {
+  const dispatch = useDispatch();
   /* 개인정보 데이터 */
-  const { name, tier, point, isLogin } = useSelector((state) => ({
-    isLogin: state.userInfo.isLogin,
+  const { name, tier, point } = useSelector((state) => ({
     name: state.userInfo.name,
     tier: state.userInfo.profile.tier,
     point: state.userInfo.profile.point,
@@ -24,20 +25,17 @@ const MypageDashBoard = () => {
     bookingHistory: state.userInfo.bookingHistory,
   }));
   /* 한줄평 작성 */
-  const { commentMovies, commentMoviesCount } = useSelector((state) => ({
-    commentMovies: state.userInfo.commentMovies,
+  const { commentMoviesCount } = useSelector((state) => ({
     commentMoviesCount: state.userInfo.ratingMoviesCount,
   }));
 
   /* 본 영화 */
-  const { watchedMovies, watchedMoviesCount } = useSelector((state) => ({
-    watchedMovies: state.userInfo.watchedMovies,
+  const { watchedMoviesCount } = useSelector((state) => ({
     watchedMoviesCount: state.userInfo.watchedMoviesCount,
   }));
 
   /* 보고싶은영화 */
-  const { favoriteMovies, favoriteMoviesCount } = useSelector((state) => ({
-    favoriteMovies: state.userInfo.favoriteMovies,
+  const { favoriteMoviesCount } = useSelector((state) => ({
     favoriteMoviesCount: state.userInfo.likeMoviesCount,
   }));
 
@@ -98,18 +96,33 @@ const MypageDashBoard = () => {
           <ul className={["roundBox", "movieStoryInfoList"].join(" ")}>
             <li>
               <Link to="/mypage/myMovieStory">
-                <span className="amount">{watchedMoviesCount}</span>본영화
+                <button
+                  type="button"
+                  onClick={() => dispatch(changeView("watched"))}
+                >
+                  <span className="amount">{watchedMoviesCount}</span>본영화
+                </button>
               </Link>
             </li>
             <li>
               <Link to="/mypage/myMovieStory">
-                <span className="amount">{commentMoviesCount}</span>한줄평
+                <button
+                  type="button"
+                  onClick={() => dispatch(changeView("comment"))}
+                >
+                  <span className="amount">{commentMoviesCount}</span>한줄평
+                </button>
               </Link>
             </li>
             <li>
               <Link to="/mypage/myMovieStory">
-                <span className="amount">{favoriteMoviesCount}</span>
-                보고싶어
+                <button
+                  type="button"
+                  onClick={() => dispatch(changeView("favorite"))}
+                >
+                  <span className="amount">{favoriteMoviesCount}</span>
+                  보고싶어
+                </button>
               </Link>
             </li>
           </ul>
