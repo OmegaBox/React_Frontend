@@ -17,7 +17,7 @@ const initSignState = {
   id: "",
   pw: "",
   pwCheck: "",
-  birth: getToday(),
+  birth: "1990-01-01",
   tell: "",
   email: "",
 };
@@ -350,20 +350,21 @@ detail: ${response.data.detail}`);
     const GoogleId = res.profileObj.googleId;
 
     try {
-      // await userApi.idDoubleCheck(GoogleId);
+      await userApi.idDoubleCheck(res.profileObj.email);
       checkDoubleDispatch(true);
       setGoogleSignup(true);
       setInput({
         ...inputState,
         name: res.profileObj.name,
-        id: GoogleId,
-        pw: res.tokenId,
-        pwCheck: res.tokenId,
+        id: res.profileObj.email,
+        pw: GoogleId,
+        pwCheck: GoogleId,
         email: res.profileObj.email,
       });
       signOut();
     } catch (e) {
       dispatch(openModal("이미 가입된 유저입니다"));
+      signOut();
     }
   };
 
