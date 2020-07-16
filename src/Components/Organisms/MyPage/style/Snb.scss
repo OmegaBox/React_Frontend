@@ -38,5 +38,9 @@
 .snb .subNavList {
   padding-top: 16px;
   padding-bottom: 16px;
-  a {padding: 0 16px 0 0;}
+  a {
+    padding: 0 16px 0 0;
+    color: $colorLightText;
+  }
 }
+.snb li a:hover {color: $colorSub;}
