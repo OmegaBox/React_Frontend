@@ -269,6 +269,17 @@ export const userApi = {
       birth_date: birth,
     });
   },
+  googleSignup: ({ username, email, name, mobile, birth_date, unique_id }) => {
+    const body = {
+      username,
+      email,
+      name,
+      mobile,
+      birth_date,
+      unique_id,
+    };
+    return axios.post("https://www.omegabox.xyz/members/signup/social/", body);
+  },
   login: ({ id, pw }) => {
     return axios.post("https://www.omegabox.xyz/members/login/", {
       username: id,
