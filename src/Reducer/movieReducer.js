@@ -34,7 +34,7 @@ const setSearchMovies = (data) => ({ type: SEARCH_MOVIES, data })
 
 const resetMoviePage = () => ({ type: RESET_MOVIE_PAGE });
 
-const setLikeMovie = (id) => ({ type: SET_LIKE_MOVIE, id });
+// const setLikeMovie = (id) => ({ type: SET_LIKE_MOVIE, id });
 
 
 

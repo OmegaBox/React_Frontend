@@ -15,6 +15,7 @@ const MainBoxOffice = () => {
   ]);
   const isLoginCheck = useSelector((state) => state.userInfo.isLogin);
 
+
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -30,6 +31,7 @@ const MainBoxOffice = () => {
       dispatch(getSearchMovie(e.target.value));
     }
   };
+
 
 
   return (
