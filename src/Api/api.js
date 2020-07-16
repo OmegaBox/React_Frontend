@@ -157,6 +157,7 @@ export const movieApi = {
     axios.get(`https://www.omegabox.xyz/movies/detail/${id}/age-booking/`),
   getSearch: (keyword) =>
     axios.get(`https://www.omegabox.xyz/movies/?searchName=${keyword}`),
+  getLikeCheck: (id) => axios.get(`https://www.omegabox.xyz/movies/detail/${id}/like/`),
   getSchedules: ({ date, movies, theaterId }) => {
     let movieIds = "";
     if (movies) {
@@ -183,7 +184,7 @@ export const movieApi = {
 
     const call = `https://www.omegabox.xyz/theaters/schedules/regions/${date}/${
       movies.length ? "?movies=" + movieIds : ""
-    }
+      }
     `;
     console.log("지역 정보요청 url", call);
 
@@ -194,10 +195,9 @@ export const movieApi = {
     if (movies.length) {
       movieIds = movies.reduce((acc, cur) => acc + "+" + cur.id, "").slice(1);
     }
-
     const call = `https://www.omegabox.xyz/theaters/schedules/${date}/${
       movies.length ? "?movies=" + movieIds : ""
-    }
+      }
     `;
 
     console.log("상영관 정보요청 url", movies, call);

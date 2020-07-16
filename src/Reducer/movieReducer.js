@@ -16,6 +16,7 @@ const RESET_MOVIE_PAGE = "movie/RESET_MOVIEPAGE";
 
 const SEARCH_MOVIES = "movies/SEARCH";
 
+
 const setSuccessMovie = (data) => ({ type: MOVIE_SUCCESS, data });
 const setLoadingMovie = () => ({ type: MOVIE_LOADING });
 const setErrorMovie = (error) => ({ type: MOVIE_ERROR, error });
@@ -30,8 +31,9 @@ const setErrorBookingAgeRating = (error) => ({ type: BOOKING_AGE_RATING_ERROR, e
 
 const setSearchMovies = (data) => ({ type: SEARCH_MOVIES, data })
 
-
 const resetMoviePage = () => ({ type: RESET_MOVIE_PAGE });
+
+
 
 
 const getMovies = () => async (dispatch) => {
@@ -145,6 +147,9 @@ const resetMovies = (url) => (dispatch) => {
   dispatch(resetMoviePage());
 }
 
+
+
+
 const initialState = {
   page: 0,
   loading: false,
@@ -156,7 +161,12 @@ const initialState = {
     loading: false,
   },
   ageBooking: {},
+  like: false,
 };
+
+
+
+
 
 const movieReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -230,7 +240,6 @@ const movieReducer = (state = initialState, action) => {
       return {
         ...state,
         movies: action.data
-
       }
     default:
       return state;

@@ -51,6 +51,7 @@
 .subLeftSide li:hover, .subRightSide li a:hover, .subRightSide li button:hover {
   text-decoration: underline;
 }
+
 .subHeader .subNav {color: $colorSecondaryText}
 .subHeader .subLeftSide li, .subHeader .subRightSide li a, .subHeader .subRightSide li button {
   color: inherit;
@@ -99,6 +100,10 @@
 }
 .menuMypage {
   background-image: url(https://img.megabox.co.kr/static/pc/images/common/ico/ico-mymega-white.png);
+}
+
+.subHeader .logoutBtn {
+  color: $colorGray44;
 }
 
 .subHeader .menuBar {

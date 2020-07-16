@@ -125,6 +125,7 @@ const MainHeader = () => {
                 <>
                   <li>
                     <button
+                      className="logoutBtn"
                       onClick={() => {
                         dispatch(
                           openModal("로그아웃하시겠습니까?", logOutPopup)
