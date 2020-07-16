@@ -1,22 +1,19 @@
-import React, { useState } from "react";
+import React from "react";
 import MyMovieStoryTimeLine from "../../Molecules/MyMovieStoryTimeLine";
 import MyMovieStoryFavorite from "../../Molecules/MyMovieStoryFavorite";
 import MyMovieStoryComment from "../../Molecules/MyMovieStoryComment";
 import MyMovieStoryWatched from "../../Molecules/MyMovieStoryWatched";
+import { useSelector, useDispatch } from "react-redux";
 import "./style/MyMovieStory.scss";
+import { changeView } from "../../../Reducer/myMovieStoryReducer";
 
 const MyMovieStory = () => {
-  const [currentView, setCurrentView] = useState({
-    view: "timeline",
-  });
-
-  const changeView = (view) =>
-    setCurrentView({
-      ...currentView,
-      view,
-    });
+  const dispatch = useDispatch();
+  const { view } = useSelector((state) => ({
+    view: state.myMovieStory.view,
+  }));
   const movieStoryView = () => {
-    switch (currentView.view) {
+    switch (view) {
       case "timeline":
         return <MyMovieStoryTimeLine />;
       case "comment":
@@ -33,38 +30,38 @@ const MyMovieStory = () => {
     <div className="myMovieStoryWrap">
       <h3 className="mypageTitle">나의 무비스토리</h3>
       <ul className="myMovieStoryTab">
-        <li className={currentView.view === "timeline" ? "active" : ""}>
+        <li className={view === "timeline" ? "active" : ""}>
           <button
             type="button"
             className={["btn", "regular"].join(" ")}
-            onClick={() => changeView("timeline")}
+            onClick={() => dispatch(changeView("timeline"))}
           >
             무비타임라인
           </button>
         </li>
-        <li className={currentView.view === "comment" ? "active" : ""}>
+        <li className={view === "comment" ? "active" : ""}>
           <button
             type="button"
             className={["btn", "regular"].join(" ")}
-            onClick={() => changeView("comment")}
+            onClick={() => dispatch(changeView("comment"))}
           >
             한줄평
           </button>
         </li>
-        <li className={currentView.view === "watched" ? "active" : ""}>
+        <li className={view === "watched" ? "active" : ""}>
           <button
             type="button"
             className={["btn", "regular"].join(" ")}
-            onClick={() => changeView("watched")}
+            onClick={() => dispatch(changeView("watched"))}
           >
             본영화
           </button>
         </li>
-        <li className={currentView.view === "favorite" ? "active" : ""}>
+        <li className={view === "favorite" ? "active" : ""}>
           <button
             type="button"
             className={["btn", "regular"].join(" ")}
-            onClick={() => changeView("favorite")}
+            onClick={() => dispatch(changeView("favorite"))}
           >
             보고싶어
           </button>
