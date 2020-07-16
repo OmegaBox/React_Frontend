@@ -4,6 +4,7 @@
   // box-sizing: border-box;
   height: 430px;
   overflow-y: scroll;
+  scroll-behavior: smooth;
 
   li {
     display: flex;

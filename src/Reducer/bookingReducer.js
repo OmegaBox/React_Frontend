@@ -31,6 +31,8 @@ const SET_REGION_THEATER_LOG = "booking/SET_REGION_THEATER_LOG";
 const SET_DEFAULT_TICKET_INFO = "booking/SET_DEFAULT_TICKET_INFO";
 const SET_TICKET_NUMBER = "booking/SET_TICKET_NUMBER";
 
+const CLEAR_SELECTED_MOVIES = "booking/SET_CLEAR_SELECTED_MOVIES";
+
 // 영화관 가져오기
 const GET_THEATERS_CAN_BOOKING = "booking/GET_THEATERS_CAN_BOOKING";
 const GET_THEATERS_CAN_BOOKING_SUCCESS =
@@ -70,6 +72,10 @@ const setTicketNumber = (number) => ({
 const setScheduleRef = (payload) => ({
   type: SET_SCHEDULE_REF,
   payload,
+});
+
+const clearSelectedMovies = () => ({
+  type: CLEAR_SELECTED_MOVIES,
 });
 
 // Thunk
@@ -265,6 +271,7 @@ const getTheatersCanBooking = (movies = []) => async (dispatch, state) => {
 
   const selectedOption = state().Booking.selectedOption;
   const selectedMovies = selectedOption.selectedMovies;
+  console.log("지역정보 가져올때 selectedMovies 확인", selectedMovies);
   const selectedTheaters = selectedOption.selectedTheaters;
   const selectedDate = transformDateFormat(selectedOption.selectedDate)
     .dateStringNoDash;
@@ -296,11 +303,11 @@ const getTheatersCanBooking = (movies = []) => async (dispatch, state) => {
     try {
       const resRegions = await movieApi.getScreeningRegions(
         selectedDate,
-        movies.length ? movies : ""
+        movies.length ? movies : selectedMovies
       );
       const resTheaters = await movieApi.getScreeningTheaters(
         selectedDate,
-        movies.length ? movies : ""
+        movies.length ? movies : selectedMovies
       );
 
       if (resRegions.status === 200 && resTheaters.status === 200) {
@@ -389,6 +396,8 @@ function* selectMovieSaga(action) {
     newSelectedMovies = selectedMovies.slice();
     newSelectedMovies.push(action.movie);
   }
+
+  console.log("뉴실렉트무비", newSelectedMovies);
 
   if (selectedDate === "") yield put(setSelectedDate("2020-07-01")); // 날짜 선택
   // yield put(setSelectedHour(getCurrentHour())); // 현재 시간을 선택
@@ -633,6 +642,7 @@ const bookingReducer = (state = initialState, action) => {
       };
 
     case SET_SCHEDULE_REF:
+      console.log("스케쥴 만든 것들", action.payload);
       return {
         ...state,
         schedule: {
@@ -674,6 +684,15 @@ const bookingReducer = (state = initialState, action) => {
         },
       };
 
+    case CLEAR_SELECTED_MOVIES:
+      return {
+        ...state,
+        selectedOption: {
+          ...state.selectedOption,
+          selectedMovies: [],
+        },
+      };
+
     case SUCCESS:
     case ERROR:
     case LOADING:
@@ -699,4 +718,5 @@ export {
   setReservation,
   selectDate,
   setTicketNumber,
+  clearSelectedMovies,
 };

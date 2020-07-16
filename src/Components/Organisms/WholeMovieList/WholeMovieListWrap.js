@@ -4,10 +4,15 @@ import "./style/WholeMovieListWrap.scss";
 import { Link } from "react-router-dom";
 import { selectMovie } from "../../../Reducer/bookingReducer";
 import { getSearchMovie } from "../../../Reducer/movieReducer";
+import SkeletonWholeMoviePage from "../../Atoms/SkeletonWholeMoviePage";
 
 const WholeMovieListWrap = () => {
   const movies = useSelector((state) => state.Movie.movies);
   const dispatch = useDispatch();
+
+  const isLoading = useSelector(
+    (state) => state.Movie.movies
+  )
 
   const enterKeyword = (e) => {
     if (e.keyCode === 13) {
@@ -36,7 +41,6 @@ const WholeMovieListWrap = () => {
         <span>{movies.length}</span>
         개의 영화가 검색되었습니다.</p>
       <div className="wholeMovieSearchBarWrap">
-
         <input
           type="text"
           className="wholeMovieSearchBar"
@@ -51,6 +55,7 @@ const WholeMovieListWrap = () => {
 
         </button>
       </div>
+      {/* {isLoading ? (<SkeletonWholeMoviePage />) : ( */}
       <ul className="wholeMovieList">
         {movies.map((movie, i) => {
           let iconClassName = "icon";
@@ -77,7 +82,7 @@ const WholeMovieListWrap = () => {
                   className="wholeMoviePoster"
                   alt={movie.title}
                   src={movie.poster}
-                  // style={{ backgroundColor: "gray" }}
+                // style={{ backgroundColor: "gray" }}
                 />
                 <div className="wholeMovieInforWrap">
                   <div className="wholeMovieSummary">
@@ -146,6 +151,7 @@ const WholeMovieListWrap = () => {
           );
         })}
       </ul>
+      {/* )} */}
       <div className="wholeMovieListMore">
         <button type="button" className={["btn", "regular"].join(" ")}>
           더보기

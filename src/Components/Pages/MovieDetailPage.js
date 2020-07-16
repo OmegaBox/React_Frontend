@@ -14,4 +14,4 @@ const MovieDetailPage = ({ match }) => {
   return <MovieDetail />;
 };
 
-export default MovieDetailPage;
+export default React.memo(MovieDetailPage);

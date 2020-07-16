@@ -40,4 +40,4 @@ const BookingPage = ({ history }) => {
   );
 };
 
-export default BookingPage;
+export default React.memo(BookingPage);

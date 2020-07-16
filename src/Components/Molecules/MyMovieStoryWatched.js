@@ -1,6 +1,12 @@
 import React from "react";
 import { useSelector } from "react-redux";
-
+import {
+  numWithComma,
+  timeDateSplit,
+  sliceDate,
+  sliceTime,
+  createDay,
+} from "../../Utils/util";
 const MyMovieStoryWatched = () => {
   const { watchedMovie } = useSelector((state) => ({
     watchedMovie: state.userInfo.watchedMovies,
@@ -52,7 +58,11 @@ const MyMovieStoryWatched = () => {
                   </li>
                   <li className="viewingDate">
                     <h5 className="a11yHidden">관람일시</h5>
-                    <p>{movie.start_time}</p>
+                    <p>
+                      {sliceDate(movie.start_time)}{" "}
+                      {createDay(movie.start_time)}{" "}
+                      {sliceTime(movie.start_time)}
+                    </p>
                   </li>
                 </ul>
                 <div className="btnWrap">
@@ -85,4 +95,4 @@ const MyMovieStoryWatched = () => {
   );
 };
 
-export default MyMovieStoryWatched;
+export default React.memo(MyMovieStoryWatched);

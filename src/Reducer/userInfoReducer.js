@@ -1,8 +1,9 @@
-import { put, call, takeLatest, take } from "redux-saga/effects";
+import { put, call, takeLatest, select } from "redux-saga/effects";
 import { userApi, isLogin } from "../Api/api";
-import cookie, { save } from "react-cookies";
+import cookie from "react-cookies";
 import { removeCookies } from "../Utils/util";
 import { act } from "react-dom/test-utils";
+import { openModal } from "./modalReducer";
 
 const SUCCESS = "userInfo/SUCCESS";
 const ERROR = "userInfo/ERROR";
@@ -16,6 +17,9 @@ const ALREADY_LOGIN = "userInfo/ALREADY_LOGIN";
 
 const LOGOUT_SUCCESS = "userInfo/LOGOUT";
 
+const SET_SIGNUP_INFO = "userInfo/SET_SIGNUP_INFO";
+
+export const GET_MEMBER_PROFILE = "userInfo/GET_MEMBER_PROFILE"; // 사가진입용 액션
 // memberDetail
 export const GET_MEMBER_DETAIL = "userInfo/GET_MEMBER_DETAIL"; // 사가진입용 액션
 
@@ -87,7 +91,6 @@ function* loginSaga(action) {
 
   try {
     const res = yield call(userApi.login, action.user);
-    console.log(res);
 
     if (res.status === 200) {
       removeCookies();
@@ -129,6 +132,74 @@ function* loginSaga(action) {
   }
 }
 
+const socialLogin = (user, history) => async (dispatch) => {
+  dispatch({ type: LOGIN_LOADING });
+
+  try {
+    const res = await userApi.socialLogin(user);
+
+    if (res.status === 200) {
+      removeCookies();
+
+      cookie.save("accessToken", res.data.access, {
+        path: "/",
+        maxAge: 3600,
+      });
+
+      cookie.save("refreshToken", res.data.refresh, {
+        path: "/",
+        maxAge: 86400,
+      });
+      cookie.save("id", res.data.id, {
+        path: "/",
+        maxAge: 86400,
+      });
+
+      dispatch({
+        type: LOGIN_SUCCESS,
+        userName: res.data.username,
+        name: res.data.name,
+        email: res.data.email,
+        mobile: res.data.mobile,
+        birthDate: res.data.birth_date,
+      });
+      history.push("/");
+    } else {
+      dispatch({
+        type: LOGIN_ERROR,
+        errorMessage: "서버와의 연결이 원활하지 않습니다",
+      });
+    }
+  } catch (e) {
+    console.log(e.response);
+    // dispatch({
+    //   type: LOGIN_ERROR,
+    //   errorMessage: "아이디/비밀번호를 확인 해주세요",
+    // });
+    dispatch(
+      openModal("구글 계정으로 회원가입 하시겠습니까?", () => {
+        dispatch({ type: SET_SIGNUP_INFO, user });
+        history.push("/membersignup");
+      })
+    );
+  }
+};
+
+const getMemberProfile = () => async (dispatch) => {
+  const res = await isLogin();
+
+  if (res) {
+    dispatch({ type: GET_MEMBER_DETAIL });
+    dispatch({ type: GET_RESERVED });
+    dispatch({ type: GET_RESERVED_CANCELED });
+    dispatch({ type: GET_TIMELINE_RATING });
+    dispatch({ type: GET_TIMELINE_WATCHED });
+    dispatch({ type: GET_TIMELINE_LIKE });
+  } else {
+    dispatch(startLogout());
+  }
+};
+
 // 멤버 디테일
 function* memberDetail(action) {
   yield put({ type: GET_MEMBER_DETAIL_LOADING });
@@ -141,7 +212,7 @@ function* memberDetail(action) {
       return;
     }
     const res = yield call(userApi.memberDetail);
-    console.log("마이페이지", res.data);
+    // console.log("마이페이지", res.data);
     if (res.status === 200 || res.status === 201) {
       yield put({
         type: GET_MEMBER_DETAIL_SUCCESS,
@@ -213,8 +284,14 @@ function* myReservedCancel(action) {
   yield put({ type: GET_RESERVED_CANCELED_LOADING });
 
   try {
+    const loginCheck = yield isLogin();
+
+    if (!loginCheck) {
+      yield put(startLogout());
+      return;
+    }
     const res = yield call(userApi.myReservedCancel, { id: action.id });
-    console.log("예약취소", res.data.results);
+    // console.log("예약취소", res.data.results);
     if (res.status === 200 || res.status === 201) {
       yield put({
         type: GET_RESERVED_CANCELED_SUCCESS,
@@ -251,7 +328,7 @@ function* timelineRating(action) {
       return;
     }
     const res = yield call(userApi.timelineRating, { id: action.id });
-    console.log("한줄평", res.data.results);
+    // console.log("한줄평", res.data.results);
     if (res.status === 200 || res.status === 201) {
       yield put({
         type: GET_TIMELINE_RATING_SUCCESS,
@@ -288,7 +365,7 @@ function* timelineWatched(action) {
       return;
     }
     const res = yield call(userApi.timelineWatched, { id: action.id });
-    console.log("본영화", res.data.results);
+    // console.log("본영화", res.data.results);
     if (res.status === 200 || res.status === 201) {
       yield put({
         type: GET_TIMELINE_WATCHED_SUCCESS,
@@ -325,7 +402,7 @@ function* timelineLike(action) {
       return;
     }
     const res = yield call(userApi.timelineLike, { id: action.id });
-    console.log("보고싶은", res.data.results);
+    // console.log("보고싶은", res.data.results);
     if (res.status === 200 || res.status === 201) {
       yield put({
         type: GET_TIMELINE_LIKE_SUCCESS,
@@ -359,12 +436,13 @@ function* userInfoSaga() {
   yield takeLatest(GET_TIMELINE_RATING, timelineRating);
   yield takeLatest(GET_TIMELINE_WATCHED, timelineWatched);
   yield takeLatest(GET_TIMELINE_LIKE, timelineLike);
+  // yield takeLatest(GET_MEMBER_PROFILE, getMemberProfile);
 }
 
 const initialState = {
   isLogin: false,
   userName: "omegaman",
-  name: "홍길동",
+  name: "",
   email: "xxxxx@naver.com",
   mobile: "+821011111111",
   birthDate: "2020-07-08",
@@ -373,100 +451,105 @@ const initialState = {
     error: false,
     errorMessgae: "",
   },
+  socialSignupInfo: {
+    boolean: false,
+    profileObj: {},
+    tokenId: "",
+  },
   errorMessage: "",
   profile: {
-    tier: "VIP",
-    point: 500,
+    tier: "비회원",
+    point: 0,
   },
-  likeMoviesCount: 5,
-  ratingMoviesCount: 5,
-  reservedMoviesCount: 5,
-  watchedMoviesCount: 5,
+  likeMoviesCount: 0,
+  ratingMoviesCount: 0,
+  reservedMoviesCount: 0,
+  watchedMoviesCount: 0,
   bookingHistory: [
-    {
-      movie_name: "소리꾼",
-      payed_at: "2020-07-12", // 결제 시간이 없음
-      poster:
-        "https://caloculator-s3.s3.ap-northeast-2.amazonaws.com/media/posters/20196201.jpg",
-      price: 3000,
-      reservation_code: "",
-      reservation_id: 170,
-      screen_name: "1관",
-      screen_type: "2D",
-      seat_grade: [{ adult: 1, teen: 0, preferential: 0 }],
-      seat_name: ["B7"],
-      start_time: "2020-07-15 18:36",
-      theater_name: "강남대로(씨티)",
-      theater_region: "서울",
-    },
+    // {
+    //   movie_name: "소리꾼",
+    //   payed_at: "2020-07-12", // 결제 시간이 없음
+    //   poster:
+    //     "https://caloculator-s3.s3.ap-northeast-2.amazonaws.com/media/posters/20196201.jpg",
+    //   price: 3000,
+    //   reservation_code: "",
+    //   reservation_id: 170,
+    //   screen_name: "1관",
+    //   screen_type: "2D",
+    //   seat_grade: [{ adult: 1, teen: 0, preferential: 0 }],
+    //   seat_name: ["B7"],
+    //   start_time: "2020-07-15 18:36",
+    //   theater_name: "강남대로(씨티)",
+    //   theater_region: "서울",
+    // },
   ],
   favoriteMovies: [
-    {
-      id: 0,
-      movie_name: "string",
-      poster:
-        "https://img.megabox.co.kr/SharedImg/2020/06/15/pjraLryYt5zQ1HEf6axtAdkXRhfhRZTZ_420.jpg",
-      grade: "all",
-      acc_favorite: "string",
-      open_date: "2020-07-14",
-      running_time: "string",
-      directors: "string",
-      genres: "string",
-      liked_at: "string",
-    },
+    // {
+    //   id: 0,
+    //   movie_name: "string",
+    //   poster:
+    //     "https://img.megabox.co.kr/SharedImg/2020/06/15/pjraLryYt5zQ1HEf6axtAdkXRhfhRZTZ_420.jpg",
+    //   grade: "all",
+    //   acc_favorite: "string",
+    //   open_date: "2020-07-14",
+    //   running_time: "string",
+    //   directors: "string",
+    //   genres: "string",
+    //   liked_at: "string",
+    // },
   ],
   commentMovies: [
-    {
-      rating_id: 0,
-      movie: {
-        movie_name: "string",
-        poster: "string",
-        grade: "all",
-        acc_favorite: "string",
-        open_date: "2020-07-14",
-        running_time: "string",
-        directors: "string",
-        genres: "string",
-      },
-      created_at: "2020-07-14",
-      score: 0,
-      key_point: "actor",
-      comment: "string",
-    },
+    // {
+    //   rating_id: 0,
+    //   movie: {
+    //     movie_name: "string",
+    //     poster: "string",
+    //     grade: "all",
+    //     acc_favorite: "string",
+    //     open_date: "2020-07-14",
+    //     running_time: "string",
+    //     directors: "string",
+    //     genres: "string",
+    //   },
+    //   created_at: "2020-07-14",
+    //   score: 0,
+    //   key_point: "actor",
+    //   comment: "string",
+    // },
   ],
   watchedMovies: [
-    {
-      payment_id: 0,
-      screen_type: "string",
-      screen_name: "string",
-      seat_grade: "string",
-      seat_name: "string",
-      theater_name: "string",
-      theater_region: "string",
-      start_time: "2020-07-14T05:45:46.143Z",
-      payed_at: "2020-07-14T05:45:46.143Z",
-      movie: {
-        movie_name: "string",
-        poster: "string",
-        grade: "all",
-        acc_favorite: "string",
-        open_date: "2020-07-14",
-        running_time: "string",
-        directors: "string",
-        genres: "string",
-      },
-    },
+    // {
+    //   payment_id: 0,
+    //   screen_type: "string",
+    //   screen_name: "string",
+    //   seat_grade: "string",
+    //   seat_name: "string",
+    //   theater_name: "string",
+    //   theater_region: "string",
+    //   start_time: "2020-07-14T05:45:46.143Z",
+    //   payed_at: "2020-07-14T05:45:46.143Z",
+    //   movie: {
+    //     movie_name: "string",
+    //     poster: "string",
+    //     grade: "all",
+    //     acc_favorite: "string",
+    //     open_date: "2020-07-14",
+    //     running_time: "string",
+    //     directors: "string",
+    //     genres: "string",
+    //   },
+    // },
   ],
   cancelMovies: [
-    {
-      reservation_id: 0,
-      canceled_at: "2020-07-14 03:35:35",
-      movie_name: "string",
-      theater_name: "string",
-      theater_region: "string",
-      start_time: "2020-07-14 03:35:35",
-      canceled_payment: 0,
-    },
+    // {
+    //   reservation_id: 0,
+    //   canceled_at: "2020-07-14 03:35:35",
+    //   movie_name: "string",
+    //   theater_name: "string",
+    //   theater_region: "string",
+    //   start_time: "2020-07-14 03:35:35",
+    //   canceled_payment: 0,
+    // },
   ],
 };
 
@@ -511,6 +594,15 @@ const userInfoReducer = (state = initialState, action) => {
         isLogin: false,
       };
 
+    case SET_SIGNUP_INFO:
+      return {
+        ...state,
+        socialSignupInfo: {
+          boolean: true,
+          profileObj: action.user.profileObj,
+          tokenId: action.user.token_id,
+        },
+      };
     case ALREADY_LOGIN:
       return {
         ...state,
@@ -617,4 +709,6 @@ export {
   startLogin,
   startLogout,
   memberDetail,
+  socialLogin,
+  getMemberProfile,
 };

@@ -1,9 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import BookingCancel from "../../Molecules/BookingCancel";
-import { numWithComma } from "../../../Utils/util";
+import {
+  numWithComma,
+  timeDateSplit,
+  sliceDate,
+  sliceTime,
+  createDay,
+} from "../../../Utils/util";
 import "./style/BookingHistoryWrap.scss";
+import { checkLogin, getMemberProfile } from "../../../Reducer/userInfoReducer";
 
 const BookingHistoryWrap = () => {
   /* 예매내역 */
@@ -16,6 +23,8 @@ const BookingHistoryWrap = () => {
   }));
 
   const [useInfo, setUseInfo] = useState({ open: false });
+
+  const dispatch = useDispatch();
 
   const openUseInfo = () => {
     setUseInfo({
@@ -66,6 +75,12 @@ const BookingHistoryWrap = () => {
       )
     );
   };
+
+  useEffect(() => {
+    // window.scrollTo(0, 0);
+    dispatch(checkLogin());
+    dispatch(getMemberProfile());
+  }, [dispatch]);
 
   return (
     <div className="bookingHistoryWrap">
@@ -135,11 +150,26 @@ const BookingHistoryWrap = () => {
                     </li>
                     <li className="peopleCounter">
                       <h5>관람인원</h5>
-                      <p>{booking.attendance}</p>
+                      <p>
+                        {booking.seat_grade.map((grade) => {
+                          let adult = grade.adult
+                            ? `성인 : ${grade.adult}`
+                            : "";
+                          let teen = grade.teen ? `청소년 : ${grade.teen}` : "";
+                          let preferential = grade.preferential
+                            ? `우대 : ${grade.preferential}`
+                            : "";
+                          return adult + teen + preferential;
+                        })}
+                      </p>
                     </li>
                     <li className="viewingDate">
                       <h5>관람일시</h5>
-                      <p>{booking.start_time}</p>
+                      <p>
+                        {sliceDate(booking.start_time)}{" "}
+                        {createDay(booking.start_time)}{" "}
+                        {sliceTime(booking.start_time)}
+                      </p>
                     </li>
                     <li className="viewingSeat">
                       <h5>관람좌석</h5>
@@ -147,9 +177,7 @@ const BookingHistoryWrap = () => {
                     </li>
                     <li className="paymentDate">
                       <h5>결제일시</h5>
-                      <p>
-                        {booking.payed_at} ({booking.paymentTime})
-                      </p>
+                      <p>{timeDateSplit(booking.payed_at)}</p>
                     </li>
                     <li className="btnWrap">
                       <button
@@ -196,10 +224,14 @@ const BookingHistoryWrap = () => {
             {cancelMovies.length ? (
               cancelMovies.map((cancelMovie) => (
                 <tr key={cancelMovie.reservation_id}>
-                  <td>{cancelMovie.canceled_at}</td>
+                  <td>{timeDateSplit(cancelMovie.canceled_at)}</td>
                   <td>{cancelMovie.movie_name}</td>
                   <td>{cancelMovie.theater_name}</td>
-                  <td>{cancelMovie.start_time}</td>
+                  <td>
+                    {sliceDate(cancelMovie.start_time)}{" "}
+                    {createDay(cancelMovie.start_time)}{" "}
+                    {sliceTime(cancelMovie.start_time)}
+                  </td>
                   <td>
                     {numWithComma(String(cancelMovie.canceled_payment))}원
                   </td>
@@ -288,4 +320,4 @@ const BookingHistoryWrap = () => {
   );
 };
 
-export default BookingHistoryWrap;
+export default React.memo(BookingHistoryWrap);

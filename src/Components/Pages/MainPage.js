@@ -15,4 +15,4 @@ const MainPage = () => {
   return <Main />;
 };
 
-export default MainPage;
+export default React.memo(MainPage);

@@ -2,19 +2,26 @@ import React from "react";
 import "./style/MainBoxOffice.scss";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
-import { selectMovie } from "../../../Reducer/bookingReducer";
+import {
+  selectMovie,
+  clearSelectedMovies,
+} from "../../../Reducer/bookingReducer";
 import { getSearchMovie } from "../../../Reducer/movieReducer";
+import SkeletonMainMovies from "../../Atoms/SkeletonMainMovies";
+import { isLogin } from "../../../Api/api";
 
 const MainBoxOffice = () => {
-  let movieBox = useSelector((state) => state.Movie.movies);
-  movieBox = movieBox.filter((_, i) => i < 4);
+  const [movieBox, movieLoading] = useSelector((state) => [
+    state.Movie.movies.filter((_, i) => i < 4),
+    state.Movie.loading,
+  ]);
   const dispatch = useDispatch();
   const history = useHistory();
 
   const mainEnterKeyword = (e) => {
     if (e.keyCode === 13) {
-      history.push("/listMovies")
-      dispatch(getSearchMovie(e.target.value))
+      history.push("/listMovies");
+      dispatch(getSearchMovie(e.target.value));
     }
   };
 
@@ -32,8 +39,13 @@ const MainBoxOffice = () => {
         </div>
         <div className="mainMovieList">
           <ul className="mainMoviesWrap">
-            {movieBox.map((movie, i) => {
-              return (
+            {movieLoading
+              ? new Array(4).fill(0).map((v, i) => (
+                <li key={`skelton${i}`} className="skeletonMainMovieLi">
+                  <SkeletonMainMovies />
+                </li>
+              ))
+              : movieBox.map((movie) => (
                 <li key={`movieList${movie.id}`}>
                   <Link to={"detail/" + movie.id}>
                     <p className="mainRank">{movie.rank}</p>
@@ -49,7 +61,9 @@ const MainBoxOffice = () => {
                       <div className="boxOfficeMovieScore">
                         <div>
                           <p>관람평</p>
-                          <strong>{Math.ceil(movie.average_point * 10) / 10}</strong>
+                          <strong>
+                            {Math.ceil(movie.average_point * 10) / 10}
+                          </strong>
                         </div>
                       </div>
                     </div>
@@ -71,15 +85,16 @@ const MainBoxOffice = () => {
                     </button>
                     <Link to="/booking">
                       <button
-                        onClick={() =>
+                        onClick={() => {
+                          dispatch(clearSelectedMovies());
                           dispatch(
                             selectMovie({
                               title: movie.name_kor,
                               poster: movie.poster,
                               id: movie.id,
                             })
-                          )
-                        }
+                          );
+                        }}
                         className={[
                           "boxOfficeBookingBtn",
                           "btn",
@@ -89,12 +104,11 @@ const MainBoxOffice = () => {
                         ].join(" ")}
                       >
                         예매
-                      </button>
+                        </button>
                     </Link>
                   </div>
                 </li>
-              );
-            })}
+              ))}
           </ul>
         </div>
         <ul className="boxOfficeSubBarWrap">
@@ -128,13 +142,7 @@ const MainBoxOffice = () => {
       </div>
       <div className="moviePosterBg">
         {movieBox.map((movie, i) => {
-          return (
-            <img
-              key={i}
-              src={movie.poster}
-              alt={movie.title}
-            />
-          )
+          return <img key={i} src={movie.poster} alt={movie.title} />;
         })}
       </div>
     </div>

@@ -75,6 +75,7 @@ const MainHeader = () => {
                 <>
                   <li>
                     <button
+                      className="logoutBtn"
                       onClick={() => {
                         dispatch(
                           openModal("로그아웃하시겠습니까?", logOutPopup)
@@ -89,15 +90,15 @@ const MainHeader = () => {
                   </li>
                 </>
               ) : (
-                  <>
-                    <li>
-                      <Link to="/memberlogin">로그인</Link>
-                    </li>
-                    <li>
-                      <Link to="/membersignup">회원가입</Link>
-                    </li>
-                  </>
-                )}
+                <>
+                  <li>
+                    <Link to="/memberlogin">로그인</Link>
+                  </li>
+                  <li>
+                    <Link to="/membersignup">회원가입</Link>
+                  </li>
+                </>
+              )}
               <li>
                 <Link to="/Booking">빠른예매</Link>
               </li>

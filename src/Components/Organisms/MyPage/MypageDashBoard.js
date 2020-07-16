@@ -1,14 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import BookingCancel from "../../Molecules/BookingCancel";
-import { numWithComma } from "../../../Utils/util";
+import {
+  numWithComma,
+  timeDateSplit,
+  sliceDate,
+  sliceTime,
+  createDay,
+} from "../../../Utils/util";
+import { changeView } from "../../../Reducer/myMovieStoryReducer";
 import "./style/MypageDashBoard.scss";
+import { checkLogin, getMemberProfile } from "../../../Reducer/userInfoReducer";
 
 const MypageDashBoard = () => {
+  const dispatch = useDispatch();
   /* 개인정보 데이터 */
-  const { name, tier, point, isLogin } = useSelector((state) => ({
-    isLogin: state.userInfo.isLogin,
+  const { name, tier, point } = useSelector((state) => ({
     name: state.userInfo.name,
     tier: state.userInfo.profile.tier,
     point: state.userInfo.profile.point,
@@ -18,35 +26,48 @@ const MypageDashBoard = () => {
     bookingHistory: state.userInfo.bookingHistory,
   }));
   /* 한줄평 작성 */
-  const { commentMovies, commentMoviesCount } = useSelector((state) => ({
-    commentMovies: state.userInfo.commentMovies,
+  const { commentMoviesCount } = useSelector((state) => ({
     commentMoviesCount: state.userInfo.ratingMoviesCount,
   }));
 
   /* 본 영화 */
-  const { watchedMovies, watchedMoviesCount } = useSelector((state) => ({
-    watchedMovies: state.userInfo.watchedMovies,
+  const { watchedMoviesCount } = useSelector((state) => ({
     watchedMoviesCount: state.userInfo.watchedMoviesCount,
   }));
 
   /* 보고싶은영화 */
-  const { favoriteMovies, favoriteMoviesCount } = useSelector((state) => ({
-    favoriteMovies: state.userInfo.favoriteMovies,
+  const { favoriteMoviesCount } = useSelector((state) => ({
     favoriteMoviesCount: state.userInfo.likeMoviesCount,
   }));
 
+  /* 회원등급명 변경 */
+  const tierName = () => {
+    switch (tier) {
+      case "vip":
+        return "VIP회원";
+      case "basic":
+        return "일반회원";
+      default:
+        return "비회원";
+    }
+  };
+
+  useEffect(() => {
+    // window.scrollTo(0, 0);
+    dispatch(checkLogin());
+    dispatch(getMemberProfile());
+  }, [dispatch]);
+
   return (
     <div>
-      {isLogin ? "" : "링크로 돌림"}
-
       <div className="mypageDashBoard">
         <h3 className="a11yHidden">마이페이지 정보</h3>
         <section className="mypagePersnalInfo">
           <article className="grade">
             <p className="name">
-              {name}님은
+              {name !== "" ? `${name}님은` : ``}
               <br />
-              {tier}입니다.
+              {tierName()}입니다.
             </p>
             <Link to="/mypage/confirmpassword" className="btnPersnalEdit">
               개인정보수정
@@ -63,13 +84,11 @@ const MypageDashBoard = () => {
             </div>
             <p className="totalPoint">{numWithComma(String(point))} P</p>
             <p>
-              적립예정 <span className="textMedium">500 P</span>
+              적립예정 <span className="textMedium">0 P</span>
             </p>
             <p>
               소멸예정{" "}
-              <span className={["textRed", "textMedium"].join(" ")}>
-                1,200 P
-              </span>
+              <span className={["textRed", "textMedium"].join(" ")}>0 P</span>
             </p>
           </article>
         </section>
@@ -85,18 +104,33 @@ const MypageDashBoard = () => {
           <ul className={["roundBox", "movieStoryInfoList"].join(" ")}>
             <li>
               <Link to="/mypage/myMovieStory">
-                <span className="amount">{watchedMoviesCount}</span>본영화
+                <button
+                  type="button"
+                  onClick={() => dispatch(changeView("watched"))}
+                >
+                  <span className="amount">{watchedMoviesCount}</span>본영화
+                </button>
               </Link>
             </li>
             <li>
               <Link to="/mypage/myMovieStory">
-                <span className="amount">{commentMoviesCount}</span>한줄평
+                <button
+                  type="button"
+                  onClick={() => dispatch(changeView("comment"))}
+                >
+                  <span className="amount">{commentMoviesCount}</span>한줄평
+                </button>
               </Link>
             </li>
             <li>
               <Link to="/mypage/myMovieStory">
-                <span className="amount">{favoriteMoviesCount}</span>
-                보고싶어
+                <button
+                  type="button"
+                  onClick={() => dispatch(changeView("favorite"))}
+                >
+                  <span className="amount">{favoriteMoviesCount}</span>
+                  보고싶어
+                </button>
               </Link>
             </li>
           </ul>
@@ -141,9 +175,7 @@ const MypageDashBoard = () => {
                     <ul className={["info", "clearfix"].join(" ")}>
                       <li className="paymentDate">
                         <h5>결제일시</h5>
-                        <p>
-                          {booking.payed_at} ({booking.paymentTime})
-                        </p>
+                        <p>{timeDateSplit(booking.payed_at)}</p>
                       </li>
                       <li className="bookingNumber">
                         <h5 className="a11yHidden">예매번호</h5>
@@ -163,7 +195,11 @@ const MypageDashBoard = () => {
                       </li>
                       <li className="viewingDate">
                         <h5 className="a11yHidden">관람일시</h5>
-                        <p>{booking.start_time}</p>
+                        <p>
+                          {sliceDate(booking.start_time)}{" "}
+                          {createDay(booking.start_time)}{" "}
+                          {sliceTime(booking.start_time)}
+                        </p>
                       </li>
                     </ul>
                     <BookingCancel
@@ -186,4 +222,4 @@ const MypageDashBoard = () => {
   );
 };
 
-export default MypageDashBoard;
+export default React.memo(MypageDashBoard);
