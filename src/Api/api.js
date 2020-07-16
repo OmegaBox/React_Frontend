@@ -278,6 +278,7 @@ export const userApi = {
       birth_date,
       unique_id,
     };
+    console.log("api 호출 직전 유니크아이디", unique_id);
     return axios.post("https://www.omegabox.xyz/members/signup/social/", body);
   },
   login: ({ id, pw }) => {
@@ -288,6 +289,14 @@ export const userApi = {
   },
   logout: () => {
     return axios.post("https://www.omegabox.xyz/members/logout/");
+  },
+  socialLogin: ({ id, unique_id }) => {
+    console.log("id:", id, "unique_id:", unique_id);
+    return axios.post("https://www.omegabox.xyz/members/login/social/", {
+      username: id,
+      password: id,
+      unique_id,
+    });
   },
   memberDetail: () => {
     return axios.get("https://www.omegabox.xyz/members/detail/", {
