@@ -9,6 +9,8 @@ import { startLogout } from "../../Reducer/userInfoReducer";
 import ModalPortal from "../../Modules/ModalPortal";
 import PopupNotice from "../Molecules/PopupNotice";
 import { openModal } from "../../Reducer/modalReducer";
+import { useGoogleLogout } from "react-google-login";
+import key from "../../key.json";
 
 const MainHeader = () => {
   const dispatch = useDispatch();
@@ -50,6 +52,12 @@ const MainHeader = () => {
       case "/mypage/mymoviestory":
         page = "나의 무비스토리";
         break;
+      case "/mypage/editoption":
+        page = "선택정보 수정";
+        break;
+      case "/mypage/confirmpassword":
+        page = "회원정보";
+        break;
       default:
     }
     return page;
@@ -84,14 +92,29 @@ const MainHeader = () => {
       case "/mypage/mymoviestory":
         utilClass = "";
         break;
+      case "/mypage/editoption":
+        utilClass = "";
+        break;
+      case "/mypage/confirmpassword":
+        utilClass = "";
+        break;
       default:
         utilClass = "none";
     }
     return utilClass;
   };
 
+  // 구글 로그아웃
+  const { signOut } = useGoogleLogout({
+    clientId: key.googleClientId,
+    onLogoutSuccess: () => {
+      console.log("구글 로그아웃 성공");
+    },
+  });
+
   const logOutPopup = () => {
     dispatch(startLogout());
+    signOut();
     history.push("/");
   };
   const changeHeader = useSelector((state) => state.userInfo.isLogin);
@@ -125,6 +148,7 @@ const MainHeader = () => {
                 <>
                   <li>
                     <button
+                      className="logoutBtn"
                       onClick={() => {
                         dispatch(
                           openModal("로그아웃하시겠습니까?", logOutPopup)

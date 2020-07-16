@@ -1,7 +1,10 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
+import { selectMovie } from "../../Reducer/bookingReducer";
 
 const MyMovieStoryFavorite = () => {
+  const dispatch = useDispatch();
   const { favoriteMovies } = useSelector((state) => ({
     favoriteMovies: state.userInfo.favoriteMovies,
   }));
@@ -61,22 +64,33 @@ const MyMovieStoryFavorite = () => {
                       ></span>
                       {movie.acc_favorite}
                     </button>
-                    <button
-                      type="button"
-                      className={["btn", "small", "fill", "main"].join(" ")}
-                    >
-                      예매
+                    <Link to="/booking">
+                      <button
+                        onClick={() => {
+                          dispatch(
+                            selectMovie({
+                              title: movie.movie_name,
+                              poster: movie.poster,
+                              id: movie.movie_id
+                            })
+                          )
+                        }}
+                        type="button"
+                        className={["btn", "small", "fill", "main"].join(" ")}
+                      >
+                        예매
                     </button>
+                    </Link>
                   </li>
                 </ul>
               </article>
             </li>
           ))
         ) : (
-          <li key="0" className="listNull">
-            리스트가 없습니다.
-          </li>
-        )}
+            <li key="0" className="listNull">
+              리스트가 없습니다.
+            </li>
+          )}
       </ul>
     </section>
   );
