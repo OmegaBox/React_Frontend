@@ -11,7 +11,7 @@
     left: 0;
     right: 0;
     margin: auto;
-    margin: auto;
+    height: 530px !important;
     padding: 48px 40px;
     border: 1px solid $border;
     border-radius: 8px;
@@ -27,8 +27,8 @@
       }
     }
     h2 {
-      margin-bottom: 16px;
-      font-size: 5rem;
+      margin-bottom: 35px;
+      font-size: 4rem;
       font-weight: 300;
       text-align: center;
       letter-spacing: 0.1em;
@@ -44,12 +44,19 @@
       background-repeat: no-repeat;
       background-position: center;
     }
+
+    .btnGoogleLogin {
+      margin-top: 15px;
+      margin-bottom: 10px;
+      font-family: "Noto Sans KR", sans-serif;
+
+      .loginText {
+        display: inline-block;
+        // margin: 0 5px;
+      }
+    }
   }
-
 }
-
-
-
 
 $checkBoxSize: 14px;
 
