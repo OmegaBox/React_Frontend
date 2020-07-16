@@ -6,6 +6,7 @@ import { movieReducer } from "../Reducer/movieReducer";
 import { userInfoReducer, userInfoSaga } from "../Reducer/userInfoReducer";
 import seatReducer, { seatSaga } from "../Reducer/bookingSeatReducer";
 import modalReducer from "../Reducer/modalReducer";
+import myMovieStoryReducer from "../Reducer/myMovieStoryReducer";
 
 const rootReducer = combineReducers({
   Booking: bookingReducer,
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
   userInfo: userInfoReducer,
   Seat: seatReducer,
   modal: modalReducer,
+  myMovieStory: myMovieStoryReducer,
 });
 
 function* rootSaga() {

@@ -235,6 +235,7 @@ const SignUpForm = ({ history }) => {
     const sendSignup = async (isGoogle) => {
       try {
         let successText = "";
+        console.log("사인업 액션 나왔을때 unique_id", inputState.pw);
         if (isGoogle) {
           await userApi.googleSignup({
             username: inputState.id,
