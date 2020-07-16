@@ -179,6 +179,7 @@
   .poster {
     width: 70px;
     margin-right: 24px;
+    flex-shrink: 0;
     img {width: 100%;}
   }
   h5::after {
@@ -204,5 +205,8 @@
     height: 20px;
     margin: 0 8px;
     background-color: $border;
+  }
+  button {
+    flex-shrink: 0;
   }
 }

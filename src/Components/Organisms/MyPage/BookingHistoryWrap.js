@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import BookingCancel from "../../Molecules/BookingCancel";
 import {
   numWithComma,
@@ -10,6 +10,7 @@ import {
   createDay,
 } from "../../../Utils/util";
 import "./style/BookingHistoryWrap.scss";
+import { checkLogin, getMemberProfile } from "../../../Reducer/userInfoReducer";
 
 const BookingHistoryWrap = () => {
   /* 예매내역 */
@@ -22,6 +23,8 @@ const BookingHistoryWrap = () => {
   }));
 
   const [useInfo, setUseInfo] = useState({ open: false });
+
+  const dispatch = useDispatch();
 
   const openUseInfo = () => {
     setUseInfo({
@@ -72,6 +75,12 @@ const BookingHistoryWrap = () => {
       )
     );
   };
+
+  useEffect(() => {
+    // window.scrollTo(0, 0);
+    dispatch(checkLogin());
+    dispatch(getMemberProfile());
+  }, [dispatch]);
 
   return (
     <div className="bookingHistoryWrap">
