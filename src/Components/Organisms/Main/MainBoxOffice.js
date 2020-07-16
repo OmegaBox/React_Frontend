@@ -1,15 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import "./style/MainBoxOffice.scss";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
+
 import { selectMovie } from "../../../Reducer/bookingReducer";
 import { getSearchMovie } from "../../../Reducer/movieReducer";
 import {
   GET_TIMELINE_LIKE,
   SEND_FAVORITE,
 } from "../../../Reducer/userInfoReducer";
-import SkeletonMainMovies from "../../Atoms/SkeletonMainMovies";
 import { openModal } from "../../../Reducer/modalReducer";
+
+import SkeletonMainMovies from "../../Atoms/SkeletonMainMovies";
 
 const MainBoxOffice = () => {
   const [movieBox, movieLoading] = useSelector((state) => [
@@ -26,22 +28,26 @@ const MainBoxOffice = () => {
       dispatch(getSearchMovie(e.target.value));
     }
   };
-
+  // 해당 영화가 보고싶어 등록이 되있는지 확인하는 함수
   const isFavorite = (movieId) => {
-    if (favoriteMovies.length === 0) return;
-    return favoriteMovies
-      .map((favorite) => favorite.movie_id)
-      .includes(movieId);
+    return (
+      favoriteMovies.length !== 0 &&
+      favoriteMovies.map((favorite) => favorite.movie_id).includes(movieId)
+    );
   };
 
-  const clickFavorite = ({ target }, movieId) => {
+  const clickFavorite = (movieId) => {
     if (isLogin) {
       dispatch({
         type: SEND_FAVORITE,
         movieId,
       });
     } else {
-      dispatch(openModal("로그인이 필요한 기능입니다."));
+      dispatch(
+        openModal("로그인이 필요한 기능입니다.", () => {
+          history.push("/memberlogin");
+        })
+      );
     }
   };
 
@@ -103,7 +109,7 @@ const MainBoxOffice = () => {
                           "lightGray",
                           "small",
                         ].join(" ")}
-                        onClick={(e) => clickFavorite(e, movie.id)}
+                        onClick={() => clickFavorite(movie.id)}
                       >
                         <span
                           className={
