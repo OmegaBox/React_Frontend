@@ -11,13 +11,14 @@ import { userApi, isLogin } from "../../Api/api";
 import { openModal, setSize, setOneBtn } from "../../Reducer/modalReducer";
 import ModalPortal from "../../Modules/ModalPortal";
 import PopupNotice from "../Molecules/PopupNotice";
+import { Link } from "react-router-dom";
 
 const initSignState = {
   name: "",
   id: "",
   pw: "",
   pwCheck: "",
-  birth: getToday(),
+  birth: "1990-01-01",
   tell: "",
   email: "",
 };
@@ -86,7 +87,6 @@ const SignUpForm = ({ history }) => {
     checkDoubleDispatch(false);
     setAlert(initAlertState);
     if (isGoogleSignup) {
-      signOut();
       setGoogleSignup(false);
     }
   };
@@ -352,34 +352,42 @@ detail: ${response.data.detail}`);
     const GoogleId = res.profileObj.googleId;
 
     try {
-      // await userApi.idDoubleCheck(GoogleId);
+      await userApi.idDoubleCheck(res.profileObj.email);
       checkDoubleDispatch(true);
       setGoogleSignup(true);
       setInput({
         ...inputState,
         name: res.profileObj.name,
-        id: GoogleId,
-        pw: res.tokenId,
-        pwCheck: res.tokenId,
+        id: res.profileObj.email,
+        pw: GoogleId,
+        pwCheck: GoogleId,
         email: res.profileObj.email,
       });
+      signOut();
     } catch (e) {
       dispatch(openModal("이미 가입된 유저입니다"));
+      signOut();
     }
   };
 
   useEffect(() => {
     return () => {
-      if (isGoogleSignup) {
-        console.log("구글 로그아웃");
-        signOut();
-      }
+      reset();
     };
-  }, [history, isGoogleSignup]);
+  }, [history]);
 
   return (
     <div className="signWrap">
       <section className="signUpSec">
+        <button
+          className={["btn", "xSmall", "btnClosed"].join(" ")}
+          onClick={() => {
+            history.push("/");
+          }}
+        >
+          {" "}
+          <span className={["icon", "closed"].join(" ")}></span>
+        </button>
         <span className="omega_logo">
           <img src={logo} alt="omegabox Logo" />
         </span>
