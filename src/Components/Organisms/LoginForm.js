@@ -61,7 +61,7 @@ const LoginForm = () => {
         </span>
         <h2>로그인</h2>
         <button
-          className={["btn", "xSmall", "closed"].join(" ")}
+          className={["btn", "xSmall", "btnClosed"].join(" ")}
           onClick={() => {
             history.push("/");
           }}
