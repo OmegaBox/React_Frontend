@@ -230,7 +230,7 @@ export const movieApi = {
       grades: seatPersonalTypeArr,
       seat_ids: seatIdArr,
     };
-
+    console.log(body);
     return axios.post("/reservations/", body, {
       headers: {
         Authorization: "Bearer " + accessToken,
@@ -250,6 +250,17 @@ export const userApi = {
       mobile: tell,
       birth_date: birth,
     });
+  },
+  googleSignup: ({ username, email, name, mobile, birth_date, unique_id }) => {
+    const body = {
+      username,
+      email,
+      name,
+      mobile,
+      birth_date,
+      unique_id,
+    };
+    return axios.post("/members/signup/social/", body);
   },
   login: ({ id, pw }) => {
     return axios.post("/members/login/", {
