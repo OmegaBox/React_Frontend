@@ -11,6 +11,7 @@ import { userApi, isLogin } from "../../Api/api";
 import { openModal, setSize, setOneBtn } from "../../Reducer/modalReducer";
 import ModalPortal from "../../Modules/ModalPortal";
 import PopupNotice from "../Molecules/PopupNotice";
+import { Link } from "react-router-dom";
 
 const initSignState = {
   name: "",
@@ -236,6 +237,7 @@ const SignUpForm = ({ history }) => {
     const sendSignup = async (isGoogle) => {
       try {
         let successText = "";
+        console.log("사인업 액션 나왔을때 unique_id", inputState.pw);
         if (isGoogle) {
           await userApi.googleSignup({
             username: inputState.id,
@@ -379,6 +381,15 @@ detail: ${response.data.detail}`);
   return (
     <div className="signWrap">
       <section className="signUpSec">
+        <button
+          className={["btn", "xSmall", "btnClosed"].join(" ")}
+          onClick={() => {
+            history.push("/");
+          }}
+        >
+          {" "}
+          <span className={["icon", "closed"].join(" ")}></span>
+        </button>
         <span className="omega_logo">
           <img src={logo} alt="omegabox Logo" />
         </span>

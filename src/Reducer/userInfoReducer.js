@@ -1,8 +1,9 @@
-import { put, call, takeLatest, take } from "redux-saga/effects";
+import { put, call, takeLatest, select } from "redux-saga/effects";
 import { userApi, isLogin } from "../Api/api";
-import cookie, { save } from "react-cookies";
+import cookie from "react-cookies";
 import { removeCookies } from "../Utils/util";
 import { act } from "react-dom/test-utils";
+import { openModal } from "./modalReducer";
 
 const SUCCESS = "userInfo/SUCCESS";
 const ERROR = "userInfo/ERROR";
@@ -16,6 +17,9 @@ const ALREADY_LOGIN = "userInfo/ALREADY_LOGIN";
 
 const LOGOUT_SUCCESS = "userInfo/LOGOUT";
 
+const SET_SIGNUP_INFO = "userInfo/SET_SIGNUP_INFO";
+
+export const GET_MEMBER_PROFILE = "userInfo/GET_MEMBER_PROFILE"; // 사가진입용 액션
 // memberDetail
 export const GET_MEMBER_DETAIL = "userInfo/GET_MEMBER_DETAIL"; // 사가진입용 액션
 
@@ -87,7 +91,6 @@ function* loginSaga(action) {
 
   try {
     const res = yield call(userApi.login, action.user);
-    console.log(res);
 
     if (res.status === 200) {
       removeCookies();
@@ -128,6 +131,74 @@ function* loginSaga(action) {
     });
   }
 }
+
+const socialLogin = (user, history) => async (dispatch) => {
+  dispatch({ type: LOGIN_LOADING });
+
+  try {
+    const res = await userApi.socialLogin(user);
+
+    if (res.status === 200) {
+      removeCookies();
+
+      cookie.save("accessToken", res.data.access, {
+        path: "/",
+        maxAge: 3600,
+      });
+
+      cookie.save("refreshToken", res.data.refresh, {
+        path: "/",
+        maxAge: 86400,
+      });
+      cookie.save("id", res.data.id, {
+        path: "/",
+        maxAge: 86400,
+      });
+
+      dispatch({
+        type: LOGIN_SUCCESS,
+        userName: res.data.username,
+        name: res.data.name,
+        email: res.data.email,
+        mobile: res.data.mobile,
+        birthDate: res.data.birth_date,
+      });
+      history.push("/");
+    } else {
+      dispatch({
+        type: LOGIN_ERROR,
+        errorMessage: "서버와의 연결이 원활하지 않습니다",
+      });
+    }
+  } catch (e) {
+    console.log(e.response);
+    // dispatch({
+    //   type: LOGIN_ERROR,
+    //   errorMessage: "아이디/비밀번호를 확인 해주세요",
+    // });
+    dispatch(
+      openModal("구글 계정으로 회원가입 하시겠습니까?", () => {
+        dispatch({ type: SET_SIGNUP_INFO, user });
+        history.push("/membersignup");
+      })
+    );
+  }
+};
+
+const getMemberProfile = () => async (dispatch) => {
+  const res = await isLogin();
+
+  if (res) {
+    dispatch({ type: GET_MEMBER_DETAIL });
+    dispatch({ type: GET_RESERVED });
+    dispatch({ type: GET_RESERVED_CANCELED });
+    dispatch({ type: GET_TIMELINE_RATING });
+    dispatch({ type: GET_TIMELINE_WATCHED });
+    dispatch({ type: GET_TIMELINE_LIKE });
+  } else {
+    dispatch(startLogout());
+  }
+};
 
 // 멤버 디테일
 function* memberDetail(action) {
@@ -365,6 +436,7 @@ function* userInfoSaga() {
   yield takeLatest(GET_TIMELINE_RATING, timelineRating);
   yield takeLatest(GET_TIMELINE_WATCHED, timelineWatched);
   yield takeLatest(GET_TIMELINE_LIKE, timelineLike);
+  // yield takeLatest(GET_MEMBER_PROFILE, getMemberProfile);
 }
 
 const initialState = {
@@ -378,6 +450,11 @@ const initialState = {
     loading: false,
     error: false,
     errorMessgae: "",
+  },
+  socialSignupInfo: {
+    boolean: false,
+    profileObj: {},
+    tokenId: "",
   },
   errorMessage: "",
   profile: {
@@ -517,6 +594,15 @@ const userInfoReducer = (state = initialState, action) => {
         isLogin: false,
       };
 
+    case SET_SIGNUP_INFO:
+      return {
+        ...state,
+        socialSignupInfo: {
+          boolean: true,
+          profileObj: action.user.profileObj,
+          tokenId: action.user.token_id,
+        },
+      };
     case ALREADY_LOGIN:
       return {
         ...state,
@@ -623,4 +709,6 @@ export {
   startLogin,
   startLogout,
   memberDetail,
+  socialLogin,
+  getMemberProfile,
 };

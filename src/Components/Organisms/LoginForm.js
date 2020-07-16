@@ -3,9 +3,11 @@ import { Link, useHistory } from "react-router-dom";
 import logo from "../../images/omegabox_logo.jpg";
 import "./style/LoginForm.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { startLogin } from "../../Reducer/userInfoReducer";
+import { startLogin, socialLogin } from "../../Reducer/userInfoReducer";
 import GoogleLogin from "react-google-login";
 import key from "../../key.json";
+import ModalPortal from "../../Modules/ModalPortal";
+import PopupNotice from "../Molecules/PopupNotice";
 
 const LoginForm = () => {
   const [inputId, setInputId] = useState("");
@@ -17,8 +19,20 @@ const LoginForm = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
+  const [modal, text, event, w, h] = useSelector((state) => {
+    const Modal = state.modal;
+    return [Modal.modal, Modal.text, Modal.event, Modal.width, Modal.height];
+  });
+
   const responseGoogle = (response) => {
     console.log(response);
+    const user = {
+      email: response.profileObj.email,
+      googleId: response.googleId,
+      token_id: response.tokenId,
+      profileObj: response.profileObj,
+    };
+    dispatch(socialLogin(user, history));
   };
 
   return (
@@ -30,12 +44,24 @@ const LoginForm = () => {
           height: "500px",
         }}
       >
+        {modal && (
+          <ModalPortal>
+            <PopupNotice
+              text={text}
+              onEvent={event}
+              popupSize={{
+                width: w,
+                height: "200px",
+              }}
+            />
+          </ModalPortal>
+        )}
         <span className="omega_logo">
           <img src={logo} alt="omegabox Logo" />
         </span>
         <h2>로그인</h2>
         <button
-          className={["btn", "xSmall", "closed"].join(" ")}
+          className={["btn", "xSmall", "btnClosed"].join(" ")}
           onClick={() => {
             history.push("/");
           }}

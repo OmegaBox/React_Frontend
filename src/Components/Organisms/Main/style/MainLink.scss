@@ -91,8 +91,8 @@
   span em {
     display: inline-block;
     min-width: 75px;
-    height: 25px;
-    margin: 0 auto 10px;
+    margin: 0 auto 16px;
+    padding: 2px 4px 0px 0;
     line-height: 25px;
     color: $colorWhite;
     background: $colorSub;
@@ -111,5 +111,5 @@
   margin: auto;
   width: 100%;
   height: 155px;
-  padding-top: 10px;
+  padding-top: 20px;
 }
