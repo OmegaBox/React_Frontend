@@ -22,6 +22,25 @@ const initSignState = {
   email: "",
 };
 
+const initAlertState = {
+  onAlert: {
+    name: false,
+    id: false,
+    pw: false,
+    pwCheck: false,
+    tell: false,
+    email: false,
+  },
+  alertText: {
+    name: false,
+    id: false,
+    pw: false,
+    pwCheck: false,
+    tell: false,
+    email: false,
+  },
+};
+
 const SignUpForm = ({ history }) => {
   const dispatch = useDispatch();
   // 회원가입 상태
@@ -31,24 +50,7 @@ const SignUpForm = ({ history }) => {
   const [checkDoubleState, checkDoubleDispatch] = useState(false);
 
   // 경고 문구 출력 여부
-  const [alertState, setAlert] = useState({
-    onAlert: {
-      name: false,
-      id: false,
-      pw: false,
-      pwCheck: false,
-      tell: false,
-      email: false,
-    },
-    alertText: {
-      name: false,
-      id: false,
-      pw: false,
-      pwCheck: false,
-      tell: false,
-      email: false,
-    },
-  });
+  const [alertState, setAlert] = useState(initAlertState);
 
   // 구글 로그인 상태
   const [isGoogleSignup, setGoogleSignup] = useState(false);
@@ -77,6 +79,17 @@ const SignUpForm = ({ history }) => {
     email: useRef(),
   };
   const btnCheckDoubleRef = useRef();
+
+  // 상태 전부 초기화
+  const reset = () => {
+    setInput(initSignState);
+    checkDoubleDispatch(false);
+    setAlert(initAlertState);
+    if (isGoogleSignup) {
+      signOut();
+      setGoogleSignup(false);
+    }
+  };
 
   // 로그인 창으로
   const goLogin = () => {
@@ -222,11 +235,19 @@ const SignUpForm = ({ history }) => {
     // 회원가입 요청
     const sendSignup = async (isGoogle) => {
       try {
+        let successText = "";
+        console.log("사인업 액션 나왔을때 unique_id", inputState.pw);
         if (isGoogle) {
-          console.log("구글 회원가입 성공");
-          setGoogleSignup(false);
-          signOut();
-          // goLogin();
+          await userApi.googleSignup({
+            username: inputState.id,
+            email: inputState.email,
+            name: inputState.name,
+            mobile: inputState.tell,
+            birth_date: inputState.birth,
+            unique_id: inputState.pw,
+          });
+          successText = "구글 회원가입 성공";
+          reset();
         } else {
           await userApi.signup({
             name: inputState.name,
@@ -237,9 +258,10 @@ const SignUpForm = ({ history }) => {
             tell: inputState.tell,
             email: inputState.email,
           });
-          dispatch(setOneBtn());
-          dispatch(openModal("회원가입에 성공하셨습니다.", goLogin));
+          successText = "회원가입에 성공하셨습니다.";
         }
+        dispatch(setOneBtn());
+        dispatch(openModal(successText, goLogin));
       } catch ({ response }) {
         console.log(response);
         if (response.status === 400) {
@@ -283,6 +305,7 @@ const SignUpForm = ({ history }) => {
               }
             })
           );
+          if (isGoogle) reset();
         } else if (response.status === 500) {
           dispatch(setSize(null, "200px"));
           dispatch(
@@ -325,16 +348,19 @@ detail: ${response.data.detail}`);
 
   const GoogleSuccess = async (response) => {
     const res = response;
-    const GoogleId = `g.${res.profileObj.googleId}`;
+    console.log(res);
+    const GoogleId = res.profileObj.googleId;
 
     try {
-      await userApi.idDoubleCheck(GoogleId);
+      // await userApi.idDoubleCheck(GoogleId);
       checkDoubleDispatch(true);
       setGoogleSignup(true);
       setInput({
         ...inputState,
         name: res.profileObj.name,
         id: GoogleId,
+        pw: res.tokenId,
+        pwCheck: res.tokenId,
         email: res.profileObj.email,
       });
     } catch (e) {
@@ -344,9 +370,12 @@ detail: ${response.data.detail}`);
 
   useEffect(() => {
     return () => {
-      if (isLogin) signOut();
+      if (isGoogleSignup) {
+        console.log("구글 로그아웃");
+        signOut();
+      }
     };
-  }, [history]);
+  }, [history, isGoogleSignup]);
 
   return (
     <div className="signWrap">
@@ -377,7 +406,7 @@ detail: ${response.data.detail}`);
                 disabled={renderProps.disabled}
               >
                 <span className="logo"></span>
-                <span>구글 회원 가입</span>
+                <span>구글 계정으로 회원가입</span>
               </button>
             )}
           />
