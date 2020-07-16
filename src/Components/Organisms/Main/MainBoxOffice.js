@@ -14,20 +14,9 @@ const MainBoxOffice = () => {
     state.Movie.loading,
   ]);
   const isLoginCheck = useSelector((state) => state.userInfo.isLogin);
-  console.log(isLoginCheck);
 
   const dispatch = useDispatch();
   const history = useHistory();
-
-  // 좋아요버튼 상태변경 
-  const [likeState, setLikeState] = useState({ active: false });
-  const clickLikeState = () => {
-    setLikeState({
-      active: !likeState.active,
-    });
-  };
-
-
 
 
   const handleClick = () => {
@@ -41,6 +30,7 @@ const MainBoxOffice = () => {
       dispatch(getSearchMovie(e.target.value));
     }
   };
+
 
   return (
     <div className="mainBoxOfficeLayout">
@@ -88,17 +78,16 @@ const MainBoxOffice = () => {
                   <div className="boxOfficeBtnWrap">
                     <button
 
-                      onClick={isLoginCheck === true ? clickLikeState : handleClick}
+                      onClick={isLoginCheck === true ? null : handleClick}
                       className={[
                         "boxOfficeFavoriteBtn",
                         "btn",
                         "outLine",
                         "lightGray",
                         "small",
-                        "select"
                       ].join(" ")}
                     >
-                      <span className="icon favoriteOutLine"></span>
+                      <span className="icon favoriteOutLine select"></span>
                       <span className="boxOfficeFavoriteScore">
                         {movie.acc_favorite}
                       </span>

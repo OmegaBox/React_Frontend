@@ -157,6 +157,7 @@ export const movieApi = {
     axios.get(`https://www.omegabox.xyz/movies/detail/${id}/age-booking/`),
   getSearch: (keyword) =>
     axios.get(`https://www.omegabox.xyz/movies/?searchName=${keyword}`),
+  getLikeCheck: (id) => axios.get(`https://www.omegabox.xyz/movies/detail/${id}/like/`),
   getSchedules: ({ date, movies, theaterId }) => {
     let movieIds = "";
     if (movies) {
@@ -183,7 +184,7 @@ export const movieApi = {
 
     const call = `https://www.omegabox.xyz/theaters/schedules/regions/${date}/${
       movies ? "?movies=" + movieIds : ""
-    }
+      }
     `;
 
     return axios.get(call);
@@ -196,7 +197,7 @@ export const movieApi = {
 
     const call = `https://www.omegabox.xyz/theaters/schedules/${date}/${
       movies ? "?movies=" + movieIds : ""
-    }
+      }
     `;
 
     return axios.get(call);
