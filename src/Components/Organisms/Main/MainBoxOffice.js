@@ -1,15 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import "./style/MainBoxOffice.scss";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import { selectMovie } from "../../../Reducer/bookingReducer";
 import { getSearchMovie } from "../../../Reducer/movieReducer";
+import ModalPortal from "../../../Modules/ModalPortal";
+import PopupNotice from "../../Molecules/PopupNotice";
+import { setOneBtn } from "../../../Reducer/modalReducer";
 
 const MainBoxOffice = () => {
   let movieBox = useSelector((state) => state.Movie.movies);
   movieBox = movieBox.filter((_, i) => i < 4);
+
   const dispatch = useDispatch();
   const history = useHistory();
+
+
+
+
+  // const isLogin = useSelector((state) => state.userInfo.isLogin);
+  // if (!isLogin) dispatch(setOneBtn());
+
 
   const mainEnterKeyword = (e) => {
     if (e.keyCode === 13) {

@@ -51,7 +51,7 @@
   margin-left: 20px;
 }
 .subRightSide button {
-  color: #D8D8D8;
+  color: $colorGrayD8;
   border: none;
   font-size: 15px;
   
@@ -101,6 +101,10 @@
 }
 .menuMypage {
   background-image: url(https://img.megabox.co.kr/static/pc/images/common/ico/ico-mymega-white.png);
+}
+
+.subHeader .logoutBtn {
+  color: $colorGray44;
 }
 
 .subHeader .menuBar {
