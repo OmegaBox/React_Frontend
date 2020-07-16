@@ -232,4 +232,4 @@ const BookingInfo = ({ props, goHome, goBack, goNext }) => {
   );
 };
 
-export default BookingInfo;
+export default React.memo(BookingInfo);

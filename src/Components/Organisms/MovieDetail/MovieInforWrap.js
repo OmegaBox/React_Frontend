@@ -8,7 +8,7 @@ import { numWithComma } from "../../../Utils/util";
 
 const MovieInforWrap = () => {
   const movie = useSelector((state) => state.Movie.detail);
-  window.scrollTo(0, 527);
+
   return (
     <div>
       <div className="movieStoryWrap">

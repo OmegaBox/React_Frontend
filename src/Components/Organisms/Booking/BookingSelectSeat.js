@@ -18,8 +18,6 @@ const BookingSelectSeat = ({ history }) => {
     return [state.Booking.ticket, state.Seat.isLoading];
   });
 
-  console.log(ticket);
-
   const {
     scheduleId,
     seatType,
@@ -50,13 +48,9 @@ const BookingSelectSeat = ({ history }) => {
   };
 
   useEffect(() => {
-    console.log("didMount");
     if (!checkTicket()) history.push("/");
     dispatch(resetThunk(history.location.pathname));
-    return () => {
-      console.log("unMount");
-    };
-  }, []);
+  }, [history.location.pathname]);
 
   return (
     <section className="bookingSelectSeat">
