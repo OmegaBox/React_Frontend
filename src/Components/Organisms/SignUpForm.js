@@ -232,7 +232,6 @@ const SignUpForm = ({ history }) => {
   // 회원 가입 이벤트
   const signUpEvent = async () => {
     const keys = ["name", "pw", "pwCheck", "tell", "email"];
-    console.log(btnSignupRef.current);
     // 회원가입 요청
     const sendSignup = async (isGoogle) => {
       try {
