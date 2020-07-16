@@ -79,6 +79,7 @@ const SignUpForm = ({ history }) => {
     email: useRef(),
   };
   const btnCheckDoubleRef = useRef();
+  const btnSignupRef = useRef();
 
   // 상태 전부 초기화
   const reset = () => {
@@ -231,6 +232,7 @@ const SignUpForm = ({ history }) => {
   // 회원 가입 이벤트
   const signUpEvent = async () => {
     const keys = ["name", "pw", "pwCheck", "tell", "email"];
+    console.log(btnSignupRef.current);
     // 회원가입 요청
     const sendSignup = async (isGoogle) => {
       try {
@@ -364,8 +366,8 @@ detail: ${response.data.detail}`);
       });
       signOut();
     } catch (e) {
-      dispatch(openModal("이미 가입된 유저입니다"));
       signOut();
+      dispatch(openModal("이미 가입된 유저입니다", goLogin));
     }
   };
 
@@ -569,6 +571,7 @@ detail: ${response.data.detail}`);
             (signAble ? " main fill" : " lightGray")
           }
           onClick={signUpEvent}
+          ref={btnSignupRef}
           disabled={!signAble}
         >
           회원가입
