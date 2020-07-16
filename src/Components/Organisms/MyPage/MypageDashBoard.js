@@ -206,6 +206,9 @@ const MypageDashBoard = () => {
                       classSet={["btn", "xSmall", "outLine", "lightGray"].join(
                         " "
                       )}
+                      receipt_id={booking.receipt_id}
+                      payment_id={booking.payment_id}
+                      price={booking.price}
                     />
                   </article>
                 </li>

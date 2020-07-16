@@ -4,7 +4,7 @@ import logo from "../../images/omegabox_logo.jpg";
 import "./style/LoginForm.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { startLogin, socialLogin } from "../../Reducer/userInfoReducer";
-import GoogleLogin from "react-google-login";
+import GoogleLogin, { useGoogleLogout } from "react-google-login";
 import key from "../../key.json";
 import ModalPortal from "../../Modules/ModalPortal";
 import PopupNotice from "../Molecules/PopupNotice";
@@ -24,15 +24,22 @@ const LoginForm = () => {
     return [Modal.modal, Modal.text, Modal.event, Modal.width, Modal.height];
   });
 
+  // 구글 로그아웃
+  const { signOut } = useGoogleLogout({
+    clientId: key.googleClientId,
+    onLogoutSuccess: () => {
+      console.log("구글 로그아웃 성공");
+    },
+  });
+
   const responseGoogle = (response) => {
-    console.log(response);
     const user = {
       email: response.profileObj.email,
       googleId: response.googleId,
       token_id: response.tokenId,
       profileObj: response.profileObj,
     };
-    dispatch(socialLogin(user, history));
+    dispatch(socialLogin(user, history, signOut));
   };
 
   return (
