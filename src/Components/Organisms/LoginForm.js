@@ -27,8 +27,9 @@ const LoginForm = () => {
   const responseGoogle = (response) => {
     console.log(response);
     const user = {
-      id: response.googleId,
-      unique_id: response.tokenId,
+      email: response.profileObj.email,
+      googleId: response.googleId,
+      token_id: response.tokenId,
       profileObj: response.profileObj,
     };
     dispatch(socialLogin(user, history));
@@ -60,7 +61,7 @@ const LoginForm = () => {
         </span>
         <h2>로그인</h2>
         <button
-          className={["btn", "xSmall", "closed"].join(" ")}
+          className={["btn", "xSmall", "btnClosed"].join(" ")}
           onClick={() => {
             history.push("/");
           }}

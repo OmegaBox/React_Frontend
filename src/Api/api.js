@@ -291,12 +291,11 @@ export const userApi = {
   logout: () => {
     return axios.post("https://www.omegabox.xyz/members/logout/");
   },
-  socialLogin: ({ id, unique_id }) => {
-    console.log("id:", id, "unique_id:", unique_id);
+  socialLogin: ({ email, googleId, token_id }) => {
     return axios.post("https://www.omegabox.xyz/members/login/social/", {
-      username: id,
-      password: id,
-      unique_id,
+      username: email,
+      password: googleId,
+      google_id_token: token_id,
     });
   },
   memberDetail: () => {

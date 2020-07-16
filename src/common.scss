@@ -125,6 +125,7 @@ $btnLightGray: $colorGrayEa;
 button {
   display: inline-block;
   color: $colorSecondaryText;
+  font-family: inherit;
   font-size: 1.6rem;
   text-align: center;
   text-decoration: none;
@@ -241,6 +242,7 @@ textarea {
   height: 32px;
   margin-right: 8px;
   padding: 2px 8px;
+  font-family: "Noto Sans KR", sans-serif;
   color: $colorSecondaryText;
   border: 1px solid $border;
   background-color: $colorWhite;
@@ -396,6 +398,9 @@ p {
   &.arrowRight {
     background-image: url("https://img.megabox.co.kr/static/pc/images/common/ico/ico-arr-right-reverse-gray.png");
   }
+  &.arrowLeft {
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/btn/btn-prev-time.png");
+  }
   &.arrowBottom {
     background-image: url("https://img.megabox.co.kr/static/pc/images/common/ico/ico-arr-toggle-down.png");
   }
@@ -419,7 +424,7 @@ p {
     background-position: -17px;
   }
   &.closed {
-    background-image: url("https://img.megabox.co.kr/static/pc/images/common/btn/btn-layer-close.png");
+    background-image: url("../src/images/icon_closed.png");
   }
   &.closedWhite {
     background-image: url("https://img.megabox.co.kr/static/pc/images/reserve/btn-choice-dell-circle.png");

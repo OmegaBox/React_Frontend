@@ -3,18 +3,17 @@
 
 .WholeMovieListLayout {
   width: 1100px;
-  margin: 0 auto;
-  padding-bottom: 124px;
-
+  margin: 40px auto 100px;
 }
 
 .WholeMovieHeader {
   width: 1100px;
   height: 56.8px;
-  margin-top: 40px;
-  padding: 0 0 26px 0;
-  font-size: 1.8666em;
-  font-weight: 400;
+  margin: 0;
+  padding: 0 0 24px 0;
+  font-size: 2.8rem;
+  font-weight: 500;
+  color: $colorPrimaryText;
 }
 
 .WholeMovieListLayout .movieListTap {
@@ -85,9 +84,6 @@
   width: 1100px;
   display: flex;
   flex-wrap: wrap;
-  
-
-
 }
 .wholeMovie {
   position: relative;
