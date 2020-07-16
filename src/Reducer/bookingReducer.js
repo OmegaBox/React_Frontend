@@ -31,6 +31,8 @@ const SET_REGION_THEATER_LOG = "booking/SET_REGION_THEATER_LOG";
 const SET_DEFAULT_TICKET_INFO = "booking/SET_DEFAULT_TICKET_INFO";
 const SET_TICKET_NUMBER = "booking/SET_TICKET_NUMBER";
 
+const CLEAR_SELECTED_MOVIES = "booking/SET_CLEAR_SELECTED_MOVIES";
+
 // 영화관 가져오기
 const GET_THEATERS_CAN_BOOKING = "booking/GET_THEATERS_CAN_BOOKING";
 const GET_THEATERS_CAN_BOOKING_SUCCESS =
@@ -70,6 +72,10 @@ const setTicketNumber = (number) => ({
 const setScheduleRef = (payload) => ({
   type: SET_SCHEDULE_REF,
   payload,
+});
+
+const clearSelectedMovies = () => ({
+  type: CLEAR_SELECTED_MOVIES,
 });
 
 // Thunk
@@ -675,6 +681,15 @@ const bookingReducer = (state = initialState, action) => {
         },
       };
 
+    case CLEAR_SELECTED_MOVIES:
+      return {
+        ...state,
+        selectedOption: {
+          ...state.selectedOption,
+          selectedMovies: [],
+        },
+      };
+
     case SUCCESS:
     case ERROR:
     case LOADING:
@@ -700,4 +715,5 @@ export {
   setReservation,
   selectDate,
   setTicketNumber,
+  clearSelectedMovies,
 };
