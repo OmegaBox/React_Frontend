@@ -9,6 +9,8 @@ import { startLogout } from "../../Reducer/userInfoReducer";
 import ModalPortal from "../../Modules/ModalPortal";
 import PopupNotice from "../Molecules/PopupNotice";
 import { openModal } from "../../Reducer/modalReducer";
+import { useGoogleLogout } from "react-google-login";
+import key from "../../key.json";
 
 const MainHeader = () => {
   const dispatch = useDispatch();
@@ -40,8 +42,17 @@ const MainHeader = () => {
     return page;
   };
 
+  // 구글 로그아웃
+  const { signOut } = useGoogleLogout({
+    clientId: key.googleClientId,
+    onLogoutSuccess: () => {
+      console.log("구글 로그아웃 성공");
+    },
+  });
+
   const logOutPopup = () => {
     dispatch(startLogout());
+    signOut();
     history.push("/");
   };
   const changeHeader = useSelector((state) => state.userInfo.isLogin);
