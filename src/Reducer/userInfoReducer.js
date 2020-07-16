@@ -446,16 +446,15 @@ function* sendFavoriteRequest(action) {
     yield put(startLogout());
     return;
   }
-  const favorites = state.userInfo.favoriteMovies;
   try {
     yield call(movieApi.registerFavorite, movieId);
-    const actionFunc = favorites
+    yield put({ type: GET_TIMELINE_LIKE });
+    const actionFunc = state.userInfo.favoriteMovies
       .map((favorite) => favorite.movie_id)
       .includes(movieId)
-      ? changeFavorite.decreaseFavorite(movieId)
-      : changeFavorite.increaseFavorite(movieId);
+      ? changeFavorite.increaseFavorite(movieId)
+      : changeFavorite.decreaseFavorite(movieId);
     yield put(actionFunc);
-    yield put({ type: GET_TIMELINE_LIKE });
   } catch (e) {
     console.error(e.response);
   }
