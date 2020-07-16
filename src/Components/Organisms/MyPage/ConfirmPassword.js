@@ -30,4 +30,4 @@ const ConfirmPassword = () => {
   );
 };
 
-export default ConfirmPassword;
+export default React.memo(ConfirmPassword);

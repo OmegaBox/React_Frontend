@@ -50,4 +50,4 @@ const MyPage = ({ history }) => {
   );
 };
 
-export default MyPage;
+export default React.memo(MyPage);
