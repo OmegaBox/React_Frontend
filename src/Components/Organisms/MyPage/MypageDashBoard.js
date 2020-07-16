@@ -76,11 +76,11 @@ const MypageDashBoard = () => {
             </div>
             <p className="totalPoint">{numWithComma(String(point))} P</p>
             <p>
-              적립예정 <span className="textMedium">P</span>
+              적립예정 <span className="textMedium">0 P</span>
             </p>
             <p>
               소멸예정{" "}
-              <span className={["textRed", "textMedium"].join(" ")}>P</span>
+              <span className={["textRed", "textMedium"].join(" ")}>0 P</span>
             </p>
           </article>
         </section>
