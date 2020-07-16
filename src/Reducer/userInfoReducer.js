@@ -176,13 +176,10 @@ const socialLogin = (user, history) => async (dispatch) => {
     //   errorMessage: "아이디/비밀번호를 확인 해주세요",
     // });
     dispatch(
-      openModal(
-        "구글 계정 회원가입이 필요합니다. 구글 계정으로 회원가입 하시겠습니까?",
-        () => {
-          dispatch({ type: SET_SIGNUP_INFO, user });
-          history.push("/membersignup");
-        }
-      )
+      openModal("구글 계정으로 회원가입 하시겠습니까?", () => {
+        dispatch({ type: SET_SIGNUP_INFO, user });
+        history.push("/membersignup");
+      })
     );
   }
 };

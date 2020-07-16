@@ -278,6 +278,7 @@ export const userApi = {
       birth_date,
       unique_id,
     };
+    console.log("api 호출 직전 유니크아이디", unique_id);
     return axios.post("https://www.omegabox.xyz/members/signup/social/", body);
   },
   login: ({ id, pw }) => {
