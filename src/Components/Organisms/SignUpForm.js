@@ -1,17 +1,17 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import logo from "../../images/omegabox_logo.jpg";
-import GoogleLogin, { GoogleLogout, useGoogleLogout } from "react-google-login";
+import GoogleLogin, { useGoogleLogout } from "react-google-login";
 import key from "../../key.json";
 import "./style/SignUpForm.scss";
 
-import { getToday, regExp } from "../../Utils/util";
-import { userApi, isLogin } from "../../Api/api";
+import { regExp } from "../../Utils/util";
+import { userApi } from "../../Api/api";
 
+import { resetSignupInfo } from "../../Reducer/userInfoReducer";
 import { openModal, setSize, setOneBtn } from "../../Reducer/modalReducer";
 import ModalPortal from "../../Modules/ModalPortal";
 import PopupNotice from "../Molecules/PopupNotice";
-import { Link } from "react-router-dom";
 
 const initSignState = {
   name: "",
@@ -63,6 +63,11 @@ const SignUpForm = ({ history }) => {
       console.log("구글 로그아웃 성공");
     },
   });
+
+  // 구글 로그인 상태
+  const socialSignupInfo = useSelector(
+    (state) => state.userInfo.socialSignupInfo
+  );
 
   // 모달창 상태
   const [modal, text, event, w, h] = useSelector((state) => {
@@ -371,11 +376,29 @@ detail: ${response.data.detail}`);
     }
   };
 
+  const checkSocialSignupInfo = () => {
+    if (!socialSignupInfo.boolean) return;
+    const { profileObj } = socialSignupInfo;
+    checkDoubleDispatch(true);
+    setGoogleSignup(true);
+    setInput({
+      ...inputState,
+      name: profileObj.name,
+      id: profileObj.email,
+      pw: profileObj.googleId,
+      pwCheck: profileObj.googleId,
+      email: profileObj.email,
+    });
+    signOut();
+  };
+
   useEffect(() => {
+    checkSocialSignupInfo();
     return () => {
       reset();
+      if (socialSignupInfo.boolean) dispatch(resetSignupInfo());
     };
-  }, [history]);
+  }, [history, socialSignupInfo.boolean]);
 
   return (
     <div className="signWrap">
@@ -394,32 +417,34 @@ detail: ${response.data.detail}`);
         </span>
         <h2>회원가입</h2>
         <p className="textInfo">서비스를 이용하려면 가입하세요.</p>
-        <div className="googleSignUp">
-          <GoogleLogin
-            clientId={key.googleClientId}
-            buttonText="Sign in with Google"
-            onSuccess={GoogleSuccess}
-            onFailure={responseGoogle}
-            cookiePolicy={"single_host_origin"}
-            isSignedIn={false}
-            render={(renderProps) => (
-              <button
-                className={[
-                  "btnGoogleSignUp",
-                  "btn",
-                  "white",
-                  "fill",
-                  "large",
-                ].join(" ")}
-                onClick={renderProps.onClick}
-                disabled={renderProps.disabled}
-              >
-                <span className="logo"></span>
-                <span>구글 계정으로 회원가입</span>
-              </button>
-            )}
-          />
-        </div>
+        {!isGoogleSignup && (
+          <div className="googleSignUp">
+            <GoogleLogin
+              clientId={key.googleClientId}
+              buttonText="Sign in with Google"
+              onSuccess={GoogleSuccess}
+              onFailure={responseGoogle}
+              cookiePolicy={"single_host_origin"}
+              isSignedIn={false}
+              render={(renderProps) => (
+                <button
+                  className={[
+                    "btnGoogleSignUp",
+                    "btn",
+                    "white",
+                    "fill",
+                    "large",
+                  ].join(" ")}
+                  onClick={renderProps.onClick}
+                  disabled={renderProps.disabled}
+                >
+                  <span className="logo"></span>
+                  <span>구글 계정으로 회원가입</span>
+                </button>
+              )}
+            />
+          </div>
+        )}
         <div className={["nameWrap", "inputWrap"].join(" ")}>
           <label htmlFor="name">이름</label>
           <input
