@@ -16,6 +16,9 @@
     border: 1px solid $border;
     border-radius: 0;
     background: none;
+    &:hover {
+      color: $colorLightText;
+    }
   }
   & li:nth-child(1) {margin-left: 0;}
   & li.active button {

@@ -11,6 +11,7 @@ import { userApi, isLogin } from "../../Api/api";
 import { openModal, setSize, setOneBtn } from "../../Reducer/modalReducer";
 import ModalPortal from "../../Modules/ModalPortal";
 import PopupNotice from "../Molecules/PopupNotice";
+import { Link } from "react-router-dom";
 
 const initSignState = {
   name: "",
@@ -380,6 +381,15 @@ detail: ${response.data.detail}`);
   return (
     <div className="signWrap">
       <section className="signUpSec">
+        <button
+          className={["btn", "xSmall", "btnClosed"].join(" ")}
+          onClick={() => {
+            history.push("/");
+          }}
+        >
+          {" "}
+          <span className={["icon", "closed"].join(" ")}></span>
+        </button>
         <span className="omega_logo">
           <img src={logo} alt="omegabox Logo" />
         </span>
