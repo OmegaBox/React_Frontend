@@ -86,7 +86,6 @@ const SignUpForm = ({ history }) => {
     checkDoubleDispatch(false);
     setAlert(initAlertState);
     if (isGoogleSignup) {
-      signOut();
       setGoogleSignup(false);
     }
   };
@@ -362,6 +361,7 @@ detail: ${response.data.detail}`);
         pwCheck: res.tokenId,
         email: res.profileObj.email,
       });
+      signOut();
     } catch (e) {
       dispatch(openModal("이미 가입된 유저입니다"));
     }
@@ -369,12 +369,9 @@ detail: ${response.data.detail}`);
 
   useEffect(() => {
     return () => {
-      if (isGoogleSignup) {
-        console.log("구글 로그아웃");
-        signOut();
-      }
+      reset();
     };
-  }, [history, isGoogleSignup]);
+  }, [history]);
 
   return (
     <div className="signWrap">
