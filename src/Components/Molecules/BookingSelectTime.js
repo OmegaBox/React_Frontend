@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 
 import "./style/BookingSelectTime.scss";
 import { useSelector, useDispatch } from "react-redux";
@@ -12,9 +12,10 @@ const BookingSelectTime = () => {
   const isLoading = useSelector((state) => state.Booking.schedule.loading);
   const refs = useSelector((state) => state.Booking.schedule.refs);
   const dispatch = useDispatch();
+  const checkHour = [];
 
   const TimeSelect = schedules.length ? (
-    schedules.map((schedule) => {
+    schedules.map((schedule, i) => {
       const ticket = {
         selectedDate: schedule.date,
         selectedTheather: schedule.theater,
@@ -37,12 +38,10 @@ const BookingSelectTime = () => {
       };
 
       const hour = schedule.start_time.slice(0, 2);
-      // const ref = React.createRef();
-
-      // if (!scheduleRef[hour].current) scheduleRef[hour] = ref;
       let ref = React.createRef();
-      if (refs[hour]) {
-        ref = !refs[hour].current ? refs[hour] : ref;
+      if (!checkHour.includes(hour)) {
+        ref = refs[hour];
+        checkHour.push(hour);
       }
 
       return (
@@ -75,13 +74,6 @@ const BookingSelectTime = () => {
   ) : (
     <EmptySchedules />
   );
-  // console.log(scheduleRef);
-
-  // dispatch(setScheduleRef(scheduleRef));
-
-  // useEffect(() => {
-  //   dispatch(setScheduleRef(scheduleRef));
-  // }, []);
 
   return (
     <ol className="BookingSelectTimeContainer">

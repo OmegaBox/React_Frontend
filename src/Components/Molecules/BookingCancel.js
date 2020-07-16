@@ -17,4 +17,4 @@ const BookingCancel = ({ classSet }) => {
   );
 };
 
-export default BookingCancel;
+export default React.memo(BookingCancel);
