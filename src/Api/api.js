@@ -143,20 +143,32 @@ export const billing = ({
     });
 };
 
-export const movieApi = {
-  getMovies: () =>
-    axios.get("https://www.omegabox.xyz/movies/", {
+export const cancelBilling = async (id, receipt_id, price) => {
+  console.log("취소정보", id, receipt_id, price);
+  return axios.put(
+    `
+    https://www.omegabox.xyz/reservations/payments/${id}/cancel/
+  `,
+    {
+      receipt_id,
+      price,
+    },
+    {
       headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        "X-Requested-With": "XMLHttpRequest",
+        Authorization: "Bearer " + cookie.load("accessToken"),
       },
-    }),
+    }
+  );
+};
+
+export const movieApi = {
+  getMovies: () => axios.get("https://www.omegabox.xyz/movies/"),
   getMovie: (id) => axios.get(`https://www.omegabox.xyz/movies/detail/${id}`),
   getAgeBooking: (id) =>
     axios.get(`https://www.omegabox.xyz/movies/detail/${id}/age-booking/`),
   getSearch: (keyword) =>
     axios.get(`https://www.omegabox.xyz/movies/?searchName=${keyword}`),
+  getLikeCheck: (id) => axios.get(`https://www.omegabox.xyz/movies/detail/${id}/like/`),
   getSchedules: ({ date, movies, theaterId }) => {
     let movieIds = "";
     if (movies) {
@@ -183,7 +195,7 @@ export const movieApi = {
 
     const call = `https://www.omegabox.xyz/theaters/schedules/regions/${date}/${
       movies.length ? "?movies=" + movieIds : ""
-    }
+      }
     `;
     console.log("지역 정보요청 url", call);
 
@@ -194,10 +206,9 @@ export const movieApi = {
     if (movies.length) {
       movieIds = movies.reduce((acc, cur) => acc + "+" + cur.id, "").slice(1);
     }
-
     const call = `https://www.omegabox.xyz/theaters/schedules/${date}/${
       movies.length ? "?movies=" + movieIds : ""
-    }
+      }
     `;
 
     console.log("상영관 정보요청 url", movies, call);

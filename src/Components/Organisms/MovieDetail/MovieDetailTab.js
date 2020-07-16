@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import MovieInforWrap from "./MovieInforWrap";
 import MovieTrailer from "./MovieTrailer";
+import MovieDetailComment from "../../Molecules/MovieDetailComment";
 import "./style/MovieDetailTab.scss";
 
 const MovieDetailTab = () => {
@@ -20,7 +21,7 @@ const MovieDetailTab = () => {
       case "detailInfor":
         return <MovieInforWrap />;
       case "detailComment":
-        return <MovieInforWrap />;
+        return <MovieDetailComment />;
       case "detailTrailer":
         return <MovieTrailer />;
       default:

@@ -48,9 +48,9 @@ export const getDistanceFromLatLonInKm = (location1, location2) => {
   const a =
     Math.sin(dLat / 2) * Math.sin(dLat / 2) +
     Math.cos(deg2rad(lat1)) *
-      Math.cos(deg2rad(lat2)) *
-      Math.sin(dLon / 2) *
-      Math.sin(dLon / 2);
+    Math.cos(deg2rad(lat2)) *
+    Math.sin(dLon / 2) *
+    Math.sin(dLon / 2);
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   const d = r * c; // Distance in km
   return Math.round(d * 1000);
@@ -349,64 +349,64 @@ export const theaterLocation = [
       {
         name: "의정부민락",
         location: {
-          lat: 37.5417438,
-          lng: 127.044786,
+          lat: 37.745873,
+          lng: 127.095677,
         },
       },
       {
         name: "일산",
         location: {
-          lat: 37.5417438,
-          lng: 127.044786,
+          lat: 37.689458,
+          lng: 126.757016,
         },
       },
       {
         name: "일산벨라시타",
         location: {
-          lat: 37.5417438,
-          lng: 127.044786,
+          lat: 37.642292,
+          lng: 126.792251,
         },
       },
       {
         name: "킨텍스",
         location: {
-          lat: 37.5417438,
-          lng: 127.044786,
+          lat: 37.667923,
+          lng: 126.751689,
         },
       },
       {
         name: "파주금촌",
         location: {
-          lat: 37.5417438,
-          lng: 127.044786,
+          lat: 37.764949,
+          lng: 126.774589,
         },
       },
       {
         name: "파주운정",
         location: {
-          lat: 37.5417438,
-          lng: 127.044786,
+          lat: 37.705874,
+          lng: 126.758876,
         },
       },
       {
         name: "파주출판도시",
         location: {
-          lat: 37.5417438,
-          lng: 127.044786,
+          lat: 37.713734,
+          lng: 126.687743,
         },
       },
       {
         name: "평택",
         location: {
-          lat: 37.5417438,
-          lng: 127.044786,
+          lat: 36.994271,
+          lng: 127.087920,
         },
       },
       {
         name: "하남스타필드",
         location: {
-          lat: 37.5417438,
-          lng: 127.044786,
+          lat: 37.545371,
+          lng: 127.224884,
         },
       },
     ],
@@ -417,43 +417,43 @@ export const theaterLocation = [
       {
         name: "검단",
         location: {
-          lat: 37.5417438,
-          lng: 127.044786,
+          lat: 37.588076,
+          lng: 126.675405,
         },
       },
       {
         name: "송도",
         location: {
-          lat: 37.37898,
-          lng: 126.662837,
+          lat: 37.378697,
+          lng: 126.662811,
         },
       },
       {
         name: "영종",
         location: {
-          lat: 37.5417438,
-          lng: 127.044786,
+          lat: 37.492615,
+          lng: 126.498816,
         },
       },
       {
         name: "인천논현",
         location: {
-          lat: 37.39737,
-          lng: 126.727379,
+          lat: 37.397178,
+          lng: 126.727384,
         },
       },
       {
         name: "청라",
         location: {
-          lat: 37.5417438,
-          lng: 127.044786,
+          lat: 37.533952,
+          lng: 126.650394,
         },
       },
       {
         name: "청라지젤",
         location: {
-          lat: 37.5417438,
-          lng: 127.044786,
+          lat: 37.533877,
+          lng: 126.656096,
         },
       },
     ],
@@ -464,106 +464,106 @@ export const theaterLocation = [
       {
         name: "공주",
         location: {
-          lat: 37.5417438,
-          lng: 127.044786,
+          lat: 36.473475,
+          lng: 127.138764,
         },
       },
       {
         name: "대전",
         location: {
-          lat: 37.5417438,
-          lng: 127.044786,
+          lat: 36.347246,
+          lng: 127.387992,
         },
       },
       {
         name: "대전유성",
         location: {
-          lat: 37.5417438,
-          lng: 127.044786,
+          lat: 36.352150,
+          lng: 127.344577,
         },
       },
       {
         name: "대전중앙로",
         location: {
-          lat: 37.5417438,
-          lng: 127.044786,
+          lat: 36.327702,
+          lng: 127.424124,
         },
       },
       {
         name: "대전현대아울렛",
         location: {
-          lat: 37.5417438,
-          lng: 127.044786,
+          lat: 36.423539,
+          lng: 127.397241,
         },
       },
       {
         name: "세종(조치원)",
         location: {
-          lat: 37.5417438,
-          lng: 127.044786,
+          lat: 36.602932,
+          lng: 127.298137,
         },
       },
       {
         name: "세종나성",
         location: {
-          lat: 37.5417438,
-          lng: 127.044786,
+          lat: 36.483360,
+          lng: 127.263683,
         },
       },
       {
         name: "세종청사",
         location: {
-          lat: 37.5417438,
-          lng: 127.044786,
+          lat: 36.502848,
+          lng: 127.258078,
         },
       },
       {
         name: "오창",
         location: {
-          lat: 37.5417438,
-          lng: 127.044786,
+          lat: 36.712216,
+          lng: 127.428541,
         },
       },
       {
         name: "제천",
         location: {
-          lat: 37.5417438,
-          lng: 127.044786,
+          lat: 37.135262,
+          lng: 128.212336,
         },
       },
       {
         name: "진천",
         location: {
-          lat: 37.5417438,
-          lng: 127.044786,
+          lat: 36.859710,
+          lng: 127.438050,
         },
       },
       {
         name: "천안",
         location: {
-          lat: 37.5417438,
-          lng: 127.044786,
+          lat: 36.832352,
+          lng: 127.147964,
         },
       },
       {
         name: "청주사창",
         location: {
-          lat: 37.5417438,
-          lng: 127.044786,
+          lat: 36.632574,
+          lng: 127.460432,
         },
       },
       {
         name: "충주",
         location: {
-          lat: 37.5417438,
-          lng: 127.044786,
+          lat: 36.971268,
+          lng: 127.932819,
         },
       },
       {
         name: "홍성내포",
         location: {
-          lat: 37.5417438,
-          lng: 127.044786,
+          lat: 36.659305,
+          lng: 126.678950,
         },
       },
     ],
@@ -574,176 +574,176 @@ export const theaterLocation = [
       {
         name: "거창",
         location: {
-          lat: 37.5417438,
-          lng: 127.044786,
+          lat: 35.687443,
+          lng: 127.913148,
         },
       },
       {
         name: "경북도청",
         location: {
-          lat: 37.5417438,
-          lng: 127.044786,
+          lat: 36.575241,
+          lng: 128.493061,
         },
       },
       {
         name: "경산하양",
         location: {
-          lat: 37.5417438,
-          lng: 127.044786,
+          lat: 35.913580,
+          lng: 128.823409,
         },
       },
       {
         name: "경주",
         location: {
-          lat: 37.5417438,
-          lng: 127.044786,
+          lat: 35.841669,
+          lng: 129.212779,
         },
       },
       {
         name: "구미강동",
         location: {
-          lat: 37.5417438,
-          lng: 127.044786,
+          lat: 36.107130,
+          lng: 128.417993,
         },
       },
       {
         name: "김천",
         location: {
-          lat: 37.5417438,
-          lng: 127.044786,
+          lat: 36.125331,
+          lng: 128.110781,
         },
       },
       {
         name: "남포항",
         location: {
-          lat: 37.5417438,
-          lng: 127.044786,
+          lat: 35.974635,
+          lng: 129.403403,
         },
       },
       {
         name: "대구(칠성로)",
         location: {
-          lat: 37.5417438,
-          lng: 127.044786,
+          lat: 35.885199,
+          lng: 128.589812,
         },
       },
       {
         name: "대구신세계(동대구)",
         location: {
-          lat: 37.5417438,
-          lng: 127.044786,
+          lat: 35.877925,
+          lng: 128.628626,
         },
       },
       {
         name: "대구이시아",
         location: {
-          lat: 37.5417438,
-          lng: 127.044786,
+          lat: 35.920734,
+          lng: 128.635711,
         },
       },
       {
         name: "덕천",
         location: {
-          lat: 37.5417438,
-          lng: 127.044786,
+          lat: 35.211132,
+          lng: 129.007554,
         },
       },
       {
         name: "마산",
         location: {
-          lat: 37.5417438,
-          lng: 127.044786,
+          lat: 35.181838,
+          lng: 128.563839,
         },
       },
       {
         name: "문경",
         location: {
-          lat: 37.5417438,
-          lng: 127.044786,
+          lat: 36.587518,
+          lng: 128.190382,
         },
       },
       {
         name: "부산극장",
         location: {
-          lat: 37.5417438,
-          lng: 127.044786,
+          lat: 35.098628,
+          lng: 129.028797,
         },
       },
       {
         name: "부산대",
         location: {
-          lat: 37.5417438,
-          lng: 127.044786,
+          lat: 35.230105,
+          lng: 129.088028,
         },
       },
       {
         name: "북대구(칠곡)",
         location: {
-          lat: 37.5417438,
-          lng: 127.044786,
+          lat: 35.944071,
+          lng: 128.561721,
         },
       },
       {
         name: "사천",
         location: {
-          lat: 37.5417438,
-          lng: 127.044786,
+          lat: 35.081008,
+          lng: 128.082131,
         },
       },
       {
         name: "삼천포",
         location: {
-          lat: 37.5417438,
-          lng: 127.044786,
+          lat: 34.949553,
+          lng: 128.037959,
         },
       },
       {
         name: "양산",
         location: {
-          lat: 37.5417438,
-          lng: 127.044786,
+          lat: 35.338274,
+          lng: 129.026915,
         },
       },
       {
         name: "양산라피에스타",
         location: {
-          lat: 37.5417438,
-          lng: 127.044786,
+          lat: 35.309591,
+          lng: 129.009083,
         },
       },
       {
         name: "울산",
         location: {
-          lat: 37.5417438,
-          lng: 127.044786,
+          lat: 35.554377,
+          lng: 129.321025,
         },
       },
       {
         name: "정관",
         location: {
-          lat: 37.5417438,
-          lng: 127.044786,
+          lat: 35.319456,
+          lng: 129.178068,
         },
       },
       {
         name: "창원",
         location: {
-          lat: 37.5417438,
-          lng: 127.044786,
+          lat: 35.221389,
+          lng: 128.675720,
         },
       },
       {
         name: "창원내서",
         location: {
-          lat: 37.5417438,
-          lng: 127.044786,
+          lat: 35.248928,
+          lng: 128.510666,
         },
       },
       {
         name: "해운대(장산)",
         location: {
-          lat: 37.5417438,
-          lng: 127.044786,
+          lat: 35.170546,
+          lng: 129.177104,
         },
       },
     ],
@@ -754,64 +754,64 @@ export const theaterLocation = [
       {
         name: "광주상무",
         location: {
-          lat: 37.5417438,
-          lng: 127.044786,
+          lat: 35.154289,
+          lng: 126.854433,
         },
       },
       {
         name: "광주하남",
         location: {
-          lat: 37.5417438,
-          lng: 127.044786,
+          lat: 35.162855,
+          lng: 126.811970,
         },
       },
       {
         name: "남원",
         location: {
-          lat: 37.5417438,
-          lng: 127.044786,
+          lat: 35.405452,
+          lng: 127.383328,
         },
       },
       {
         name: "목포하당(포르모)",
         location: {
-          lat: 37.5417438,
-          lng: 127.044786,
+          lat: 34.807047,
+          lng: 126.425982,
         },
       },
       {
         name: "송천",
         location: {
-          lat: 37.5417438,
-          lng: 127.044786,
+          lat: 35.869304,
+          lng: 127.113901,
         },
       },
       {
         name: "순천",
         location: {
-          lat: 37.5417438,
-          lng: 127.044786,
+          lat: 34.941307,
+          lng: 127.510908,
         },
       },
       {
         name: "여수웅천",
         location: {
-          lat: 37.5417438,
-          lng: 127.044786,
+          lat: 34.749387,
+          lng: 127.679002,
         },
       },
       {
         name: "전대(광주)",
         location: {
-          lat: 37.5417438,
-          lng: 127.044786,
+          lat: 35.172638,
+          lng: 126.912488,
         },
       },
       {
         name: "첨단",
         location: {
-          lat: 37.5417438,
-          lng: 127.044786,
+          lat: 126.912488,
+          lng: 126.852519,
         },
       },
     ],
@@ -822,29 +822,29 @@ export const theaterLocation = [
       {
         name: "남춘천",
         location: {
-          lat: 37.5417438,
-          lng: 127.044786,
+          lat: 37.866448,
+          lng: 127.720287,
         },
       },
       {
         name: "속초",
         location: {
-          lat: 37.5417438,
-          lng: 127.044786,
+          lat: 38.189071,
+          lng: 128.585782,
         },
       },
       {
         name: "원주",
         location: {
-          lat: 37.5417438,
-          lng: 127.044786,
+          lat: 37.344986,
+          lng: 127.929803,
         },
       },
       {
         name: "원주센트럴",
         location: {
-          lat: 37.5417438,
-          lng: 127.044786,
+          lat: 37.326341,
+          lng: 127.984687,
         },
       },
     ],
@@ -855,8 +855,8 @@ export const theaterLocation = [
       {
         name: "제주",
         location: {
-          lat: 37.5417438,
-          lng: 127.044786,
+          lat: 33.511552,
+          lng: 126.522674,
         },
       },
     ],

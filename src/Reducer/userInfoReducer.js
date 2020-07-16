@@ -132,7 +132,7 @@ function* loginSaga(action) {
   }
 }
 
-const socialLogin = (user, history) => async (dispatch) => {
+const socialLogin = (user, history, signOut) => async (dispatch) => {
   dispatch({ type: LOGIN_LOADING });
 
   try {
@@ -176,6 +176,7 @@ const socialLogin = (user, history) => async (dispatch) => {
     //   type: LOGIN_ERROR,
     //   errorMessage: "아이디/비밀번호를 확인 해주세요",
     // });
+    signOut();
     dispatch(
       openModal("구글 계정으로 회원가입 하시겠습니까?", () => {
         dispatch({ type: SET_SIGNUP_INFO, user });

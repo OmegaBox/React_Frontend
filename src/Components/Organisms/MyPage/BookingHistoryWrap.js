@@ -124,7 +124,7 @@ const BookingHistoryWrap = () => {
         </p>
         <ul className="movieList">
           {bookingHistory.length ? (
-            _bookingHistory.map((booking) => (
+            bookingHistory.map((booking) => (
               <li key={booking.reservation_id}>
                 <article className="movieItem">
                   <div className="poster">
@@ -186,6 +186,9 @@ const BookingHistoryWrap = () => {
                         classSet={["btn", "fill", "small", "darkGray"].join(
                           " "
                         )}
+                        receipt_id={booking.receipt_id}
+                        payment_id={booking.payment_id}
+                        price={booking.price}
                       />
                     </li>
                   </ul>
