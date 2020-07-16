@@ -20,4 +20,4 @@ const MyMegaBox = () => {
   );
 };
 
-export default MyMegaBox;
+export default React.memo(MyMegaBox);

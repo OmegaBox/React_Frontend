@@ -10,7 +10,6 @@ const MyMovieStory = () => {
     view: "timeline",
   });
 
-  console.log(currentView.view);
   const changeView = (view) =>
     setCurrentView({
       ...currentView,
@@ -76,4 +75,4 @@ const MyMovieStory = () => {
   );
 };
 
-export default MyMovieStory;
+export default React.memo(MyMovieStory);

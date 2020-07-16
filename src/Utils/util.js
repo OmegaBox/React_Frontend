@@ -113,7 +113,11 @@ export const removeCookies = () => {
     });
   }
 };
-
+export const timeDateSplit = (dateTime) => {
+  let temp = "";
+  temp = dateTime.split(" ");
+  return `${temp[0]} (${temp[1]})`;
+};
 export const makeRefs = (schedules) => {
   const scheduleRef = {};
 
@@ -134,4 +138,53 @@ export const makeRefs = (schedules) => {
   });
 
   return scheduleRef;
+};
+
+export const sliceTime = (date) => {
+  let temp = "";
+  temp = date.split(" ");
+  return temp[1];
+};
+export const sliceDate = (date) => {
+  let temp = "";
+  temp = date.split(" ");
+  return temp[0];
+};
+export const createDay = (date) => {
+  let temp = new Date(sliceDate(date).split("-").join("/")).getDay();
+  switch (temp) {
+    case 0:
+      return "(일)";
+    case 1:
+      return "(월)";
+    case 2:
+      return "(화)";
+    case 3:
+      return "(수)";
+    case 4:
+      return "(목)";
+    case 5:
+      return "(금)";
+    case 6:
+      return "(토)";
+    default:
+      return;
+  }
+};
+
+export const changeKeyPoint = (keyPoint) => {
+  switch (keyPoint) {
+    case "prod":
+      return "연출력";
+    case "story":
+      return "스토리";
+    case "actor":
+      return "배우";
+    case "ost":
+      return "OST";
+    case "visual":
+      return "영상미";
+    default:
+      return;
+  }
 };
