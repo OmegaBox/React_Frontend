@@ -1,4 +1,4 @@
-import { movieApi } from "../Api/api"
+import { movieApi } from "../Api/api";
 
 const MOVIE_SUCCESS = "movie/SUCCESS";
 const MOVIE_ERROR = "movie/ERROR";
@@ -16,30 +16,52 @@ const RESET_MOVIE_PAGE = "movie/RESET_MOVIEPAGE";
 
 const SEARCH_MOVIES = "movies/SEARCH";
 
+// 특정 영화 보고싶어(추천) 수 증/감
+const FAVORITE_INCREASE_ONE = "movie/FAVORITE_INCREASE_ONE";
+const FAVORITE_DECREASE_ONE = "movie/FAVORITE_DECREASE_ONE";
+
 const setSuccessMovie = (data) => ({ type: MOVIE_SUCCESS, data });
 const setLoadingMovie = () => ({ type: MOVIE_LOADING });
 const setErrorMovie = (error) => ({ type: MOVIE_ERROR, error });
 
-const setSuccessMovieDetail = (data) => ({ type: MOVIE_DETAIL_SUCCESS, data })
+const setSuccessMovieDetail = (data) => ({ type: MOVIE_DETAIL_SUCCESS, data });
 const setLoadingMovieDetail = () => ({ type: MOVIE_DETAIL_LOADING });
 const setErrorMovieDetail = (error) => ({ type: MOVIE_DETAIL_ERROR, error });
 
-const setSuccessBookingAgeRating = (id, data) => ({ type: BOOKING_AGE_RATING_SUCCESS, id, data })
-const setLoadingBookingAgeRating = () => ({ type: BOOKING_AGE_RATING_LOADING, })
-const setErrorBookingAgeRating = (error) => ({ type: BOOKING_AGE_RATING_ERROR, error })
+const setSuccessBookingAgeRating = (id, data) => ({
+  type: BOOKING_AGE_RATING_SUCCESS,
+  id,
+  data,
+});
+const setLoadingBookingAgeRating = () => ({ type: BOOKING_AGE_RATING_LOADING });
+const setErrorBookingAgeRating = (error) => ({
+  type: BOOKING_AGE_RATING_ERROR,
+  error,
+});
 
-const setSearchMovies = (data) => ({ type: SEARCH_MOVIES, data })
-
+const setSearchMovies = (data) => ({ type: SEARCH_MOVIES, data });
 
 const resetMoviePage = () => ({ type: RESET_MOVIE_PAGE });
 
+// 보고싶어 카운터 증/감 액션 생성자 함수
+const changeFavorite = {
+  increaseFavorite: (movieId) => ({
+    type: FAVORITE_INCREASE_ONE,
+    movieId,
+  }),
+  decreaseFavorite: (movieId) => ({
+    type: FAVORITE_DECREASE_ONE,
+    movieId,
+  }),
+};
 
 const getMovies = () => async (dispatch) => {
   try {
     dispatch(setLoadingMovie());
     const res = await movieApi.getMovies();
     if (res.status === 200) {
-      if (!Array.isArray(res.data.results)) return console.error("배열이 아닙니다.");
+      if (!Array.isArray(res.data.results))
+        return console.error("배열이 아닙니다.");
       dispatch(setSuccessMovie(res.data.results));
     } else {
       dispatch({
@@ -113,11 +135,10 @@ const getAgeBooking = (id) => async (dispatch) => {
   }
 };
 
-
 const getSearchMovie = (keyword) => async (dispatch) => {
   try {
     const search = await movieApi.getSearch(keyword);
-    await (search.data.results)
+    await search.data.results;
     if (search.status === 200) {
       dispatch(setSearchMovies(search.data.results));
     } else {
@@ -140,10 +161,9 @@ const getSearchMovie = (keyword) => async (dispatch) => {
   }
 };
 
-
 const resetMovies = (url) => (dispatch) => {
   dispatch(resetMoviePage());
-}
+};
 
 const initialState = {
   page: 0,
@@ -166,72 +186,93 @@ const movieReducer = (state = initialState, action) => {
         loading: false,
         movies: action.data,
         error: null,
-      }
+      };
     case MOVIE_ERROR:
       return {
         ...state,
         error: action.error.state,
         errorMessage: action.error.message,
-        loading: false
-      }
+        loading: false,
+      };
     case MOVIE_LOADING:
       return {
         ...state,
         loading: true,
         error: null,
-      }
+      };
     case MOVIE_DETAIL_SUCCESS:
       return {
         ...state,
         loading: false,
         detail: action.data,
         error: null,
-      }
+      };
     case MOVIE_DETAIL_ERROR:
       return {
         ...state,
         error: action.error.state,
         errorMessage: action.error.message,
-        loading: false
-      }
+        loading: false,
+      };
     case MOVIE_DETAIL_LOADING:
       return {
         ...state,
         loading: true,
         error: null,
         page: state.page,
-      }
+      };
     case BOOKING_AGE_RATING_SUCCESS:
       return {
         ...state,
         loading: false,
         ageBooking: action.data,
         error: null,
-      }
+      };
     case BOOKING_AGE_RATING_LOADING:
       return {
         ...state,
         loading: true,
         error: null,
         page: state.page,
-      }
+      };
     case BOOKING_AGE_RATING_ERROR:
       return {
         ...state,
         error: action.error.state,
         errorMessage: action.error.message,
-        loading: false
-      }
+        loading: false,
+      };
     case RESET_MOVIE_PAGE:
       return {
-        ...initialState
+        ...initialState,
       };
     case SEARCH_MOVIES:
       return {
         ...state,
-        movies: action.data
-
-      }
+        movies: action.data,
+      };
+    case FAVORITE_INCREASE_ONE:
+      return {
+        ...state,
+        movies: state.movies.map((movie) => {
+          if (movie.id !== action.movieId) return movie;
+          return {
+            ...movie,
+            acc_favorite: movie.acc_favorite + 1,
+          };
+        }),
+      };
+    case FAVORITE_DECREASE_ONE:
+      return {
+        ...state,
+        movies: state.movies.map((movie) => {
+          if (movie.id !== action.movieId) return movie;
+          return {
+            ...movie,
+            acc_favorite: movie.acc_favorite - 1,
+          };
+        }),
+      };
     default:
       return state;
   }
@@ -253,5 +294,6 @@ export {
   setErrorMovieDetail,
   setSuccessBookingAgeRating,
   setErrorBookingAgeRating,
-  setLoadingBookingAgeRating
+  setLoadingBookingAgeRating,
+  changeFavorite,
 };
