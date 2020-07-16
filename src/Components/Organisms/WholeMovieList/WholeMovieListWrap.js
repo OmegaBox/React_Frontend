@@ -55,7 +55,7 @@ const WholeMovieListWrap = () => {
 
         </button>
       </div>
-      {isLoading ? <SkeletonWholeMoviePage /> :
+      {isLoading ? (<SkeletonWholeMoviePage />) : (
         <ul className="wholeMovieList">
           {movies.map((movie, i) => {
             let iconClassName = "icon";
@@ -151,7 +151,7 @@ const WholeMovieListWrap = () => {
             );
           })}
         </ul>
-      }
+      )}
       <div className="wholeMovieListMore">
         <button type="button" className={["btn", "regular"].join(" ")}>
           더보기

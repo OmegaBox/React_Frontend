@@ -5,7 +5,6 @@ import { Link, useHistory } from "react-router-dom";
 import { selectMovie } from "../../../Reducer/bookingReducer";
 import { getSearchMovie } from "../../../Reducer/movieReducer";
 import SkeletonMainMovies from "../../Atoms/SkeletonMainMovies";
-import { isLogin } from "../../../Api/api";
 import { setSize, openModal } from "../../../Reducer/modalReducer";
 
 const MainBoxOffice = () => {
@@ -14,7 +13,6 @@ const MainBoxOffice = () => {
     state.Movie.loading,
   ]);
   const isLoginCheck = useSelector((state) => state.userInfo.isLogin);
-
 
   const dispatch = useDispatch();
   const history = useHistory();
