@@ -1,6 +1,6 @@
-import { put, call, takeLatest, take } from "redux-saga/effects";
+import { put, call, takeLatest, select } from "redux-saga/effects";
 import { userApi, isLogin } from "../Api/api";
-import cookie, { save } from "react-cookies";
+import cookie from "react-cookies";
 import { removeCookies } from "../Utils/util";
 import { act } from "react-dom/test-utils";
 import { openModal } from "./modalReducer";
@@ -19,6 +19,7 @@ const LOGOUT_SUCCESS = "userInfo/LOGOUT";
 
 const SET_SIGNUP_INFO = "userInfo/SET_SIGNUP_INFO";
 
+export const GET_MEMBER_PROFILE = "userInfo/GET_MEMBER_PROFILE"; // 사가진입용 액션
 // memberDetail
 export const GET_MEMBER_DETAIL = "userInfo/GET_MEMBER_DETAIL"; // 사가진입용 액션
 
@@ -181,6 +182,21 @@ const socialLogin = (user, history) => async (dispatch) => {
         history.push("/membersignup");
       })
     );
+  }
+};
+
+const getMemberProfile = () => async (dispatch) => {
+  const res = await isLogin();
+
+  if (res) {
+    dispatch({ type: GET_MEMBER_DETAIL });
+    dispatch({ type: GET_RESERVED });
+    dispatch({ type: GET_RESERVED_CANCELED });
+    dispatch({ type: GET_TIMELINE_RATING });
+    dispatch({ type: GET_TIMELINE_WATCHED });
+    dispatch({ type: GET_TIMELINE_LIKE });
+  } else {
+    dispatch(startLogout());
   }
 };
 
@@ -420,6 +436,7 @@ function* userInfoSaga() {
   yield takeLatest(GET_TIMELINE_RATING, timelineRating);
   yield takeLatest(GET_TIMELINE_WATCHED, timelineWatched);
   yield takeLatest(GET_TIMELINE_LIKE, timelineLike);
+  // yield takeLatest(GET_MEMBER_PROFILE, getMemberProfile);
 }
 
 const initialState = {
@@ -694,4 +711,5 @@ export {
   startLogout,
   memberDetail,
   socialLogin,
+  getMemberProfile,
 };
