@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { closeModal } from "../../Reducer/modalReducer";
 
 const PopupNotice = ({ text = "", onEvent = null, popupSize = {} }) => {
+  console.log(onEvent);
   const dispatch = useDispatch();
   const oneBtn = useSelector((state) => state.modal.oneBtn);
   return (
