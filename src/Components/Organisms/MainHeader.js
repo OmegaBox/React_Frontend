@@ -52,6 +52,12 @@ const MainHeader = () => {
       case "/mypage/mymoviestory":
         page = "나의 무비스토리";
         break;
+      case "/mypage/editoption":
+        page = "선택정보 수정";
+        break;
+      case "/mypage/confirmpassword":
+        page = "회원정보";
+        break;
       default:
     }
     return page;
@@ -84,6 +90,12 @@ const MainHeader = () => {
         utilClass = "";
         break;
       case "/mypage/mymoviestory":
+        utilClass = "";
+        break;
+      case "/mypage/editoption":
+        utilClass = "";
+        break;
+      case "/mypage/confirmpassword":
         utilClass = "";
         break;
       default:

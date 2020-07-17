@@ -13,6 +13,7 @@ const MyMovieStory = () => {
   const { view } = useSelector((state) => ({
     view: state.myMovieStory.view,
   }));
+  console.log(view);
   const movieStoryView = () => {
     switch (view) {
       case "timeline":
