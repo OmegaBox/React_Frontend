@@ -1,7 +1,6 @@
 import React from "react";
 import Header from "../Organisms/Header";
 import Footer from "../Organisms/Footer";
-import NavSample from "../Organisms/NavSample";
 import RecommendEvent from "../Organisms/Event/RecommendEvent";
 import MegaPick from "../Organisms/Event/MegaPick";
 import MovieEvent from "../Organisms/Event/MovieEvent";
@@ -23,7 +22,6 @@ const Event = () => {
         <PremiereEvent />
       </main>
       <Footer />
-      <NavSample />
     </div>
   );
 };

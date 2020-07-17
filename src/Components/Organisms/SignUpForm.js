@@ -59,9 +59,7 @@ const SignUpForm = ({ history }) => {
   // 구글 로그아웃
   const { signOut } = useGoogleLogout({
     clientId: key.googleClientId,
-    onLogoutSuccess: () => {
-      console.log("구글 로그아웃 성공");
-    },
+    onLogoutSuccess: () => {},
   });
 
   // 구글 로그인 상태
@@ -149,11 +147,9 @@ const SignUpForm = ({ history }) => {
 
   // input onBluerEvent
   const bluerInput = (e) => {
-    console.log("블러");
     const name = e.target.name;
     if (inputState[name] === "") return;
     if (name === "pwCheck" && inputState.pw !== inputState.pwCheck) {
-      console.log("패스워드 체크");
       setAlert({
         onAlert: {
           ...alertState.onAlert,
@@ -242,7 +238,6 @@ const SignUpForm = ({ history }) => {
     const sendSignup = async (isGoogle) => {
       try {
         let successText = "";
-        console.log("사인업 액션 나왔을때 unique_id", inputState.pw);
         if (isGoogle) {
           await userApi.googleSignup({
             username: inputState.id,
@@ -269,13 +264,11 @@ const SignUpForm = ({ history }) => {
         dispatch(setOneBtn());
         dispatch(openModal(successText, goLogin));
       } catch ({ response }) {
-        console.log(response);
         if (response.status === 400) {
           let errorDetail = "";
           Object.keys(response.data).forEach((key) => {
             errorDetail = response.data[key];
           });
-          console.error(errorDetail);
           dispatch(setOneBtn());
           dispatch(
             openModal(errorDetail, () => {
@@ -348,13 +341,10 @@ detail: ${response.data.detail}`);
   };
 
   // 구글 회원가입
-  const responseGoogle = (response) => {
-    console.log(response);
-  };
+  const responseGoogle = (response) => {};
 
   const GoogleSuccess = async (response) => {
     const res = response;
-    console.log(res);
     const GoogleId = res.profileObj.googleId;
 
     try {

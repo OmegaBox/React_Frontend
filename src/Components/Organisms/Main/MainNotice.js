@@ -14,7 +14,7 @@ const MainNotice = () => {
       </div> */}
       <div className="mainNoticeLayout">
         <ul className="mainNotice">
-          <li className="customerCenter">
+          <li className="customCenter">
             <div className="customerIcon"></div>
             <span>고객센터</span>
           </li>
@@ -36,7 +36,9 @@ const MainNotice = () => {
           </li>
           <li className="privateInquiry">
             <div className="privateIcon"></div>
-            <span>더 부티크 프라이빗 <br /> 대관예매</span>
+            <span>
+              더 부티크 프라이빗 <br /> 대관예매
+            </span>
           </li>
         </ul>
       </div>

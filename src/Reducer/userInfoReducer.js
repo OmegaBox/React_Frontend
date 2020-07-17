@@ -73,7 +73,6 @@ const resetSignupInfo = () => ({
 
 const checkLogin = () => async (dispatch) => {
   const res = await isLogin();
-  console.log("로그인여부 확인", res);
 
   if (res) dispatch({ type: ALREADY_LOGIN });
   else dispatch({ type: LOGOUT_SUCCESS });
@@ -82,7 +81,6 @@ const checkLogin = () => async (dispatch) => {
 const startLogout = () => async (dispatch) => {
   await userApi.logout();
   removeCookies();
-  console.log("로그아웃");
 
   dispatch({ type: LOGOUT_SUCCESS });
 };
@@ -222,7 +220,7 @@ function* memberDetail(action) {
       return;
     }
     const res = yield call(userApi.memberDetail);
-    // console.log("마이페이지", res.data);
+
     if (res.status === 200 || res.status === 201) {
       yield put({
         type: GET_MEMBER_DETAIL_SUCCESS,
@@ -264,7 +262,6 @@ function* myReserved(action) {
       return;
     }
     const res = yield call(userApi.myReserved, { id: action.id });
-    console.log("예약내역", res.data.results);
     if (res.status === 200 || res.status === 201) {
       yield put({
         type: GET_RESERVED_SUCCESS,
@@ -301,7 +298,6 @@ function* myReservedCancel(action) {
       return;
     }
     const res = yield call(userApi.myReservedCancel, { id: action.id });
-    // console.log("예약취소", res.data.results);
     if (res.status === 200 || res.status === 201) {
       yield put({
         type: GET_RESERVED_CANCELED_SUCCESS,
@@ -338,7 +334,6 @@ function* timelineRating(action) {
       return;
     }
     const res = yield call(userApi.timelineRating, { id: action.id });
-    // console.log("한줄평", res.data.results);
     if (res.status === 200 || res.status === 201) {
       yield put({
         type: GET_TIMELINE_RATING_SUCCESS,
@@ -375,7 +370,6 @@ function* timelineWatched(action) {
       return;
     }
     const res = yield call(userApi.timelineWatched, { id: action.id });
-    // console.log("본영화", res.data.results);
     if (res.status === 200 || res.status === 201) {
       yield put({
         type: GET_TIMELINE_WATCHED_SUCCESS,
@@ -412,7 +406,6 @@ function* timelineLike(action) {
       return;
     }
     const res = yield call(userApi.timelineLike, { id: action.id });
-    // console.log("보고싶은", res.data.results);
     if (res.status === 200 || res.status === 201) {
       yield put({
         type: GET_TIMELINE_LIKE_SUCCESS,

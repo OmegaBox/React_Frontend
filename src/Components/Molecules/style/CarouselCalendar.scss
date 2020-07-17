@@ -26,9 +26,9 @@
 
 .carouselCalendarContainer .carouselCal.disabled {
   cursor: default;
-  color: $colorGrayD8;
+  color: $colorDisabledText;
   span {
-    color: $colorGrayD8;
+    color: $colorDisabledText;
   }
 }
 

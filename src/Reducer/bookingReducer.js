@@ -190,8 +190,6 @@ const getSchedules = () => async (dispatch, state) => {
       a.start_time < b.start_time ? -1 : 1
     );
 
-    console.log("새로가져온 스케쥴", newSearchLog.schedules);
-
     dispatch({ type: GET_SCHEDULES_SUCCESS, payload: newSearchLog.schedules });
     dispatch(setScheduleRef(makeRefs(newSearchLog.schedules)));
     dispatch({ type: SET_SCHEDULES_LOG, payload: newSearchLog });
@@ -226,7 +224,7 @@ const setReservation = (
         SeatIds.data.map((v) => v.seat_id).reverse(),
         seatPersonalType
       );
-      console.log(reservationInfos);
+
       dispatch(
         setDefaultTicketInfo({
           seats: SeatIds.data,
@@ -242,7 +240,6 @@ const setReservation = (
       );
       nextFunc();
     } catch (e) {
-      console.error(e.response);
       if (e.status === 400) {
         dispatch(setOneBtn());
         dispatch(
@@ -262,7 +259,6 @@ const setReservation = (
       }
     }
   } else {
-    console.error("로그인 만료");
     LoginFalseFunc();
   }
 };
@@ -273,7 +269,6 @@ const getTheatersCanBooking = (movies = []) => async (dispatch, state) => {
 
   const selectedOption = state().Booking.selectedOption;
   const selectedMovies = selectedOption.selectedMovies;
-  console.log("지역정보 가져올때 selectedMovies 확인", selectedMovies);
   const selectedTheaters = selectedOption.selectedTheaters;
   const selectedDate = transformDateFormat(selectedOption.selectedDate)
     .dateStringNoDash;
@@ -312,7 +307,6 @@ const getTheatersCanBooking = (movies = []) => async (dispatch, state) => {
         selectedDate,
         movies.length ? movies : selectedMovies
       );
-      console.log("가져온 지역과 상영관", resRegions, resTheaters);
 
       if (resRegions.status === 200 && resTheaters.status === 200) {
         const regions = {
@@ -400,8 +394,6 @@ function* selectMovieSaga(action) {
     newSelectedMovies = selectedMovies.slice();
     newSelectedMovies.push(action.movie);
   }
-
-  console.log("뉴실렉트무비", newSelectedMovies);
 
   if (selectedDate === "") yield put(setSelectedDate("2020-07-01")); // 날짜 선택
   // yield put(setSelectedHour(getCurrentHour())); // 현재 시간을 선택
@@ -646,7 +638,6 @@ const bookingReducer = (state = initialState, action) => {
       };
 
     case SET_SCHEDULE_REF:
-      console.log("스케쥴 만든 것들", action.payload);
       return {
         ...state,
         schedule: {
@@ -679,7 +670,6 @@ const bookingReducer = (state = initialState, action) => {
         },
       };
     case SET_TICKET_NUMBER:
-      // console.log("티켓넘버", action.number);
       return {
         ...state,
         ticket: {
