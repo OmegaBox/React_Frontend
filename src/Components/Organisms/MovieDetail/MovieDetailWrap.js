@@ -28,6 +28,8 @@ const MovieDetailWrap = () => {
     );
   };
 
+  console.log("체크");
+
   const clickFavorite = (movieId) => {
     if (isLogin) {
       dispatch({

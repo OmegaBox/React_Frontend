@@ -265,7 +265,7 @@ const movieReducer = (state = initialState, action) => {
         }),
         detail: {
           ...state.detail,
-          ...(state.detail.acc_favorite
+          ...(state.detail.acc_favorite !== undefined
             ? {
                 acc_favorite: state.detail.acc_favorite + 1,
               }
@@ -285,7 +285,7 @@ const movieReducer = (state = initialState, action) => {
         }),
         detail: {
           ...state.detail,
-          ...(state.detail.acc_favorite
+          ...(state.detail.acc_favorite !== undefined
             ? {
                 acc_favorite: state.detail.acc_favorite - 1,
               }
