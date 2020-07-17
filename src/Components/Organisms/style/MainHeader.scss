@@ -41,6 +41,10 @@
     justify-content: space-between;
   }
 }
+.subLeftSide li{
+  text-decoration: none !important;
+  cursor: default;
+}
 .subLeftSide li, .subRightSide li a, .subRightSide li button {
   margin: 0 10px;
   padding: 6px 4px 5px;
@@ -48,13 +52,36 @@
   line-height: 1;
   color: $colorDisabledText;
 }
+.subLeftSide ul li {
+  text-decoration: none;
+}
 .subLeftSide li:hover, .subRightSide li a:hover, .subRightSide li button:hover {
   text-decoration: underline;
 }
-
+.mainMenu > li > a {
+  position: relative;
+  padding: 0 8px 4px;
+  &:hover::after {
+    position: absolute;
+    left: 4px;
+    right: 4px;
+    bottom: -26px;
+    content: "";
+    height: 3px;
+    background-color: $colorWhite;
+    z-index: 120;
+  }
+}
+.subHeader .mainMenu > li > a:hover::after {
+  background-color: $colorSub;
+}
 .subHeader .subNav {color: $colorSecondaryText}
 .subHeader .subLeftSide li, .subHeader .subRightSide li a, .subHeader .subRightSide li button {
   color: inherit;
+}
+.subRightSide li .noCall, .mainLeftSide .noCall, .mainRightSide .noCall {
+  text-decoration: none !important;
+  cursor: default;
 }
 
 .bottom {

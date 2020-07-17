@@ -453,8 +453,8 @@ function* sendFavoriteRequest(action) {
     const actionFunc = state.userInfo.favoriteMovies
       .map((favorite) => favorite.movie_id)
       .includes(movieId)
-      ? changeFavorite.increaseFavorite(movieId)
-      : changeFavorite.decreaseFavorite(movieId);
+      ? changeFavorite.decreaseFavorite(movieId)
+      : changeFavorite.increaseFavorite(movieId);
     yield put(actionFunc);
   } catch (e) {
     console.error(e.response);
