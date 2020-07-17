@@ -55,15 +55,20 @@ const CarouselTimeline = () => {
                 key={`carouselTime${i}`}
                 className={addClass}
                 id={i}
-                onClick={() => {
+                onClick={(e) => {
+                  // document.body.style.height = "100%";
+                  document.body.style.overflow = "hidden";
                   dispatch(setSelectedHour(time));
-                  refs[time].current.scrollIntoView({
+                  refs[time < 10 ? "0" + time : time].current.scrollIntoView({
                     behavior: "smooth",
                     block: "nearest",
                     inline: "start",
                   });
+                  document.body.style.overflow = "unset";
                 }}
-                disabled={+time < +nowHour || !refs[time]}
+                disabled={
+                  +time < +nowHour || !refs[time < 10 ? "0" + time : time]
+                }
               >
                 <span>{time}</span>
               </button>
