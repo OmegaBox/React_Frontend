@@ -62,20 +62,16 @@
   padding: 16px 0 40px;
   border-top: 1px solid $colorSubLight;
   .date {
-    display: flex;
-    align-items: center;
-    justify-content: center;
     width: 120px;
     height: 32px;
     margin: -32px auto 0;
-    // padding: 10px 0;
+    padding: 6px 0 2px;
     text-align: center;
     border-radius: 16px;
     background-color: $colorSubLight;
     color: $colorWhite;
-    p {
-      line-height: 32px;
-    }
+    overflow: hidden;
+    p {padding: 0;}
   }
 }
 .myMovieStoryWrap .timeLine .movieItem {
@@ -151,7 +147,9 @@ section.comment, section.watched, section.likeMovie {margin-top: 40px;}
   padding: 28px 8px 20px;
   border-bottom: 1px solid $border;
 }
-
+.comment .listCounter {
+  font-size: 1.6rem;
+}
 .watched .movieList li {float: left;}
 .watched .watchedMovie {
   width: 49%;
@@ -160,7 +158,7 @@ section.comment, section.watched, section.likeMovie {margin-top: 40px;}
 .watched .movieItem {
   position: relative;
   flex-wrap: nowrap;
-  padding: 20px 24px 60px;
+  padding: 20px 24px;
   border: 1px solid $border;
   border-radius: 8px;
   .poster {
@@ -239,14 +237,27 @@ section.comment, section.watched, section.likeMovie {margin-top: 40px;}
       display: flex;
       justify-content: center;
       align-items: center;
-      width: 49%;
       flex-grow: 1;
     }
     button:nth-child(1) {
+      flex-grow: 0;
       margin-left: 0;
+      padding-left: 20px;
+      padding-right: 20px;
       .icon {margin-right: 8px;}
     }
-    button:nth-child(2) {margin-right: 0;}
+    button:nth-child(2) {
+      width: 100%;
+      margin-right: 0;
+      background: red !important;
+    }
+    a {
+      flex-grow: 1;
+      button {
+        width: 100%;
+        margin: 0;
+      }
+    }
   }
 }
 
