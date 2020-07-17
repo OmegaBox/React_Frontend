@@ -243,11 +243,11 @@ const BookingHistoryWrap = () => {
             )}
           </tbody>
         </table>
-        <ul className="paging">
+        {/* <ul className="paging">
           <li>
             <Link to="">1</Link>
           </li>
-        </ul>
+        </ul> */}
       </section>
       <section className="useInfo">
         <button
