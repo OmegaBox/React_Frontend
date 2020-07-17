@@ -215,8 +215,8 @@ const setReservation = (
   nextFunc,
   LoginFalseFunc
 ) => async (dispatch, useState) => {
-  await dispatch(checkLogin());
-  if (useState().userInfo.isLogin) {
+  const res = await isLogin();
+  if (res) {
     try {
       const SeatIds = await movieApi.getSeatId(scheduleId, selectedSeat);
       const reservationInfos = await movieApi.makeReservation(
@@ -260,7 +260,7 @@ const setReservation = (
       }
     }
   } else {
-    console.error("로그인 만료");
+    dispatch(checkLogin());
     LoginFalseFunc();
   }
 };
