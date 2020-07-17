@@ -1,6 +1,6 @@
 import { select, put, takeLatest } from "redux-saga/effects";
 import { transformDateFormat, makeRefs } from "../Utils/util";
-import { movieApi } from "../Api/api";
+import { isLogin, movieApi } from "../Api/api";
 import { setReservedSeat, resetSeat } from "./bookingSeatReducer";
 import { checkLogin } from "./userInfoReducer";
 import { openModal, setOneBtn } from "./modalReducer";
@@ -215,8 +215,8 @@ const setReservation = (
   nextFunc,
   LoginFalseFunc
 ) => async (dispatch, useState) => {
-  await dispatch(checkLogin());
-  if (useState().userInfo.isLogin) {
+  const res = await isLogin();
+  if (res) {
     try {
       const SeatIds = await movieApi.getSeatId(scheduleId, selectedSeat);
       const reservationInfos = await movieApi.makeReservation(
@@ -259,6 +259,10 @@ const setReservation = (
       }
     }
   } else {
+<<<<<<< HEAD
+=======
+    dispatch(checkLogin());
+>>>>>>> 16c4588d88e15a5b4a90924bf880d89b5a7aa47d
     LoginFalseFunc();
   }
 };
