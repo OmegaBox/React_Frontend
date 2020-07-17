@@ -305,10 +305,12 @@ const getTheatersCanBooking = (movies = []) => async (dispatch, state) => {
         selectedDate,
         movies.length ? movies : selectedMovies
       );
+
       const resTheaters = await movieApi.getScreeningTheaters(
         selectedDate,
         movies.length ? movies : selectedMovies
       );
+      console.log("가져온 지역과 상영관", resRegions, resTheaters);
 
       if (resRegions.status === 200 && resTheaters.status === 200) {
         const regions = {

@@ -168,7 +168,8 @@ export const movieApi = {
     axios.get(`https://www.omegabox.xyz/movies/detail/${id}/age-booking/`),
   getSearch: (keyword) =>
     axios.get(`https://www.omegabox.xyz/movies/?searchName=${keyword}`),
-  getLikeCheck: (id) => axios.get(`https://www.omegabox.xyz/movies/detail/${id}/like/`),
+  getLikeCheck: (id) =>
+    axios.get(`https://www.omegabox.xyz/movies/detail/${id}/like/`),
   getSchedules: ({ date, movies, theaterId }) => {
     let movieIds = "";
     if (movies) {
@@ -195,25 +196,48 @@ export const movieApi = {
 
     const call = `https://www.omegabox.xyz/theaters/schedules/regions/${date}/${
       movies.length ? "?movies=" + movieIds : ""
-      }
+    }
     `;
     console.log("지역 정보요청 url", call);
 
     return axios.get(call);
   },
-  getScreeningTheaters: (date, movies) => {
+  getScreeningTheaters: async (date, movies) => {
     let movieIds = "";
     if (movies.length) {
       movieIds = movies.reduce((acc, cur) => acc + "+" + cur.id, "").slice(1);
     }
-    const call = `https://www.omegabox.xyz/theaters/schedules/${date}/${
+    let call = `https://www.omegabox.xyz/theaters/schedules/${date}/${
       movies.length ? "?movies=" + movieIds : ""
-      }
+    }
     `;
-
     console.log("상영관 정보요청 url", movies, call);
 
-    return axios.get(call);
+    let resTheaters = {
+      status: 200,
+      data: {
+        next: call,
+        results: [],
+      },
+    };
+    while (resTheaters.status === 200 && resTheaters.data.next) {
+      try {
+        const res = await axios.get(resTheaters.data.next);
+        console.log(res);
+        resTheaters.data.next = res.data.next;
+        resTheaters.data.results = [
+          ...resTheaters.data.results,
+          ...res.data.results,
+        ];
+      } catch (e) {
+        console.log(e.response);
+        return {
+          status: 400,
+        };
+      }
+    }
+
+    return resTheaters;
   },
   getReservedSeats: (scheduleId) => {
     return axios.get(
