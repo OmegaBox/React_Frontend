@@ -34,15 +34,24 @@
       width: 100%;
       padding: 18px 0 14px;
       border-radius: 0;
+      cursor: default;
+      color: $colorGrayA5;
     }
   }
-  li:nth-child(1) {margin-left: 0;}
+  .movieListNav {
+    color: $colorGray44;
+    cursor: pointer;
+  }
+  li:nth-child(1) {
+    margin-left: 0;
+  }
   li.active {
     border-color: $colorMain;
     border-bottom: 1px solid $colorWhite;
   }
   li.active + li {border-left: 1px solid $colorMain;}
 }
+
 .searchResults {
   display: inline-block;
   margin: 40px 0 15px 8px;

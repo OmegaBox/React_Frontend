@@ -19,6 +19,9 @@
     background-color: transparentize($color: $colorBlack, $amount: 0.3);
     z-index: -100;
   }
+  h2 {
+    cursor: default;
+  }
 }
 .moviePosterBg {
   position: absolute;
