@@ -28,7 +28,9 @@ const MainNotice = () => {
           </li>
           <li className="privateInquiry">
             <div className="privateIcon"></div>
-            <span>더 부티크 프라이빗 <br /> 대관예매</span>
+            <span>
+              더 부티크 프라이빗 <br /> 대관예매
+            </span>
           </li>
         </ul>
       </div>

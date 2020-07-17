@@ -124,17 +124,10 @@ export const makeRefs = (schedules) => {
   schedules.map((schedule) => {
     const hour = schedule.start_time.slice(0, 2);
     const ref = React.createRef();
-    console.log("makeref에서 만든건데 객체에 넣기전 단일 ref", ref);
 
     if (!scheduleRef[hour]) {
-      console.log("없어서 넣음");
       scheduleRef[hour] = ref;
     }
-    console.log(
-      "makeRefs에서 만든 ref들",
-      scheduleRef,
-      scheduleRef[hour].target
-    );
   });
 
   return scheduleRef;

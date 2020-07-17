@@ -224,7 +224,7 @@ const setReservation = (
         SeatIds.data.map((v) => v.seat_id).reverse(),
         seatPersonalType
       );
-      console.log(reservationInfos);
+
       dispatch(
         setDefaultTicketInfo({
           seats: SeatIds.data,
@@ -240,7 +240,6 @@ const setReservation = (
       );
       nextFunc();
     } catch (e) {
-      console.error(e.response);
       if (e.status === 400) {
         dispatch(setOneBtn());
         dispatch(
@@ -271,7 +270,6 @@ const getTheatersCanBooking = (movies = []) => async (dispatch, state) => {
 
   const selectedOption = state().Booking.selectedOption;
   const selectedMovies = selectedOption.selectedMovies;
-  console.log("지역정보 가져올때 selectedMovies 확인", selectedMovies);
   const selectedTheaters = selectedOption.selectedTheaters;
   const selectedDate = transformDateFormat(selectedOption.selectedDate)
     .dateStringNoDash;
@@ -305,6 +303,7 @@ const getTheatersCanBooking = (movies = []) => async (dispatch, state) => {
         selectedDate,
         movies.length ? movies : selectedMovies
       );
+
       const resTheaters = await movieApi.getScreeningTheaters(
         selectedDate,
         movies.length ? movies : selectedMovies
@@ -396,8 +395,6 @@ function* selectMovieSaga(action) {
     newSelectedMovies = selectedMovies.slice();
     newSelectedMovies.push(action.movie);
   }
-
-  console.log("뉴실렉트무비", newSelectedMovies);
 
   if (selectedDate === "") yield put(setSelectedDate("2020-07-01")); // 날짜 선택
   // yield put(setSelectedHour(getCurrentHour())); // 현재 시간을 선택
@@ -642,7 +639,6 @@ const bookingReducer = (state = initialState, action) => {
       };
 
     case SET_SCHEDULE_REF:
-      console.log("스케쥴 만든 것들", action.payload);
       return {
         ...state,
         schedule: {
@@ -675,7 +671,6 @@ const bookingReducer = (state = initialState, action) => {
         },
       };
     case SET_TICKET_NUMBER:
-      // console.log("티켓넘버", action.number);
       return {
         ...state,
         ticket: {
