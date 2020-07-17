@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import {
@@ -7,7 +8,6 @@ import {
 } from "../../Reducer/bookingSeatReducer";
 
 import "./style/BookingSeatList.scss";
-import { movieApi } from "../../Api/api";
 
 // 홀 정보 배열
 const screeningHallSeatInfo = [

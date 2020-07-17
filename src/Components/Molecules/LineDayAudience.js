@@ -10,6 +10,9 @@ const DayAudienceLine = () => {
     },
     scales: {
       yAxes: [{
+        gridLines: {
+          color: "rgba(0, 0, 0, 0)",
+        },
         ticks: {
           autoSkip: true,
           stepSize: 1,
@@ -28,18 +31,17 @@ const DayAudienceLine = () => {
 
     maintainAspectRatio: false
   };
-  let currentDay = new Date();
   const data = {
-    labels: ["7.8", "7.9", "7.10", "7.11", "7.12"],
+    labels: ["7.12", "7.13", "7.14", "7.15", "7.16"],
     datasets: [
       {
         label: "누적관객수",
         data: [
-          30,
-          10,
-          100,
+          200,
+          130,
           150,
-          300
+          130,
+          30
         ],
         backgroundColor: [
           '#309eb0',
