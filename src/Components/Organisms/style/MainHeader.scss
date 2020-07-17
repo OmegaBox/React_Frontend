@@ -136,9 +136,7 @@
   display: block;
   border-top: 1px solid $darkBorder;
   background-color: $whiteGrayBg;
-  &.none {
-    display: none;
-  }
+  &.none ul {display: none;}
   ul {
     display: flex;
     align-items: center;
