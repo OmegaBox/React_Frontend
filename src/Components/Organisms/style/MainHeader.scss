@@ -41,12 +41,19 @@
     justify-content: space-between;
   }
 }
+.subLeftSide li{
+  text-decoration: none !important;
+  cursor: default;
+}
 .subLeftSide li, .subRightSide li a, .subRightSide li button {
   margin: 0 10px;
   padding: 6px 4px 5px;
   font-size: 1.5rem;
   line-height: 1;
   color: $colorDisabledText;
+}
+.subLeftSide ul li {
+  text-decoration: none;
 }
 .subLeftSide li:hover, .subRightSide li a:hover, .subRightSide li button:hover {
   text-decoration: underline;
@@ -55,6 +62,10 @@
 .subHeader .subNav {color: $colorSecondaryText}
 .subHeader .subLeftSide li, .subHeader .subRightSide li a, .subHeader .subRightSide li button {
   color: inherit;
+}
+.subRightSide li .noCall, .mainLeftSide .noCall, .mainRightSide .noCall {
+  text-decoration: none !important;
+  cursor: default;
 }
 
 .bottom {
