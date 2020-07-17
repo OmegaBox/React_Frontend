@@ -75,7 +75,9 @@
   height: 65px;
   padding-left: 20px;
   font-size: 1.5rem;
-
+  div {
+    display: flex;
+  }
   strong {
     font-weight: $textBold;
     text-align: left;
