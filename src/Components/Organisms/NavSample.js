@@ -5,13 +5,6 @@ import cookie from "react-cookies";
 import { useDispatch } from "react-redux";
 import { startLogout } from "../../Reducer/userInfoReducer";
 import {
-  checkLogin,
-  GET_RESERVED,
-  GET_MEMBER_DETAIL,
-  GET_RESERVED_CANCELED,
-  GET_TIMELINE_RATING,
-  GET_TIMELINE_WATCHED,
-  GET_TIMELINE_LIKE,
   GET_MEMBER_DETAIL_ERROR,
   GET_MEMBER_DETAIL_SUCCESS,
 } from "../../Reducer/userInfoReducer";
@@ -89,7 +82,6 @@ const NavSample = () => {
         onClick={async () => {
           try {
             const res = await userApi.memberDetail();
-            console.log("마이페이지", res.data);
             if (res.status === 200 || res.status === 201) {
               dispatch({
                 type: GET_MEMBER_DETAIL_SUCCESS,

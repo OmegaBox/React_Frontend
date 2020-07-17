@@ -3,8 +3,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 
 import "./style/BookingPayment.scss";
-import { billing } from "../../../Api/api";
+import { billing, isLogin } from "../../../Api/api";
 import { numWithComma } from "../../../Utils/util";
+import { checkLogin } from "../../../Reducer/userInfoReducer";
 
 const BookingPayment = () => {
   const history = useHistory();
@@ -150,14 +151,19 @@ const BookingPayment = () => {
           <button
             type="button"
             className={["btn", "fill", "sub", "regular"].join(" ")}
-            onClick={() => {
-              billing({
-                title: ticketState.selectedMovieTitle,
-                price: ticketState.price,
-                reservations: ticketState.reservationInfos,
-                history,
-                dispatch,
-              });
+            onClick={async () => {
+              const check = await isLogin();
+              if (check) {
+                billing({
+                  title: ticketState.selectedMovieTitle,
+                  price: ticketState.price,
+                  reservations: ticketState.reservationInfos,
+                  history,
+                  dispatch,
+                });
+              } else {
+                dispatch(checkLogin());
+              }
             }}
           >
             결제

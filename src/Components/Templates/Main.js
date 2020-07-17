@@ -7,7 +7,6 @@ import MainCuration from "../Organisms/Main/MainCuration";
 import MainLink from "../Organisms/Main/MainLink";
 import MainNotice from "../Organisms/Main/MainNotice";
 import MainTheater from "../Organisms/Main/MainTheater";
-import NavSample from "../Organisms/NavSample";
 
 const Main = () => {
   return (
@@ -20,7 +19,6 @@ const Main = () => {
       <MainTheater />
       <MainNotice />
       <Footer />
-      <NavSample />
     </div>
   );
 };

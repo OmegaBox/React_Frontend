@@ -41,7 +41,7 @@
       }
 
       span {
-        color: $colorGrayEa;
+        color: $colorDisabledText;
       }
     }
   }
@@ -63,7 +63,7 @@
   }
   .theater.disabled {
     span {
-      color: $colorGrayEa;
+      color: $colorDisabledText;
     }
     button {
       cursor: default;

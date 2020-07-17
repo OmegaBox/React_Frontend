@@ -146,7 +146,7 @@ const BookingInfo = ({ props, goHome, goBack, goNext }) => {
 
   useEffect(() => {
     getTotalPrice();
-  }, [totalPriceString]);
+  }, [getTotalPrice]);
 
   return (
     <section className="bookingInfo">
