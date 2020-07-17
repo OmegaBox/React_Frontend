@@ -1,17 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./style/MainBoxOffice.scss";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
+
 import { selectMovie } from "../../../Reducer/bookingReducer";
 import { getSearchMovie } from "../../../Reducer/movieReducer";
+import {
+  GET_TIMELINE_LIKE,
+  SEND_FAVORITE,
+} from "../../../Reducer/userInfoReducer";
+import { openModal } from "../../../Reducer/modalReducer";
+
 import SkeletonMainMovies from "../../Atoms/SkeletonMainMovies";
-import { isLogin } from "../../../Api/api";
 
 const MainBoxOffice = () => {
   const [movieBox, movieLoading] = useSelector((state) => [
     state.Movie.movies.filter((_, i) => i < 4),
     state.Movie.loading,
   ]);
+  const { isLogin, favoriteMovies } = useSelector((state) => state.userInfo);
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -21,6 +28,34 @@ const MainBoxOffice = () => {
       dispatch(getSearchMovie(e.target.value));
     }
   };
+  // 해당 영화가 보고싶어 등록이 되있는지 확인하는 함수
+  const isFavorite = (movieId) => {
+    return (
+      favoriteMovies.length !== 0 &&
+      favoriteMovies.map((favorite) => favorite.movie_id).includes(movieId)
+    );
+  };
+
+  const clickFavorite = (movieId) => {
+    if (isLogin) {
+      dispatch({
+        type: SEND_FAVORITE,
+        movieId,
+      });
+    } else {
+      dispatch(
+        openModal("로그인이 필요한 기능입니다.", () => {
+          history.push("/memberlogin");
+        })
+      );
+    }
+  };
+
+  useEffect(() => {
+    if (isLogin) {
+      dispatch({ type: GET_TIMELINE_LIKE });
+    }
+  }, [isLogin, favoriteMovies.length]);
 
   return (
     <div className="mainBoxOfficeLayout">
@@ -74,8 +109,16 @@ const MainBoxOffice = () => {
                           "lightGray",
                           "small",
                         ].join(" ")}
+                        onClick={() => clickFavorite(movie.id)}
                       >
-                        <span className="icon favoriteOutLine"></span>
+                        <span
+                          className={
+                            "icon" +
+                            (isFavorite(movie.id)
+                              ? " favorite select"
+                              : " favoriteOutLine")
+                          }
+                        ></span>
                         <span className="boxOfficeFavoriteScore">
                           {movie.acc_favorite}
                         </span>
@@ -145,4 +188,4 @@ const MainBoxOffice = () => {
   );
 };
 
-export default MainBoxOffice;
+export default React.memo(MainBoxOffice);
