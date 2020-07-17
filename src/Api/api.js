@@ -30,7 +30,6 @@ export const refreshValidation = async () => {
 
 export const isLogin = async () => {
   const accessToken = cookie.load("accessToken");
-
   if (accessToken) return true;
 
   return await refreshValidation();
@@ -292,6 +291,18 @@ export const movieApi = {
         Authorization: "Bearer " + accessToken,
       },
     });
+  },
+  registerFavorite: (MovieId) => {
+    const accessToken = cookie.load("accessToken");
+    if (!accessToken) return;
+    return axios.get(
+      `https://www.omegabox.xyz/movies/detail/${MovieId}/like/`,
+      {
+        headers: {
+          Authorization: "Bearer " + accessToken,
+        },
+      }
+    );
   },
 };
 
