@@ -107,9 +107,13 @@
       right: 0;
       width: 24px;
       height: 24px;
+      line-height: 1;
       background-color: white;
       border: $border 1px solid;
       border-radius: 50%;
+      background-image: url("https://img.megabox.co.kr/static/pc/images/reserve/btn-choice-dell-circle.png");
+      background-repeat: no-repeat;
+      background-position: center;
     }
 
     .bigPlusMark {

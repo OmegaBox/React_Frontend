@@ -18,6 +18,7 @@ const ALREADY_LOGIN = "userInfo/ALREADY_LOGIN";
 const LOGOUT_SUCCESS = "userInfo/LOGOUT";
 
 const SET_SIGNUP_INFO = "userInfo/SET_SIGNUP_INFO";
+const RESET_SIGNUP_INFO = "userInfo/RESET_SIGNUP_INFO";
 
 export const GET_MEMBER_PROFILE = "userInfo/GET_MEMBER_PROFILE"; // 사가진입용 액션
 // memberDetail
@@ -61,6 +62,10 @@ export const GET_TIMELINE_LIKE = "userInfo/GET_TIMELINE_LIKE"; // 사가진입�
 const GET_TIMELINE_LIKE_LOADING = "userInfo/GET_TIMELINE_LIKE_LOADING";
 const GET_TIMELINE_LIKE_SUCCESS = "userInfo/GET_TIMELINE_LIKE_SUCCESS";
 const GET_TIMELINE_LIKE_ERROR = "userInfo/GET_TIMELINE_LIKE_ERROR";
+
+const resetSignupInfo = () => ({
+  type: RESET_SIGNUP_INFO,
+});
 
 const checkLogin = () => async (dispatch) => {
   const res = await isLogin();
@@ -132,7 +137,7 @@ function* loginSaga(action) {
   }
 }
 
-const socialLogin = (user, history) => async (dispatch) => {
+const socialLogin = (user, history, signOut) => async (dispatch) => {
   dispatch({ type: LOGIN_LOADING });
 
   try {
@@ -176,6 +181,7 @@ const socialLogin = (user, history) => async (dispatch) => {
     //   type: LOGIN_ERROR,
     //   errorMessage: "아이디/비밀번호를 확인 해주세요",
     // });
+    signOut();
     dispatch(
       openModal("구글 계정으로 회원가입 하시겠습니까?", () => {
         dispatch({ type: SET_SIGNUP_INFO, user });
@@ -603,6 +609,11 @@ const userInfoReducer = (state = initialState, action) => {
           tokenId: action.user.token_id,
         },
       };
+    case RESET_SIGNUP_INFO:
+      return {
+        ...state,
+        socialSignupInfo: initialState.socialSignupInfo,
+      };
     case ALREADY_LOGIN:
       return {
         ...state,
@@ -710,5 +721,6 @@ export {
   startLogout,
   memberDetail,
   socialLogin,
+  resetSignupInfo,
   getMemberProfile,
 };

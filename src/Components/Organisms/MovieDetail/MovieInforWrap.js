@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./style/MovieInforWrap.scss";
 import { useSelector } from "react-redux";
 import RatingChart from "../../Molecules/ChartBookingRating";
@@ -8,44 +8,65 @@ import { numWithComma } from "../../../Utils/util";
 
 const MovieInforWrap = () => {
   const movie = useSelector((state) => state.Movie.detail);
-
+  const [fullStoryState, setfullStoryState] = useState({
+    fullStory: false,
+  });
+  const fullStoryOpen = () => {
+    setfullStoryState({
+      ...fullStoryState,
+      fullStory: !fullStoryState.fullStory,
+    });
+  };
   return (
     <div>
       <div className="movieStoryWrap">
-        {/* <h3 className="title">
-          원인불명 증세의 사람들의 공격에 통제 불능에 빠진 도시
-        </h3> */}
-        <p className={["story", "open"].join(" ")}>
+        <p
+          className={[
+            "story",
+            `${fullStoryState.fullStory ? "open" : ""}`,
+          ].join(" ")}
+        >
           {movie.description}
         </p>
         <button
           type="button"
           className={["btn", "large", "white", "outline"].join(" ")}
+          onClick={() => fullStoryOpen()}
         >
-          더보기<span className={["icon", "arrowBottom"].join(" ")}></span>
+          {fullStoryState.fullStory ? "닫기" : "더보기"}
+          <span
+            className={[
+              "icon",
+              `${fullStoryState.fullStory ? "arrowTop" : "arrowBottom"}`,
+            ].join(" ")}
+          ></span>
         </button>
       </div>
-      < ul className="movieInfoWrap">
+      <ul className="movieInfoWrap">
         <li className="movieType">
           <h3 className="title">상영타입</h3>
           <span>2D, 2D ATMOS, 디지털가치봄</span>
         </li>
         <li className="director">
           <h3 className="title">감독</h3>
-          {movie.directors !== undefined && movie.directors.map((director, i) => {
-            return <span key={`movie.$${director}`}>{director}</span>
-          })
-          }
+          {movie.directors !== undefined &&
+            movie.directors.map((director, i) => {
+              return <span key={`movie.$${director}`}>{director}</span>;
+            })}
         </li>
         <li className="genre">
           <h3 className="title">장르</h3>
-          <span >
-            {movie.genres !== undefined && movie.genres.map((genre, i) => {
-              return <span key={`movie.${genre}`} className="movieGenre">{genre}</span>
-            })
-            }
-          </span>/
-          <span className="runningTime">{movie.running_time}분</span>
+          <span>
+            {movie.genres !== undefined &&
+              movie.genres.map((genre, i) => {
+                return (
+                  <span key={`movie.${genre}`} className="movieGenre">
+                    {genre}
+                  </span>
+                );
+              })}
+          </span>
+          /<span className="runningTime">{movie.running_time}분</span>
         </li>
         <li className="ageGrade">
           <h3 className="title">등급</h3>
@@ -57,9 +78,10 @@ const MovieInforWrap = () => {
         </li>
         <li className="cast">
           <h3 className="title">출연진</h3>
-          {movie.actors !== undefined && movie.actors.map((actor, i) => {
-            return <span key={`movie.${actor}`}>{actor}</span>
-          })}
+          {movie.actors !== undefined &&
+            movie.actors.map((actor, i) => {
+              return <span key={`movie.${actor}`}>{actor}</span>;
+            })}
         </li>
       </ul>
       <ul className="movieInfoGraphicWrap">
@@ -79,13 +101,12 @@ const MovieInforWrap = () => {
             </div>
             <span>관람 후</span>
           </div>
-
         </li>
         <li>
           <h3 className="title">예매율</h3>
           <p className="content">{movie.reservation_rate}%</p>
           <div className="graph">
-            < RatingChart />
+            <RatingChart />
           </div>
         </li>
         <li>
@@ -126,33 +147,33 @@ const MovieInforWrap = () => {
           </div>
         </div>
         <ul className="commentList">
-          {movie.ratings !== undefined && movie.ratings.map((rating, i) => {
-            return (
-              <li key={`rating.${i}`} className="movieComment">
-                <div className="profile">
-                  <div className="photo"></div>
-                  <p className="id">{rating.member}</p>
-                </div>
-                <div className="box">
-                  <h3 className="title">관람평</h3>
-                  <p className="ratePoint">{rating.score}</p>
-                  <p className="hashTag">
-                    <span>{rating.key_point}</span>
-                  </p>
-                  <p className="comment">{rating.comment}</p>
-                  {/* <button type="button">
+          {movie.ratings !== undefined &&
+            movie.ratings.map((rating, i) => {
+              return (
+                <li key={`rating.${i}`} className="movieComment">
+                  <div className="profile">
+                    <div className="photo"></div>
+                    <p className="id">{rating.member}</p>
+                  </div>
+                  <div className="box">
+                    <h3 className="title">관람평</h3>
+                    <p className="ratePoint">{rating.score}</p>
+                    <p className="hashTag">
+                      <span>{rating.key_point}</span>
+                    </p>
+                    <p className="comment">{rating.comment}</p>
+                    {/* <button type="button">
                     <span className={["icon", "like"].join(" ")}></span>
                     <span>0</span>
                   </button> */}
-                  <button type="button">
-                    <span className={["icon", "btnMore"].join(" ")}></span>
-                  </button>
-                </div>
-                <div className="writeDateCount">5일전</div>
-              </li>
-            )
-          })}
-
+                    <button type="button">
+                      <span className={["icon", "btnMore"].join(" ")}></span>
+                    </button>
+                  </div>
+                  <div className="writeDateCount">5일전</div>
+                </li>
+              );
+            })}
         </ul>
       </div>
       <div className="moviePostWrap">
@@ -281,7 +302,7 @@ const MovieInforWrap = () => {
           </li>
         </ul>
       </div>
-    </div >
+    </div>
   );
 };
 

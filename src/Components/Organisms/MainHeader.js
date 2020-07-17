@@ -9,6 +9,8 @@ import { startLogout } from "../../Reducer/userInfoReducer";
 import ModalPortal from "../../Modules/ModalPortal";
 import PopupNotice from "../Molecules/PopupNotice";
 import { openModal } from "../../Reducer/modalReducer";
+import { useGoogleLogout } from "react-google-login";
+import key from "../../key.json";
 
 const MainHeader = () => {
   const dispatch = useDispatch();
@@ -27,7 +29,7 @@ const MainHeader = () => {
         page = "영화";
         break;
       case "/Booking":
-        page = "예매";
+        page = "빠른예매";
         break;
       case "/mypage":
         page = "나의 메가박스";
@@ -35,13 +37,96 @@ const MainHeader = () => {
       case "/event":
         page = "이벤트";
         break;
+      case "/booking/seat":
+        page = "빠른예매";
+        break;
+      case "/booking/payment":
+        page = "빠른예매";
+        break;
+      case "/booking/ticket":
+        page = "결제확인";
+        break;
+      case "/mypage/bookinghistory":
+        page = "예매내역";
+        break;
+      case "/mypage/bookinghistory/":
+        page = "예매내역";
+        break;
+      case "/mypage/mymoviestory":
+        page = "나의 무비스토리";
+        break;
+      case "/mypage/editoption":
+        page = "선택정보 수정";
+        break;
+      case "/mypage/confirmpassword":
+        page = "회원정보";
+        break;
+      case "/mypage/point":
+        page = "포인트 이용내역";
+        break;
       default:
     }
     return page;
   };
+  let pageUtilClass = (pageLocation) => {
+    let utilClass = "";
+    switch (pageLocation) {
+      case "/listMovies":
+        utilClass = "";
+        break;
+      case "/Booking":
+        utilClass = "";
+        break;
+      case "/mypage":
+        utilClass = "";
+        break;
+      case "/event":
+        utilClass = "";
+        break;
+      case "/booking/seat":
+        utilClass = "";
+        break;
+      case "/booking/payment":
+        utilClass = "";
+        break;
+      case "/booking/ticket":
+        utilClass = "";
+        break;
+      case "/mypage/bookinghistory":
+        utilClass = "";
+        break;
+      case "/mypage/bookinghistory/":
+        utilClass = "";
+        break;
+      case "/mypage/mymoviestory":
+        utilClass = "";
+        break;
+      case "/mypage/editoption":
+        utilClass = "";
+        break;
+      case "/mypage/confirmpassword":
+        utilClass = "";
+        break;
+      case "/mypage/point":
+        utilClass = "";
+        break;
+      default:
+        utilClass = "none";
+    }
+    return utilClass;
+  };
+
+  // 구글 로그아웃
+  const { signOut } = useGoogleLogout({
+    clientId: key.googleClientId,
+    onLogoutSuccess: () => {
+      console.log("구글 로그아웃 성공");
+    },
+  });
 
   const logOutPopup = () => {
     dispatch(startLogout());
+    signOut();
     history.push("/");
   };
   const changeHeader = useSelector((state) => state.userInfo.isLogin);
@@ -132,17 +217,16 @@ const MainHeader = () => {
           </div>
         </nav>
         <div
-          className={[
-            "pageUtil",
-            `${location.pathname === `/detail/` ? "none" : ""}`,
-          ].join(" ")}
+          className={["pageUtil", `${pageUtilClass(location.pathname)}`].join(
+            " "
+          )}
         >
           <ul>
             <li className="home">
               <Link to="/"></Link>
             </li>
             <li>
-              <Link to="">{pageName(location.pathname)}</Link>
+              <Link to={location.pathname}>{pageName(location.pathname)}</Link>
             </li>
           </ul>
         </div>

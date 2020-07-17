@@ -55,10 +55,20 @@
     .icon {margin-left: 8px;}
   }
   .story {
-    height: 80px;
+    max-height: 70px;
+    height: auto;
     overflow: hidden;
+    text-overflow:ellipsis;
+    word-wrap:break-word;
+    -webkit-box-orient:vertical;
+    -webkit-line-clamp:3;
+    display:-webkit-box;
   }
-  .story.open {height: auto;}
+  .story.open {
+    max-height: unset;
+    overflow: unset;
+    -webkit-box-orient: unset;
+  }
 }
 
 .movieInfoWrap {
@@ -88,21 +98,16 @@
       padding: 0 8px 0 4px;
     }
   }
-
-  .director span {
+  span {
+    display: inline;
     text-align: center;
-    min-width: 50px;
+    &:after {
+      content: ", ";
+    }
+    &:last-child:after {
+      display: none;
+    }
   }
-
-  .cast span {
-    text-align: center;
-    min-width: 50px;
-  }
-  span {display: inline-block;} 
-  .genre .movieGenre {
-    
-  }
-  .runningTime {text-align: center;}
 }
 
 .movieInfoGraphicWrap {

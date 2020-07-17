@@ -124,7 +124,7 @@ const BookingHistoryWrap = () => {
         </p>
         <ul className="movieList">
           {bookingHistory.length ? (
-            _bookingHistory.map((booking) => (
+            bookingHistory.map((booking) => (
               <li key={booking.reservation_id}>
                 <article className="movieItem">
                   <div className="poster">
@@ -153,9 +153,11 @@ const BookingHistoryWrap = () => {
                       <p>
                         {booking.seat_grade.map((grade) => {
                           let adult = grade.adult
-                            ? `성인 : ${grade.adult}`
+                            ? `성인 : ${grade.adult} `
                             : "";
-                          let teen = grade.teen ? `청소년 : ${grade.teen}` : "";
+                          let teen = grade.teen
+                            ? `청소년 : ${grade.teen} `
+                            : "";
                           let preferential = grade.preferential
                             ? `우대 : ${grade.preferential}`
                             : "";
@@ -180,16 +182,13 @@ const BookingHistoryWrap = () => {
                       <p>{timeDateSplit(booking.payed_at)}</p>
                     </li>
                     <li className="btnWrap">
-                      <button
-                        type="button"
-                        className={["btn", "fill", "small", "main"].join(" ")}
-                      >
-                        교환권출력
-                      </button>
                       <BookingCancel
                         classSet={["btn", "fill", "small", "darkGray"].join(
                           " "
                         )}
+                        receipt_id={booking.receipt_id}
+                        payment_id={booking.payment_id}
+                        price={booking.price}
                       />
                     </li>
                   </ul>
