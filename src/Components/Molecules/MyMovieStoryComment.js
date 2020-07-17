@@ -25,7 +25,7 @@ const MyMovieStoryComment = () => {
     <section className="comment">
       <h4 className="a11yHidden">한줄평</h4>
       <p className="listCounter">
-        총<span>{commentMovies.length}</span>건
+        총 <span>{commentMovies.length}</span>건
       </p>
       <ul className="movieList">
         {commentMovies.length ? (
@@ -59,7 +59,7 @@ const MyMovieStoryComment = () => {
                     <h5 className="a11yHidden">작성일시</h5>
                     <p>{getWriteTime(movie.created_at)} 일전 </p>
                   </li>
-                  <li className="btnWrap">
+                  {/* <li className="btnWrap">
                     <button
                       type="button"
                       className={["btn", "xSmall", "outLine", "lightGray"].join(
@@ -76,22 +76,22 @@ const MyMovieStoryComment = () => {
                     >
                       삭제
                     </button>
-                  </li>
+                  </li> */}
                 </ul>
               </article>
             </li>
           ))
         ) : (
-            <li key="0" className="listNull">
-              리스트가 없습니다.
-            </li>
-          )}
+          <li key="0" className="listNull">
+            리스트가 없습니다.
+          </li>
+        )}
       </ul>
-      <ul className="paging">
+      {/* <ul className="paging">
         <li>
           <a href="#section">1</a>
         </li>
-      </ul>
+      </ul> */}
     </section>
   );
 };
