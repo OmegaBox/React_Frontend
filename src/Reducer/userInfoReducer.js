@@ -469,11 +469,11 @@ function* userInfoSaga() {
 
 const initialState = {
   isLogin: false,
-  userName: "omegaman",
+  userName: "",
   name: "",
-  email: "xxxxx@naver.com",
-  mobile: "+821011111111",
-  birthDate: "2020-07-08",
+  email: "",
+  mobile: "",
+  birthDate: "",
   login: {
     loading: false,
     error: false,
@@ -617,10 +617,7 @@ const userInfoReducer = (state = initialState, action) => {
         },
       };
     case LOGOUT_SUCCESS:
-      return {
-        ...state,
-        isLogin: false,
-      };
+      return initialState;
 
     case SET_SIGNUP_INFO:
       return {

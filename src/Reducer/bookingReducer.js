@@ -259,10 +259,7 @@ const setReservation = (
       }
     }
   } else {
-<<<<<<< HEAD
-=======
     dispatch(checkLogin());
->>>>>>> 16c4588d88e15a5b4a90924bf880d89b5a7aa47d
     LoginFalseFunc();
   }
 };
