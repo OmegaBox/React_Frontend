@@ -55,7 +55,6 @@ const myMovieStoryReducer = (state = initTab, action) => {
     default:
       return {
         ...state,
-        view: "timeline",
       };
   }
 };
