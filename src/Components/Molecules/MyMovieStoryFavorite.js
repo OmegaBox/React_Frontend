@@ -2,6 +2,7 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { selectMovie } from "../../Reducer/bookingReducer";
+import { changeView } from "../../Reducer/myMovieStoryReducer";
 import { SEND_FAVORITE } from "../../Reducer/userInfoReducer";
 
 const MyMovieStoryFavorite = () => {
@@ -35,6 +36,7 @@ const MyMovieStoryFavorite = () => {
       type: SEND_FAVORITE,
       movieId,
     });
+    dispatch(changeView("favorite"));
   };
   return (
     <section className={["likeMovie", "clearfix"].join(" ")}>
