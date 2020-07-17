@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import BookingCancel from "../../Molecules/BookingCancel";
@@ -9,8 +9,9 @@ import {
   sliceTime,
   createDay,
 } from "../../../Utils/util";
-import { changeView } from "../../../Reducer/myMovieStoryReducer";
 import "./style/MypageDashBoard.scss";
+import { changeView } from "../../../Reducer/myMovieStoryReducer";
+import { checkLogin, getMemberProfile } from "../../../Reducer/userInfoReducer";
 
 const MypageDashBoard = () => {
   const dispatch = useDispatch();
@@ -50,6 +51,13 @@ const MypageDashBoard = () => {
         return "비회원";
     }
   };
+
+  useEffect(() => {
+    // window.scrollTo(0, 0);
+    dispatch(checkLogin());
+    dispatch(getMemberProfile());
+  }, [dispatch]);
+
   return (
     <div>
       <div className="mypageDashBoard">
@@ -89,13 +97,13 @@ const MypageDashBoard = () => {
           <div className="subTitleWrap">
             <h4 className="titleText">나의 무비스토리</h4>
             <Link
-              to="/mypage/myMovieStory"
+              to="/mypage/mymoviestory"
               className={["icon", "arrowRight"].join(" ")}
             ></Link>
           </div>
           <ul className={["roundBox", "movieStoryInfoList"].join(" ")}>
             <li>
-              <Link to="/mypage/myMovieStory">
+              <Link to="/mypage/mymoviestory">
                 <button
                   type="button"
                   onClick={() => dispatch(changeView("watched"))}
@@ -105,7 +113,7 @@ const MypageDashBoard = () => {
               </Link>
             </li>
             <li>
-              <Link to="/mypage/myMovieStory">
+              <Link to="/mypage/mymoviestory">
                 <button
                   type="button"
                   onClick={() => dispatch(changeView("comment"))}
@@ -115,7 +123,7 @@ const MypageDashBoard = () => {
               </Link>
             </li>
             <li>
-              <Link to="/mypage/myMovieStory">
+              <Link to="/mypage/mymoviestory">
                 <button
                   type="button"
                   onClick={() => dispatch(changeView("favorite"))}
@@ -198,6 +206,9 @@ const MypageDashBoard = () => {
                       classSet={["btn", "xSmall", "outLine", "lightGray"].join(
                         " "
                       )}
+                      receipt_id={booking.receipt_id}
+                      payment_id={booking.payment_id}
+                      price={booking.price}
                     />
                   </article>
                 </li>

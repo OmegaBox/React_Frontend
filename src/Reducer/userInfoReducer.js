@@ -141,7 +141,7 @@ function* loginSaga(action) {
   }
 }
 
-const socialLogin = (user, history) => async (dispatch) => {
+const socialLogin = (user, history, signOut) => async (dispatch) => {
   dispatch({ type: LOGIN_LOADING });
 
   try {
@@ -185,6 +185,7 @@ const socialLogin = (user, history) => async (dispatch) => {
     //   type: LOGIN_ERROR,
     //   errorMessage: "아이디/비밀번호를 확인 해주세요",
     // });
+    signOut();
     dispatch(
       openModal("구글 계정으로 회원가입 하시겠습니까?", () => {
         dispatch({ type: SET_SIGNUP_INFO, user });
@@ -263,7 +264,7 @@ function* myReserved(action) {
       return;
     }
     const res = yield call(userApi.myReserved, { id: action.id });
-    // console.log("예약내역", res.data.results);
+    console.log("예약내역", res.data.results);
     if (res.status === 200 || res.status === 201) {
       yield put({
         type: GET_RESERVED_SUCCESS,

@@ -56,8 +56,8 @@ const changeFavorite = {
 };
 
 const getMovies = () => async (dispatch) => {
+  dispatch(setLoadingMovie());
   try {
-    dispatch(setLoadingMovie());
     const res = await movieApi.getMovies();
     if (res.status === 200) {
       if (!Array.isArray(res.data.results))
@@ -176,6 +176,7 @@ const initialState = {
     loading: false,
   },
   ageBooking: {},
+  like: false,
 };
 
 const movieReducer = (state = initialState, action) => {
@@ -197,7 +198,7 @@ const movieReducer = (state = initialState, action) => {
     case MOVIE_LOADING:
       return {
         ...state,
-        loading: true,
+        loading: false,
         error: null,
       };
     case MOVIE_DETAIL_SUCCESS:

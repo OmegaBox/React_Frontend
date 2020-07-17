@@ -2,8 +2,10 @@ import React, { useEffect } from "react";
 import "./style/MainBoxOffice.scss";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
-
-import { selectMovie } from "../../../Reducer/bookingReducer";
+import {
+  selectMovie,
+  clearSelectedMovies,
+} from "../../../Reducer/bookingReducer";
 import { getSearchMovie } from "../../../Reducer/movieReducer";
 import {
   GET_TIMELINE_LIKE,
@@ -87,9 +89,9 @@ const MainBoxOffice = () => {
                         src={movie.poster}
                       />
                       <div className="boxOfficeMovieInforWrap">
-                        <div className="boxOfficeMovieSummary">
-                          <p>{movie.description}</p>
-                        </div>
+                        <p className="boxOfficeMovieSummary">
+                          {movie.description}
+                        </p>
                         <div className="boxOfficeMovieScore">
                           <div>
                             <p>관람평</p>
@@ -125,15 +127,16 @@ const MainBoxOffice = () => {
                       </button>
                       <Link to="/booking">
                         <button
-                          onClick={() =>
+                          onClick={() => {
+                            dispatch(clearSelectedMovies());
                             dispatch(
                               selectMovie({
                                 title: movie.name_kor,
                                 poster: movie.poster,
                                 id: movie.id,
                               })
-                            )
-                          }
+                            );
+                          }}
                           className={[
                             "boxOfficeBookingBtn",
                             "btn",

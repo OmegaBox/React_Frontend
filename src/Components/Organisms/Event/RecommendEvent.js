@@ -35,7 +35,7 @@ const RecommendEvent = () => {
       <div className="eventContentWrap">
         <ul className="eventList">
           <li>
-            <a href="#" className="eventItem">
+            <a href="#section" className="eventItem">
               <div className="imgWrap">
                 <img
                   src="https://img.megabox.co.kr/SharedImg/event/2020/06/15/1FmOw19ViMIYmwN25yvK8VDpgkQ8nQEM.jpg"
@@ -49,7 +49,7 @@ const RecommendEvent = () => {
             </a>
           </li>
           <li>
-            <a href="#" className="eventItem">
+            <a href="#section" className="eventItem">
               <div className="imgWrap">
                 <img
                   src="https://img.megabox.co.kr/SharedImg/event/2020/06/16/GcDx0cF1WsWfm11gJYI1J88kzV60DFD9.jpg"
@@ -65,7 +65,7 @@ const RecommendEvent = () => {
             </a>
           </li>
           <li>
-            <a href="#" className="eventItem">
+            <a href="#section" className="eventItem">
               <div className="imgWrap">
                 <img
                   src="https://img.megabox.co.kr/SharedImg/event/2020/06/16/GcDx0cF1WsWfm11gJYI1J88kzV60DFD9.jpg"

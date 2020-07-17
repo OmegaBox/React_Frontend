@@ -404,6 +404,10 @@ p {
   &.arrowBottom {
     background-image: url("https://img.megabox.co.kr/static/pc/images/common/ico/ico-arr-toggle-down.png");
   }
+  &.arrowTop {
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/ico/ico-btn-more-arr.png");
+    transform: rotate(180deg);
+  }
   &.arrowRightWhite {
     background-image: url("https://img.megabox.co.kr/static/pc/images/common/ico/ico-arr-right-white.png");
   }
@@ -435,6 +439,9 @@ p {
     height: 15px;
     background-image: url("https://img.megabox.co.kr/static/pc/images/common/ico/ico-heart-toggle-main.png");
     background-position: 0;
+  }
+  &.favoriteOutLine.select {
+    background-position: -17px;
   }
   &.plus {
     background-image: url("https://img.megabox.co.kr/static/pc/images/reserve/bg-empty-cell-circle.png");

@@ -51,6 +51,7 @@
 .subLeftSide li:hover, .subRightSide li a:hover, .subRightSide li button:hover {
   text-decoration: underline;
 }
+
 .subHeader .subNav {color: $colorSecondaryText}
 .subHeader .subLeftSide li, .subHeader .subRightSide li a, .subHeader .subRightSide li button {
   color: inherit;
@@ -101,6 +102,10 @@
   background-image: url(https://img.megabox.co.kr/static/pc/images/common/ico/ico-mymega-white.png);
 }
 
+.subHeader .logoutBtn {
+  color: $colorGray44;
+}
+
 .subHeader .menuBar {
   background-image: url(https://img.megabox.co.kr/static/pc/images/common/ico/ico-sitemap.png);
 }
@@ -136,7 +141,7 @@
     height: 24px;
     background-image: url("https://img.megabox.co.kr/static/pc/images/common/bg/bg-location-home.png");
     background-repeat: no-repeat;
-    background-position: center;
+    background-position: 0 6px;
   }
   li {
     display: flex;

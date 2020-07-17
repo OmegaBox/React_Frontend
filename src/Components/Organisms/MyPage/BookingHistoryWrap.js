@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import BookingCancel from "../../Molecules/BookingCancel";
 import {
   numWithComma,
@@ -10,6 +10,7 @@ import {
   createDay,
 } from "../../../Utils/util";
 import "./style/BookingHistoryWrap.scss";
+import { checkLogin, getMemberProfile } from "../../../Reducer/userInfoReducer";
 
 const BookingHistoryWrap = () => {
   /* 예매내역 */
@@ -22,6 +23,8 @@ const BookingHistoryWrap = () => {
   }));
 
   const [useInfo, setUseInfo] = useState({ open: false });
+
+  const dispatch = useDispatch();
 
   const openUseInfo = () => {
     setUseInfo({
@@ -73,6 +76,12 @@ const BookingHistoryWrap = () => {
     );
   };
 
+  useEffect(() => {
+    // window.scrollTo(0, 0);
+    dispatch(checkLogin());
+    dispatch(getMemberProfile());
+  }, [dispatch]);
+
   return (
     <div className="bookingHistoryWrap">
       <h3 className="mypageTitle">예매내역</h3>
@@ -115,7 +124,7 @@ const BookingHistoryWrap = () => {
         </p>
         <ul className="movieList">
           {bookingHistory.length ? (
-            _bookingHistory.map((booking) => (
+            bookingHistory.map((booking) => (
               <li key={booking.reservation_id}>
                 <article className="movieItem">
                   <div className="poster">
@@ -144,9 +153,11 @@ const BookingHistoryWrap = () => {
                       <p>
                         {booking.seat_grade.map((grade) => {
                           let adult = grade.adult
-                            ? `성인 : ${grade.adult}`
+                            ? `성인 : ${grade.adult} `
                             : "";
-                          let teen = grade.teen ? `청소년 : ${grade.teen}` : "";
+                          let teen = grade.teen
+                            ? `청소년 : ${grade.teen} `
+                            : "";
                           let preferential = grade.preferential
                             ? `우대 : ${grade.preferential}`
                             : "";
@@ -171,16 +182,13 @@ const BookingHistoryWrap = () => {
                       <p>{timeDateSplit(booking.payed_at)}</p>
                     </li>
                     <li className="btnWrap">
-                      <button
-                        type="button"
-                        className={["btn", "fill", "small", "main"].join(" ")}
-                      >
-                        교환권출력
-                      </button>
                       <BookingCancel
                         classSet={["btn", "fill", "small", "darkGray"].join(
                           " "
                         )}
+                        receipt_id={booking.receipt_id}
+                        payment_id={booking.payment_id}
+                        price={booking.price}
                       />
                     </li>
                   </ul>

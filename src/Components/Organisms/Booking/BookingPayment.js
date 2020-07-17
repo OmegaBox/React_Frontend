@@ -34,7 +34,7 @@ const BookingPayment = () => {
   return (
     <div className="bookingPaymentWrap">
       <h2 className="title">빠른예매</h2>
-      <div className="pointWrap">
+      {/* <div className="pointWrap">
         <h3 className="a11yHidden">포인트 사용</h3>
         <p className="stitle">
           <span className={["icon", "point"].join(" ")}></span>
@@ -57,7 +57,7 @@ const BookingPayment = () => {
         >
           사용
         </button>
-      </div>
+      </div> */}
       <div className="paymentInfoWrap">
         <div className="moviePoster">
           <img src={`${ticketState.poster}`} alt="" />
@@ -126,12 +126,12 @@ const BookingPayment = () => {
               <span>{numWithComma(ticketState.price)}</span>원
             </p>
           </div>
-          <div className="usePoint">
+          {/* <div className="usePoint">
             <h4 className="subTitle">포인트 사용</h4>
             <p className="dcPrice">
               <span className="">0</span>원
             </p>
-          </div>
+          </div> */}
           <div className="finalPaymentWrap">
             <h4 className="subTitle">최종결제금액</h4>
             <p className="payment">

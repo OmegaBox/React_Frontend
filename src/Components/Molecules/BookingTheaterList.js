@@ -135,9 +135,9 @@ const BookingTheaterList = () => {
               return (
                 <li key={`selectedTheaterList${i}`}>
                   <span>{theater.name}</span>
-                  <button onClick={() => dispatch(selectTheater(theater))}>
-                    x
-                  </button>
+                  <button
+                    onClick={() => dispatch(selectTheater(theater))}
+                  ></button>
                 </li>
               );
             })}
