@@ -1,20 +1,49 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import "./style/WholeMovieListWrap.scss";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { selectMovie } from "../../../Reducer/bookingReducer";
 import { getSearchMovie } from "../../../Reducer/movieReducer";
+import {
+  GET_TIMELINE_LIKE,
+  SEND_FAVORITE,
+} from "../../../Reducer/userInfoReducer";
+import { openModal } from "../../../Reducer/modalReducer";
 import SkeletonWholeMoviePage from "../../Atoms/SkeletonWholeMoviePage";
 
 const WholeMovieListWrap = () => {
   const movies = useSelector((state) => state.Movie.movies);
   const isLoading = useSelector((state) => state.Movie.loading);
-  console.log(isLoading);
   const dispatch = useDispatch();
+  const history = useHistory();
+  const { isLogin, favoriteMovies } = useSelector((state) => state.userInfo);
 
   const enterKeyword = (e) => {
     if (e.keyCode === 13) {
       dispatch(getSearchMovie(e.target.value));
+    }
+  };
+
+  // 해당 영화가 보고싶어 등록이 되있는지 확인하는 함수
+  const isFavorite = (movieId) => {
+    return (
+      favoriteMovies.length !== 0 &&
+      favoriteMovies.map((favorite) => favorite.movie_id).includes(movieId)
+    );
+  };
+
+  const clickFavorite = (movieId) => {
+    if (isLogin) {
+      dispatch({
+        type: SEND_FAVORITE,
+        movieId,
+      });
+    } else {
+      dispatch(
+        openModal("로그인이 필요한 기능입니다.", () => {
+          history.push("/memberlogin");
+        })
+      );
     }
   };
 
@@ -49,7 +78,9 @@ const WholeMovieListWrap = () => {
         />
         <button type="button" className="iconSearchBtn"></button>
       </div>
-      {isLoading ? (<SkeletonWholeMoviePage />) : (
+      {isLoading ? (
+        <SkeletonWholeMoviePage />
+      ) : (
         <ul className="wholeMovieList">
           {movies.map((movie, i) => {
             let iconClassName = "icon";
@@ -94,7 +125,7 @@ const WholeMovieListWrap = () => {
                 <div className="movieListRateandDay">
                   <span className="movieListBookingRate">
                     예매율{movie.reservation_rate}%
-                </span>
+                  </span>
                   <span className="movieListOpeningDay">
                     개봉일{movie.open_date}
                   </span>
@@ -109,8 +140,16 @@ const WholeMovieListWrap = () => {
                       "lightGray",
                       "small",
                     ].join(" ")}
+                    onClick={() => clickFavorite(movie.id)}
                   >
-                    <span className="icon favorite"></span>
+                    <span
+                      className={
+                        "icon" +
+                        (isFavorite(movie.id)
+                          ? " favorite select"
+                          : " favorite")
+                      }
+                    ></span>
                     <span className="wholeFavoriteScore">
                       {movie.acc_favorite}
                     </span>
@@ -135,7 +174,7 @@ const WholeMovieListWrap = () => {
                       ].join(" ")}
                     >
                       예매
-                  </button>
+                    </button>
                   </Link>
                 </div>
               </li>
