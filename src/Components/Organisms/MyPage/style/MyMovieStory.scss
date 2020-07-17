@@ -71,7 +71,10 @@
     color: $colorWhite;
   }
 }
-.myMovieStoryWrap .timeLine .movieItem {padding: 8px 8px 16px;}
+.myMovieStoryWrap .timeLine .movieItem {
+  align-items: center;
+  padding: 8px 8px 16px;
+}
 
 .myMovieStoryWrap .timeLine .movieItem,
 .myMovieStoryWrap .comment .movieItem {
@@ -85,13 +88,14 @@
     padding-left: 8px;
   }
   .info .tag {
-    margin-bottom: 8px;
+    margin-bottom: 4px;
     padding-left: 0;
   }
   .info .tag p {
-    padding: 3px 16px 0;
+    padding: 6px 16px 2px;
     border: 1px solid $darkBorder;
     border-radius: 16px;
+    line-height: 1;
   }
   .info .title p {
     font-size: 1.8rem;
