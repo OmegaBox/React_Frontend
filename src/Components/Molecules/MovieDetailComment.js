@@ -23,7 +23,7 @@ const MovieDetailComment = () => {
           </div>
           <div className="box">
             <p className="content">
-              <span className="userName">김규리</span>님{" "}
+              <span className="userName">홍길동</span>님{" "}
               <span className="movieTitle">나의 첫 번째 슈퍼스타</span>재미있게
               보셨나요? 영화의 어떤 점이 좋았는지 이야기해주세요.
             </p>
