@@ -11,6 +11,10 @@ const MovieInforWrap = () => {
   const [fullStoryState, setfullStoryState] = useState({
     fullStory: false,
   });
+
+  // const rating = useSelector((state) => state.Movie.detail).key_point_count;
+
+
   const fullStoryOpen = () => {
     setfullStoryState({
       ...fullStoryState,
@@ -60,9 +64,7 @@ const MovieInforWrap = () => {
             {movie.genres !== undefined &&
               movie.genres.map((genre, i) => {
                 return (
-                  <span key={`movie.${genre}`} className="movieGenre">
-                    {genre}
-                  </span>
+                  <span key={`movie.${genre}`}>{genre}</span>
                 );
               })}
           </span>
