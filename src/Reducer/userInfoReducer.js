@@ -1,8 +1,9 @@
-import { put, call, takeLatest } from "redux-saga/effects";
-import { userApi, isLogin } from "../Api/api";
+import { put, call, takeLatest, select } from "redux-saga/effects";
+import { userApi, isLogin, movieApi } from "../Api/api";
 import cookie from "react-cookies";
 import { removeCookies } from "../Utils/util";
 import { act } from "react-dom/test-utils";
+import { changeFavorite } from "./movieReducer";
 import { openModal } from "./modalReducer";
 
 const SUCCESS = "userInfo/SUCCESS";
@@ -63,13 +64,15 @@ const GET_TIMELINE_LIKE_LOADING = "userInfo/GET_TIMELINE_LIKE_LOADING";
 const GET_TIMELINE_LIKE_SUCCESS = "userInfo/GET_TIMELINE_LIKE_SUCCESS";
 const GET_TIMELINE_LIKE_ERROR = "userInfo/GET_TIMELINE_LIKE_ERROR";
 
+// sendFavorite
+export const SEND_FAVORITE = "userInfo/SEND_FAVORITE";
+
 const resetSignupInfo = () => ({
   type: RESET_SIGNUP_INFO,
 });
 
 const checkLogin = () => async (dispatch) => {
   const res = await isLogin();
-  console.log("로그인여부 확인", res);
 
   if (res) dispatch({ type: ALREADY_LOGIN });
   else dispatch({ type: LOGOUT_SUCCESS });
@@ -78,7 +81,6 @@ const checkLogin = () => async (dispatch) => {
 const startLogout = () => async (dispatch) => {
   await userApi.logout();
   removeCookies();
-  console.log("로그아웃");
 
   dispatch({ type: LOGOUT_SUCCESS });
 };
@@ -218,7 +220,7 @@ function* memberDetail(action) {
       return;
     }
     const res = yield call(userApi.memberDetail);
-    // console.log("마이페이지", res.data);
+
     if (res.status === 200 || res.status === 201) {
       yield put({
         type: GET_MEMBER_DETAIL_SUCCESS,
@@ -260,7 +262,6 @@ function* myReserved(action) {
       return;
     }
     const res = yield call(userApi.myReserved, { id: action.id });
-    console.log("예약내역", res.data.results);
     if (res.status === 200 || res.status === 201) {
       yield put({
         type: GET_RESERVED_SUCCESS,
@@ -297,7 +298,6 @@ function* myReservedCancel(action) {
       return;
     }
     const res = yield call(userApi.myReservedCancel, { id: action.id });
-    // console.log("예약취소", res.data.results);
     if (res.status === 200 || res.status === 201) {
       yield put({
         type: GET_RESERVED_CANCELED_SUCCESS,
@@ -334,7 +334,6 @@ function* timelineRating(action) {
       return;
     }
     const res = yield call(userApi.timelineRating, { id: action.id });
-    // console.log("한줄평", res.data.results);
     if (res.status === 200 || res.status === 201) {
       yield put({
         type: GET_TIMELINE_RATING_SUCCESS,
@@ -371,7 +370,6 @@ function* timelineWatched(action) {
       return;
     }
     const res = yield call(userApi.timelineWatched, { id: action.id });
-    // console.log("본영화", res.data.results);
     if (res.status === 200 || res.status === 201) {
       yield put({
         type: GET_TIMELINE_WATCHED_SUCCESS,
@@ -408,7 +406,6 @@ function* timelineLike(action) {
       return;
     }
     const res = yield call(userApi.timelineLike, { id: action.id });
-    // console.log("보고싶은", res.data.results);
     if (res.status === 200 || res.status === 201) {
       yield put({
         type: GET_TIMELINE_LIKE_SUCCESS,
@@ -433,6 +430,30 @@ function* timelineLike(action) {
   }
 }
 
+// 보고싶어 요청
+function* sendFavoriteRequest(action) {
+  const state = yield select();
+  const loginCheck = yield isLogin();
+  const movieId = action.movieId;
+
+  if (!loginCheck) {
+    yield put(startLogout());
+    return;
+  }
+  try {
+    yield call(movieApi.registerFavorite, movieId);
+    yield put({ type: GET_TIMELINE_LIKE });
+    const actionFunc = state.userInfo.favoriteMovies
+      .map((favorite) => favorite.movie_id)
+      .includes(movieId)
+      ? changeFavorite.decreaseFavorite(movieId)
+      : changeFavorite.increaseFavorite(movieId);
+    yield put(actionFunc);
+  } catch (e) {
+    console.error(e.response);
+  }
+}
+
 function* userInfoSaga() {
   yield takeLatest(LOGIN, loginSaga);
 
@@ -442,16 +463,17 @@ function* userInfoSaga() {
   yield takeLatest(GET_TIMELINE_RATING, timelineRating);
   yield takeLatest(GET_TIMELINE_WATCHED, timelineWatched);
   yield takeLatest(GET_TIMELINE_LIKE, timelineLike);
+  yield takeLatest(SEND_FAVORITE, sendFavoriteRequest);
   // yield takeLatest(GET_MEMBER_PROFILE, getMemberProfile);
 }
 
 const initialState = {
   isLogin: false,
-  userName: "omegaman",
+  userName: "",
   name: "",
-  email: "xxxxx@naver.com",
-  mobile: "+821011111111",
-  birthDate: "2020-07-08",
+  email: "",
+  mobile: "",
+  birthDate: "",
   login: {
     loading: false,
     error: false,
@@ -595,10 +617,7 @@ const userInfoReducer = (state = initialState, action) => {
         },
       };
     case LOGOUT_SUCCESS:
-      return {
-        ...state,
-        isLogin: false,
-      };
+      return initialState;
 
     case SET_SIGNUP_INFO:
       return {

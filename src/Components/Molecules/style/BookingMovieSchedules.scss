@@ -8,6 +8,25 @@
   padding: 10px 0 20px 0;
 
   h3 {
-    padding-left: 20px;
+    display: flex;
+    padding: 0 20px 0 20px;
+    align-items: center;
+    justify-content: space-between;
+
+    .checkEarlyBird {
+      display: flex;
+      align-items: center;
+
+      #earlyBird {
+        font-size: 13px !important;
+        text-align: right;
+        background-repeat: no-repeat;
+      }
+      span {
+        margin-left: 4px;
+        font-size: 13px !important;
+        text-align: right;
+      }
+    }
   }
 }

@@ -171,7 +171,9 @@ const MainHeader = () => {
                     </button>
                   </li>
                   <li>
-                    <Link to="/">알림</Link>
+                    <a className="noCall" href="#section">
+                      알림
+                    </a>
                   </li>
                 </>
               ) : (
@@ -201,12 +203,14 @@ const MainHeader = () => {
               <li>
                 <Link to="/Booking">예매</Link>
               </li>
-              <li>극장</li>
+              <li className="noCall">극장</li>
             </ul>
             <ul className="mainMenu mainRightSide">
-              <Link to="/event">이벤트</Link>
-              <li>스토어</li>
-              <li>혜택</li>
+              <li>
+                <Link to="/event">이벤트</Link>
+              </li>
+              <li className="noCall">스토어</li>
+              <li className="noCall">혜택</li>
             </ul>
             <ul className="rightIcon">
               <li className="headerIcon menuSchedule"></li>

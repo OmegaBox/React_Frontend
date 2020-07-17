@@ -424,7 +424,8 @@ p {
     background-image: url("https://img.megabox.co.kr/static/pc/images/common/ico/ico-heart-toggle-gray.png");
     background-position: 0;
   }
-  &.favorite.select {
+  &.favorite.select,
+  &.favoriteOutLine.select {
     background-position: -17px;
   }
   &.closed {
@@ -599,4 +600,14 @@ p {
       }
     }
   }
+}
+
+.earlyBird {
+  display: inline-block;
+  width: 17px;
+  height: 17px;
+  margin-top: 2px;
+  margin-left: 5px;
+  background-image: url("https://img.megabox.co.kr/static/pc/images/common/ico/ico-greeting-option-sun.png");
+  background-size: contain;
 }

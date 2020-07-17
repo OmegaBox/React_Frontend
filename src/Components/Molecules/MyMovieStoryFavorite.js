@@ -2,6 +2,8 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { selectMovie } from "../../Reducer/bookingReducer";
+import { changeView } from "../../Reducer/myMovieStoryReducer";
+import { SEND_FAVORITE } from "../../Reducer/userInfoReducer";
 
 const MyMovieStoryFavorite = () => {
   const dispatch = useDispatch();
@@ -27,6 +29,14 @@ const MyMovieStoryFavorite = () => {
         break;
     }
     return gradeName;
+  };
+
+  const clickFavorite = (movieId) => {
+    dispatch({
+      type: SEND_FAVORITE,
+      movieId,
+    });
+    dispatch(changeView("favorite"));
   };
   return (
     <section className={["likeMovie", "clearfix"].join(" ")}>
@@ -58,6 +68,9 @@ const MyMovieStoryFavorite = () => {
                       className={["btn", "small", "outLine", "lightGray"].join(
                         " "
                       )}
+                      onClick={() => {
+                        clickFavorite(movie.movie_id);
+                      }}
                     >
                       <span
                         className={["icon", "favorite", "select"].join(" ")}
@@ -71,15 +84,15 @@ const MyMovieStoryFavorite = () => {
                             selectMovie({
                               title: movie.movie_name,
                               poster: movie.poster,
-                              id: movie.movie_id
+                              id: movie.movie_id,
                             })
-                          )
+                          );
                         }}
                         type="button"
                         className={["btn", "small", "fill", "main"].join(" ")}
                       >
                         예매
-                    </button>
+                      </button>
                     </Link>
                   </li>
                 </ul>
@@ -87,10 +100,10 @@ const MyMovieStoryFavorite = () => {
             </li>
           ))
         ) : (
-            <li key="0" className="listNull">
-              리스트가 없습니다.
-            </li>
-          )}
+          <li key="0" className="listNull">
+            리스트가 없습니다.
+          </li>
+        )}
       </ul>
     </section>
   );
