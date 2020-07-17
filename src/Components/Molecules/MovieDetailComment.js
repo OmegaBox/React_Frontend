@@ -37,37 +37,37 @@ const MovieDetailComment = () => {
           </div>
         </div>
         <ul className="commentList">
-          {movie.ratings !== undefined && movie.ratings.map((rating, i) => {
-            return (
-              <li key={`rating.${i}`} className="movieComment">
-                <div className="profile">
-                  <div className="photo"></div>
-                  <p className="id">{rating.member}</p>
-                </div>
-                <div className="box">
-                  <h3 className="title">관람평</h3>
-                  <p className="ratePoint">{rating.score}</p>
-                  <p className="hashTag">
-                    <span>{rating.key_point}</span>
-                  </p>
-                  <p className="comment">{rating.comment}</p>
-                  {/* <button type="button">
+          {movie.ratings !== undefined &&
+            movie.ratings.map((rating, i) => {
+              return (
+                <li key={`rating.${i}`} className="movieComment">
+                  <div className="profile">
+                    <div className="photo"></div>
+                    <p className="id">{rating.member}</p>
+                  </div>
+                  <div className="box">
+                    <h3 className="title">관람평</h3>
+                    <p className="ratePoint">{rating.score}</p>
+                    <p className="hashTag">
+                      <span>{rating.key_point}</span>
+                    </p>
+                    <p className="comment">{rating.comment}</p>
+                    {/* <button type="button">
                     <span className={["icon", "like"].join(" ")}></span>
                     <span>0</span>
                   </button> */}
-                  <button type="button">
-                    <span className={["icon", "btnMore"].join(" ")}></span>
-                  </button>
-                </div>
-                <div className="writeDateCount">5일전</div>
-              </li>
-            )
-          })}
-
+                    <button type="button">
+                      <span className={["icon", "btnMore"].join(" ")}></span>
+                    </button>
+                  </div>
+                  <div className="writeDateCount">5일전</div>
+                </li>
+              );
+            })}
         </ul>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default MovieDetailComment;

@@ -6,6 +6,7 @@ const RaderChartKeyPoint = () => {
   const rating = useSelector((state) => state.Movie.detail).key_point_count;
   const res = rating !== undefined && rating
   const options = {
+    labal: false,
     legend: {
       display: false,
     },
@@ -16,7 +17,9 @@ const RaderChartKeyPoint = () => {
         suggestedMax: 150,
 
       },
+      pointLabels: false,
     },
+
 
     maintainAspectRatio: false
   };

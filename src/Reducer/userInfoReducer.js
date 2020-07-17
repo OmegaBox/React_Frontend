@@ -1,8 +1,9 @@
 import { put, call, takeLatest, select } from "redux-saga/effects";
-import { userApi, isLogin } from "../Api/api";
+import { userApi, isLogin, movieApi } from "../Api/api";
 import cookie from "react-cookies";
 import { removeCookies } from "../Utils/util";
 import { act } from "react-dom/test-utils";
+import { changeFavorite } from "./movieReducer";
 import { openModal } from "./modalReducer";
 
 const SUCCESS = "userInfo/SUCCESS";
@@ -62,6 +63,9 @@ export const GET_TIMELINE_LIKE = "userInfo/GET_TIMELINE_LIKE"; // 사가진입�
 const GET_TIMELINE_LIKE_LOADING = "userInfo/GET_TIMELINE_LIKE_LOADING";
 const GET_TIMELINE_LIKE_SUCCESS = "userInfo/GET_TIMELINE_LIKE_SUCCESS";
 const GET_TIMELINE_LIKE_ERROR = "userInfo/GET_TIMELINE_LIKE_ERROR";
+
+// sendFavorite
+export const SEND_FAVORITE = "userInfo/SEND_FAVORITE";
 
 const resetSignupInfo = () => ({
   type: RESET_SIGNUP_INFO,
@@ -433,6 +437,30 @@ function* timelineLike(action) {
   }
 }
 
+// 보고싶어 요청
+function* sendFavoriteRequest(action) {
+  const state = yield select();
+  const loginCheck = yield isLogin();
+  const movieId = action.movieId;
+
+  if (!loginCheck) {
+    yield put(startLogout());
+    return;
+  }
+  try {
+    yield call(movieApi.registerFavorite, movieId);
+    yield put({ type: GET_TIMELINE_LIKE });
+    const actionFunc = state.userInfo.favoriteMovies
+      .map((favorite) => favorite.movie_id)
+      .includes(movieId)
+      ? changeFavorite.increaseFavorite(movieId)
+      : changeFavorite.decreaseFavorite(movieId);
+    yield put(actionFunc);
+  } catch (e) {
+    console.error(e.response);
+  }
+}
+
 function* userInfoSaga() {
   yield takeLatest(LOGIN, loginSaga);
 
@@ -442,6 +470,7 @@ function* userInfoSaga() {
   yield takeLatest(GET_TIMELINE_RATING, timelineRating);
   yield takeLatest(GET_TIMELINE_WATCHED, timelineWatched);
   yield takeLatest(GET_TIMELINE_LIKE, timelineLike);
+  yield takeLatest(SEND_FAVORITE, sendFavoriteRequest);
   // yield takeLatest(GET_MEMBER_PROFILE, getMemberProfile);
 }
 
