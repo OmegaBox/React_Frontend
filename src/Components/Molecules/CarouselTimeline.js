@@ -42,7 +42,9 @@ const CarouselTimeline = () => {
             addClass +=
               +selectedOption.selectedHour === +time ? " selectedTime" : "";
             addClass +=
-              +time < +nowHour || !schedules.length || !refs[time]
+              +time < +nowHour ||
+              !schedules.length ||
+              !refs[time < 10 ? "0" + time : time]
                 ? " disabledTimeline"
                 : "";
 

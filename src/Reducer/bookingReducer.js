@@ -190,6 +190,8 @@ const getSchedules = () => async (dispatch, state) => {
       a.start_time < b.start_time ? -1 : 1
     );
 
+    console.log("새로가져온 스케쥴", newSearchLog.schedules);
+
     dispatch({ type: GET_SCHEDULES_SUCCESS, payload: newSearchLog.schedules });
     dispatch(setScheduleRef(makeRefs(newSearchLog.schedules)));
     dispatch({ type: SET_SCHEDULES_LOG, payload: newSearchLog });
