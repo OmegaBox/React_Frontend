@@ -171,23 +171,21 @@ const MainHeader = () => {
                     </button>
                   </li>
                   <li>
-                    <a
-                      className="noCall"
-                      href="#section">
+                    <a className="noCall" href="#section">
                       알림
                     </a>
                   </li>
                 </>
               ) : (
-                  <>
-                    <li>
-                      <Link to="/memberlogin">로그인</Link>
-                    </li>
-                    <li>
-                      <Link to="/membersignup">회원가입</Link>
-                    </li>
-                  </>
-                )}
+                <>
+                  <li>
+                    <Link to="/memberlogin">로그인</Link>
+                  </li>
+                  <li>
+                    <Link to="/membersignup">회원가입</Link>
+                  </li>
+                </>
+              )}
               <li>
                 <Link to="/Booking">빠른예매</Link>
               </li>
@@ -208,7 +206,9 @@ const MainHeader = () => {
               <li className="noCall">극장</li>
             </ul>
             <ul className="mainMenu mainRightSide">
-              <Link to="/event">이벤트</Link>
+              <li>
+                <Link to="/event">이벤트</Link>
+              </li>
               <li className="noCall">스토어</li>
               <li className="noCall">혜택</li>
             </ul>
