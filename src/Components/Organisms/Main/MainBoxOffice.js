@@ -75,82 +75,82 @@ const MainBoxOffice = () => {
           <ul className="mainMoviesWrap">
             {movieLoading
               ? new Array(4).fill(0).map((v, i) => (
-                  <li key={`skelton${i}`} className="skeletonMainMovieLi">
-                    <SkeletonMainMovies />
-                  </li>
-                ))
+                <li key={`skelton${i}`} className="skeletonMainMovieLi">
+                  <SkeletonMainMovies />
+                </li>
+              ))
               : movieBox.map((movie) => (
-                  <li key={`movieList${movie.id}`}>
-                    <Link to={"detail/" + movie.id}>
-                      <p className="mainRank">{movie.rank}</p>
-                      <img
-                        className="boxOfficeMoviePoster"
-                        alt={movie.title}
-                        src={movie.poster}
-                      />
-                      <div className="boxOfficeMovieInforWrap">
-                        <p className="boxOfficeMovieSummary">
-                          {movie.description}
-                        </p>
-                        <div className="boxOfficeMovieScore">
-                          <div>
-                            <p>관람평</p>
-                            <strong>
-                              {Math.ceil(movie.average_point * 10) / 10}
-                            </strong>
-                          </div>
+                <li key={`movieList${movie.id}`}>
+                  <Link to={"detail/" + movie.id}>
+                    <p className="mainRank">{movie.rank}</p>
+                    <img
+                      className="boxOfficeMoviePoster"
+                      alt={movie.title}
+                      src={movie.poster}
+                    />
+                    <div className="boxOfficeMovieInforWrap">
+                      <p className="boxOfficeMovieSummary">
+                        {movie.description}
+                      </p>
+                      <div className="boxOfficeMovieScore">
+                        <div>
+                          <p>관람평</p>
+                          <strong>
+                            {Math.ceil(movie.average_point * 10) / 10}
+                          </strong>
                         </div>
                       </div>
-                    </Link>
-                    <div className="boxOfficeBtnWrap">
+                    </div>
+                  </Link>
+                  <div className="boxOfficeBtnWrap">
+                    <button
+                      className={[
+                        "boxOfficeFavoriteBtn",
+                        "btn",
+                        "outLine",
+                        "lightGray",
+                        "small",
+                      ].join(" ")}
+                      onClick={() => clickFavorite(movie.id)}
+                    >
+                      <span
+                        className={
+                          "icon" +
+                          (isFavorite(movie.id)
+                            ? " favorite select"
+                            : " favoriteOutLine")
+                        }
+                      ></span>
+                      <span className="boxOfficeFavoriteScore">
+                        {movie.acc_favorite}
+                      </span>
+                    </button>
+                    <Link to="/booking">
                       <button
+                        onClick={() => {
+                          dispatch(clearSelectedMovies());
+                          dispatch(
+                            selectMovie({
+                              title: movie.name_kor,
+                              poster: movie.poster,
+                              id: movie.id,
+                            })
+                          );
+                        }}
                         className={[
-                          "boxOfficeFavoriteBtn",
+                          "boxOfficeBookingBtn",
                           "btn",
-                          "outLine",
-                          "lightGray",
+                          "fill",
+                          "subLight",
                           "small",
                         ].join(" ")}
-                        onClick={() => clickFavorite(movie.id)}
                       >
-                        <span
-                          className={
-                            "icon" +
-                            (isFavorite(movie.id)
-                              ? " favorite select"
-                              : " favoriteOutLine")
-                          }
-                        ></span>
-                        <span className="boxOfficeFavoriteScore">
-                          {movie.acc_favorite}
-                        </span>
-                      </button>
-                      <Link to="/booking">
-                        <button
-                          onClick={() => {
-                            dispatch(clearSelectedMovies());
-                            dispatch(
-                              selectMovie({
-                                title: movie.name_kor,
-                                poster: movie.poster,
-                                id: movie.id,
-                              })
-                            );
-                          }}
-                          className={[
-                            "boxOfficeBookingBtn",
-                            "btn",
-                            "fill",
-                            "subLight",
-                            "small",
-                          ].join(" ")}
-                        >
-                          예매
+                        예매
                         </button>
-                      </Link>
-                    </div>
-                  </li>
-                ))}
+                    </Link>
+                  </div>
+                </li>
+              ))}
           </ul>
         </div>
         <ul className="boxOfficeSubBarWrap">

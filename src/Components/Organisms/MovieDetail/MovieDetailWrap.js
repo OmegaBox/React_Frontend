@@ -3,12 +3,8 @@ import React, { useEffect } from "react";
 import "./style/MovieDetailWrap.scss";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
-
 import { selectMovie } from "../../../Reducer/bookingReducer";
 import { resetMovies } from "../../../Reducer/movieReducer";
-import { SEND_FAVORITE } from "../../../Reducer/userInfoReducer";
-import { openModal } from "../../../Reducer/modalReducer";
-
 import { numWithComma } from "../../../Utils/util";
 import SkeletonDetailPage from "../../Atoms/SkeletonDetailPage";
 
@@ -18,31 +14,9 @@ const MovieDetailWrap = () => {
   const movie = useSelector((state) => state.Movie.detail);
   const dispatch = useDispatch();
 
-  const isLoading = useSelector((state) => state.Movie.detail.detail);
-  const { isLogin, favoriteMovies } = useSelector((state) => state.userInfo);
-
-  const isFavorite = (movieId) => {
-    return (
-      favoriteMovies.length !== 0 &&
-      favoriteMovies.map((favorite) => favorite.movie_id).includes(movieId)
-    );
-  };
-
-  const clickFavorite = (movieId) => {
-    if (isLogin) {
-      dispatch({
-        type: SEND_FAVORITE,
-        movieId,
-      });
-    } else {
-      dispatch(
-        openModal("로그인이 필요한 기능입니다.", () => {
-          history.push("/memberlogin");
-        })
-      );
-    }
-  };
-
+  const isLoading = useSelector(
+    (state) => state.Movie.detail.detail
+  )
   useEffect(() => {
     return () => {
       if (url.slice(0, 7) === "/detail") dispatch(resetMovies());
@@ -51,9 +25,7 @@ const MovieDetailWrap = () => {
 
   return (
     <div className="movieVisual">
-      {isLoading ? (
-        <SkeletonDetailPage />
-      ) : (
+      {isLoading ? <SkeletonDetailPage /> :
         <div key={`movies${movie.id}`}>
           <div className="movieBg">
             <img src={movie.poster} alt={movie.title} />
@@ -74,16 +46,8 @@ const MovieDetailWrap = () => {
                     "white",
                     "favorite",
                   ].join(" ")}
-                  onClick={() => clickFavorite(movie.id)}
                 >
-                  <span
-                    className={
-                      "icon" +
-                      (isFavorite(movie.id)
-                        ? " favorite select"
-                        : " favoriteOutLine")
-                    }
-                  ></span>
+                  <span className={["icon", "favoriteOutLine"].join(" ")}></span>
                   <span>{movie.acc_favorite}</span>
                 </button>
                 <button
@@ -91,7 +55,7 @@ const MovieDetailWrap = () => {
                   className={["btn", "outLine", "regular", "white"].join(" ")}
                 >
                   공유하기
-                </button>
+              </button>
               </div>
               <ul className="eval">
                 <li>
@@ -108,13 +72,13 @@ const MovieDetailWrap = () => {
                     <span>{movie.rank}</span>
                     <span className="smallTxt">
                       위 ({movie.reservation_rate}%)
-                    </span>
+                  </span>
                   </div>
                 </li>
                 <li className="acc">
                   <h4 className="title">
                     누적관객수
-                    <span className={["icon", "info"].join(" ")}></span>
+                  <span className={["icon", "info"].join(" ")}></span>
                   </h4>
                   <div className="accCumlative">
                     <span className={["icon", "accCumlative"].join(" ")}></span>
@@ -149,12 +113,12 @@ const MovieDetailWrap = () => {
                   ].join(" ")}
                 >
                   예매
-                </button>
+              </button>
               </Link>
             </div>
           </div>
         </div>
-      )}
+      }
     </div>
   );
 };
