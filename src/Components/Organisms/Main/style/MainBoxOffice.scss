@@ -148,8 +148,12 @@
   margin: 35px auto 0 auto;
   color: $colorWhite;
   font-size: 15px;
-  line-height: 1.5;
   overflow: hidden;
+  text-overflow:ellipsis;
+  word-wrap:break-word;
+  -webkit-box-orient:vertical;
+  -webkit-line-clamp:7;
+  display:-webkit-box;
 }
 .boxOfficeMovieInforWrap:hover {
   opacity: 1;

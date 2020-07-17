@@ -10,13 +10,11 @@ const WholeMovieListWrap = () => {
   const movies = useSelector((state) => state.Movie.movies);
   const dispatch = useDispatch();
 
-  const isLoading = useSelector(
-    (state) => state.Movie.movies
-  )
+  const isLoading = useSelector((state) => state.Movie.movies);
 
   const enterKeyword = (e) => {
     if (e.keyCode === 13) {
-      dispatch(getSearchMovie(e.target.value))
+      dispatch(getSearchMovie(e.target.value));
     }
   };
 
@@ -39,7 +37,8 @@ const WholeMovieListWrap = () => {
       </ul>
       <p className="searchResults">
         <span>{movies.length}</span>
-        개의 영화가 검색되었습니다.</p>
+        개의 영화가 검색되었습니다.
+      </p>
       <div className="wholeMovieSearchBarWrap">
         <input
           type="text"
@@ -48,12 +47,7 @@ const WholeMovieListWrap = () => {
           title="영화 검색"
           onKeyDown={enterKeyword}
         />
-        <button
-          type="button"
-          className="iconSearchBtn"
-        >
-
-        </button>
+        <button type="button" className="iconSearchBtn"></button>
       </div>
       {/* {isLoading ? (<SkeletonWholeMoviePage />) : ( */}
       <ul className="wholeMovieList">
@@ -82,16 +76,14 @@ const WholeMovieListWrap = () => {
                   className="wholeMoviePoster"
                   alt={movie.title}
                   src={movie.poster}
-                // style={{ backgroundColor: "gray" }}
+                  // style={{ backgroundColor: "gray" }}
                 />
                 <div className="wholeMovieInforWrap">
-                  <div className="wholeMovieSummary">
-                    <p>{movie.description}</p>
-                  </div>
+                  <p className="wholeMovieSummary">{movie.description}</p>
                   <div className="boxOfficeMovieScore">
                     <div>
                       <p>관람평</p>
-                      <strong>{(movie.average_point).toFixed(1)}</strong>
+                      <strong>{movie.average_point.toFixed(1)}</strong>
                     </div>
                   </div>
                 </div>
