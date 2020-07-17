@@ -4,17 +4,9 @@ import "./style/MainNotice.scss";
 const MainNotice = () => {
   return (
     <div>
-      {/* <div className="inforNotice">
-
-        <div className="wrap">
-          <p>지점</p>
-          <p className="noticeText">[코엑스] [코엑스] 시사회 진행에 따른 고객 안내문</p>
-          <p></p>
-        </div>
-      </div> */}
       <div className="mainNoticeLayout">
         <ul className="mainNotice">
-          <li className="customerCenter">
+          <li className="customCenter">
             <div className="customerIcon"></div>
             <span>고객센터</span>
           </li>
@@ -36,7 +28,9 @@ const MainNotice = () => {
           </li>
           <li className="privateInquiry">
             <div className="privateIcon"></div>
-            <span>더 부티크 프라이빗 <br /> 대관예매</span>
+            <span>
+              더 부티크 프라이빗 <br /> 대관예매
+            </span>
           </li>
         </ul>
       </div>

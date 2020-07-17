@@ -253,7 +253,6 @@ const movieReducer = (state = initialState, action) => {
         movies: action.data,
       };
     case FAVORITE_INCREASE_ONE:
-      console.log("증가");
       return {
         ...state,
         movies: state.movies.map((movie) => {
@@ -265,7 +264,7 @@ const movieReducer = (state = initialState, action) => {
         }),
         detail: {
           ...state.detail,
-          ...(state.detail.acc_favorite
+          ...(state.detail.acc_favorite !== undefined
             ? {
                 acc_favorite: state.detail.acc_favorite + 1,
               }
@@ -273,7 +272,6 @@ const movieReducer = (state = initialState, action) => {
         },
       };
     case FAVORITE_DECREASE_ONE:
-      console.log("감소");
       return {
         ...state,
         movies: state.movies.map((movie) => {
@@ -285,7 +283,7 @@ const movieReducer = (state = initialState, action) => {
         }),
         detail: {
           ...state.detail,
-          ...(state.detail.acc_favorite
+          ...(state.detail.acc_favorite !== undefined
             ? {
                 acc_favorite: state.detail.acc_favorite - 1,
               }

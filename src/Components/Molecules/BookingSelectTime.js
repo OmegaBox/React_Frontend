@@ -53,7 +53,10 @@ const BookingSelectTime = () => {
                 <span>~{schedule.end_time}</span>
               </div>
               <div className="screeningMovieTitle">
-                <strong>{schedule.movie}</strong>
+                <div>
+                  <strong>{schedule.movie}</strong>
+                  <span className={+hour < 11 ? "earlyBird" : ""}></span>
+                </div>
                 <span>{schedule.screen_type}</span>
               </div>
               <div className="screeningTheaterAndHall">

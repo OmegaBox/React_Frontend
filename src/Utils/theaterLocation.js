@@ -48,9 +48,9 @@ export const getDistanceFromLatLonInKm = (location1, location2) => {
   const a =
     Math.sin(dLat / 2) * Math.sin(dLat / 2) +
     Math.cos(deg2rad(lat1)) *
-    Math.cos(deg2rad(lat2)) *
-    Math.sin(dLon / 2) *
-    Math.sin(dLon / 2);
+      Math.cos(deg2rad(lat2)) *
+      Math.sin(dLon / 2) *
+      Math.sin(dLon / 2);
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   const d = r * c; // Distance in km
   return Math.round(d * 1000);
@@ -106,8 +106,8 @@ export const theaterLocation = [
       {
         name: "군자",
         location: {
-          lat: 37.555717,
-          lng: 127.078354,
+          lat: 37.555748,
+          lng: 127.078381,
         },
       },
       {
@@ -211,8 +211,8 @@ export const theaterLocation = [
       {
         name: "화곡",
         location: {
-          lat: 37.540569,
-          lng: 126.83766,
+          lat: 37.540571,
+          lng: 126.837644,
         },
       },
       {
@@ -399,7 +399,7 @@ export const theaterLocation = [
         name: "평택",
         location: {
           lat: 36.994271,
-          lng: 127.087920,
+          lng: 127.08792,
         },
       },
       {
@@ -478,7 +478,7 @@ export const theaterLocation = [
       {
         name: "대전유성",
         location: {
-          lat: 36.352150,
+          lat: 36.35215,
           lng: 127.344577,
         },
       },
@@ -506,7 +506,7 @@ export const theaterLocation = [
       {
         name: "세종나성",
         location: {
-          lat: 36.483360,
+          lat: 36.48336,
           lng: 127.263683,
         },
       },
@@ -534,8 +534,8 @@ export const theaterLocation = [
       {
         name: "진천",
         location: {
-          lat: 36.859710,
-          lng: 127.438050,
+          lat: 36.85971,
+          lng: 127.43805,
         },
       },
       {
@@ -563,7 +563,7 @@ export const theaterLocation = [
         name: "홍성내포",
         location: {
           lat: 36.659305,
-          lng: 126.678950,
+          lng: 126.67895,
         },
       },
     ],
@@ -588,7 +588,7 @@ export const theaterLocation = [
       {
         name: "경산하양",
         location: {
-          lat: 35.913580,
+          lat: 35.91358,
           lng: 128.823409,
         },
       },
@@ -602,7 +602,7 @@ export const theaterLocation = [
       {
         name: "구미강동",
         location: {
-          lat: 36.107130,
+          lat: 36.10713,
           lng: 128.417993,
         },
       },
@@ -729,7 +729,7 @@ export const theaterLocation = [
         name: "창원",
         location: {
           lat: 35.221389,
-          lng: 128.675720,
+          lng: 128.67572,
         },
       },
       {
@@ -762,7 +762,7 @@ export const theaterLocation = [
         name: "광주하남",
         location: {
           lat: 35.162855,
-          lng: 126.811970,
+          lng: 126.81197,
         },
       },
       {

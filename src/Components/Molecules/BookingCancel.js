@@ -14,6 +14,7 @@ const BookingCancel = ({ classSet, payment_id, receipt_id, price }) => {
       const res = await cancelBilling(id, receipt_id, price);
       if (res.status === 200) {
         dispatch({ type: GET_RESERVED });
+        dispatch(openModal("결제 취소에 성공했습니다"));
       } else {
         dispatch(openModal("결제 취소에 실패했습니다"));
       }

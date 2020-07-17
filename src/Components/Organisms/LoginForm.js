@@ -27,9 +27,7 @@ const LoginForm = () => {
   // 구글 로그아웃
   const { signOut } = useGoogleLogout({
     clientId: key.googleClientId,
-    onLogoutSuccess: () => {
-      console.log("구글 로그아웃 성공");
-    },
+    onLogoutSuccess: () => {},
   });
 
   const responseGoogle = (response) => {
