@@ -15,7 +15,10 @@
   background-image: url("https://img.megabox.co.kr/static/pc/images/common/bg/bg-lnb-tit.png");
   border-radius: 8px 8px 0 0;
 }
-.snb a {
+.linkDisabled {
+  color: $colorDisabledText !important;
+}
+.snb a, .snb .linkDisabled {
   width: 100%;
   padding: 10px 16px;
   font-weight: 500;
@@ -31,14 +34,14 @@
 .snb .navList > li:last-child {
   border-bottom: none;
 }
-.snb .navList > li > a {
+.snb .navList > li > a, .snb .navList > li > .linkDisabled {
   color: $colorPrimaryText;
   background-color: $whiteGrayBg;
 }
 .snb .subNavList {
   padding-top: 16px;
   padding-bottom: 16px;
-  a {
+  a, .linkDisabled {
     padding: 0 16px 0 0;
     color: $colorLightText;
   }
