@@ -14,7 +14,7 @@ const MyMovieStoryWatched = () => {
   return (
     <section className="watched">
       <h4 className="a11yHidden">본영화</h4>
-      <div className="notice">
+      {/* <div className="notice">
         <ul className="bullet">
           <li>
             극장에서 발권하신 티켓 바코드 하단의 거래번호를 통해 본 영화 등록을
@@ -28,7 +28,7 @@ const MyMovieStoryWatched = () => {
         >
           본 영화 등록
         </button>
-      </div>
+      </div> */}
       <p className="listCounter">
         총 <span>{watchedMovie.length}</span>건
       </p>
@@ -65,7 +65,7 @@ const MyMovieStoryWatched = () => {
                     </p>
                   </li>
                 </ul>
-                <div className="btnWrap">
+                {/* <div className="btnWrap">
                   <button
                     type="button"
                     className={["btn", "outLine", "lightGray", "small"].join(
@@ -83,7 +83,7 @@ const MyMovieStoryWatched = () => {
                   >
                     삭제
                   </button>
-                </div>
+                </div> */}
               </article>
             </li>
           ))

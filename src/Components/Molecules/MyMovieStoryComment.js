@@ -82,16 +82,16 @@ const MyMovieStoryComment = () => {
             </li>
           ))
         ) : (
-            <li key="0" className="listNull">
-              리스트가 없습니다.
-            </li>
-          )}
+          <li key="0" className="listNull">
+            리스트가 없습니다.
+          </li>
+        )}
       </ul>
-      <ul className="paging">
+      {/* <ul className="paging">
         <li>
           <a href="#section">1</a>
         </li>
-      </ul>
+      </ul> */}
     </section>
   );
 };
