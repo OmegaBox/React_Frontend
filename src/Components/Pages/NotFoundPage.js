@@ -1,9 +1,9 @@
 import React from "react";
+import NotFoundWrap from "../Templates/NotFoundWrap";
+import "./style/notFound.scss";
 
 const NotFoundPage = () => {
-  // useEffect(() => {});
-
-  return <h1>NotFoundPage</h1>;
+  return <NotFoundWrap />;
 };
 
 export default NotFoundPage;
