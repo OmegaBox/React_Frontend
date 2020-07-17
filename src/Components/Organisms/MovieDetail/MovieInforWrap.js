@@ -165,104 +165,96 @@ const MovieInforWrap = () => {
         </div>
         <ul className="postList">
           <li className="post">
-            <a href="">
-              <div className="movieStillCut">
-                <img
-                  src="https://img.megabox.co.kr/SharedImg/2020/06/26/Q4hUYE1kpUxuFZwgNCfZqSgKyIkDsnAf.jpg"
-                  alt=""
-                />
-                <span className={["icon", "text"].join(" ")}></span>
-              </div>
-              <ul className="postComment">
-                <li className="userId">testUserId</li>
-                <li className="movieTitle">#살아있다</li>
-                <li className="comment">돈주고 보지마라!!</li>
-                <li className="writeDate">3일전</li>
-                <li className="like">
-                  <span className={["icon", "like"].join(" ")}></span>
-                  <span>0</span>
-                </li>
-                <li className="replyComment">
-                  <span className={["icon", "reply"].join(" ")}></span>
-                  <span>0</span>
-                </li>
-              </ul>
-            </a>
+            <div className="movieStillCut">
+              <img
+                src="https://img.megabox.co.kr/SharedImg/2020/06/26/Q4hUYE1kpUxuFZwgNCfZqSgKyIkDsnAf.jpg"
+                alt=""
+              />
+              <span className={["icon", "text"].join(" ")}></span>
+            </div>
+            <ul className="postComment">
+              <li className="userId">testUserId</li>
+              <li className="movieTitle">#살아있다</li>
+              <li className="comment">돈주고 보지마라!!</li>
+              <li className="writeDate">3일전</li>
+              <li className="like">
+                <span className={["icon", "like"].join(" ")}></span>
+                <span>0</span>
+              </li>
+              <li className="replyComment">
+                <span className={["icon", "reply"].join(" ")}></span>
+                <span>0</span>
+              </li>
+            </ul>
           </li>
           <li className="post">
-            <a href="">
-              <div className="movieStillCut">
-                <img
-                  src="https://img.megabox.co.kr/SharedImg/2020/06/26/Q4hUYE1kpUxuFZwgNCfZqSgKyIkDsnAf.jpg"
-                  alt=""
-                />
-                <span className={["icon", "text"].join(" ")}></span>
-              </div>
-              <ul className="postComment">
-                <li className="userId">testUserId</li>
-                <li className="movieTitle">#살아있다</li>
-                <li className="comment">돈주고 보지마라!!</li>
-                <li className="writeDate">3일전</li>
-                <li className="like">
-                  <span className={["icon", "like"].join(" ")}></span>
-                  <span>0</span>
-                </li>
-                <li className="replyComment">
-                  <span className={["icon", "reply"].join(" ")}></span>
-                  <span>0</span>
-                </li>
-              </ul>
-            </a>
+            <div className="movieStillCut">
+              <img
+                src="https://img.megabox.co.kr/SharedImg/2020/06/26/Q4hUYE1kpUxuFZwgNCfZqSgKyIkDsnAf.jpg"
+                alt=""
+              />
+              <span className={["icon", "text"].join(" ")}></span>
+            </div>
+            <ul className="postComment">
+              <li className="userId">testUserId</li>
+              <li className="movieTitle">#살아있다</li>
+              <li className="comment">돈주고 보지마라!!</li>
+              <li className="writeDate">3일전</li>
+              <li className="like">
+                <span className={["icon", "like"].join(" ")}></span>
+                <span>0</span>
+              </li>
+              <li className="replyComment">
+                <span className={["icon", "reply"].join(" ")}></span>
+                <span>0</span>
+              </li>
+            </ul>
           </li>
           <li className="post">
-            <a href="">
-              <div className="movieStillCut">
-                <img
-                  src="https://img.megabox.co.kr/SharedImg/2020/06/26/Q4hUYE1kpUxuFZwgNCfZqSgKyIkDsnAf.jpg"
-                  alt=""
-                />
-                <span className={["icon", "text"].join(" ")}></span>
-              </div>
-              <ul className="postComment">
-                <li className="userId">testUserId</li>
-                <li className="movieTitle">#살아있다</li>
-                <li className="comment">돈주고 보지마라!!</li>
-                <li className="writeDate">3일전</li>
-                <li className="like">
-                  <span className={["icon", "like"].join(" ")}></span>
-                  <span>0</span>
-                </li>
-                <li className="replyComment">
-                  <span className={["icon", "reply"].join(" ")}></span>
-                  <span>0</span>
-                </li>
-              </ul>
-            </a>
+            <div className="movieStillCut">
+              <img
+                src="https://img.megabox.co.kr/SharedImg/2020/06/26/Q4hUYE1kpUxuFZwgNCfZqSgKyIkDsnAf.jpg"
+                alt=""
+              />
+              <span className={["icon", "text"].join(" ")}></span>
+            </div>
+            <ul className="postComment">
+              <li className="userId">testUserId</li>
+              <li className="movieTitle">#살아있다</li>
+              <li className="comment">돈주고 보지마라!!</li>
+              <li className="writeDate">3일전</li>
+              <li className="like">
+                <span className={["icon", "like"].join(" ")}></span>
+                <span>0</span>
+              </li>
+              <li className="replyComment">
+                <span className={["icon", "reply"].join(" ")}></span>
+                <span>0</span>
+              </li>
+            </ul>
           </li>
           <li className="post">
-            <a href="">
-              <div className="movieStillCut">
-                <img
-                  src="https://img.megabox.co.kr/SharedImg/2020/06/26/Q4hUYE1kpUxuFZwgNCfZqSgKyIkDsnAf.jpg"
-                  alt=""
-                />
-                <span className={["icon", "text"].join(" ")}></span>
-              </div>
-              <ul className="postComment">
-                <li className="userId">testUserId</li>
-                <li className="movieTitle">#살아있다</li>
-                <li className="comment">돈주고 보지마라!!</li>
-                <li className="writeDate">3일전</li>
-                <li className="like">
-                  <span className={["icon", "like"].join(" ")}></span>
-                  <span>0</span>
-                </li>
-                <li className="replyComment">
-                  <span className={["icon", "reply"].join(" ")}></span>
-                  <span>0</span>
-                </li>
-              </ul>
-            </a>
+            <div className="movieStillCut">
+              <img
+                src="https://img.megabox.co.kr/SharedImg/2020/06/26/Q4hUYE1kpUxuFZwgNCfZqSgKyIkDsnAf.jpg"
+                alt=""
+              />
+              <span className={["icon", "text"].join(" ")}></span>
+            </div>
+            <ul className="postComment">
+              <li className="userId">testUserId</li>
+              <li className="movieTitle">#살아있다</li>
+              <li className="comment">돈주고 보지마라!!</li>
+              <li className="writeDate">3일전</li>
+              <li className="like">
+                <span className={["icon", "like"].join(" ")}></span>
+                <span>0</span>
+              </li>
+              <li className="replyComment">
+                <span className={["icon", "reply"].join(" ")}></span>
+                <span>0</span>
+              </li>
+            </ul>
           </li>
         </ul>
       </div>
@@ -276,20 +268,16 @@ const MovieInforWrap = () => {
         </div>
         <ul className="eventList">
           <li>
-            <a href="">
-              <img
-                src="https://img.megabox.co.kr/SharedImg/event/2020/07/03/4UHs4ki7JVk2hwI0PTDbDT3aVyL5aWYu.jpg"
-                alt=""
-              />
-            </a>
+            <img
+              src="https://img.megabox.co.kr/SharedImg/event/2020/07/03/4UHs4ki7JVk2hwI0PTDbDT3aVyL5aWYu.jpg"
+              alt=""
+            />
           </li>
           <li>
-            <a href="">
-              <img
-                src="https://img.megabox.co.kr/SharedImg/event/2020/07/03/4UHs4ki7JVk2hwI0PTDbDT3aVyL5aWYu.jpg"
-                alt=""
-              />
-            </a>
+            <img
+              src="https://img.megabox.co.kr/SharedImg/event/2020/07/03/4UHs4ki7JVk2hwI0PTDbDT3aVyL5aWYu.jpg"
+              alt=""
+            />
           </li>
         </ul>
       </div>

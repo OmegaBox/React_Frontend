@@ -1,4 +1,4 @@
-import { put, call, takeLatest, select } from "redux-saga/effects";
+import { put, call, takeLatest } from "redux-saga/effects";
 import { userApi, isLogin } from "../Api/api";
 import cookie from "react-cookies";
 import { removeCookies } from "../Utils/util";

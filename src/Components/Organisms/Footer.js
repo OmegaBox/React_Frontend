@@ -28,6 +28,7 @@ const Footer = () => {
               <a
                 href="https://twitter.com/megaboxon"
                 target="_blank"
+                rel="noopener noreferrer"
                 title="메가박스 트위터 이동"
               >
                 <img
@@ -40,6 +41,7 @@ const Footer = () => {
               <a
                 href="https://www.facebook.com/megaboxon"
                 target="_blank"
+                rel="noopener noreferrer"
                 title="메가박스 페이스북 이동"
               >
                 <img
@@ -52,6 +54,7 @@ const Footer = () => {
               <a
                 href="https://www.instagram.com/accounts/login/?next=/megaboxon/"
                 target="_blank"
+                rel="noopener noreferrer"
                 title="메가박스 인스타그램 이동"
               >
                 <img
@@ -64,6 +67,7 @@ const Footer = () => {
               <a
                 href="https://play.google.com/store/apps/details?id=com.megabox.mop"
                 target="_blank"
+                rel="noopener noreferrer"
                 title="구글 플레이스토어 이동"
               >
                 <img
@@ -76,6 +80,7 @@ const Footer = () => {
               <a
                 href="https://apps.apple.com/kr/app/megabox/id894443858?l=ko&ls=1"
                 target="_blank"
+                rel="noopener noreferrer"
                 title="애플 앱스토어 이동"
               >
                 <img
