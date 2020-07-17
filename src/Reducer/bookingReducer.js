@@ -1,6 +1,6 @@
 import { select, put, takeLatest } from "redux-saga/effects";
 import { transformDateFormat, makeRefs } from "../Utils/util";
-import { movieApi } from "../Api/api";
+import { isLogin, movieApi } from "../Api/api";
 import { setReservedSeat, resetSeat } from "./bookingSeatReducer";
 import { checkLogin } from "./userInfoReducer";
 import { openModal, setOneBtn } from "./modalReducer";
