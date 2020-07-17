@@ -8,7 +8,6 @@ import {
 } from "../../../Reducer/bookingReducer";
 import { getSearchMovie } from "../../../Reducer/movieReducer";
 import SkeletonMainMovies from "../../Atoms/SkeletonMainMovies";
-import { isLogin } from "../../../Api/api";
 
 const MainBoxOffice = () => {
   const [movieBox, movieLoading] = useSelector((state) => [

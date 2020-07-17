@@ -37,8 +37,8 @@ const resetMoviePage = () => ({ type: RESET_MOVIE_PAGE });
 
 
 const getMovies = () => async (dispatch) => {
+  dispatch(setLoadingMovie());
   try {
-    dispatch(setLoadingMovie());
     const res = await movieApi.getMovies();
     if (res.status === 200) {
       if (!Array.isArray(res.data.results)) return console.error("배열이 아닙니다.");
@@ -187,7 +187,7 @@ const movieReducer = (state = initialState, action) => {
     case MOVIE_LOADING:
       return {
         ...state,
-        loading: true,
+        loading: false,
         error: null,
       }
     case MOVIE_DETAIL_SUCCESS:
@@ -209,7 +209,6 @@ const movieReducer = (state = initialState, action) => {
         ...state,
         loading: true,
         error: null,
-        page: state.page,
       }
     case BOOKING_AGE_RATING_SUCCESS:
       return {

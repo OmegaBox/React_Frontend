@@ -1,4 +1,4 @@
-import { select, put, takeLatest, call, takeEvery } from "redux-saga/effects";
+import { select, put, takeLatest, call } from "redux-saga/effects";
 import { movieApi } from "../Api/api";
 
 import { openModal } from "./modalReducer";
@@ -132,10 +132,10 @@ const seatReducer = (state = initSeatState, action) => {
           state.selectedSeat.indexOf(action.selected) > -1
             ? state.selectedSeat.filter((seat) => seat !== action.selected)
             : [...state.selectedSeat, action.selected].sort(
-                (a, b) =>
-                  a[0].charCodeAt() - b[0].charCodeAt() ||
-                  +a.slice(1) - +b.slice(1)
-              ),
+              (a, b) =>
+                a[0].charCodeAt() - b[0].charCodeAt() ||
+                +a.slice(1) - +b.slice(1)
+            ),
       };
     case SET_RESERVED:
       return {
