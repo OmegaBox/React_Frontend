@@ -49,6 +49,9 @@ const MainHeader = () => {
       case "/mypage/bookinghistory":
         page = "예매내역";
         break;
+      case "/mypage/bookinghistory/":
+        page = "예매내역";
+        break;
       case "/mypage/mymoviestory":
         page = "나의 무비스토리";
         break;
@@ -57,6 +60,9 @@ const MainHeader = () => {
         break;
       case "/mypage/confirmpassword":
         page = "회원정보";
+        break;
+      case "/mypage/point":
+        page = "포인트 이용내역";
         break;
       default:
     }
@@ -89,6 +95,9 @@ const MainHeader = () => {
       case "/mypage/bookinghistory":
         utilClass = "";
         break;
+      case "/mypage/bookinghistory/":
+        utilClass = "";
+        break;
       case "/mypage/mymoviestory":
         utilClass = "";
         break;
@@ -96,6 +105,9 @@ const MainHeader = () => {
         utilClass = "";
         break;
       case "/mypage/confirmpassword":
+        utilClass = "";
+        break;
+      case "/mypage/point":
         utilClass = "";
         break;
       default:

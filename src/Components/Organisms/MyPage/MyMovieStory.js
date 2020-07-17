@@ -13,7 +13,11 @@ const MyMovieStory = () => {
   const { view } = useSelector((state) => ({
     view: state.myMovieStory.view,
   }));
-  console.log(view);
+  useEffect(() => {
+    // window.scrollTo(0, 0);
+    dispatch(checkLogin());
+    dispatch(getMemberProfile());
+  }, [dispatch]);
   const movieStoryView = () => {
     switch (view) {
       case "timeline":
@@ -28,12 +32,6 @@ const MyMovieStory = () => {
         return <MyMovieStoryTimeLine />;
     }
   };
-
-  useEffect(() => {
-    // window.scrollTo(0, 0);
-    dispatch(checkLogin());
-    dispatch(getMemberProfile());
-  }, [dispatch]);
 
   return (
     <div className="myMovieStoryWrap">
