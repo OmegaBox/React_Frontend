@@ -177,15 +177,15 @@ const MainHeader = () => {
                   </li>
                 </>
               ) : (
-                <>
-                  <li>
-                    <Link to="/memberlogin">로그인</Link>
-                  </li>
-                  <li>
-                    <Link to="/membersignup">회원가입</Link>
-                  </li>
-                </>
-              )}
+                  <>
+                    <li>
+                      <Link to="/memberlogin">로그인</Link>
+                    </li>
+                    <li>
+                      <Link to="/membersignup">회원가입</Link>
+                    </li>
+                  </>
+                )}
               <li>
                 <Link to="/Booking">빠른예매</Link>
               </li>
