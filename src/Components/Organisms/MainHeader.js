@@ -132,7 +132,7 @@ const MainHeader = () => {
   const changeHeader = useSelector((state) => state.userInfo.isLogin);
 
   return (
-    <div className="headerContainer">
+    <div>
       <header
         className={[
           "headerLayout",
