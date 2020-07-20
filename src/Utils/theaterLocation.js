@@ -2,6 +2,7 @@ export const getLocation = () => {
   if (navigator.geolocation) {
     // GPS를 지원하면
     return new Promise((resolve) => {
+      console.log("위치 요청됨");
       navigator.geolocation.getCurrentPosition(
         (position) => {
           resolve({
