@@ -1,0 +1,613 @@
+// /* main, sub, point color variation */
+// $colorMainDark: #252451;
+// $colorMain: #513396;
+// $colorMainLight: #6332d4;
+// $colorSubDark: #32627f;
+// $colorSub: #007b93;
+// $colorSubLight: #309eb0;
+// $colorPoint: #da3f31;
+
+// $colorBlue: #3b5fcb;
+// $colorRed: #e81002;
+
+// /* gray color variation */
+// $colorBlack: #000;
+// $colorGray33: #333;
+// $colorGray44: #444;
+// $colorGray55: #555;
+// $colorGray66: #666;
+// $colorGrayD8: #d8d8d8;
+// $colorGrayEa: #eaeaea;
+// $colorGrayF5: #f5f5f5;
+// $colorWhite: #fff;
+
+// /* text cololr */
+// $colorPrimaryText: #222;
+// $colorSecondaryText: #444;
+// $colorLightText: #666;
+// $colorDisabledText: #aaa;
+
+// /* bg, border, etc */
+// $dimdBg: transparentize($colorBlack, 0.7);
+// $whiteGrayBg: $colorGrayF5;
+// $lightBg: $colorGrayEa;
+// $darkBg: $colorGray44;
+// $deepDarkBg: $colorGray33;
+
+// $ligthBorder: $colorGrayEa;
+// $border: $colorGrayD8;
+// $darkBorder: $colorGray66;
+// $tab: $colorGray55;
+
+// $textBold: 700;
+// $textMedium: 500;
+// $textLight: 300;
+
+@import "./commonVariable.scss";
+
+.textRed {
+  color: $colorRed;
+}
+.textBlue {
+  color: $colorBlue;
+}
+.textBold {
+  font-weight: 700;
+}
+.textMedium {
+  font-weight: 500;
+}
+.textLight {
+  font-weight: 300;
+}
+
+/* reset */
+html {
+  font-family: "Noto Sans KR", sans-serif;
+  font-size: 10px;
+  line-height: 1.5;
+  letter-spacing: -0.025em;
+  color: $colorSecondaryText;
+}
+body * {
+  box-sizing: border-box;
+}
+*:focus {
+  outline: 1px dotted $colorBlack;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font-size: 1.6rem;
+  line-height: 1.5;
+}
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+}
+img {
+  vertical-align: top;
+}
+
+/* common style */
+.a11yHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  clip: rect(0, 0);
+  clip-path: polygon(0, 0);
+  overflow: hidden;
+  text-indent: -9999px;
+}
+
+.clearfix::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+button,
+input,
+select,
+a {
+  cursor: pointer;
+}
+
+/* btn */
+$btnDarkGray: $colorGray55;
+$btnLightGray: $colorGrayEa;
+
+button {
+  display: inline-block;
+  color: $colorSecondaryText;
+  font-family: inherit;
+  font-size: 1.6rem;
+  text-align: center;
+  text-decoration: none;
+  vertical-align: middle;
+  border-radius: 4px;
+  border: none;
+  background: none;
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.btn {
+  margin: 0 4px;
+  padding: 0 16px;
+}
+.btn.xLarge,
+.btn.large {
+  min-width: 80px;
+}
+.btn.xLarge {
+  height: 50px;
+  font-size: 2rem;
+}
+.btn.large {
+  height: 46px;
+}
+.btn.regular {
+  min-width: 64px;
+  height: 40px;
+  font-size: 1.8rem;
+}
+.btn.small,
+.btn.xSmall {
+  min-width: 48px;
+}
+.btn.small {
+  height: 36px;
+  padding: 0 8px;
+  font-size: 1.6rem;
+}
+.btn.xSmall {
+  height: 32px;
+  padding: 0 8px;
+  font-size: 1.4rem;
+}
+.btn.main {
+  background-color: $colorMain;
+  border-color: $colorMain;
+}
+.btn.main.fill {
+  color: $colorWhite;
+}
+.btn.main.outLine {
+  color: $colorMain;
+}
+.btn.subDark {
+  background-color: $colorSubDark;
+  border-color: $colorSubDark;
+  color: $colorWhite;
+}
+.btn.sub {
+  background-color: $colorSub;
+  border-color: $colorSub;
+  color: $colorWhite;
+}
+.btn.subLight {
+  background-color: $colorSubLight;
+  border-color: $colorSubLight;
+  color: $colorWhite;
+}
+.btn.darkGray.fill {
+  background-color: $btnDarkGray;
+  color: $colorWhite;
+}
+.btn.darkGray.outLine {
+  border-color: $btnDarkGray;
+}
+.btn.lightGray {
+  background-color: $btnLightGray;
+  border-color: $btnLightGray;
+}
+.btn.white.outLine {
+  border-color: transparentize($colorWhite, 0.5);
+}
+.btn.fill {
+  border: none;
+}
+.btn.outLine {
+  border-width: 1px;
+  border-style: solid;
+  background: none;
+}
+.btn.white.fill {
+  background-color: $colorWhite;
+  border-width: 1px;
+  border-style: solid;
+  border-color: $border;
+}
+.btn.icon {
+  display: flex;
+  align-items: center;
+}
+
+/* input text*/
+input[type="text"],
+input[type="date"],
+input[type="number"],
+input[type="password"],
+input[type="email"],
+textarea {
+  height: 32px;
+  margin-right: 8px;
+  padding: 2px 8px;
+  font-family: "Noto Sans KR", sans-serif;
+  color: $colorSecondaryText;
+  border: 1px solid $border;
+  background-color: $colorWhite;
+}
+.input.regular {
+  height: 40px;
+}
+.input.large {
+  height: 46px;
+}
+input[type="text"]:hover,
+input[type="date"]:hover,
+input[type="number"]:hover,
+input[type="password"]:hover,
+input[type="email"]:hover,
+textarea:hover,
+input[type="text"]:focus,
+input[type="date"]:focus,
+input[type="number"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus,
+textarea:focus {
+  border-color: $darkBorder;
+}
+
+/* input radio, checkbox*/
+.inputWrap {
+  position: relative;
+  margin: 10px;
+  label {
+    display: inline-block;
+    padding-left: 32px;
+    span.inputIcon {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      display: inline-block;
+      width: 24px;
+      height: 24px;
+      margin-top: -12px;
+      background-repeat: no-repeat;
+      background-position: 0;
+    }
+  }
+  input[type="radio"],
+  input[type="checkbox"] {
+    position: absolute;
+    top: 50%;
+    left: -2px;
+    width: 20px;
+    height: 20px;
+    margin-top: -10px;
+  }
+  input[type="radio"] {
+    opacity: 0;
+  }
+  input[type="checkbox"] {
+    opacity: 1;
+  }
+  input[type="radio"] + label span.inputIcon {
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/bg/bg-radio-small.png");
+    background-position: -24px;
+  }
+  input[type="radio"]:checked + label span.inputIcon {
+    background-position: 0;
+  }
+}
+
+::-webkit-input-placeholder {
+  color: $colorDisabledText;
+  font-size: 1.2rem;
+  font-weight: 400;
+}
+::-moz-placeholder {
+  color: $colorDisabledText;
+  font-size: 1.2rem;
+  font-weight: 400;
+}
+:-ms-input-placeholder {
+  color: $colorDisabledText;
+  font-size: 1.2rem;
+  font-weight: 400;
+}
+::input-placeholde {
+  color: $colorDisabledText;
+  font-size: 1.2rem;
+  font-weight: 400;
+}
+
+/* select */
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  width: 100%;
+  height: 36px;
+  margin: 0;
+  padding: 2px 8px;
+  border: none;
+}
+select::-ms-expand {
+  display: none;
+}
+
+.selectWrap {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 4px;
+  border: 1px solid $border;
+  border-radius: 4px;
+  overflow: hidden;
+  background: $colorWhite;
+  .icon {
+    position: absolute;
+    right: 0;
+    width: 32px;
+  }
+}
+.select.large {
+  height: 38px;
+}
+.select.regular {
+  height: 30px;
+}
+.select.small {
+  height: 28px;
+}
+
+/* typography */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+}
+
+/* icon */
+.icon {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background-repeat: no-repeat;
+  background-position: center;
+  &.arrowRight {
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/ico/ico-arr-right-reverse-gray.png");
+  }
+  &.arrowLeft {
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/btn/btn-prev-time.png");
+  }
+  &.arrowBottom {
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/ico/ico-arr-toggle-down.png");
+  }
+  &.arrowTop {
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/ico/ico-btn-more-arr.png");
+    transform: rotate(180deg);
+  }
+  &.arrowRightWhite {
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/ico/ico-arr-right-white.png");
+  }
+  &.like {
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/ico/ico-like.png");
+    background-position: 50% 0;
+  }
+  &.write {
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/ico/ico-pencil.png");
+  }
+  &.favorite {
+    width: 17px;
+    height: 15px;
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/ico/ico-heart-toggle-gray.png");
+    background-position: 0;
+  }
+  &.favorite.select,
+  &.favoriteOutLine.select {
+    background-position: -17px;
+  }
+  &.closed {
+    background-image: url("../src/images/icon_closed.png");
+  }
+  &.closedWhite {
+    background-image: url("https://img.megabox.co.kr/static/pc/images/reserve/btn-choice-dell-circle.png");
+  }
+  &.favoriteOutLine {
+    width: 17px;
+    height: 15px;
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/ico/ico-heart-toggle-main.png");
+    background-position: 0;
+  }
+  &.favoriteOutLine.select {
+    background-position: -17px;
+  }
+  &.plus {
+    background-image: url("https://img.megabox.co.kr/static/pc/images/reserve/bg-empty-cell-circle.png");
+  }
+  &.ageGrade,
+  &.ageGrade12,
+  &.ageGrade15,
+  &.ageGrade19,
+  &.ageGradeSmall,
+  &.ageGrade12Small,
+  &.ageGrade15Small,
+  &.ageGrade19Small {
+    margin-right: 8px;
+    border-radius: 12px;
+    background-size: 100%;
+  }
+  &.ageGrade,
+  &.ageGrade12,
+  &.ageGrade15,
+  &.ageGrade19 {
+    width: 24px;
+    height: 24px;
+  }
+  &.ageGradeSmall,
+  &.ageGrade12Small,
+  &.ageGrade15Small,
+  &.ageGrade19Small {
+    width: 20px;
+    height: 20px;
+  }
+  &.ageGrade {
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-all.png");
+  }
+  &.ageGradeSmall {
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-all.png");
+  }
+  &.ageGrade12 {
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-12.png");
+  }
+  &.ageGrade12Small {
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-12.png");
+  }
+  &.ageGrade15 {
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-15.png");
+  }
+  &.ageGrade15Small {
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-15.png");
+  }
+  &.ageGrade19 {
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-19.png");
+  }
+  &.ageGrade19Small {
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-19.png");
+  }
+  &.rating {
+    width: 24px;
+    height: 28px;
+    margin-right: 8px;
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/ico/ico-megabox.png");
+    background-position: top;
+  }
+  &.bookingRate {
+    width: 24px;
+    height: 28px;
+    margin-right: 8px;
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/ico/ico-ticket-gray.png");
+    background-position: 0 1px;
+  }
+  &.accCumlative {
+    width: 24px;
+    height: 28px;
+    margin-right: 8px;
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/ico/ico-person.png");
+    background-position: 0 4px;
+  }
+  &.btnMore {
+    background-image: url("https://img.megabox.co.kr/static/pc/images/movie/btn-alert.png");
+  }
+  &.reply {
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/ico/ico-reply.png");
+  }
+  &.info {
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/ico/ico-tooltip-gray.png");
+  }
+
+  &.moreMovieIcon {
+    width: 16px;
+    height: 16px;
+    margin: -1px 0 0 7px;
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/ico/ico-more-cross-gray.png");
+    background-repeat: no-repeat;
+  }
+  &.point {
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/ico/ico-point.png");
+  }
+  &.time {
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/ico/ico-clock-white.png");
+    background-position: center;
+  }
+  &.pointWhite {
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/ico/ico-circle-point.png");
+  }
+  &.question {
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/ico/ico-question-white.png");
+  }
+}
+
+.popupWrap {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: 0;
+  padding: 0;
+  background-color: $dimdBg;
+  z-index: 1000;
+  .popupBox {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    background: $colorWhite;
+    border-radius: 4px;
+    overflow: hidden;
+    .btnWrap {
+      position: absolute;
+      bottom: 24px;
+      padding: 0;
+    }
+    h2 {
+      padding: 12px 20px;
+      font-size: 1.8rem;
+      font-weight: 500;
+      color: $colorWhite;
+      background-color: $colorMain;
+      border-radius: 2px 2px 0 0;
+    }
+
+    .btn.closed {
+      position: absolute;
+      top: 10px;
+      right: 4px;
+      min-width: initial;
+      padding: 0 8px;
+    }
+    .popupContent {
+      padding: 24px 20px;
+      font-size: 1.8rem;
+      text-align: center;
+      p {
+        padding: 0;
+        font-size: inherit;
+      }
+    }
+  }
+}
+
+.earlyBird {
+  display: inline-block;
+  width: 17px;
+  height: 17px;
+  margin-top: 2px;
+  margin-left: 5px;
+  background-image: url("https://img.megabox.co.kr/static/pc/images/common/ico/ico-greeting-option-sun.png");
+  background-size: contain;
+}

@@ -1,0 +1,12 @@
+@import "../../../commonVariable.scss";
+
+.bookingFastTitle {
+  width: 100%;
+  padding-bottom: 24px;
+
+  h2 {
+    color: $colorPrimaryText;
+    font-weight: 500;
+    font-size: 2.8rem;
+  }
+}

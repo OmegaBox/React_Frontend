@@ -1,0 +1,270 @@
+@import "../../../../common.scss";
+
+.WholeMovieListLayout {
+  width: 1100px;
+  margin: 40px auto 100px;
+}
+
+.WholeMovieHeader {
+  width: 1100px;
+  height: 56.8px;
+  margin: 0;
+  padding: 0 0 24px 0;
+  font-size: 2.8rem;
+  font-weight: 500;
+  color: $colorPrimaryText;
+}
+
+.WholeMovieListLayout .movieListTap {
+  display: flex;
+  width: 1100px;
+  margin: 0 auto;
+  border-bottom: 1px solid $colorMain;
+  li {
+    width: 25%;
+    flex-grow: 1;
+    margin-left: -1px;
+    margin-bottom: -1px;
+    border-width: 1px 1px 0 1px;
+    border-style: solid;
+    border-color: $ligthBorder;
+    text-align: center;
+    button {
+      width: 100%;
+      padding: 18px 0 14px;
+      border-radius: 0;
+      cursor: default;
+      color: $colorGrayA5;
+    }
+  }
+  .movieListNav {
+    color: $colorGray44;
+    cursor: pointer;
+  }
+  li:nth-child(1) {
+    margin-left: 0;
+  }
+  li.active {
+    border-color: $colorMain;
+    border-bottom: 1px solid $colorWhite;
+  }
+  li.active + li {
+    border-left: 1px solid $colorMain;
+  }
+}
+
+.searchResults {
+  display: inline-block;
+  margin: 40px 0 15px 8px;
+  font-weight: 600;
+}
+.wholeMovieSearchBarWrap {
+  position: relative;
+  float: right;
+  width: 230px;
+  height: 36px;
+  margin: 40px 0 15px 0;
+  padding: 0 31px 0 0;
+  border: 1px solid #d8d9db;
+  border-radius: 3px;
+  .wholeMovieSearchBar {
+    width: 197px;
+    height: 34px;
+    margin: 0;
+    padding: 0 10px;
+    line-height: 30px;
+    color: #444;
+    opacity: 1;
+    border: none;
+    font-size: 1em;
+    cursor: text;
+  }
+  .iconSearchBtn {
+    position: absolute;
+    right: 1px;
+    top: 1px;
+    width: 30px;
+    height: 32px;
+    background-position: center;
+  }
+}
+
+.wholeMovieList {
+  width: 1100px;
+  display: flex;
+  flex-wrap: wrap;
+}
+.wholeMovie {
+  position: relative;
+  width: 230px;
+  margin: 0 0 26px 60px;
+  .mainRank {
+    position: absolute;
+    width: 230px;
+    height: 150px;
+    padding: 8px 0 0 10px;
+    font-style: italic;
+    font-size: 2em;
+    font-weight: 300;
+    color: $colorWhite;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.8);
+    background: url("https://www.megabox.co.kr/static/pc/images/main/bg-main-movie-rank.png")
+      no-repeat 0 0;
+  }
+  .wholeMoviePoster {
+    width: 230px;
+    height: 331px;
+  }
+}
+.wholeMovie:nth-child(4n + 1) {
+  margin-left: 0;
+}
+
+.wholeMovieInforWrap {
+  position: absolute;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  width: 230px;
+  height: 331px;
+  opacity: 0;
+  transition: opacity 0.5s ease-out;
+}
+
+.wholeMovieSummary {
+  display: block;
+  width: 195px;
+  height: 152px;
+  margin: 35px auto 0 auto;
+  color: $colorWhite;
+  font-size: 15px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 7;
+  display: -webkit-box;
+}
+.wholeMovieInforWrap:hover {
+  opacity: 1;
+}
+
+.wholeMovieScore {
+  position: absolute;
+  border-top: 1px solid $colorGray33;
+  bottom: 20px;
+  left: 20px;
+  width: 205px;
+  height: 47px;
+  padding-top: 10px;
+  div {
+    display: flex;
+    justify-content: center;
+  }
+  p {
+    display: inline;
+    text-align: center;
+    color: $colorWhite;
+    margin: 0 19px 0 0;
+    text-align: center;
+    font-size: 0.8667em;
+    line-height: 38px;
+  }
+  strong {
+    font-weight: 400;
+    font-size: 1.6em;
+    color: $colorSubLight;
+  }
+}
+
+.movieListTitleWrap {
+  display: flex;
+  width: 230px;
+  height: 27px;
+  margin: 15px 0 0 0;
+  padding: 0;
+  .movieListTitle {
+    overflow: hidden;
+    display: block;
+    width: 100%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    padding: 0 0 0 1px;
+    font-size: 1.3333em;
+    font-weight: 400;
+    line-height: 1.2em;
+  }
+}
+
+.movieListRateandDay {
+  display: flex;
+  justify-content: space-between;
+  width: 230px;
+  height: 32.5px;
+  padding: 10px 0 0 0;
+  overflow: hidden;
+}
+.movieListOpeningDay {
+  display: inline-block;
+  width: 140px;
+  margin: 0;
+  text-align: end;
+}
+
+.wholeBtnWrap {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  .wholeBookingBtn {
+    width: 153px;
+    height: 36px;
+    margin: 0;
+    padding: 0;
+    background-color: $colorMain;
+  }
+  .wholeFavoriteBtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 72px;
+    height: 36px;
+    padding: 0 5px;
+    margin: 0;
+    font-size: 0.8667em;
+    border-color: #ebebeb;
+  }
+  .wholeFavoriteBtn .favorite {
+    margin-right: 4px;
+    vertical-align: middle;
+  }
+}
+.wholeFavoriteBtn:hover {
+  color: #351f67;
+  text-decoration: none;
+  background-color: #f2f4f8;
+}
+
+.wholeFavoriteScore {
+  color: $colorMain;
+  height: 23px;
+  margin-left: 2px;
+}
+
+.wholeMovieListMore {
+  width: 1100px;
+  height: 80px;
+  padding-top: 40px;
+  button {
+    width: 1100px;
+    height: 40px;
+    text-align: center;
+    border: 1px solid $colorGrayEa;
+    color: $colorGray66;
+    font-size: 1em;
+  }
+  span {
+    width: 12px;
+    height: 7px;
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+}

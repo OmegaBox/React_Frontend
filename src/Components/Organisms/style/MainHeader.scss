@@ -1,0 +1,191 @@
+@import "../../../commonVariable.scss";
+
+.headerLayout {
+  position: relative;
+  width: 100%;
+  color: $colorGrayD8;
+  background-color: transparentize($color: $colorBlack, $amount: 0.7);
+  border-bottom: 1px solid $colorGray33;
+  z-index: 100;
+}
+.headerLayout.subHeader {
+  color: $colorPrimaryText;
+  background-color: $colorWhite;
+  border: none;
+}
+
+.mainNav {
+  position: relative;
+  width: 1100px;
+  margin: 0 auto;
+  padding: 16px 0;
+  font-size: 15px;
+}
+
+.mainLogo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 140px;
+  height: 47px;
+}
+
+.subNav {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  ul {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+.subLeftSide li{
+  text-decoration: none !important;
+  cursor: default;
+}
+.subLeftSide li, .subRightSide li a, .subRightSide li button {
+  margin: 0 10px;
+  padding: 6px 4px 5px;
+  font-size: 1.5rem;
+  line-height: 1;
+  color: $colorDisabledText;
+}
+.subLeftSide ul li {
+  text-decoration: none;
+}
+.subLeftSide li:hover, .subRightSide li a:hover, .subRightSide li button:hover {
+  text-decoration: underline;
+}
+.mainMenu > li > a {
+  position: relative;
+  padding: 0 8px 4px;
+  &:hover::after {
+    position: absolute;
+    left: 4px;
+    right: 4px;
+    bottom: -26px;
+    content: "";
+    height: 3px;
+    background-color: $colorWhite;
+    z-index: 120;
+  }
+}
+.subHeader .mainMenu > li > a:hover::after {
+  background-color: $colorSub;
+}
+.subHeader .subNav {color: $colorSecondaryText}
+.subHeader .subLeftSide li, .subHeader .subRightSide li a, .subHeader .subRightSide li button {
+  color: inherit;
+}
+.subRightSide li .noCall, .mainLeftSide .noCall, .mainRightSide .noCall {
+  text-decoration: none !important;
+  cursor: default;
+}
+
+.bottom {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  .leftIcon,
+  .rightIcon {
+    width: 73px;
+    li {
+      display: inline-block;
+    }
+  }
+  .mainLeftSide,
+  .mainRightSide {
+    display: flex;
+    justify-content: space-around;
+    width: 260px;
+    font-size: 20px;
+  }
+  .mainLeftSide {
+    margin-right: 100px;
+  }
+  .mainRightSide {
+    margin-left: 100px;
+  }
+}
+
+.headerIcon {
+  width: 36px;
+  height: 36px;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.menuBar {
+  background-image: url(https://img.megabox.co.kr/static/pc/images/common/ico/ico-sitemap-white.png);
+}
+.menuSearch {
+  background-image: url(https://img.megabox.co.kr/static/pc/images/common/ico/ico-search-white.png);
+}
+.menuSchedule {
+  background-image: url(https://img.megabox.co.kr/static/pc/images/common/ico/ico-schedule-white.png);
+}
+.menuMypage {
+  background-image: url(https://img.megabox.co.kr/static/pc/images/common/ico/ico-mymega-white.png);
+}
+
+.subHeader .logoutBtn {
+  color: $colorGray44;
+}
+
+.subHeader .menuBar {
+  background-image: url(https://img.megabox.co.kr/static/pc/images/common/ico/ico-sitemap.png);
+}
+.subHeader .menuSearch {
+  background-image: url(https://img.megabox.co.kr/static/pc/images/common/ico/ico-search.png);
+}
+.subHeader .menuSchedule {
+  background-image: url(https://img.megabox.co.kr/static/pc/images/common/ico/ico-schedule.png);
+}
+.subHeader .menuMypage {
+  background-image: url(https://img.megabox.co.kr/static/pc/images/common/ico/ico-mymega.png);
+}
+
+
+.pageUtil {display: none;}
+.subHeader .pageUtil {
+  display: block;
+  border-top: 1px solid $darkBorder;
+  background-color: $whiteGrayBg;
+  &.none ul {display: none;}
+  ul {
+    display: flex;
+    align-items: center;
+    width: 1100px;
+    margin: 0 auto;
+    padding: 8px 0;
+  }
+  .home a {
+    display: block;
+    width: 16px;
+    height: 24px;
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/bg/bg-location-home.png");
+    background-repeat: no-repeat;
+    background-position: 0 6px;
+  }
+  li {
+    display: flex;
+    align-items: center;
+  }
+  li a {
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: $colorLightText;
+  }
+  li::before {
+    content: "";
+    display: inline-block;
+    width: 5px;
+    height: 16px;
+    margin: 0 8px;
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/bg/bg-location-arr.png");
+    background-repeat: no-repeat;
+    background-position: left center;
+  }
+  li:first-child::before {display: none;}
+}

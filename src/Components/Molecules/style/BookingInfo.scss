@@ -1,0 +1,194 @@
+@import "../../../common.scss";
+@import "../../Organisms/Booking/style/BookingSelectSeat.scss";
+
+.bookingInfo {
+  display: flex;
+  flex-flow: column nowrap;
+  width: 310px;
+  background-color: $colorGray33;
+  border-radius: 10px;
+
+  // 영화 선택 정보
+  .bookingInfoList {
+    display: flex;
+    flex-flow: column nowrap;
+    flex-grow: 1;
+    width: 100%;
+    padding: 15px 20px 20px;
+  }
+
+  .bookingInfoList > li {
+    font-size: .8667em;
+    color: #c4c4c4; 
+    
+    &:nth-child(-n+2) {
+      padding: 10px 0;
+      border-bottom: 0;
+      border-bottom: 1px solid #434343;
+    }
+
+    &.bookingMovieTitle {
+      display: flex;
+      flex-flow: row wrap;
+      justify-content: unset;
+      font-size: 1.6rem;
+      line-height: 1.2;
+      vertical-align: top;
+    }
+    & .screenType {
+      padding: 3px 0 0 30px;
+      width: 100%;
+    }
+  }
+
+  // 영화관 및 영화 정보
+  .bookingDetailInfo {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    margin-bottom: 10px;
+
+    img {
+      width: 70px;
+    }
+  }
+
+  // 예매 좌석 정보
+  .bookingSeatInfo {
+    display: flex;
+    flex-flow: row nowrap;
+    border: 1px solid $colorGray44;
+    border-radius: 10px;
+  }
+
+  // 좌석 정보
+  .seatInfo {
+    $liHeight : 16px;
+    
+    width: 56%;
+    padding: 16px 20px;
+    font-size: .95em;
+    line-height: $liHeight;
+
+    li {
+      height: $liHeight;
+      padding-left: 24px;
+      margin: 4px 0;
+    }
+
+    li:nth-child(1) {
+      background: $choice 0px 0px / auto 100% no-repeat;
+    }
+
+    li:nth-child(2) {
+      background: $finish 0px 0px / auto 100%  no-repeat;
+    }
+
+    li:nth-child(3) {
+      background: $impossible 0px 0px / auto 100%  no-repeat;
+    }
+
+    li:nth-child(4) {
+      background-image: $socialDistance;
+      background-position: 0 0, 25px 25px;
+      background-size: $liHeight $liHeight;
+      background-repeat: no-repeat;
+    }
+
+    li:nth-child(5) {
+      background: $common 0px 0px / auto 100%  no-repeat;
+    }
+
+    li:nth-child(6) {
+      background: $disabled 0px 0px / auto 100%  no-repeat;
+    }
+  }
+
+  // 선택좌석
+  .selectedSeatInfo {
+    width: 45%;
+    padding: 10px 14px;
+    font-size: .9em;
+    text-align: center;
+    border-left: 1px solid $colorGray44;
+  }
+
+  .selectedSeat {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    margin-top: 18px;
+
+    li {
+      width: 44%;
+      height: 35px;
+      margin-bottom: 8px;
+      line-height: 34px;
+      border: 1px solid $colorGray55;
+      
+      &.selectedYet {
+        border: 0;
+        background-color: $colorGray55;
+      }
+
+      &.selected {
+        border: 0;
+        background-color: $colorMain;
+      }
+    }
+  }
+
+  .personalType {
+    margin-top: auto;
+  }
+
+  .bookingTotalPrice{
+    display: flex;
+    flex-flow: row nowrap;
+
+    span {
+      font-size: 1.5rem;
+      color: $colorWhite;
+      line-height: 4rem;
+    }
+
+    span:first-child {
+      margin-right: auto;
+    }
+
+    span.totalPrice {
+      margin-right: 5px;
+      font-size: 2.5rem;
+      color: $colorSubLight;
+      line-height: 3.9rem;
+    }
+  }
+
+  // 이전 다음 버튼
+  button {
+    width: 50%;
+    margin: 0;
+    font-size: 1.2em;
+    font-weight: 400;
+    border: 0;
+
+    &.pre {
+      color: $colorWhite;
+      border-radius: 0 0 0 10px;
+      background-color: $btnDarkGray;
+    }
+
+    &.next {
+      color: $colorDisabledText;
+      background-color: $colorGrayEa;
+      border-radius: 0 0 10px 0;
+      cursor: default;
+    }
+
+    &.next:not([ disabled ]) {
+      color: $colorWhite;
+      background-color: $colorSubLight;
+      cursor: pointer;
+    }
+  }
+}

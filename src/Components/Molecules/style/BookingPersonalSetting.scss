@@ -1,0 +1,52 @@
+@import "../../../common.scss";
+
+.bookingPersonalSetting {
+  padding: 8px 0 7px 20px;
+  background-color: $colorGrayF5;
+
+  & > div { 
+    display: inline-block;
+    margin-right: 40px;
+    
+    span {
+      font-size: 1.3rem;
+    }
+  }
+}
+
+.bookingPersonalCounter{
+  display: inline-flex;
+  flex-flow: row nowrap;
+  align-items: stretch;
+  margin-left: 10px;
+
+  select.count {
+    width: 42px;
+    padding: 0 17px;
+    height: inherit;
+    text-align: center;
+    border-width: 1px 0 1px;
+    border-style: solid;
+    border-color: $border;
+  }
+  option {
+    text-align: center;
+  }
+
+  button.btn.plus, button.btn.minus {
+    min-width: initial;
+    width: 32px;
+    padding:0;
+    margin: 0;
+  }
+
+  button.btn.plus {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  button.btn.minus {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+}

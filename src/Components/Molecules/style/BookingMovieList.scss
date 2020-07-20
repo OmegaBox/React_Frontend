@@ -1,0 +1,99 @@
+@import "../../../commonVariable.scss";
+
+.selectedInfoDarker {
+  background-color: $colorGray66;
+}
+.selectedInfoDarker > button > span {
+  // background-color: $colorGray66;
+  color: white;
+}
+
+.bookingMovieList {
+  width: 310px;
+  height: 530px;
+  padding: 10px 20px 20px 20px;
+  // box-sizing: border-box;
+  border: solid 1px $colorGrayEa;
+}
+
+.movieLists {
+  width: 100%;
+  height: 372px;
+  overflow-y: scroll;
+  scrollbar-color: $colorGray44 $colorGrayEa;
+  scrollbar-width: thin;
+  scrollbar-base-color: $colorGrayEa;
+  // box-sizing: border-box;
+  margin-top: 10px;
+  border: solid 1px $colorGrayEa;
+
+  .disable {
+    button {
+      cursor: default;
+      span {
+        color: $colorDisabledText;
+      }
+    }
+  }
+
+  button {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 28px;
+    font-size: 1.3rem;
+    text-align: left;
+    font-weight: $textBold;
+  }
+}
+
+.movieLists::-webkit-scrollbar {
+  width: 5px;
+  background-color: $colorGrayEa;
+  border-radius: 5rem;
+}
+
+.movieLists::-webkit-scrollbar-thumb {
+  background-color: $colorGray44;
+  border-radius: 5rem;
+}
+
+.selectedMoviePosterBox {
+  width: 100%;
+  height: 100px;
+  margin-top: 10px;
+  ul {
+    display: flex;
+    justify-content: space-around;
+    height: 90px;
+
+    li {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      width: 63px;
+      height: 90px;
+      font-size: 3rem;
+    }
+    button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 20px;
+      height: 20px;
+      background: url(https://img.megabox.co.kr/static/pc/images/reserve/btn-choice-dell.png);
+    }
+
+    img {
+      width: 63px;
+      height: 90px;
+      font-size: 1.5rem;
+    }
+  }
+}
+
+.emptySeletedList {
+  width: 100%;
+  border: 1px solid $colorGrayEa;
+}

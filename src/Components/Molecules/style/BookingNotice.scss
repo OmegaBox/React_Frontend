@@ -1,0 +1,26 @@
+@import "../../../common.scss";
+
+.bookingNotice {
+  margin-top: 40px;
+  padding: 20px 15px 30px;
+  border: 1px solid $border;
+
+  & > li{
+    margin: 0 0 20px 25px;
+    list-style-type: square;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  span {
+    font-size: 1.6rem;
+  }
+}
+
+.noticeDetail {
+  li {
+    padding-left: 15px;
+    background: linear-gradient(#000, #000) left 11.5px /4px 1px no-repeat;
+  }
+}
