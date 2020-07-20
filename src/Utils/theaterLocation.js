@@ -18,7 +18,7 @@ export const getLocation = () => {
         },
         {
           enableHighAccuracy: false,
-          maximumAge: 0,
+          maximumAge: Infinity,
           timeout: Infinity,
         }
       );
