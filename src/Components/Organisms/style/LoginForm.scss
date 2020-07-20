@@ -1,0 +1,125 @@
+@import "../../../commonVariable.scss";
+
+.loginWrap {
+  position: relative;
+  min-height: 100vh;
+  background-color: $whiteGrayBg;
+  .loginBox {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    height: 530px !important;
+    padding: 48px 40px;
+    border: 1px solid $border;
+    border-radius: 8px;
+    background-color: $colorWhite;
+    text-align: center;
+    .omega_logo {
+      display: inline-block;
+      width: 120px;
+      margin-bottom: 16px;
+      img {
+        width: 100%;
+        height: auto;
+      }
+    }
+    h2 {
+      margin-bottom: 35px;
+      font-size: 4rem;
+      font-weight: 300;
+      text-align: center;
+      letter-spacing: 0.1em;
+      background-color: none;
+    }
+    .btn.btnClosed {
+      position: absolute;
+      top: 24px;
+      right: 24px;
+      min-width: initial;
+      padding: 0 8px;
+    }
+
+    .btnGoogleLogin {
+      margin-top: 15px;
+      margin-bottom: 10px;
+      font-family: "Noto Sans KR", sans-serif;
+
+      .loginText {
+        display: inline-block;
+        // margin: 0 5px;
+      }
+    }
+  }
+}
+
+$checkBoxSize: 14px;
+
+#userId,
+#userPw {
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0 0 10px;
+}
+
+.saveIdWrap.inputWrap {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  width: 398px;
+  margin: 0px 0 0 0;
+  font-size: 1.4rem;
+  text-align: left;
+
+  & #saveId {
+    width: $checkBoxSize;
+    height: $checkBoxSize;
+    margin-top: -7px;
+  }
+
+  & label {
+    padding-left: 20px;
+  }
+
+  span {
+    color: $colorRed;
+    font-weight: 500;
+  }
+}
+
+.btnLogin.btn {
+  width: 100%;
+  margin: 35px 0 20px;
+  border-color: $colorMain;
+  color: $colorWhite;
+  background-color: $colorMain;
+
+  &:hover {
+    border-color: $colorMainDark;
+    background-color: $colorMainDark;
+  }
+
+  &[disabled] {
+    border-color: $ligthBorder;
+    color: $colorGray66;
+    background-color: $colorGrayEa;
+    cursor: default;
+  }
+}
+
+.btnFindIdPw,
+.btnSignUp {
+  font-size: 1.5rem;
+  color: $colorLightText;
+
+  &:hover,
+  &:focus {
+    text-decoration: underline;
+  }
+}
+
+.btnFindIdPw {
+  margin-right: 70px;
+}

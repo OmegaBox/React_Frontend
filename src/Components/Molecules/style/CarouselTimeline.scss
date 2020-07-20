@@ -1,0 +1,51 @@
+@import "../../../commonVariable.scss";
+
+.carouselTimelineContainer {
+  margin-top: 10px;
+  padding: 0 30px;
+  width: 478px;
+  border-top: 1px solid $ligthBorder;
+  border-bottom: 1px solid $ligthBorder;
+}
+
+.carouselTimelineContainer .slick-arrow.slick-next::before {
+  color: #000 !important;
+}
+
+.carouselTimelineContainer .slick-arrow.slick-prev::before {
+  color: #000 !important;
+}
+
+.carouselTimelineContainer .carouselTimeline {
+  text-align: center;
+  height: 100%;
+  width: 100%;
+}
+
+.carouselTimelineContainer .carouselTimeline.selectedTime {
+  background-color: $colorGray55;
+  color: white;
+}
+
+.carouselTimelineContainer .carouselTimeline.disabledTimeline {
+  background-color: white;
+  color: $colorDisabledText;
+  cursor: auto;
+}
+
+.carouselTimelineContainer .carouselCalendarContainer button {
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+  margin: 0;
+  background-color: transparent;
+  color: none;
+  font-size: 1.7rem;
+  min-width: initial;
+}
+
+.carouselTimelineContainer .slick-slide > div {
+  height: 32px;
+  // display: flex;
+  // align-items: center;
+}

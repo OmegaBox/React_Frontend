@@ -1,0 +1,19 @@
+@import "../../../../commonVariable.scss";
+
+.bookingSelectMovieContainer {
+  margin: 40px auto 100px;
+  width: 1100px;
+  box-sizing: border-box;
+}
+
+.calendarsContainer {
+  display: flex;
+  align-items: center;
+  border-top: 1px solid #555;
+  border-bottom: 1px solid #d8d9db;
+  width: 1100px;
+}
+
+.bookingInfoLists {
+  display: flex;
+}

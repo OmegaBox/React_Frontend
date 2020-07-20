@@ -1,0 +1,58 @@
+@import "../../../commonVariable.scss";
+
+.carouselCalendarContainer {
+  padding: 0 30px;
+  width: 1050px;
+}
+
+.slick-arrow.slick-next::before {
+  color: #000 !important;
+}
+
+.slick-arrow.slick-prev::before {
+  color: #000 !important;
+}
+
+.carouselCal {
+  text-align: center;
+  height: 100%;
+  width: 100%;
+}
+
+.carouselCal.selectedDay {
+  background-color: $colorGrayF5;
+  border-bottom: 2px solid $colorMainLight;
+}
+
+.carouselCalendarContainer .carouselCal.disabled {
+  cursor: default;
+  color: $colorDisabledText;
+  span {
+    color: $colorDisabledText;
+  }
+}
+
+.carouselCalendarContainer button {
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+  margin: 0;
+  background-color: transparent;
+  color: none;
+  font-size: 1.5rem;
+  min-width: initial;
+
+  .dayBlue {
+    color: $colorBlue;
+  }
+
+  .dayRed {
+    color: $colorRed;
+  }
+}
+
+.slick-slide > div {
+  height: 41px;
+  // display: flex;
+  // align-items: center;
+}

@@ -1,0 +1,93 @@
+@import "../../../../commonVariable.scss";
+
+.inforNotice {
+  margin-top: 50px;
+  margin: 50px 0 auto;
+  border: 1px solid $colorGrayEa;
+  border-width: 1px 0;
+
+  .wrap {
+    width: 1100px;
+    height: 60px;
+    margin: 0 auto;
+    p {
+      display: inline-block;
+      padding: 0;
+    }
+  }
+  .noticeText {
+    margin: 0 auto;
+    width: 830px;
+  }
+}
+
+.mainNoticeLayout {
+  margin-top: 40px;
+  margin-bottom: 40px;
+  border-top: 1px solid $border;
+}
+
+.mainNotice {
+  font-size: 18px;
+  font-weight: 500;
+  width: 1100px;
+  margin: 0 auto;
+  padding: 50px 0 0 0;
+  display: flex;
+  justify-content: space-around;
+  li {
+    width: 184px;
+    text-align: center;
+    vertical-align: middle;
+    div {
+      margin: 0 auto;
+      margin-bottom: 10px;
+      background-repeat: no-repeat;
+    }
+    span {
+      font-size: 1.6rem;
+      line-height: 1.2;
+    }
+  }
+}
+
+
+.customerIcon, .qestionsIcon, .inquiryIcon, .groupInquiryIcon, .lostInquriyIcon, .privateIcon {
+  width: 51px;
+  height: 46px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.customerIcon {
+  background-image: url(https://img.megabox.co.kr/static/pc/images/common/ico/ico-main-customer.png);
+  background-size: 46px 46px;
+}
+
+.qestionsIcon {
+  background-image: url(https://img.megabox.co.kr/static/pc/images/common/ico/ico-main-faq.png);
+  background-size: 50px 46px;
+}
+
+.inquiryIcon {
+  background-image: url(https://img.megabox.co.kr/static/pc/images/common/ico/ico-main-qna.png);
+  background-size: 43px 43px;
+}
+
+.groupInquiryIcon {
+  background-image: url(https://img.megabox.co.kr/static/pc/images/common/ico/ico-main-group.png);
+  background-size: 50px 38px;
+}
+
+.lostInquriyIcon {
+  background-image: url(https://img.megabox.co.kr/static/pc/images/common/ico/ico-main-lost.png);
+  background-size: 51px 39px;
+}
+
+.privateIcon {
+  background-image: url(https://img.megabox.co.kr/static/pc/images/common/ico/ico-main-boutique.png);
+  background-size: 48px 40px;
+}
+.privateInquiry span {
+  display: block;
+  margin-top: -4px;
+}
