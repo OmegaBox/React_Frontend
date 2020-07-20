@@ -3,7 +3,7 @@ import "./style/MainTheater.scss";
 
 const MainTheater = () => {
   return (
-    <div>
+    <>
       <div className="mainTheaterLayout">메가박스 안내</div>
       <ul className="theaterMenu">
         <li className="theaterBoutique"></li>
@@ -12,7 +12,7 @@ const MainTheater = () => {
         <li className="theaterKids"></li>
         <li className="theaterFirstclub"></li>
       </ul>
-    </div>
+    </>
   );
 };
 export default MainTheater;

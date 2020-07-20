@@ -19,7 +19,7 @@ const MyPage = ({ history }) => {
   }, [dispatch]);
 
   return (
-    <div>
+    <>
       <MyMegaBox history={history} />
       {!isLoginCheck && (
         <ModalPortal>
@@ -31,7 +31,7 @@ const MyPage = ({ history }) => {
           />
         </ModalPortal>
       )}
-    </div>
+    </>
   );
 };
 
