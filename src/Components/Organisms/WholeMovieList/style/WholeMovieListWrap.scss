@@ -1,6 +1,5 @@
 @import "../../../../common.scss";
 
-
 .WholeMovieListLayout {
   width: 1100px;
   margin: 40px auto 100px;
@@ -49,7 +48,9 @@
     border-color: $colorMain;
     border-bottom: 1px solid $colorWhite;
   }
-  li.active + li {border-left: 1px solid $colorMain;}
+  li.active + li {
+    border-left: 1px solid $colorMain;
+  }
 }
 
 .searchResults {
@@ -81,13 +82,12 @@
   .iconSearchBtn {
     position: absolute;
     right: 1px;
-    top: 1px; 
+    top: 1px;
     width: 30px;
     height: 32px;
     background-position: center;
   }
 }
-
 
 .wholeMovieList {
   width: 1100px;
@@ -107,24 +107,27 @@
     font-size: 2em;
     font-weight: 300;
     color: $colorWhite;
-    text-shadow: 2px 2px 2px rgba(0,0,0,0.8);
-    background: url('https://www.megabox.co.kr/static/pc/images/main/bg-main-movie-rank.png') no-repeat 0 0;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.8);
+    background: url("https://www.megabox.co.kr/static/pc/images/main/bg-main-movie-rank.png")
+      no-repeat 0 0;
   }
   .wholeMoviePoster {
     width: 230px;
     height: 331px;
-  } 
+  }
 }
-.wholeMovie:nth-child(4n + 1) {margin-left: 0;}
+.wholeMovie:nth-child(4n + 1) {
+  margin-left: 0;
+}
 
 .wholeMovieInforWrap {
   position: absolute;
   top: 0;
-  background-color: rgba(0,0,0,0.8);
+  background-color: rgba(0, 0, 0, 0.8);
   width: 230px;
   height: 331px;
-  opacity: 0; 
-  transition: opacity .5s ease-out;
+  opacity: 0;
+  transition: opacity 0.5s ease-out;
 }
 
 .wholeMovieSummary {
@@ -135,11 +138,11 @@
   color: $colorWhite;
   font-size: 15px;
   overflow: hidden;
-  text-overflow:ellipsis;
-  word-wrap:break-word;
-  -webkit-box-orient:vertical;
-  -webkit-line-clamp:7;
-  display:-webkit-box;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 7;
+  display: -webkit-box;
 }
 .wholeMovieInforWrap:hover {
   opacity: 1;
@@ -189,7 +192,7 @@
     font-size: 1.3333em;
     font-weight: 400;
     line-height: 1.2em;
-  } 
+  }
 }
 
 .movieListRateandDay {
@@ -199,7 +202,6 @@
   height: 32.5px;
   padding: 10px 0 0 0;
   overflow: hidden;
-  
 }
 .movieListOpeningDay {
   display: inline-block;
@@ -227,7 +229,7 @@
     height: 36px;
     padding: 0 5px;
     margin: 0;
-    font-size: .8667em;
+    font-size: 0.8667em;
     border-color: #ebebeb;
   }
   .wholeFavoriteBtn .favorite {
@@ -243,7 +245,8 @@
 
 .wholeFavoriteScore {
   color: $colorMain;
-  margin-left: 7px;
+  height: 23px;
+  margin-left: 2px;
 }
 
 .wholeMovieListMore {
