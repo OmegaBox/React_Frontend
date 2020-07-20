@@ -4,7 +4,7 @@ import logo from "../../images/omegaGray.png";
 
 const Footer = () => {
   return (
-    <div className="footerContainer">
+    <div>
       <footer className="footerLayout">
         <div className="footerWrap">
           <img className="footerLogo" alt="omegaboxLogo" src={logo} />

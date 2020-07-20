@@ -266,8 +266,8 @@ const movieReducer = (state = initialState, action) => {
           ...state.detail,
           ...(state.detail.acc_favorite !== undefined
             ? {
-              acc_favorite: state.detail.acc_favorite + 1,
-            }
+                acc_favorite: state.detail.acc_favorite + 1,
+              }
             : {}),
         },
       };
@@ -285,8 +285,8 @@ const movieReducer = (state = initialState, action) => {
           ...state.detail,
           ...(state.detail.acc_favorite !== undefined
             ? {
-              acc_favorite: state.detail.acc_favorite - 1,
-            }
+                acc_favorite: state.detail.acc_favorite - 1,
+              }
             : {}),
         },
       };

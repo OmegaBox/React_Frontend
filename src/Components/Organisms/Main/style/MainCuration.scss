@@ -1,16 +1,14 @@
 @import "../../../../commonVariable.scss";
 
-.curationContainer {
-  width: 100%;
-  background-color: $colorMainDark;
-}
-
 .mainCurationLayout {
-  width: 1100px;
-  margin: 0 auto;
-  background-color: $colorMainDark;
+  background: $colorMainDark;
   min-height: 840px;
   color: $colorWhite;
+}
+
+.mainCuration {
+  width: 1100px;
+  margin: 0 auto;
 }
 
 .mainHeader {
