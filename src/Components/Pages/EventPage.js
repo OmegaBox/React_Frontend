@@ -8,11 +8,7 @@ const EventPage = () => {
   useEffect(() => {
     dispatch(checkLogin());
   });
-  return (
-    <>
-      <Event />
-    </>
-  );
+  return <Event />;
 };
 
 export default EventPage;

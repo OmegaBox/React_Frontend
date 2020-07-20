@@ -6,9 +6,12 @@ main.myMegaBox {
 }
 
 /* mypage common style */
-a {display: inline-block;}
+a {
+  display: inline-block;
+}
 
-.bullet li, p.bullet {
+.bullet li,
+p.bullet {
   position: relative;
   padding-left: 24px;
   &::before {
@@ -22,8 +25,12 @@ a {display: inline-block;}
     background-color: $colorDisabledText;
   }
 }
-p.bullet {padding-left: 16px;}
-p.bullet::before {left: 8px;}
+p.bullet {
+  padding-left: 16px;
+}
+p.bullet::before {
+  left: 8px;
+}
 
 /* mypage content area common style */
 main.myMegaBox .mypageDashBoard,
@@ -50,7 +57,8 @@ main.myMegaBox .editOption {
   height: 32px;
   margin-bottom: 16px;
 }
-.titleText, .subTitleWrap .titleText {
+.titleText,
+.subTitleWrap .titleText {
   font-size: 2.2rem;
   font-weight: 500;
   color: $colorMain;
@@ -67,7 +75,9 @@ main.myMegaBox .editOption {
   font-weight: 700;
   color: $colorPrimaryText;
   letter-spacing: 0.15em;
-  span {color: $colorSub;}
+  span {
+    color: $colorSub;
+  }
 }
 table {
   width: 100%;
@@ -84,7 +94,8 @@ table {
       text-align: left;
       background-color: $whiteGrayBg;
     }
-    th, td {
+    th,
+    td {
       padding: 8px;
       border-bottom: 1px solid $border;
     }
@@ -111,7 +122,9 @@ table {
   flex-grow: 1;
   display: flex;
   border: 1px solid $border;
-  li {width: 11.111%;}
+  li {
+    width: 11.111%;
+  }
   button {
     width: 100%;
     height: 100%;
@@ -132,7 +145,9 @@ table {
   text-align: center;
 }
 
-.movieList {width: 100%;}
+.movieList {
+  width: 100%;
+}
 .movieList .listNull {
   width: 100%;
   margin-top: -1px;
@@ -146,8 +161,12 @@ table {
   display: flex;
   align-items: center;
   padding: 24px 8px;
-  .info {flex-grow: 1;}
-  .poster img {width: 100%;}
+  .info {
+    flex-grow: 1;
+  }
+  .poster img {
+    width: 100%;
+  }
 }
 .movieList .info li {
   display: flex;
@@ -165,11 +184,17 @@ table {
 .editPassword table th,
 .editPassword table td,
 .editOption table th,
-.editOption table td {padding: 16px;}
+.editOption table td {
+  padding: 16px;
+}
 .editUserInfo table th,
 .editPassword table th,
-.editOption table th {width: 180px;}
-.editPassword table {margin-bottom: 16px;}
+.editOption table th {
+  width: 180px;
+}
+.editPassword table {
+  margin-bottom: 16px;
+}
 .editPassword .bullet li {
   padding-left: 16px;
   &::before {
