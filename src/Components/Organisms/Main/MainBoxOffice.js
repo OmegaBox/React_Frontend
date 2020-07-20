@@ -60,27 +60,26 @@ const MainBoxOffice = () => {
   }, [isLogin, favoriteMovies.length]);
 
   return (
-    <div className="boxOfficeContainer">
-      <div className="mainBoxOfficeLayout">
-        <div className="mainBoxOffice">
-          <div className="mainBoxOfficeHeader">
-            <h2>박스오피스</h2>
-            <Link to="/listMovies">
-              <div className="boxOfficeMoreMovieWrap">
-                <div className="boxOfficeMoreMovie">더 많은 영화보기 </div>
-                <div className="icon moreMovieIcon"></div>
-              </div>
-            </Link>
-          </div>
-          <div className="mainMovieList">
-            <ul className="mainMoviesWrap">
-              {movieLoading
-                ? new Array(4).fill(0).map((v, i) => (
+    <div className="mainBoxOfficeLayout">
+      <div className="mainBoxOffice">
+        <div className="mainBoxOfficeHeader">
+          <h2>박스오피스</h2>
+          <Link to="/listMovies">
+            <div className="boxOfficeMoreMovieWrap">
+              <div className="boxOfficeMoreMovie">더 많은 영화보기 </div>
+              <div className="icon moreMovieIcon"></div>
+            </div>
+          </Link>
+        </div>
+        <div className="mainMovieList">
+          <ul className="mainMoviesWrap">
+            {movieLoading
+              ? new Array(4).fill(0).map((v, i) => (
                   <li key={`skelton${i}`} className="skeletonMainMovieLi">
                     <SkeletonMainMovies />
                   </li>
                 ))
-                : movieBox.map((movie) => (
+              : movieBox.map((movie) => (
                   <li key={`movieList${movie.id}`}>
                     <Link to={"detail/" + movie.id}>
                       <p className="mainRank">{movie.rank}</p>
@@ -152,42 +151,41 @@ const MainBoxOffice = () => {
                     </div>
                   </li>
                 ))}
-            </ul>
-          </div>
-          <ul className="boxOfficeSubBarWrap">
-            <li className="boxOfficeSearchBarWrap">
-              <form>
-                <input
-                  type="text"
-                  onKeyDown={mainEnterKeyword}
-                  className="boxOfficeSearchBar"
-                  placeholder="영화명을 입력해주세요."
-                  title="영화 검색"
-                />
-                <button type="button" className="iconSearchBtn"></button>
-              </form>
-            </li>
-            <li>
-              <span className="iconSchedule" />
-              <span className="boxOfficeSearchBarText">상영시간표</span>
-            </li>
-            <li>
-              <span className="iconBoxOffice" />
-              <span className="boxOfficeSearchBarText">박스오피스</span>
-            </li>
-            <Link to="/Booking">
-              <li>
-                <span className="iconBoxOfficeBooking" />
-                <span className="boxOfficeSearchBarText">빠른예매</span>
-              </li>
-            </Link>
           </ul>
         </div>
-        <div className="moviePosterBg">
-          {movieBox.map((movie, i) => {
-            return <img key={i} src={movie.poster} alt={movie.title} />;
-          })}
-        </div>
+        <ul className="boxOfficeSubBarWrap">
+          <li className="boxOfficeSearchBarWrap">
+            <form>
+              <input
+                type="text"
+                onKeyDown={mainEnterKeyword}
+                className="boxOfficeSearchBar"
+                placeholder="영화명을 입력해주세요."
+                title="영화 검색"
+              />
+              <button type="button" className="iconSearchBtn"></button>
+            </form>
+          </li>
+          <li>
+            <span className="iconSchedule" />
+            <span className="boxOfficeSearchBarText">상영시간표</span>
+          </li>
+          <li>
+            <span className="iconBoxOffice" />
+            <span className="boxOfficeSearchBarText">박스오피스</span>
+          </li>
+          <Link to="/Booking">
+            <li>
+              <span className="iconBoxOfficeBooking" />
+              <span className="boxOfficeSearchBarText">빠른예매</span>
+            </li>
+          </Link>
+        </ul>
+      </div>
+      <div className="moviePosterBg">
+        {movieBox.map((movie, i) => {
+          return <img key={i} src={movie.poster} alt={movie.title} />;
+        })}
       </div>
     </div>
   );
