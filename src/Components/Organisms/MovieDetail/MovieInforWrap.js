@@ -5,12 +5,14 @@ import RatingChart from "../../Molecules/ChartBookingRating";
 import DayAudienceLine from "../../Molecules/LineDayAudience";
 import RaderChartKeyPoint from "../../Molecules/RaderChartKeyPoint";
 import { numWithComma } from "../../../Utils/util";
+import { useHistory } from "react-router-dom";
 
 const MovieInforWrap = () => {
   const movie = useSelector((state) => state.Movie.detail);
   const [fullStoryState, setfullStoryState] = useState({
     fullStory: false,
   });
+  const history = useHistory();
 
   const fullStoryOpen = () => {
     setfullStoryState({
@@ -279,7 +281,14 @@ const MovieInforWrap = () => {
       <div className="eventWrap">
         <div className="subTitleWrap">
           <h3 className="title">이벤트</h3>
-          <button type="button" className={["btn", "regular"].join(" ")}>
+          <button
+            type="button"
+            className={["btn", "regular"].join(" ")}
+            onClick={() => {
+              history.push("/event");
+              window.scrollTo(0, 0);
+            }}
+          >
             더보기
             <span className={["icon", "arrowRight"].join(" ")}></span>
           </button>
