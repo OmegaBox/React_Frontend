@@ -9,7 +9,7 @@ const MovieDetailComment = () => {
     <div>
       <div className="movieCommentWrap">
         <p className="sTitle">
-          #살아있다에 대한 <span>5,464</span>개의 이야기가 있어요!
+          {movie.name_kor}에 대한 <span>5,464</span>개의 이야기가 있어요!
         </p>
         <div className="myComment">
           <div className="profile">
