@@ -7,6 +7,7 @@ const EventPage = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(checkLogin());
+    window.scrollTo(0, 0);
   });
   return <Event />;
 };
