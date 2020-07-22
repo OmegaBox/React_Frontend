@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import ReactPlayer from "react-player";
 
 const MovieTrailer = () => {
-  window.scrollTo(0, 786);
+  window.scrollTo(0, 520);
 
   const movie = useSelector((state) => state.Movie.detail);
   return (
