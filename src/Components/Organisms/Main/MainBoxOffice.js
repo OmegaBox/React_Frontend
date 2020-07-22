@@ -167,14 +167,18 @@ const MainBoxOffice = () => {
               <button type="button" className="iconSearchBtn"></button>
             </form>
           </li>
-          <li>
-            <span className="iconSchedule" />
-            <span className="boxOfficeSearchBarText">상영시간표</span>
-          </li>
-          <li>
-            <span className="iconBoxOffice" />
-            <span className="boxOfficeSearchBarText">박스오피스</span>
-          </li>
+          <Link to="/Booking">
+            <li>
+              <span className="iconSchedule" />
+              <span className="boxOfficeSearchBarText">상영시간표</span>
+            </li>
+          </Link>
+          <Link to="/listMovies">
+            <li>
+              <span className="iconBoxOffice" />
+              <span className="boxOfficeSearchBarText">박스오피스</span>
+            </li>
+          </Link>
           <Link to="/Booking">
             <li>
               <span className="iconBoxOfficeBooking" />
