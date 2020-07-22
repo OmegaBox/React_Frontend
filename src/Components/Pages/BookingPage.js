@@ -24,7 +24,7 @@ const BookingPage = ({ history }) => {
   }, [dispatch]);
 
   return (
-    <div>
+    <>
       <Booking history={history} />
       {!isLoginCheck && (
         <ModalPortal>
@@ -36,7 +36,7 @@ const BookingPage = ({ history }) => {
           />
         </ModalPortal>
       )}
-    </div>
+    </>
   );
 };
 

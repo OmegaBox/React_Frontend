@@ -198,7 +198,7 @@ const movieReducer = (state = initialState, action) => {
     case MOVIE_LOADING:
       return {
         ...state,
-        loading: false,
+        loading: true,
         error: null,
       };
     case MOVIE_DETAIL_SUCCESS:

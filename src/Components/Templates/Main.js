@@ -10,7 +10,7 @@ import MainTheater from "../Organisms/Main/MainTheater";
 
 const Main = () => {
   return (
-    <div>
+    <>
       <Header />
       <MainBoxOffice />
       <MainBenefits />
@@ -19,7 +19,7 @@ const Main = () => {
       <MainTheater />
       <MainNotice />
       <Footer />
-    </div>
+    </>
   );
 };
 

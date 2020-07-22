@@ -132,7 +132,7 @@ const MainHeader = () => {
   const changeHeader = useSelector((state) => state.userInfo.isLogin);
 
   return (
-    <div>
+    <>
       <header
         className={[
           "headerLayout",
@@ -247,7 +247,7 @@ const MainHeader = () => {
           </ModalPortal>
         )}
       </header>
-    </div>
+    </>
   );
 };
 

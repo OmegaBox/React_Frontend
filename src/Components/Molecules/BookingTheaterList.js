@@ -32,8 +32,9 @@ const BookingTheaterList = () => {
   const theaterLocs = theaterLocation.slice();
   const nearbyTheaters = selectedOption.nearbyTheaters; // 가까운 영화관들
 
-  const dispatchNearby = useCallback(async () =>
-    dispatch(setNearbyTheaters(await findNearbyTheaters()))
+  const dispatchNearby = useCallback(
+    async () => dispatch(setNearbyTheaters(await findNearbyTheaters())),
+    [dispatch]
   );
 
   if (!theaterLocs.find((theater) => theater.region === "가까운 영화관")) {
