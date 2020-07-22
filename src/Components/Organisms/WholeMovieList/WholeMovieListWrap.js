@@ -52,7 +52,9 @@ const WholeMovieListWrap = () => {
       <h1 className="WholeMovieHeader">전체영화</h1>
       <ul className="movieListTap">
         <li className="active">
-          <button className="movieListNav" type="button">박스오피스</button>
+          <button className="movieListNav" type="button">
+            박스오피스
+          </button>
         </li>
         <li>
           <button type="button">상영예정작</button>
@@ -124,7 +126,7 @@ const WholeMovieListWrap = () => {
                 </div>
                 <div className="movieListRateandDay">
                   <span className="movieListBookingRate">
-                    예매율{movie.reservation_rate}%
+                    예매율 {movie.reservation_rate}%
                   </span>
                   <span className="movieListOpeningDay">
                     개봉일 {movie.open_date}
