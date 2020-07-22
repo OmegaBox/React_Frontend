@@ -60,9 +60,7 @@ const MovieInforWrap = () => {
           <span>
             {movie.genres !== undefined &&
               movie.genres.map((genre, i) => {
-                return (
-                  <span key={`movie.${genre}`}>{genre}</span>
-                );
+                return <span key={`movie.${genre}`}>{genre}</span>;
               })}
           </span>
           /<span className="runningTime">{movie.running_time}분</span>
@@ -118,7 +116,7 @@ const MovieInforWrap = () => {
       </ul>
       <div className="movieCommentWrap">
         <p className="sTitle">
-          #살아있다에 대한 <span>5,464</span>개의 이야기가 있어요!
+          {movie.name_kor}에 대한 <span>5,464</span>개의 이야기가 있어요!
         </p>
         <div className="myComment">
           <div className="profile">
@@ -178,10 +176,10 @@ const MovieInforWrap = () => {
       <div className="moviePostWrap">
         <div className="subTitleWrap">
           <h3 className="title">무비포스트</h3>
-          <button type="button" className={["btn", "regular"].join(" ")}>
+          {/* <button type="button" className={["btn", "regular"].join(" ")}>
             더보기
             <span className={["icon", "arrowRightWhite"].join(" ")}></span>
-          </button>
+          </button> */}
         </div>
         <ul className="postList">
           <li className="post">

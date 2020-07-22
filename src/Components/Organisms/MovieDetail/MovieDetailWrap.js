@@ -86,12 +86,12 @@ const MovieDetailWrap = () => {
                   ></span>
                   <span>{movie.acc_favorite}</span>
                 </button>
-                <button
+                {/* <button
                   type="button"
                   className={["btn", "outLine", "regular", "white"].join(" ")}
                 >
                   공유하기
-                </button>
+                </button> */}
               </div>
               <ul className="eval">
                 <li>

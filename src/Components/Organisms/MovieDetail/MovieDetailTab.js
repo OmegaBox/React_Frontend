@@ -14,7 +14,7 @@ const MovieDetailTab = () => {
       ...detailTab,
       view,
     });
-  }
+  };
 
   const detailTabView = () => {
     switch (detailTab.view) {
@@ -32,29 +32,20 @@ const MovieDetailTab = () => {
     <div className="movieDetailInforLayout">
       <ul className="tab">
         <li className={detailTab.view === "detailInfor" ? "active" : ""}>
-          <button
-            type="button"
-            onClick={() => changeTab("detailInfor")}
-          >
+          <button type="button" onClick={() => changeTab("detailInfor")}>
             주요정보
           </button>
         </li>
         <li className={detailTab.view === "detailComment" ? "active" : ""}>
-          <button
-            type="button"
-            onClick={() => changeTab("detailComment")}
-          >
+          <button type="button" onClick={() => changeTab("detailComment")}>
             한줄평
           </button>
         </li>
-        <li>
+        {/* <li>
           <button type="button">무비포스트</button>
-        </li>
+        </li> */}
         <li className={detailTab.view === "detailTrailer" ? "active" : ""}>
-          <button
-            type="button"
-            onClick={() => changeTab("detailTrailer")}
-          >
+          <button type="button" onClick={() => changeTab("detailTrailer")}>
             예고편/스틸컷
           </button>
         </li>
