@@ -1,3 +1,5 @@
+import React from "react";
+
 // 홀 정보 배열
 const screeningHallSeatInfo = [
   {
@@ -73,6 +75,7 @@ const socialDistance = (row, seatNum) => {
   return rowNum % 3 === seatNum % 3;
 };
 
+// 좌석 행 이름 배열 만들기 함수
 const makeRowNameArray = (rowNum) => {
   const rowNames = [];
   for (let i = 0; i < rowNum; i += 1) {
@@ -81,6 +84,7 @@ const makeRowNameArray = (rowNum) => {
   return rowNames;
 };
 
+// 좌석 숫자 번호 배열 만들기 함수
 const makeSeatNumArray = (maxSeat) => {
   const seatNums = [];
   for (let i = 0; i < maxSeat; i += 1) {
