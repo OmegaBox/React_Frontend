@@ -7,81 +7,14 @@ import {
   setReservedSeat,
 } from "../../Reducer/bookingSeatReducer";
 
+import {
+  setSeatInfo,
+  socialDistance,
+  makeRowNameArray,
+  makeSeatNumArray,
+} from "../../Utils/bookingSeatUtils";
+
 import "./style/BookingSeatList.scss";
-
-// 홀 정보 배열
-const screeningHallSeatInfo = [
-  {
-    hallId: 0,
-    maxSeat: 15,
-    row: 10,
-    path: [4, 12],
-    enter: [],
-    exit: [],
-    except: () => false,
-    handicapped: ["A1", "A2", "A3"],
-  },
-  {
-    hallId: 1,
-    maxSeat: 22,
-    row: 14,
-    path: [6, 16],
-    enter: [],
-    exit: [],
-    except: (row, seatNum) => {
-      const rowNum = row.charCodeAt() - 64;
-      switch (true) {
-        case seatNum === 1:
-          return rowNum === 1 || rowNum >= 9;
-        case seatNum > 1 && seatNum < 7:
-          return rowNum >= 9;
-        case seatNum === 7 || seatNum === 8:
-          return rowNum <= 9;
-        case seatNum === 9 || seatNum === 10:
-          return rowNum === 9;
-        case seatNum > 10 && seatNum < 15:
-          return rowNum === 9 || rowNum === 14;
-        case seatNum === 15 || seatNum === 16:
-          return rowNum === 9;
-        case seatNum === 21:
-          return rowNum === 14;
-        case seatNum === 22:
-          return rowNum === 1 || rowNum >= 8;
-        default:
-          return false;
-      }
-    },
-    handicapped: ["A2", "A3", "A20", "A21", "A4", "N7"],
-  },
-  {
-    hallId: 2,
-    maxSeat: 12,
-    row: 8,
-    path: [4, 8],
-    enter: [],
-    exit: [],
-    except: (row, seatNum) => {
-      const rowNum = row.charCodeAt() - 64;
-      switch (true) {
-        case seatNum < 4:
-          return rowNum > 4 + seatNum;
-        case seatNum === 5 || seatNum === 8:
-          return rowNum === 8;
-        case seatNum > 9:
-          return rowNum > 17 - seatNum;
-        default:
-          return false;
-      }
-    },
-    handicapped: ["A11", "A12", "H6", "H7"],
-  },
-];
-
-// 띄어앉기 석 로직
-const socialDistance = (row, seatNum) => {
-  const rowNum = row.charCodeAt() - 64;
-  return rowNum % 3 === seatNum % 3;
-};
 
 const BookingSeatList = ({ scheduleId, seatType = 0 }) => {
   const dispatch = useDispatch();
@@ -95,13 +28,9 @@ const BookingSeatList = ({ scheduleId, seatType = 0 }) => {
   // 홀 타입
   const hallType = seatType;
   // 행 이름 배열
-  const rowNames = new Array(screeningHallSeatInfo[hallType].row)
-    .fill(0)
-    .map((v, i) => String.fromCharCode(65 + i));
+  const rowNames = makeRowNameArray(setSeatInfo(hallType).row);
   // 좌석 번호 배열
-  const seatNums = new Array(screeningHallSeatInfo[hallType].maxSeat)
-    .fill(0)
-    .map((v, i) => i + 1);
+  const seatNums = makeSeatNumArray(setSeatInfo(hallType).maxSeat);
   // 선택 좌석 수
   const totalSeatCount = select.length;
   // 인원 총 원
@@ -135,7 +64,7 @@ const BookingSeatList = ({ scheduleId, seatType = 0 }) => {
           <li key={`row ${row}`}>
             {seatNums.map((num) => {
               const booked = reserved.includes(`${row}${num}`);
-              const except = screeningHallSeatInfo[hallType].except(row, num);
+              const except = setSeatInfo(hallType).except(row, num);
               const selected = select.includes(`${row}${num}`);
               const social = socialDistance(row, num);
               return (
@@ -144,14 +73,10 @@ const BookingSeatList = ({ scheduleId, seatType = 0 }) => {
                   value={`${row}${num}`}
                   className={
                     ["btn", "subLight"].join(" ") +
-                    (screeningHallSeatInfo[hallType].path.includes(num)
-                      ? " path"
-                      : "") +
+                    (setSeatInfo(hallType).path.includes(num) ? " path" : "") +
                     (selected ? " select" : "") +
                     (except ? " no" : "") +
-                    (screeningHallSeatInfo[hallType].handicapped.includes(
-                      `${row}${num}`
-                    )
+                    (setSeatInfo(hallType).handicapped.includes(`${row}${num}`)
                       ? " handicapped"
                       : "") +
                     (booked ? " booking" : "") +
