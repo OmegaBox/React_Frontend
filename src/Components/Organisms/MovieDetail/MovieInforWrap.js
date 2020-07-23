@@ -5,7 +5,7 @@ import RatingChart from "../../Molecules/ChartBookingRating";
 import DayAudienceLine from "../../Molecules/LineDayAudience";
 import RaderChartKeyPoint from "../../Molecules/RaderChartKeyPoint";
 import { numWithComma } from "../../../Utils/util";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 
 const MovieInforWrap = () => {
   const movie = useSelector((state) => state.Movie.detail);
@@ -175,13 +175,13 @@ const MovieInforWrap = () => {
             })}
         </ul>
       </div>
-      <div className="moviePostWrap">
+      {/* <div className="moviePostWrap">
         <div className="subTitleWrap">
           <h3 className="title">무비포스트</h3>
-          {/* <button type="button" className={["btn", "regular"].join(" ")}>
+          <button type="button" className={["btn", "regular"].join(" ")}>
             더보기
             <span className={["icon", "arrowRightWhite"].join(" ")}></span>
-          </button> */}
+          </button>
         </div>
         <ul className="postList">
           <li className="post">
@@ -277,7 +277,7 @@ const MovieInforWrap = () => {
             </ul>
           </li>
         </ul>
-      </div>
+      </div> */}
       <div className="eventWrap">
         <div className="subTitleWrap">
           <h3 className="title">이벤트</h3>
@@ -294,18 +294,22 @@ const MovieInforWrap = () => {
           </button>
         </div>
         <ul className="eventList">
-          <li>
-            <img
-              src="https://img.megabox.co.kr/SharedImg/event/2020/07/03/4UHs4ki7JVk2hwI0PTDbDT3aVyL5aWYu.jpg"
-              alt=""
-            />
-          </li>
-          <li>
-            <img
-              src="https://img.megabox.co.kr/SharedImg/event/2020/07/03/4UHs4ki7JVk2hwI0PTDbDT3aVyL5aWYu.jpg"
-              alt=""
-            />
-          </li>
+          <Link to="/event">
+            <li>
+              <img
+                src="https://img.megabox.co.kr/SharedImg/event/2020/07/03/4UHs4ki7JVk2hwI0PTDbDT3aVyL5aWYu.jpg"
+                alt=""
+              />
+            </li>
+          </Link>
+          <Link to="/event">
+            <li>
+              <img
+                src="https://img.megabox.co.kr/SharedImg/event/2020/07/22/EplWadj7fl7bcYkYEvGnormf42d25dto.jpg"
+                alt=""
+              />
+            </li>
+          </Link>
         </ul>
       </div>
     </div>
