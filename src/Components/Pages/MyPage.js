@@ -32,12 +32,7 @@ const MyPage = ({ history }) => {
       <MyMegaBox history={history} />
       {!isLoginCheck && (
         <ModalPortal>
-          <PopupNotice
-            text={"로그인이 필요한 페이지 입니다"}
-            onEvent={() => {
-              history.push("/memberlogin");
-            }}
-          />
+          <PopupNotice />
         </ModalPortal>
       )}
     </>
