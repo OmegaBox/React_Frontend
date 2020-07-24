@@ -3,35 +3,43 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { closeModal } from "../../Reducer/modalReducer";
 
-const PopupNotice = ({ text = "", onEvent = null, popupSize = {} }) => {
+const PopupNotice = () => {
   const dispatch = useDispatch();
-  const oneBtn = useSelector((state) => state.modal.oneBtn);
+  const modalState = useSelector((state) => state.modal);
+  const size = {
+    width: modalState.width,
+    height: modalState.height,
+  };
+  const okEvent = () => {
+    if (modalState.event) modalState.event();
+    dispatch(closeModal());
+  };
+  const closeEvent = () => {
+    dispatch(closeModal());
+  };
+
   return (
     <div className={["popupWrap"].join(" ")}>
-      <div className={["popupBox", "notice"].join(" ")} style={popupSize}>
+      <div className={["popupBox", "notice"].join(" ")} style={size}>
         <h2>알림</h2>
-        {!oneBtn && (
+        {!modalState.oneBtn && (
           <button
             className={["btn", "xSmall", "closed"].join(" ")}
-            onClick={() => {
-              dispatch(closeModal());
-            }}
+            onClick={closeEvent}
           >
             {" "}
             <span className={["icon", "closed"].join(" ")}></span>
           </button>
         )}
         <div className="popupContent">
-          <p>{text}</p>
+          <p>{modalState.text}</p>
         </div>
         <div className="btnWrap">
-          {!oneBtn && onEvent && (
+          {!modalState.oneBtn && modalState.onEvent && (
             <button
               type="button"
               className={["btn", "small", "main", "outLine"].join(" ")}
-              onClick={() => {
-                dispatch(closeModal());
-              }}
+              onClick={closeEvent}
             >
               취소
             </button>
@@ -39,10 +47,7 @@ const PopupNotice = ({ text = "", onEvent = null, popupSize = {} }) => {
           <button
             type="button"
             className={["btn", "small", "main", "fill"].join(" ")}
-            onClick={() => {
-              if (onEvent) onEvent();
-              dispatch(closeModal());
-            }}
+            onClick={okEvent}
           >
             확인
           </button>
