@@ -15,7 +15,7 @@ import key from "../../key.json";
 const MainHeader = () => {
   const dispatch = useDispatch();
   const [modal, text, event, w, h] = useSelector((state) => {
-    const Modal = state.modal;
+    const Modal = state.Modal;
     return [Modal.modal, Modal.text, Modal.event, Modal.width, Modal.height];
   });
 

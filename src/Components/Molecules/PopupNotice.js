@@ -5,7 +5,7 @@ import { closeModal } from "../../Reducer/modalReducer";
 
 const PopupNotice = () => {
   const dispatch = useDispatch();
-  const modalState = useSelector((state) => state.modal);
+  const modalState = useSelector((state) => state.Modal);
   const size = {
     width: modalState.width,
     height: modalState.height,

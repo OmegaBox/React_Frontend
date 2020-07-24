@@ -13,7 +13,7 @@ const rootReducer = combineReducers({
   Movie: movieReducer,
   userInfo: userInfoReducer,
   Seat: seatReducer,
-  modal: modalReducer,
+  Modal: modalReducer,
   myMovieStory: myMovieStoryReducer,
 });
 

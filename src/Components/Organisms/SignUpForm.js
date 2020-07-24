@@ -69,7 +69,7 @@ const SignUpForm = ({ history }) => {
 
   // 모달창 상태
   const [modal, text, event, w, h] = useSelector((state) => {
-    const Modal = state.modal;
+    const Modal = state.Modal;
     return [Modal.modal, Modal.text, Modal.event, Modal.width, Modal.height];
   });
 
