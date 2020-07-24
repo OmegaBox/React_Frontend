@@ -141,19 +141,23 @@
   }
 }
 section.comment, section.watched, section.likeMovie {margin-top: 40px;}
+.myMovieStoryWrap .listCounter {
+  font-size: 1.6rem;
+}
 .comment .movieList {border-top: 1px solid $darkBorder;}
 .comment .movieItem {
   align-items: flex-start;
   padding: 28px 8px 20px;
   border-bottom: 1px solid $border;
 }
-.comment .listCounter {
-  font-size: 1.6rem;
-}
+
 .watched .movieList li {float: left;}
 .watched .watchedMovie {
   width: 49%;
   margin: 0 0.5% 8px;
+}
+.watched .movieList .listNull {
+  margin-top: 0;
 }
 .watched .movieItem {
   position: relative;
