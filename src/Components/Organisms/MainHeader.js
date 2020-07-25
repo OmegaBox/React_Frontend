@@ -203,7 +203,9 @@ const MainHeader = () => {
               <li>
                 <Link to="/Booking">예매</Link>
               </li>
-              <li className="noCall">극장</li>
+              <li className="noCall">
+                <Link to="/theaters">극장</Link>
+              </li>
             </ul>
             <ul className="mainMenu mainRightSide">
               <li>
