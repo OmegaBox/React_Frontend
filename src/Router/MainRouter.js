@@ -10,6 +10,7 @@ import MovieDetailPage from "../Components/Pages/MovieDetailPage";
 import WholeMovieListPage from "../Components/Pages/WholeMovieListPage";
 import SignUpForm from "../Components/Organisms/SignUpForm";
 import LoginForm from "../Components/Organisms/LoginForm";
+import TheaterInfoPage from "../Components/Pages/TheaterInfoPage";
 
 const MainRouter = () => {
   return (
@@ -23,6 +24,7 @@ const MainRouter = () => {
       <Route path="/membersignup" component={SignUpForm} />
       <Route path="/memberlogin" component={LoginForm} />
       <Route path="/stylesample" component={ComponentSample} />
+      <Route path="/theaters" component={TheaterInfoPage} />
       <Route render={NotFoundPage} />
     </Switch>
   );
