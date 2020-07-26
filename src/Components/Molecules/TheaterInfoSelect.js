@@ -27,7 +27,7 @@ const TheaterInfoSelect = () => {
     <div className="bookingTheaterList">
       <h3 className="theaterHeading">극장</h3>
       <div className="theaterLocationList">
-        <ul className="region">
+        <ul className="theaterInfo region">
           {theaterLocs.map((theater, i) => {
             let className =
               theater.region === selectedOption.selectedRegion
@@ -48,7 +48,7 @@ const TheaterInfoSelect = () => {
             );
           })}
         </ul>
-        <ul className="localRegionTheater">
+        <ul className="theaterInfo localRegionTheater">
           {selectedRegion &&
             selectedRegion.theaters.map((theater, i) => {
               const isSelected = theater.name === selectedTheater.name;
