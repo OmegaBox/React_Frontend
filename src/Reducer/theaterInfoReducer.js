@@ -2,8 +2,8 @@ const SELECT_LOCATION = "theaterInfo/SELECT_LOCATION";
 const SELECT_THEATER = "theaterInfo/SELECT_THEATER";
 
 const initialState = {
-  selectedLoaction: "서울",
-  selectedTheater: "강남",
+  selectedRegion: "서울",
+  selectedTheater: {},
 };
 
 const theaterInfoReducer = (state = initialState, action) => {
@@ -11,7 +11,7 @@ const theaterInfoReducer = (state = initialState, action) => {
     case SELECT_LOCATION:
       return {
         ...state,
-        selectedLoaction: action.loaction,
+        selectedRegion: action.loaction,
       };
     case SELECT_THEATER:
       return {
