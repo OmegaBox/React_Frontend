@@ -63,15 +63,14 @@
   border-top: 1px solid $colorSubLight;
   .date {
     width: 120px;
-    height: 32px;
+    min-height: 32px;
     margin: -32px auto 0;
-    padding: 6px 0 2px;
+    padding: 4px 0 5px;
     text-align: center;
     border-radius: 16px;
     background-color: $colorSubLight;
     color: $colorWhite;
     overflow: hidden;
-    p {padding: 0;}
   }
 }
 .myMovieStoryWrap .timeLine .movieItem {
@@ -95,7 +94,7 @@
     padding-left: 0;
   }
   .info .tag p {
-    padding: 6px 16px 2px;
+    padding: 4px 16px;
     border: 1px solid $darkBorder;
     border-radius: 16px;
     line-height: 1;
