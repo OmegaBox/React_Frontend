@@ -1,16 +1,13 @@
-import React, { useEffect, useCallback } from "react";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import "./style/BookingTheaterList.scss";
+
+import { theaterLocation } from "../../Utils/theaterLocation";
 import {
-  setSelectRegion,
-  selectTheater,
-  setNearbyTheaters,
-} from "../../Reducer/bookingReducer";
-import {
-  theaterLocation,
-  findNearbyTheaters,
-} from "../../Utils/theaterLocation";
+  SELECT_REGION,
+  SELECT_THEATER,
+} from "../../Reducer/theaterInfoReducer";
 
 const TheaterInfoSelect = () => {
   const selectedOption = useSelector((state) => state.TheaterInfo);
@@ -19,20 +16,12 @@ const TheaterInfoSelect = () => {
 
   const theaterLocs = theaterLocation.slice();
 
-  const dispatchNearby = useCallback(
-    async () => dispatch(setNearbyTheaters(await findNearbyTheaters())),
-    [dispatch]
-  );
-
   const selectedRegion = theaterLocs.filter((theater) => {
     return theater.region === selectedOption.selectedRegion;
   })[0]; // 선택한 지역
 
   const selectedTheater = selectedOption.selectedTheater; // 선택한 영화관
-
-  useEffect(() => {
-    dispatchNearby();
-  }, [dispatchNearby]);
+  console.log(selectedTheater);
 
   return (
     <div className="bookingTheaterList">
@@ -50,7 +39,7 @@ const TheaterInfoSelect = () => {
                 <button
                   type="button"
                   onClick={() => {
-                    dispatch(setSelectRegion(theater.region));
+                    dispatch({ type: SELECT_REGION, region: theater.region });
                   }}
                 >
                   <span>{theater.region}</span>
@@ -62,14 +51,16 @@ const TheaterInfoSelect = () => {
         <ul className="localRegionTheater">
           {selectedRegion &&
             selectedRegion.theaters.map((theater, i) => {
-              const isSelected = theater.name === selectedTheater;
+              const isSelected = theater.name === selectedTheater.name;
 
               let className = "theater";
               className += isSelected ? " selectedTheater" : "";
 
               return (
                 <li key={`slectedTheater${i}`} className={className}>
-                  <button onClick={() => dispatch(selectTheater(theater))}>
+                  <button
+                    onClick={() => dispatch({ type: SELECT_THEATER, theater })}
+                  >
                     <span>{theater.name}</span>
                   </button>
                 </li>
