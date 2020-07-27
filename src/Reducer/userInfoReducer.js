@@ -178,7 +178,6 @@ const socialLogin = (user, history, signOut) => async (dispatch) => {
       });
     }
   } catch (e) {
-    console.log(e.response);
     // dispatch({
     //   type: LOGIN_ERROR,
     //   errorMessage: "아이디/비밀번호를 확인 해주세요",

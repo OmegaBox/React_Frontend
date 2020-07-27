@@ -20,7 +20,6 @@ const MainBoxOffice = () => {
     state.Movie.movies.filter((_, i) => i < 4),
     state.Movie.loading,
   ]);
-  console.log("로딩", movieLoading);
   const { isLogin, favoriteMovies } = useSelector((state) => state.userInfo);
   const dispatch = useDispatch();
   const history = useHistory();
