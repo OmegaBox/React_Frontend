@@ -3,8 +3,6 @@ import MyMegaBox from "../Templates/MyMegaBox";
 import { useDispatch, useSelector } from "react-redux";
 import { checkLogin, getMemberProfile } from "../../Reducer/userInfoReducer";
 import { openModal } from "../../Reducer/modalReducer";
-import ModalPortal from "../../Modules/ModalPortal";
-import PopupNotice from "../Molecules/PopupNotice";
 import "./style/mypage.scss";
 
 const MyPage = ({ history }) => {
@@ -27,16 +25,7 @@ const MyPage = ({ history }) => {
     dispatch(getMemberProfile());
   }, [dispatch]);
 
-  return (
-    <>
-      <MyMegaBox history={history} />
-      {!isLoginCheck && (
-        <ModalPortal>
-          <PopupNotice />
-        </ModalPortal>
-      )}
-    </>
-  );
+  return <MyMegaBox history={history} />;
 };
 
 export default React.memo(MyPage);

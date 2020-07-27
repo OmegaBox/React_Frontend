@@ -4,22 +4,12 @@ import ModalPortal from "../../Modules/ModalPortal";
 import PopupNotice from "../Molecules/PopupNotice";
 
 const ModalForm = () => {
-  const [modal, text, event, w, h] = useSelector((state) => {
-    const Modal = state.Modal;
-    return [Modal.modal, Modal.text, Modal.event, Modal.width, Modal.height];
-  });
+  const modal = useSelector((state) => state.Modal.modal);
   return (
     <div className="modalWrap">
       {modal && (
         <ModalPortal>
-          <PopupNotice
-            text={text}
-            onEvent={event}
-            popupSize={{
-              width: w,
-              height: h,
-            }}
-          />
+          <PopupNotice />
         </ModalPortal>
       )}
     </div>

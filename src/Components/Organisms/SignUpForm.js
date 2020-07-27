@@ -10,8 +10,6 @@ import { userApi } from "../../Api/api";
 
 import { resetSignupInfo } from "../../Reducer/userInfoReducer";
 import { openModal, setSize, setOneBtn } from "../../Reducer/modalReducer";
-import ModalPortal from "../../Modules/ModalPortal";
-import PopupNotice from "../Molecules/PopupNotice";
 
 const initSignState = {
   name: "",
@@ -66,12 +64,6 @@ const SignUpForm = ({ history }) => {
   const socialSignupInfo = useSelector(
     (state) => state.userInfo.socialSignupInfo
   );
-
-  // 모달창 상태
-  const [modal, text, event, w, h] = useSelector((state) => {
-    const Modal = state.Modal;
-    return [Modal.modal, Modal.text, Modal.event, Modal.width, Modal.height];
-  });
 
   // input Ref
   const inputRefs = {
@@ -601,18 +593,6 @@ detail: ${response.data.detail}`);
           회원가입
         </button>
       </section>
-      {modal && (
-        <ModalPortal>
-          <PopupNotice
-            text={text}
-            onEvent={event}
-            popupSize={{
-              width: w,
-              height: h,
-            }}
-          />
-        </ModalPortal>
-      )}
     </div>
   );
 };
