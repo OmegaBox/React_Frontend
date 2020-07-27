@@ -58,6 +58,9 @@ const MainHeader = () => {
       case "/mypage/point":
         page = "포인트 이용내역";
         break;
+      case "/theaters":
+        page = "극장 정보";
+        break;
       default:
     }
     return page;
@@ -102,6 +105,9 @@ const MainHeader = () => {
         utilClass = "";
         break;
       case "/mypage/point":
+        utilClass = "";
+        break;
+      case "/theaters":
         utilClass = "";
         break;
       default:
@@ -197,7 +203,9 @@ const MainHeader = () => {
               <li>
                 <Link to="/Booking">예매</Link>
               </li>
-              <li className="noCall">극장</li>
+              <li className="noCall">
+                <Link to="/theaters">극장</Link>
+              </li>
             </ul>
             <ul className="mainMenu mainRightSide">
               <li>
