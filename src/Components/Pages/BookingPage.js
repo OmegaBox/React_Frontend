@@ -7,8 +7,6 @@ import {
 } from "../../Reducer/bookingReducer";
 import { checkLogin } from "../../Reducer/userInfoReducer";
 import { openModal } from "../../Reducer/modalReducer";
-import ModalPortal from "../../Modules/ModalPortal";
-import PopupNotice from "../Molecules/PopupNotice";
 
 const BookingPage = ({ history }) => {
   const dispatch = useDispatch();
