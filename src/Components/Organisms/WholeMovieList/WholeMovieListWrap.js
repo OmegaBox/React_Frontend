@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import "./style/WholeMovieListWrap.scss";
 import { Link, useHistory } from "react-router-dom";
@@ -46,6 +46,36 @@ const WholeMovieListWrap = () => {
       );
     }
   };
+
+  const io = new IntersectionObserver(
+    (entries, observer) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) {
+          return;
+        }
+
+        const target = entry.target;
+        const posterImgTag = target.querySelector(".wholeMoviePoster");
+        const rank = target.querySelector(".mainRank");
+
+        posterImgTag.style.backgroundImage = `url(${posterImgTag.dataset.poster})`;
+        posterImgTag.style.backgroundSize = "cover";
+        posterImgTag.style.animation = "fadein 1s";
+        rank.style.display = " block";
+
+        observer.unobserve(target);
+      });
+    },
+    {
+      threshold: 0.5,
+    }
+  );
+
+  useEffect(() => {
+    Array.from(document.querySelectorAll(".wholeMovie")).forEach((el) => {
+      io.observe(el);
+    });
+  }, [io, movies]);
 
   return (
     <div className="WholeMovieListLayout">
@@ -108,7 +138,7 @@ const WholeMovieListWrap = () => {
                   <img
                     className="wholeMoviePoster"
                     alt={movie.title}
-                    src={movie.poster}
+                    data-poster={movie.poster}
                   />
                   <div className="wholeMovieInforWrap">
                     <p className="wholeMovieSummary">{movie.description}</p>

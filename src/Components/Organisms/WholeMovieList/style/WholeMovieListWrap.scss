@@ -99,6 +99,7 @@
   width: 230px;
   margin: 0 0 26px 60px;
   .mainRank {
+    display: none;
     position: absolute;
     width: 230px;
     height: 150px;
@@ -110,12 +111,22 @@
     text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.8);
     background: url("https://www.megabox.co.kr/static/pc/images/main/bg-main-movie-rank.png")
       no-repeat 0 0;
+    z-index: 100;
   }
   .wholeMoviePoster {
     width: 230px;
     height: 331px;
   }
 }
+@keyframes fadein {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 .wholeMovie:nth-child(4n + 1) {
   margin-left: 0;
 }
