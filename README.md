@@ -77,3 +77,43 @@ MEGABOX 홈페이지 제작을 통해 기존의 홈페이지 기능을 구현, �
 - FrontEnd : 달력, 좌석 선택 알고리즘, 차트, 영상 재생
 
 - BackEnd : 데이터간 복잡한 관계 연결, 상속, 커스터 마이징을 고려한 DB 설계
+
+## Bugfix & Refactoring history
+
+2020-07-29 :
+
+- 영화예매 페이지, 마이페이지에서 일정 시간 이후 로그인 체크가 안되는 버그 수정 (유성균 [수정코드](https://github.com/OmegaBox/React_Frontend/pull/295))
+
+2020-07-28 :
+
+- 영화 리스트 이미지에 Lazy Loading 기능 추가 (유성균 [개발코드](https://github.com/OmegaBox/React_Frontend/pull/292))
+
+2020-07-25 ~ 2020-07-27:
+
+- 영화 정보(지도) 표시 페이지 제작 (유성균 [개발코드](https://github.com/OmegaBox/React_Frontend/pull/291))
+
+2020-07-24 :
+
+- 마이무비스토리에 리스트가 없을 경우 깨지는 버그 수정 (김규리 [수정코드](https://github.com/OmegaBox/React_Frontend/pull/287))
+
+2020-07-23 :
+
+- HTML 코드 리팩토링 (유성균 [수정코드](https://github.com/OmegaBox/React_Frontend/pull/286))
+- 이벤트 페이지 접속시 스크롤 가장 위로 올림 (유성균 [수정코드](https://github.com/OmegaBox/React_Frontend/pull/286))
+
+2020-07-22 :
+
+- 링크가 걸려 있지 않은 버튼들에 링크 추가 (유성균 [수정 코드](https://github.com/OmegaBox/React_Frontend/pull/285))
+- 영화 상세페이지 코멘트 부분의 모든 영화 제목이 #살아있다로 표기되는 버그 수정 (유성균 [수정 코드](https://github.com/OmegaBox/React_Frontend/pull/285))
+- 영화 상세페이지에서 작동하지 않는 무비포스트 탭 삭제 (유성균 [수정 코드](https://github.com/OmegaBox/React_Frontend/pull/285))
+
+- 폰트 임포트 방식 수정 (김규리 [수정 코드](https://github.com/OmegaBox/React_Frontend/pull/284))
+
+2020-07-21 :
+
+- 좋아요 버튼이 깨지는 버그 수정 (유성균 [수정 코드](https://github.com/OmegaBox/React_Frontend/pull/283))
+
+2020-07-20 :
+
+- 무한 GPS요청 버그 수정 (유성균 [수정 코드](https://github.com/OmegaBox/React_Frontend/pull/279))
+- 메인페이지가 모바일에서 깨지는 버그 수정 (유성균 [수정 코드](https://github.com/OmegaBox/React_Frontend/pull/280))
