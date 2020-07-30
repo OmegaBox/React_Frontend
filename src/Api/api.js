@@ -30,6 +30,7 @@ export const refreshValidation = async () => {
 
 export const isLogin = async () => {
   const accessToken = cookie.load("accessToken");
+
   if (accessToken) return true;
 
   return await refreshValidation();
