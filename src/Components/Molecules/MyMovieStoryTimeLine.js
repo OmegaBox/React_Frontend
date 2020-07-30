@@ -74,7 +74,7 @@ const MyMovieStoryTimeLine = () => {
           timeline.map((datelist) => (
             <li className="dateDivision" key={datelist.date}>
               <div className="date">
-                <p>{datelist.date}</p>
+                <time>{datelist.date}</time>
               </div>
               <ul>
                 {datelist.movieList.map((movie) => (

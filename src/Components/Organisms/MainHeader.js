@@ -6,18 +6,12 @@ import { useDispatch, useSelector } from "react-redux";
 import subHeaderLogo from "../../images/omegabox_logo.jpg";
 import { useLocation } from "react-router-dom";
 import { startLogout } from "../../Reducer/userInfoReducer";
-import ModalPortal from "../../Modules/ModalPortal";
-import PopupNotice from "../Molecules/PopupNotice";
 import { openModal } from "../../Reducer/modalReducer";
 import { useGoogleLogout } from "react-google-login";
 import key from "../../key.json";
 
 const MainHeader = () => {
   const dispatch = useDispatch();
-  const [modal, text, event, w, h] = useSelector((state) => {
-    const Modal = state.modal;
-    return [Modal.modal, Modal.text, Modal.event, Modal.width, Modal.height];
-  });
 
   const history = useHistory();
 
@@ -63,6 +57,9 @@ const MainHeader = () => {
         break;
       case "/mypage/point":
         page = "포인트 이용내역";
+        break;
+      case "/theaters":
+        page = "극장 정보";
         break;
       default:
     }
@@ -110,6 +107,9 @@ const MainHeader = () => {
       case "/mypage/point":
         utilClass = "";
         break;
+      case "/theaters":
+        utilClass = "";
+        break;
       default:
         utilClass = "none";
     }
@@ -119,9 +119,7 @@ const MainHeader = () => {
   // 구글 로그아웃
   const { signOut } = useGoogleLogout({
     clientId: key.googleClientId,
-    onLogoutSuccess: () => {
-      console.log("구글 로그아웃 성공");
-    },
+    onLogoutSuccess: () => {},
   });
 
   const logOutPopup = () => {
@@ -203,7 +201,9 @@ const MainHeader = () => {
               <li>
                 <Link to="/Booking">예매</Link>
               </li>
-              <li className="noCall">극장</li>
+              <li className="noCall">
+                <Link to="/theaters">극장</Link>
+              </li>
             </ul>
             <ul className="mainMenu mainRightSide">
               <li>
@@ -234,18 +234,6 @@ const MainHeader = () => {
             </li>
           </ul>
         </div>
-        {modal && (
-          <ModalPortal>
-            <PopupNotice
-              text={text}
-              onEvent={event}
-              popupSize={{
-                width: w,
-                height: h,
-              }}
-            />
-          </ModalPortal>
-        )}
       </header>
     </>
   );

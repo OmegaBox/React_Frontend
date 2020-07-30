@@ -5,21 +5,14 @@ import { useSelector } from "react-redux";
 import "./style/TheaterMap.scss";
 
 const TheaterMap = () => {
-  const selectedOption = useSelector((state) => state.Booking.selectedOption);
-  const selectedTheaters = selectedOption.selectedTheaters;
+  const selectedTheater = useSelector(
+    (state) => state.TheaterInfo.selectedTheater
+  );
+  // const selectedTheaters = selectedOption.selectedTheaters;
 
-  const lastSelectedTheater = selectedTheaters[selectedTheaters.length - 1];
-  const lat = lastSelectedTheater
-    ? lastSelectedTheater.location.lat
-    : 37.5417438;
-  const lng = lastSelectedTheater
-    ? lastSelectedTheater.location.lng
-    : 127.044786;
-
-  const isSelectCompelte =
-    selectedOption.selectedDate && selectedOption.selectedTheaters.length;
-
-  const moveBtnClassName = isSelectCompelte ? "moveBtn" : "moveBtn disabled";
+  // const lastSelectedTheater = selectedTheaters[selectedTheaters.length - 1];
+  const lat = selectedTheater ? selectedTheater.location.lat : 37.5417438;
+  const lng = selectedTheater ? selectedTheater.location.lng : 127.044786;
 
   return (
     <div className="theaterMapContainer">
@@ -41,33 +34,16 @@ const TheaterMap = () => {
           >
             <Marker
               key={1}
-              title={
-                lastSelectedTheater
-                  ? lastSelectedTheater.name + " 메가박스"
-                  : ""
-              }
+              title={selectedTheater ? selectedTheater.name + " 메가박스" : ""}
               position={{ lat, lng }}
               animation={1}
-              onClick={() => {
-                alert("여기는 N서울타워입니다.");
-              }}
+              // onClick={() => {
+              //   alert("여기는 N서울타워입니다.");
+              // }
+              // }
             />
           </NaverMap>
         </RenderAfterNavermapsLoaded>
-      </div>
-      <div className="moveBtnContainer">
-        <button
-          className={"moveBtn goMain"}
-          disabled={
-            !selectedOption.selectedDate &&
-            !selectedOption.selectedTheaters.length
-          }
-        >
-          이전
-        </button>
-        <button className={moveBtnClassName} disabled={!isSelectCompelte}>
-          다음
-        </button>
       </div>
     </div>
   );

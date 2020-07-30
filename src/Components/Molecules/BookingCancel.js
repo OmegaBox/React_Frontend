@@ -7,8 +7,6 @@ import { GET_RESERVED } from "../../Reducer/userInfoReducer";
 const BookingCancel = ({ classSet, payment_id, receipt_id, price }) => {
   const dispatch = useDispatch();
 
-  console.log("부킹캔슬컴포넌트", payment_id, receipt_id, price);
-
   const cancel = async (id, receipt_id, price) => {
     try {
       const res = await cancelBilling(id, receipt_id, price);

@@ -4,6 +4,7 @@ import { all } from "redux-saga/effects";
 import { bookingReducer, bookingSaga } from "../Reducer/bookingReducer";
 import { movieReducer } from "../Reducer/movieReducer";
 import { userInfoReducer, userInfoSaga } from "../Reducer/userInfoReducer";
+import { theaterInfoReducer } from "./theaterInfoReducer";
 import seatReducer, { seatSaga } from "../Reducer/bookingSeatReducer";
 import modalReducer from "../Reducer/modalReducer";
 import myMovieStoryReducer from "../Reducer/myMovieStoryReducer";
@@ -13,7 +14,8 @@ const rootReducer = combineReducers({
   Movie: movieReducer,
   userInfo: userInfoReducer,
   Seat: seatReducer,
-  modal: modalReducer,
+  Modal: modalReducer,
+  TheaterInfo: theaterInfoReducer,
   myMovieStory: myMovieStoryReducer,
 });
 

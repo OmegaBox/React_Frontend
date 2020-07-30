@@ -9,9 +9,7 @@ import { regExp } from "../../Utils/util";
 import { userApi } from "../../Api/api";
 
 import { resetSignupInfo } from "../../Reducer/userInfoReducer";
-import { openModal, setSize, setOneBtn } from "../../Reducer/modalReducer";
-import ModalPortal from "../../Modules/ModalPortal";
-import PopupNotice from "../Molecules/PopupNotice";
+import { openModal } from "../../Reducer/modalReducer";
 
 const initSignState = {
   name: "",
@@ -66,12 +64,6 @@ const SignUpForm = ({ history }) => {
   const socialSignupInfo = useSelector(
     (state) => state.userInfo.socialSignupInfo
   );
-
-  // 모달창 상태
-  const [modal, text, event, w, h] = useSelector((state) => {
-    const Modal = state.modal;
-    return [Modal.modal, Modal.text, Modal.event, Modal.width, Modal.height];
-  });
 
   // input Ref
   const inputRefs = {
@@ -261,55 +253,65 @@ const SignUpForm = ({ history }) => {
           });
           successText = "회원가입에 성공하셨습니다.";
         }
-        dispatch(setOneBtn());
-        dispatch(openModal(successText, goLogin));
+        dispatch(
+          openModal(successText, goLogin, {
+            oneBtn: true,
+          })
+        );
       } catch ({ response }) {
         if (response.status === 400) {
           let errorDetail = "";
+          const catchError = () => {
+            switch (errorDetail) {
+              case "이미 가입된 이메일 주소입니다.":
+                inputRefs.email.current.focus();
+                setAlert({
+                  onAlert: {
+                    ...alertState.onAlert,
+                    email: true,
+                  },
+                  alertText: {
+                    ...alertState.alertText,
+                    email: errorDetail,
+                  },
+                });
+                break;
+              case "이미 가입된 번호입니다.":
+                inputRefs.tell.current.focus();
+                setAlert({
+                  onAlert: {
+                    ...alertState.onAlert,
+                    tell: true,
+                  },
+                  alertText: {
+                    ...alertState.alertText,
+                    tell: errorDetail,
+                  },
+                });
+                break;
+              default:
+                console.error("조건에 없는 에러입니다.");
+            }
+          };
+
           Object.keys(response.data).forEach((key) => {
             errorDetail = response.data[key];
           });
-          dispatch(setOneBtn());
           dispatch(
-            openModal(errorDetail, () => {
-              switch (errorDetail) {
-                case "이미 가입된 이메일 주소입니다.":
-                  inputRefs.email.current.focus();
-                  setAlert({
-                    onAlert: {
-                      ...alertState.onAlert,
-                      email: true,
-                    },
-                    alertText: {
-                      ...alertState.alertText,
-                      email: errorDetail,
-                    },
-                  });
-                  break;
-                case "이미 가입된 번호입니다.":
-                  inputRefs.tell.current.focus();
-                  setAlert({
-                    onAlert: {
-                      ...alertState.onAlert,
-                      tell: true,
-                    },
-                    alertText: {
-                      ...alertState.alertText,
-                      tell: errorDetail,
-                    },
-                  });
-                  break;
-                default:
-                  console.error("조건에 없는 에러입니다.");
-              }
+            openModal(errorDetail, catchError, {
+              oneBtn: true,
             })
           );
           if (isGoogle) reset();
         } else if (response.status === 500) {
-          dispatch(setSize(null, "200px"));
           dispatch(
             openModal(
-              "서버 사용량이 많아 회원가입을 할 수 없습니다. 잠시 후에 다시 시도하십시요."
+              "서버 사용량이 많아 회원가입을 할 수 없습니다. 잠시 후에 다시 시도하십시요.",
+              null,
+              {
+                weight: null,
+                height: "200px",
+              }
             )
           );
         } else {
@@ -601,18 +603,6 @@ detail: ${response.data.detail}`);
           회원가입
         </button>
       </section>
-      {modal && (
-        <ModalPortal>
-          <PopupNotice
-            text={text}
-            onEvent={event}
-            popupSize={{
-              width: w,
-              height: h,
-            }}
-          />
-        </ModalPortal>
-      )}
     </div>
   );
 };

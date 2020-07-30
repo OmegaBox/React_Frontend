@@ -6,15 +6,20 @@ import {
   getPossibleMovies,
 } from "../../Reducer/bookingReducer";
 import { checkLogin } from "../../Reducer/userInfoReducer";
-import { setOneBtn } from "../../Reducer/modalReducer";
-import ModalPortal from "../../Modules/ModalPortal";
-import PopupNotice from "../Molecules/PopupNotice";
+import { openModal } from "../../Reducer/modalReducer";
 
 const BookingPage = ({ history }) => {
   const dispatch = useDispatch();
   const isLoginCheck = useSelector((state) => state.userInfo.isLogin);
 
-  if (!isLoginCheck) dispatch(setOneBtn());
+  const goHome = () => {
+    history.push("/memberlogin");
+  };
+
+  if (!isLoginCheck)
+    dispatch(
+      openModal("로그인이 필요한 페이지 입니다", goHome, { oneBtn: true })
+    );
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -23,21 +28,7 @@ const BookingPage = ({ history }) => {
     dispatch(checkLogin());
   }, [dispatch]);
 
-  return (
-    <>
-      <Booking history={history} />
-      {!isLoginCheck && (
-        <ModalPortal>
-          <PopupNotice
-            text={"로그인이 필요한 페이지 입니다"}
-            onEvent={() => {
-              history.push("/memberlogin");
-            }}
-          />
-        </ModalPortal>
-      )}
-    </>
-  );
+  return <Booking history={history} />;
 };
 
 export default React.memo(BookingPage);
