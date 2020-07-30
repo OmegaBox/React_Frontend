@@ -31,7 +31,10 @@ export const refreshValidation = async () => {
 export const isLogin = async () => {
   const accessToken = cookie.load("accessToken");
 
-  if (accessToken) return true;
+  if (accessToken) {
+    console.log("isLogin 함수체크시 쿠키 있음");
+    return true;
+  }
 
   return await refreshValidation();
 };

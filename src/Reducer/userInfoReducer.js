@@ -194,6 +194,7 @@ const socialLogin = (user, history, signOut) => async (dispatch) => {
 
 const getMemberProfile = () => async (dispatch) => {
   const res = await isLogin();
+  console.log("getMemberProfile의 logincheck", res);
 
   if (res) {
     dispatch({ type: GET_MEMBER_DETAIL });
@@ -212,12 +213,12 @@ function* memberDetail(action) {
   yield put({ type: GET_MEMBER_DETAIL_LOADING });
 
   try {
-    const loginCheck = yield isLogin();
+    // const loginCheck = yield isLogin();
 
-    if (!loginCheck) {
-      yield put(startLogout());
-      return;
-    }
+    // if (!loginCheck) {
+    //   yield put(startLogout());
+    //   return;
+    // }
     const res = yield call(userApi.memberDetail);
 
     if (res.status === 200 || res.status === 201) {
@@ -254,12 +255,12 @@ function* myReserved(action) {
   yield put({ type: GET_RESERVED_LOADING });
 
   try {
-    const loginCheck = yield isLogin();
+    // const loginCheck = yield isLogin();
 
-    if (!loginCheck) {
-      yield put(startLogout());
-      return;
-    }
+    // if (!loginCheck) {
+    //   yield put(startLogout());
+    //   return;
+    // }
     const res = yield call(userApi.myReserved, { id: action.id });
     if (res.status === 200 || res.status === 201) {
       yield put({
@@ -290,12 +291,12 @@ function* myReservedCancel(action) {
   yield put({ type: GET_RESERVED_CANCELED_LOADING });
 
   try {
-    const loginCheck = yield isLogin();
+    // const loginCheck = yield isLogin();
 
-    if (!loginCheck) {
-      yield put(startLogout());
-      return;
-    }
+    // if (!loginCheck) {
+    //   yield put(startLogout());
+    //   return;
+    // }
     const res = yield call(userApi.myReservedCancel, { id: action.id });
     if (res.status === 200 || res.status === 201) {
       yield put({
@@ -326,12 +327,12 @@ function* timelineRating(action) {
   yield put({ type: GET_TIMELINE_RATING_LOADING });
 
   try {
-    const loginCheck = yield isLogin();
+    // const loginCheck = yield isLogin();
 
-    if (!loginCheck) {
-      yield put(startLogout());
-      return;
-    }
+    // if (!loginCheck) {
+    //   yield put(startLogout());
+    //   return;
+    // }
     const res = yield call(userApi.timelineRating, { id: action.id });
     if (res.status === 200 || res.status === 201) {
       yield put({
@@ -362,12 +363,12 @@ function* timelineWatched(action) {
   yield put({ type: GET_TIMELINE_WATCHED_LOADING });
 
   try {
-    const loginCheck = yield isLogin();
+    // const loginCheck = yield isLogin();
 
-    if (!loginCheck) {
-      yield put(startLogout());
-      return;
-    }
+    // if (!loginCheck) {
+    //   yield put(startLogout());
+    //   return;
+    // }
     const res = yield call(userApi.timelineWatched, { id: action.id });
     if (res.status === 200 || res.status === 201) {
       yield put({
@@ -398,12 +399,12 @@ function* timelineLike(action) {
   yield put({ type: GET_TIMELINE_LIKE_LOADING });
 
   try {
-    const loginCheck = yield isLogin();
+    // const loginCheck = yield isLogin();
 
-    if (!loginCheck) {
-      yield put(startLogout());
-      return;
-    }
+    // if (!loginCheck) {
+    //   yield put(startLogout());
+    //   return;
+    // }
     const res = yield call(userApi.timelineLike, { id: action.id });
     if (res.status === 200 || res.status === 201) {
       yield put({
@@ -432,13 +433,13 @@ function* timelineLike(action) {
 // 보고싶어 요청
 function* sendFavoriteRequest(action) {
   const state = yield select();
-  const loginCheck = yield isLogin();
   const movieId = action.movieId;
+  // const loginCheck = yield isLogin();
 
-  if (!loginCheck) {
-    yield put(startLogout());
-    return;
-  }
+  // if (!loginCheck) {
+  //   yield put(startLogout());
+  //   return;
+  // }
   try {
     yield call(movieApi.registerFavorite, movieId);
     yield put({ type: GET_TIMELINE_LIKE });
