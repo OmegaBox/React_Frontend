@@ -35,7 +35,7 @@ const PopupNotice = () => {
           <p>{modalState.text}</p>
         </div>
         <div className="btnWrap">
-          {!modalState.oneBtn && modalState.onEvent && (
+          {!modalState.oneBtn && modalState.event && (
             <button
               type="button"
               className={["btn", "small", "main", "outLine"].join(" ")}
