@@ -6,18 +6,12 @@ import { useDispatch, useSelector } from "react-redux";
 import subHeaderLogo from "../../images/omegabox_logo.jpg";
 import { useLocation } from "react-router-dom";
 import { startLogout } from "../../Reducer/userInfoReducer";
-import ModalPortal from "../../Modules/ModalPortal";
-import PopupNotice from "../Molecules/PopupNotice";
 import { openModal } from "../../Reducer/modalReducer";
 import { useGoogleLogout } from "react-google-login";
 import key from "../../key.json";
 
 const MainHeader = () => {
   const dispatch = useDispatch();
-  const [modal, text, event, w, h] = useSelector((state) => {
-    const Modal = state.modal;
-    return [Modal.modal, Modal.text, Modal.event, Modal.width, Modal.height];
-  });
 
   const history = useHistory();
 
@@ -240,18 +234,6 @@ const MainHeader = () => {
             </li>
           </ul>
         </div>
-        {modal && (
-          <ModalPortal>
-            <PopupNotice
-              text={text}
-              onEvent={event}
-              popupSize={{
-                width: w,
-                height: h,
-              }}
-            />
-          </ModalPortal>
-        )}
       </header>
     </>
   );

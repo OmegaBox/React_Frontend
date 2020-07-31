@@ -4,10 +4,8 @@ import Footer from "../Organisms/Footer";
 import SubMypageRouter from "../../Router/SubMypageRouter";
 import Snb from "../Organisms/MyPage/Snb";
 import { useSelector, useDispatch } from "react-redux";
-import { setOneBtn } from "../../Reducer/modalReducer";
+import { openModal } from "../../Reducer/modalReducer";
 import { checkLogin } from "../../Reducer/userInfoReducer";
-import ModalPortal from "../../Modules/ModalPortal";
-import PopupNotice from "../Molecules/PopupNotice";
 import { useHistory } from "react-router-dom";
 
 const MyMegaBox = () => {
@@ -15,7 +13,16 @@ const MyMegaBox = () => {
   const history = useHistory();
   const isLoginCheck = useSelector((state) => state.userInfo.isLogin);
 
-  if (!isLoginCheck) dispatch(setOneBtn());
+  const goLogin = () => {
+    history.push("/memberlogin");
+  };
+
+  if (!isLoginCheck)
+    dispatch(
+      openModal("로그인이 필요한 페이지 입니다.", goLogin, {
+        oneBtn: true,
+      })
+    );
 
   useEffect(() => {
     dispatch(checkLogin());
@@ -30,16 +37,6 @@ const MyMegaBox = () => {
         <SubMypageRouter />
       </main>
       <Footer />
-      {!isLoginCheck && (
-        <ModalPortal>
-          <PopupNotice
-            text={"로그인이 필요한 페이지 입니다"}
-            onEvent={() => {
-              history.push("/memberlogin");
-            }}
-          />
-        </ModalPortal>
-      )}
     </>
   );
 };
