@@ -182,7 +182,7 @@ const getSchedules = () => async (dispatch, state) => {
           ...res.data.results,
         ]; // for문 돌면서 누적 기록
       } else {
-        console.log("status 에러발생");
+        // console.log("status 에러발생");
       }
     }
 
@@ -202,7 +202,7 @@ const getSchedules = () => async (dispatch, state) => {
       )
     );
   } catch (e) {
-    console.log("에러발생", e);
+    // console.log("에러발생", e);
   }
 };
 
@@ -340,10 +340,10 @@ const getTheatersCanBooking = (movies = []) => async (dispatch, state) => {
           payload: newRegionTheaterLog,
         });
       } else {
-        console.log("에러 발생");
+        // console.log("에러 발생");
       }
     } catch (e) {
-      console.log("에러 발생", e);
+      // console.log("에러 발생", e);
     }
   }
 
