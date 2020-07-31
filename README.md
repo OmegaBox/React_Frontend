@@ -3,7 +3,9 @@
 ![omegabox_gif](https://i.imgur.com/F5hj8qN.gif)
 
 2020년 6월 22일부터 7월 17일까지 진행한 MEGABOX Clone 프로젝트(업데이트 기간 제외)입니다.<br>
-www.omegabox.ga 에서 프로젝트를 확인할 수 있습니다.
+www.omegabox.ga 에서 프로젝트를 확인할 수 있습니다.<br>
+
+<br>
 
 ## Requirements
 
@@ -37,6 +39,8 @@ www.omegabox.ga 에서 프로젝트를 확인할 수 있습니다.
     </div>
   </details>
 
+<br>
+
 ## Getting Started
 
 <b>로그인과 결제기능에 사용되는 key 파일은 업로드 되지 않았습니다.
@@ -45,6 +49,8 @@ www.omegabox.ga 에서 프로젝트를 확인할 수 있습니다.
 $ git clone "https://github.com/OmegaBox/React_Frontend.git"<br>
 $ yarn install<br>
 \$ yarn start<br>
+
+<br>
 
 ## Contributors
 
@@ -66,6 +72,8 @@ _Back_
 
 - 권효진
 
+<br>
+
 ## Development motivation
 
 MEGABOX 홈페이지 제작을 통해 기존의 홈페이지 기능을 구현, 개선하고<br>
@@ -74,11 +82,15 @@ MEGABOX 홈페이지 제작을 통해 기존의 홈페이지 기능을 구현, �
 
 이번 프로젝트를 시작하였습니다.<br>
 
+<br>
+
 ## Main Feature
 
 - FrontEnd : 달력, 좌석 선택 알고리즘, 차트, 영상 재생
 
 - BackEnd : 데이터간 복잡한 관계 연결, 상속, 커스터 마이징을 고려한 DB 설계
+
+<br>
 
 ## Bugfix & Refactoring history
 
