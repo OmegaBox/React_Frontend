@@ -1,6 +1,6 @@
 # OMEGABOX 프로젝트
 
-MEGABOX Clone 프로젝트입니다.<br>
+2020년 6월 22일부터 7월 17일까지 진행한 MEGABOX Clone 프로젝트(업데이트 기간 제외)입니다.<br>
 www.omegabox.ga 에서 프로젝트를 확인할 수 있습니다.
 
 ## Requirements
@@ -79,6 +79,17 @@ MEGABOX 홈페이지 제작을 통해 기존의 홈페이지 기능을 구현, �
 - BackEnd : 데이터간 복잡한 관계 연결, 상속, 커스터 마이징을 고려한 DB 설계
 
 ## Bugfix & Refactoring history
+
+2020-07-31 :
+
+- 메인페이지에서 신규 오픈 극장 선택시 극장 위치 정보 페이지 이동 (유성균 [수정코드](https://github.com/OmegaBox/React_Frontend/pull/300))
+- 마이페이지 로그인 체크를 한번만 하도록 고침 (유성균 [수정코드](https://github.com/OmegaBox/React_Frontend/pull/300))
+- 마이페이지 새로고침시 내역이 보이지 않는 버그 수정 (유성균 [수정코드](https://github.com/OmegaBox/React_Frontend/pull/300))
+- 좌석 선택 페이지에서 select의 문자열이 크롬 외의 브라우저에서 중앙정렬 되지 않는 버그 수정 (유성균 [수정코드](https://github.com/OmegaBox/React_Frontend/pull/300))
+
+2020-07-30 :
+
+- 팝업 모듈 리팩토링 (송치원 [수정코드](https://github.com/OmegaBox/React_Frontend/pull/297))
 
 2020-07-29 :
 
