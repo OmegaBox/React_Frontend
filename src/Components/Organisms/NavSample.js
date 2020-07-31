@@ -101,7 +101,7 @@ const NavSample = () => {
               });
             }
           } catch (e) {
-            console.log("마이페이지 에러", e.response);
+            // console.log("마이페이지 에러", e.response);
 
             dispatch({
               // api 연결에 문제가 있을때 이쪽으로 넘어옴.

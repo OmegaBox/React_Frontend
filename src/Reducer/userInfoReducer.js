@@ -194,7 +194,7 @@ const socialLogin = (user, history, signOut) => async (dispatch) => {
 
 const getMemberProfile = () => async (dispatch) => {
   const res = await isLogin();
-  console.log("getMemberProfile의 logincheck", res);
+  // console.log("getMemberProfile의 logincheck", res);
 
   if (res) {
     dispatch({ type: GET_MEMBER_DETAIL });
@@ -209,7 +209,7 @@ const getMemberProfile = () => async (dispatch) => {
 };
 
 // 멤버 디테일
-function* memberDetail(action) {
+function* memberDetail() {
   yield put({ type: GET_MEMBER_DETAIL_LOADING });
 
   try {
@@ -220,6 +220,7 @@ function* memberDetail(action) {
     //   return;
     // }
     const res = yield call(userApi.memberDetail);
+    // console.log("겟 맴버디테일", res);
 
     if (res.status === 200 || res.status === 201) {
       yield put({
@@ -240,7 +241,7 @@ function* memberDetail(action) {
       });
     }
   } catch (e) {
-    console.log("마이페이지 에러", e.response);
+    // console.log("마이페이지 에러", e.response);
 
     yield put({
       // api 연결에 문제가 있을때 이쪽으로 넘어옴.
@@ -276,7 +277,7 @@ function* myReserved(action) {
       });
     }
   } catch (e) {
-    console.log("예약내역 에러", e.response);
+    // console.log("예약내역 에러", e.response);
 
     yield put({
       // api 연결에 문제가 있을때 이쪽으로 넘어옴.
@@ -312,7 +313,7 @@ function* myReservedCancel(action) {
       });
     }
   } catch (e) {
-    console.log("예약취소 에러", e.response);
+    // console.log("예약취소 에러", e.response);
 
     yield put({
       // api 연결에 문제가 있을때 이쪽으로 넘어옴.
@@ -348,7 +349,7 @@ function* timelineRating(action) {
       });
     }
   } catch (e) {
-    console.log("한줄평 에러", e.response);
+    // console.log("한줄평 에러", e.response);
 
     yield put({
       // api 연결에 문제가 있을때 이쪽으로 넘어옴.
@@ -384,7 +385,7 @@ function* timelineWatched(action) {
       });
     }
   } catch (e) {
-    console.log("본영화 에러", e.response);
+    // console.log("본영화 에러", e.response);
 
     yield put({
       // api 연결에 문제가 있을때 이쪽으로 넘어옴.
@@ -420,7 +421,7 @@ function* timelineLike(action) {
       });
     }
   } catch (e) {
-    console.log("보고싶은 에러", e.response);
+    // console.log("보고싶은 에러", e.response);
 
     yield put({
       // api 연결에 문제가 있을때 이쪽으로 넘어옴.

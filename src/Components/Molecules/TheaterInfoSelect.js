@@ -21,7 +21,6 @@ const TheaterInfoSelect = () => {
   })[0]; // 선택한 지역
 
   const selectedTheater = selectedOption.selectedTheater; // 선택한 영화관
-  console.log(selectedTheater);
 
   return (
     <div className="bookingTheaterList">

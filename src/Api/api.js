@@ -32,7 +32,7 @@ export const isLogin = async () => {
   const accessToken = cookie.load("accessToken");
 
   if (accessToken) {
-    console.log("isLogin 함수체크시 쿠키 있음");
+    // console.log("isLogin 함수체크시 쿠키 있음");
     return true;
   }
 
@@ -120,13 +120,13 @@ export const billing = ({
           history.push("/booking/ticket");
         }
       } catch (e) {
-        console.log("검증에러", e.response);
+        // console.log("검증에러", e.response);
       }
     });
 };
 
 export const cancelBilling = async (id, receipt_id, price) => {
-  console.log("취소정보", id, receipt_id, price);
+  // console.log("취소정보", id, receipt_id, price);
   return axios.put(
     `
     https://www.omegabox.xyz/reservations/payments/${id}/cancel/
@@ -208,7 +208,7 @@ export const movieApi = {
           ...res.data.results,
         ];
       } catch (e) {
-        console.log(e.response);
+        // console.log(e.response);
         return {
           status: 400,
         };
