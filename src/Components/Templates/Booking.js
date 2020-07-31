@@ -3,10 +3,8 @@ import Header from "../Organisms/Header";
 import Footer from "../Organisms/Footer";
 import SubBookingRouter from "../../Router/SubBookingRouter";
 import { useSelector, useDispatch } from "react-redux";
-import { setOneBtn } from "../../Reducer/modalReducer";
+import { openModal } from "../../Reducer/modalReducer";
 import { checkLogin } from "../../Reducer/userInfoReducer";
-import ModalPortal from "../../Modules/ModalPortal";
-import PopupNotice from "../Molecules/PopupNotice";
 import { useHistory } from "react-router-dom";
 
 const Booking = () => {
@@ -14,7 +12,16 @@ const Booking = () => {
   const history = useHistory();
   const isLoginCheck = useSelector((state) => state.userInfo.isLogin);
 
-  if (!isLoginCheck) dispatch(setOneBtn());
+  const goLogin = () => {
+    history.push("/memberlogin");
+  };
+
+  if (!isLoginCheck)
+    dispatch(
+      openModal("로그인이 필요한 페이지 입니다.", goLogin, {
+        oneBtn: true,
+      })
+    );
 
   useEffect(() => {
     dispatch(checkLogin());
@@ -25,16 +32,6 @@ const Booking = () => {
       <Header />
       <SubBookingRouter />
       <Footer />
-      {!isLoginCheck && (
-        <ModalPortal>
-          <PopupNotice
-            text={"로그인이 필요한 페이지 입니다"}
-            onEvent={() => {
-              history.push("/memberlogin");
-            }}
-          />
-        </ModalPortal>
-      )}
     </>
   );
 };
