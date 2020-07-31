@@ -2,8 +2,6 @@
 
 ![omegabox_main](https://user-images.githubusercontent.com/15887982/89054414-b6474a00-d393-11ea-88db-595c71baaacf.png)
 
-<blockquote class="imgur-embed-pub" lang="en" data-id="a/VIuoLZh" data-context="false" ><a href="//imgur.com/a/VIuoLZh"></a></blockquote><script async src="//s.imgur.com/min/embed.js" charset="utf-8"></script>
-
 2020년 6월 22일부터 7월 17일까지 진행한 MEGABOX Clone 프로젝트(업데이트 기간 제외)입니다.<br>
 www.omegabox.ga 에서 프로젝트를 확인할 수 있습니다.
 
