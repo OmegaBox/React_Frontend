@@ -3,10 +3,11 @@ const CLOSE_MODAL = "CLOSE_MODAL";
 const SET_SIZE = "SET_SIZE";
 const SET_ONEBTN = "SET_ONEBTN";
 
-export const openModal = (text, event) => ({
+export const openModal = (text = "", event = null, option = {}) => ({
   type: OPEN_MODAL,
   text,
   event,
+  option,
 });
 
 export const closeModal = () => ({
@@ -39,7 +40,8 @@ const modalReducer = (state = initModal, action) => {
         ...state,
         modal: true,
         text: action.text,
-        event: action.event || null,
+        event: action.event,
+        ...action.option,
       };
     case CLOSE_MODAL:
       return initModal;

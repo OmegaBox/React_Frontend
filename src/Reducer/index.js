@@ -14,8 +14,8 @@ const rootReducer = combineReducers({
   Movie: movieReducer,
   userInfo: userInfoReducer,
   Seat: seatReducer,
+  Modal: modalReducer,
   TheaterInfo: theaterInfoReducer,
-  modal: modalReducer,
   myMovieStory: myMovieStoryReducer,
 });
 
