@@ -70,7 +70,7 @@ export const billing = ({
   })
     .error(function (data) {
       //결제 진행시 에러가 발생하면 수행됩니다.
-      console.log("결제 에러", data);
+      // console.log("결제 에러", data);
       return data;
     })
     .cancel(function (data) {
