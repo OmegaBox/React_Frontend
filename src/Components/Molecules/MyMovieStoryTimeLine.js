@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import {
   sliceDate,
@@ -36,6 +36,7 @@ const MyMovieStoryTimeLine = () => {
     category: "보고싶어",
     sortDate: movie.liked_at,
   }));
+
   let dateList = [];
   const getDate = () => {
     let tempArray = newComment.concat(newWatched).concat(newFavorite);
@@ -46,7 +47,9 @@ const MyMovieStoryTimeLine = () => {
     return tempArray;
   };
   dateList = getDate();
+
   const totalList = newComment.concat(newWatched).concat(newFavorite);
+
   const getTimelineList = dateList.map((date) => {
     const getArray = totalList.filter((movie) => date === movie.sortDate);
     return {
@@ -54,7 +57,7 @@ const MyMovieStoryTimeLine = () => {
       movieList: getArray,
     };
   });
-  const [timeline, setTimeLine] = useState(getTimelineList);
+
   return (
     <section className="timeLine">
       <h4 className="a11yHidden">무비타임라인</h4>
@@ -70,8 +73,8 @@ const MyMovieStoryTimeLine = () => {
         <button type="button" className="btnNext"></button>
       </div>
       <ul className="movieList">
-        {timeline.length ? (
-          timeline.map((datelist) => (
+        {getTimelineList.length ? (
+          getTimelineList.map((datelist) => (
             <li className="dateDivision" key={datelist.date}>
               <div className="date">
                 <time>{datelist.date}</time>

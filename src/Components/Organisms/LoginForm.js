@@ -24,7 +24,7 @@ const LoginForm = () => {
   });
 
   const responseGoogle = (response) => {
-    console.log(response);
+    // console.log(response);
     const user = {
       email: response.profileObj.email,
       googleId: response.googleId,
