@@ -1,6 +1,8 @@
 # OMEGABOX 프로젝트
 
-[![omegabox.gif](https://media.githubusercontent.com/media/Seongkyun-Yu/lfs/master/omegabox/omegabox3.gif)](https://www.youtube.com/watch?v=f1uahgMxjU0)
+| [![omegabox.gif](https://media.githubusercontent.com/media/Seongkyun-Yu/lfs/master/omegabox/omegabox3.gif)](https://www.youtube.com/watch?v=f1uahgMxjU0) |
+| :------------------------------------------------------------------------------------------------------------------------------------------------------: |
+|                                                           _이미지 클릭시 YouTube로 연결됩니다_                                                           |
 
 2020년 6월 22일부터 7월 17일까지 진행한 MEGABOX Clone 프로젝트(업데이트 기간 제외)입니다.<br>
 www.omegabox.ga 에서 프로젝트를 확인할 수 있습니다.<br>
