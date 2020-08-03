@@ -96,6 +96,11 @@ MEGABOX 홈페이지 제작을 통해 기존의 홈페이지 기능을 구현, �
 
 ## Bugfix & Refactoring history
 
+2020-08-03 :
+
+- 영화 코멘트의 영화제목이 특정 제목으로 고정되고 댓글 수가 특정 숫자로 고정 표기되는 버그 수정(유성균 [수정코드](https://github.com/OmegaBox/React_Frontend/pull/307))
+- 새로고침하면 로그아웃 팝업 띄우는 버그 수정 (유성균 [수정코드](https://github.com/OmegaBox/React_Frontend/pull/305))
+
 2020-07-31 :
 
 - 메인페이지에서 신규 오픈 극장 선택시 극장 위치 정보 페이지 이동 (유성균 [수정코드](https://github.com/OmegaBox/React_Frontend/pull/300))
