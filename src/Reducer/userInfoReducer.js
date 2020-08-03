@@ -71,7 +71,7 @@ const resetSignupInfo = () => ({
   type: RESET_SIGNUP_INFO,
 });
 
-const checkLogin = (goLogin = false, popup = false) => async (dispatch) => {
+const checkLogin = (goLogin = false, popup = true) => async (dispatch) => {
   const res = await isLogin();
 
   if (res) dispatch({ type: ALREADY_LOGIN });
@@ -79,7 +79,7 @@ const checkLogin = (goLogin = false, popup = false) => async (dispatch) => {
     dispatch({ type: LOGOUT_SUCCESS });
     popup &&
       dispatch(
-        openModal("로그인이 필요한 기능/페이지 입니다.", goLogin || null, {
+        openModal("로그인이 필요한 페이지입니다.", goLogin || null, {
           oneBtn: true,
         })
       );
