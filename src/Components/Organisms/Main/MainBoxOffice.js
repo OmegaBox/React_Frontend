@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./style/MainBoxOffice.scss";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
@@ -26,14 +26,22 @@ const MainBoxOffice = () => {
   const { isLogin, favoriteMovies } = useSelector((state) => state.userInfo);
   const dispatch = useDispatch();
   const history = useHistory();
+  const [inputState, setInputState] = useState("");
 
   const mainEnterKeyword = (e) => {
     if (e.keyCode === 13) {
-      dispatch({ type: SET_SEARCH_INPUT, input: e.target.value });
-      dispatch(getSearchMovie(e.target.value));
+      dispatch({ type: SET_SEARCH_INPUT, input: inputState });
+      dispatch(getSearchMovie(inputState));
       history.push("/listMovies");
     }
   };
+
+  const searchBtn = () => {
+    dispatch({ type: SET_SEARCH_INPUT, input: inputState });
+    dispatch(getSearchMovie(inputState));
+    history.push("/listMovies");
+  };
+
   // 해당 영화가 보고싶어 등록이 되있는지 확인하는 함수
   const isFavorite = (movieId) => {
     return (
@@ -166,8 +174,14 @@ const MainBoxOffice = () => {
                 className="boxOfficeSearchBar"
                 placeholder="영화명을 입력해주세요."
                 title="영화 검색"
+                onChange={(e) => setInputState(e.target.value)}
+                value={inputState}
               />
-              <button type="button" className="iconSearchBtn"></button>
+              <button
+                type="button"
+                className="iconSearchBtn"
+                onClick={searchBtn}
+              ></button>
             </form>
           </li>
           <Link to="/Booking">
