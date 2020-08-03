@@ -6,7 +6,10 @@ import {
   selectMovie,
   clearSelectedMovies,
 } from "../../../Reducer/bookingReducer";
-import { getSearchMovie } from "../../../Reducer/movieReducer";
+import {
+  getSearchMovie,
+  SET_SEARCH_INPUT,
+} from "../../../Reducer/movieReducer";
 import {
   GET_TIMELINE_LIKE,
   SEND_FAVORITE,
@@ -26,8 +29,9 @@ const MainBoxOffice = () => {
 
   const mainEnterKeyword = (e) => {
     if (e.keyCode === 13) {
-      history.push("/listMovies");
+      dispatch({ type: SET_SEARCH_INPUT, input: e.target.value });
       dispatch(getSearchMovie(e.target.value));
+      history.push("/listMovies");
     }
   };
   // 해당 영화가 보고싶어 등록이 되있는지 확인하는 함수
@@ -57,7 +61,7 @@ const MainBoxOffice = () => {
     if (isLogin) {
       dispatch({ type: GET_TIMELINE_LIKE });
     }
-  }, [isLogin, favoriteMovies.length]);
+  }, [dispatch, isLogin, favoriteMovies.length]);
 
   return (
     <div className="mainBoxOfficeLayout">

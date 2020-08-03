@@ -15,6 +15,8 @@ const BOOKING_AGE_RATING_LOADING = "ageBooking/LOADING";
 const RESET_MOVIE_PAGE = "movie/RESET_MOVIEPAGE";
 
 const SEARCH_MOVIES = "movies/SEARCH";
+const SET_SEARCH_KEYWORD = "movies/SET_SEARCH_KEYWORD";
+const SET_SEARCH_INPUT = "movies/SET_SEARCH_INPUT";
 
 // 특정 영화 보고싶어(추천) 수 증/감
 const FAVORITE_INCREASE_ONE = "movie/FAVORITE_INCREASE_ONE";
@@ -39,7 +41,11 @@ const setErrorBookingAgeRating = (error) => ({
   error,
 });
 
-const setSearchMovies = (data) => ({ type: SEARCH_MOVIES, data });
+const setSearchMovies = (data, keyword) => ({
+  type: SEARCH_MOVIES,
+  data,
+  keyword,
+});
 
 const resetMoviePage = () => ({ type: RESET_MOVIE_PAGE });
 
@@ -60,8 +66,7 @@ const getMovies = () => async (dispatch) => {
   try {
     const res = await movieApi.getMovies();
     if (res.status === 200) {
-      if (!Array.isArray(res.data.results))
-        return console.error("배열이 아닙니다.");
+      if (!Array.isArray(res.data.results)) return;
       dispatch(setSuccessMovie(res.data.results));
     } else {
       dispatch({
@@ -140,7 +145,7 @@ const getSearchMovie = (keyword) => async (dispatch) => {
     const search = await movieApi.getSearch(keyword);
     await search.data.results;
     if (search.status === 200) {
-      dispatch(setSearchMovies(search.data.results));
+      dispatch(setSearchMovies(search.data.results, keyword));
     } else {
       dispatch({
         type: "ERROR",
@@ -171,6 +176,9 @@ const initialState = {
   error: false,
   errorMessage: "",
   movies: [],
+  searchMoiveList: [],
+  searchKeyword: "",
+  searchInput: "",
   detail: {
     detail: {},
     loading: false,
@@ -250,7 +258,18 @@ const movieReducer = (state = initialState, action) => {
     case SEARCH_MOVIES:
       return {
         ...state,
-        movies: action.data,
+        searchMoiveList: action.data,
+        searchKeyword: action.keyword,
+      };
+    case SET_SEARCH_KEYWORD:
+      return {
+        ...state,
+        searchKeyword: action.keyword,
+      };
+    case SET_SEARCH_INPUT:
+      return {
+        ...state,
+        searchInput: action.input,
       };
     case FAVORITE_INCREASE_ONE:
       return {
@@ -313,4 +332,6 @@ export {
   setErrorBookingAgeRating,
   setLoadingBookingAgeRating,
   changeFavorite,
+  SET_SEARCH_KEYWORD,
+  SET_SEARCH_INPUT,
 };

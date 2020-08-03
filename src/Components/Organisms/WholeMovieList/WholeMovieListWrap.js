@@ -1,27 +1,43 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import "./style/WholeMovieListWrap.scss";
 import { Link, useHistory } from "react-router-dom";
 import { selectMovie } from "../../../Reducer/bookingReducer";
-import { getSearchMovie } from "../../../Reducer/movieReducer";
 import {
-  GET_TIMELINE_LIKE,
-  SEND_FAVORITE,
-} from "../../../Reducer/userInfoReducer";
+  getSearchMovie,
+  SET_SEARCH_KEYWORD,
+  SET_SEARCH_INPUT,
+} from "../../../Reducer/movieReducer";
+import { SEND_FAVORITE } from "../../../Reducer/userInfoReducer";
 import { openModal } from "../../../Reducer/modalReducer";
 import SkeletonWholeMoviePage from "../../Atoms/SkeletonWholeMoviePage";
 
 const WholeMovieListWrap = () => {
   const movies = useSelector((state) => state.Movie.movies);
+  const searchMovies = useSelector((state) => state.Movie.searchMoiveList);
+  const searchKeyword = useSelector((state) => state.Movie.searchKeyword);
+  const searchInput = useSelector((state) => state.Movie.searchInput);
+  const renderMovies = searchKeyword ? searchMovies : movies;
+
   const isLoading = useSelector((state) => state.Movie.loading);
   const dispatch = useDispatch();
   const history = useHistory();
   const { isLogin, favoriteMovies } = useSelector((state) => state.userInfo);
+  // const searchInputRef = useRef(null);
 
   const enterKeyword = (e) => {
-    if (e.keyCode === 13) {
-      dispatch(getSearchMovie(e.target.value));
-    }
+    if (e.keyCode !== 13) return;
+    dispatch({ type: SET_SEARCH_KEYWORD, keyword: e.target.value });
+    dispatch(getSearchMovie(e.target.value));
+  };
+
+  const inputChange = (e) => {
+    dispatch({ type: SET_SEARCH_INPUT, input: e.target.value });
+  };
+
+  const searchBtn = () => {
+    dispatch({ type: SET_SEARCH_KEYWORD, keyword: searchInput });
+    dispatch(getSearchMovie(searchInput));
   };
 
   // 해당 영화가 보고싶어 등록이 되있는지 확인하는 함수
@@ -75,7 +91,7 @@ const WholeMovieListWrap = () => {
     Array.from(document.querySelectorAll(".wholeMovie")).forEach((el) => {
       io.observe(el);
     });
-  }, [io, movies]);
+  }, [io, renderMovies]);
 
   return (
     <div className="WholeMovieListLayout">
@@ -97,7 +113,15 @@ const WholeMovieListWrap = () => {
         </li>
       </ul>
       <p className="searchResults">
-        <span>{movies.length}</span>
+        {searchKeyword ? (
+          <span>
+            <span className="searchKeyword">{searchKeyword + " "}</span>
+            키워드 검색으로
+          </span>
+        ) : (
+          ""
+        )}
+        <span>{" " + renderMovies.length}</span>
         개의 영화가 검색되었습니다.
       </p>
       <div className="wholeMovieSearchBarWrap">
@@ -107,14 +131,16 @@ const WholeMovieListWrap = () => {
           placeholder="영화명 검색"
           title="영화 검색"
           onKeyDown={enterKeyword}
+          onChange={inputChange}
+          value={searchInput}
         />
-        <button type="button" className="iconSearchBtn"></button>
+        <button type="button" className="iconSearchBtn" onClick={searchBtn} />
       </div>
       {isLoading ? (
         <SkeletonWholeMoviePage />
       ) : (
         <ul className="wholeMovieList">
-          {movies.map((movie, i) => {
+          {renderMovies.map((movie, i) => {
             let iconClassName = "icon";
             switch (movie.grade) {
               case "18+":
@@ -214,12 +240,6 @@ const WholeMovieListWrap = () => {
           })}
         </ul>
       )}
-      <div className="wholeMovieListMore">
-        <button type="button" className={["btn", "regular"].join(" ")}>
-          더보기
-          <span className={["icon", "arrowBottom"].join(" ")}></span>
-        </button>
-      </div>
     </div>
   );
 };
