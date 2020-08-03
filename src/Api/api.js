@@ -17,9 +17,11 @@ export const refreshValidation = async () => {
 
     cookie.remove("accessToken", {
       path: "/",
+      maxAge: 3600,
     });
     cookie.save("accessToken", newAccessToken.data.access, {
       path: "/",
+      maxAge: 3600,
     });
 
     return true;
