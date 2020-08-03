@@ -57,6 +57,9 @@
   display: inline-block;
   margin: 40px 0 15px 8px;
   font-weight: 600;
+  .searchKeyword {
+    color: $colorSub;
+  }
 }
 .wholeMovieSearchBarWrap {
   position: relative;

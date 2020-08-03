@@ -263,8 +263,8 @@ li:nth-last-child(4) {
 }
 
 .boxOfficeSubBarWrap .boxOfficeSearchBar {
-  cursor: default;
-  pointer-events: none;
+  cursor: text;
+  // pointer-events: none;
   width: 170px;
   height: 29px;
   padding: 0 10px;
@@ -276,7 +276,7 @@ li:nth-last-child(4) {
 }
 
 .iconSearchBtn {
-  cursor: default;
+  // cursor: default;
   width: 18px;
   height: 18px;
   margin-top: -1px;
