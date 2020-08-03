@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./style/MainHeader.scss";
 import logo from "../../images/omegaWhite.png";
 import { Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import subHeaderLogo from "../../images/omegabox_logo.jpg";
 import { useLocation } from "react-router-dom";
-import { startLogout } from "../../Reducer/userInfoReducer";
+import { startLogout, checkLogin } from "../../Reducer/userInfoReducer";
 import { openModal } from "../../Reducer/modalReducer";
 import { useGoogleLogout } from "react-google-login";
 import key from "../../key.json";
@@ -128,6 +128,10 @@ const MainHeader = () => {
     history.push("/");
   };
   const changeHeader = useSelector((state) => state.userInfo.isLogin);
+
+  useEffect(() => {
+    dispatch(checkLogin(false, false));
+  });
 
   return (
     <>
