@@ -12,6 +12,10 @@ const BookingPayment = () => {
   const ticketState = useSelector((state) => state.Booking.ticket);
   const dispatch = useDispatch();
 
+  const goLogin = () => {
+    history.push("/memberlogin");
+  };
+
   let iconClassName = "icon";
   switch (ticketState.movieAgeGrade) {
     case "18+":
@@ -35,30 +39,6 @@ const BookingPayment = () => {
   return (
     <div className="bookingPaymentWrap">
       <h2 className="title">빠른예매</h2>
-      {/* <div className="pointWrap">
-        <h3 className="a11yHidden">포인트 사용</h3>
-        <p className="stitle">
-          <span className={["icon", "point"].join(" ")}></span>
-          <span>사용가능한 멤버십 포인트</span>
-          <span className="point"> 200 P</span>
-        </p>
-        <label htmlFor="usePointInput" className="a11yHidden">
-          사용할 포인트
-        </label>
-        <input
-          type="number"
-          id="usePointInput"
-          placeholder="사용할 포인트를 입력하세요"
-          className={["input", "regular"].join(" ")}
-        />
-        원
-        <button
-          type="button"
-          className={["btn", "main", "fill", "regular"].join(" ")}
-        >
-          사용
-        </button>
-      </div> */}
       <div className="paymentInfoWrap">
         <div className="moviePoster">
           <img src={`${ticketState.poster}`} alt="" />
@@ -127,12 +107,6 @@ const BookingPayment = () => {
               <span>{numWithComma(ticketState.price)}</span>원
             </p>
           </div>
-          {/* <div className="usePoint">
-            <h4 className="subTitle">포인트 사용</h4>
-            <p className="dcPrice">
-              <span className="">0</span>원
-            </p>
-          </div> */}
           <div className="finalPaymentWrap">
             <h4 className="subTitle">최종결제금액</h4>
             <p className="payment">
@@ -162,7 +136,7 @@ const BookingPayment = () => {
                   dispatch,
                 });
               } else {
-                dispatch(checkLogin());
+                dispatch(checkLogin(goLogin));
               }
             }}
           >

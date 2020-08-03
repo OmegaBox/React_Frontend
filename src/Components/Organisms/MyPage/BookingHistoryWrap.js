@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect, useCallback } from "react";
+import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import BookingCancel from "../../Molecules/BookingCancel";
 import {
@@ -25,6 +25,11 @@ const BookingHistoryWrap = () => {
   const [useInfo, setUseInfo] = useState({ open: false });
 
   const dispatch = useDispatch();
+  const history = useHistory();
+
+  const goLogin = useCallback(() => {
+    history.push("/memberlogin");
+  }, [history]);
 
   const openUseInfo = () => {
     setUseInfo({
@@ -78,9 +83,9 @@ const BookingHistoryWrap = () => {
 
   useEffect(() => {
     // window.scrollTo(0, 0);
-    dispatch(checkLogin());
+    dispatch(checkLogin(goLogin));
     dispatch(getMemberProfile());
-  }, [dispatch]);
+  }, [dispatch, goLogin]);
 
   return (
     <div className="bookingHistoryWrap">

@@ -3,29 +3,21 @@ import Header from "../Organisms/Header";
 import Footer from "../Organisms/Footer";
 import SubMypageRouter from "../../Router/SubMypageRouter";
 import Snb from "../Organisms/MyPage/Snb";
-import { useSelector, useDispatch } from "react-redux";
-import { openModal } from "../../Reducer/modalReducer";
+import { useDispatch } from "react-redux";
 import { checkLogin } from "../../Reducer/userInfoReducer";
 import { useHistory } from "react-router-dom";
 
 const MyMegaBox = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const isLoginCheck = useSelector((state) => state.userInfo.isLogin);
 
   const goLogin = () => {
     history.push("/memberlogin");
   };
 
-  if (!isLoginCheck)
-    dispatch(
-      openModal("로그인이 필요한 페이지 입니다.", goLogin, {
-        oneBtn: true,
-      })
-    );
-
   useEffect(() => {
-    dispatch(checkLogin());
+    console.log("mypage useEffect");
+    dispatch(checkLogin(goLogin));
   });
 
   return (
