@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useCallback } from "react";
+import { Link, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import BookingCancel from "../../Molecules/BookingCancel";
 import {
@@ -15,6 +15,11 @@ import { checkLogin, getMemberProfile } from "../../../Reducer/userInfoReducer";
 
 const MypageDashBoard = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
+  const goLogin = useCallback(() => {
+    history.push("/memberlogin");
+  }, [history]);
+
   /* 개인정보 데이터 */
   const { name, tier, point } = useSelector((state) => ({
     name: state.userInfo.name,
@@ -54,9 +59,9 @@ const MypageDashBoard = () => {
 
   useEffect(() => {
     // window.scrollTo(0, 0);
-    dispatch(checkLogin());
+    dispatch(checkLogin(goLogin));
     dispatch(getMemberProfile());
-  }, [dispatch]);
+  }, [dispatch, goLogin]);
 
   return (
     <div>

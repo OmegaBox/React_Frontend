@@ -71,11 +71,19 @@ const resetSignupInfo = () => ({
   type: RESET_SIGNUP_INFO,
 });
 
-const checkLogin = () => async (dispatch) => {
+const checkLogin = (goLogin) => async (dispatch) => {
   const res = await isLogin();
 
   if (res) dispatch({ type: ALREADY_LOGIN });
-  else dispatch({ type: LOGOUT_SUCCESS });
+  else {
+    console.log("로그인 체크 실패");
+    dispatch({ type: LOGOUT_SUCCESS });
+    dispatch(
+      openModal("로그인이 필요한 기능/페이지 입니다.", goLogin || null, {
+        oneBtn: true,
+      })
+    );
+  }
 };
 
 const startLogout = () => async (dispatch) => {
