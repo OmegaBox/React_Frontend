@@ -9,7 +9,6 @@ import { useHistory, Link } from "react-router-dom";
 
 const MovieInforWrap = () => {
   const movie = useSelector((state) => state.Movie.detail);
-  console.log(movie);
   const [fullStoryState, setfullStoryState] = useState({
     fullStory: false,
   });

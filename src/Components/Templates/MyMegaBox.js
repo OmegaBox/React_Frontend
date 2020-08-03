@@ -1,25 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Header from "../Organisms/Header";
 import Footer from "../Organisms/Footer";
 import SubMypageRouter from "../../Router/SubMypageRouter";
 import Snb from "../Organisms/MyPage/Snb";
-import { useDispatch } from "react-redux";
-import { checkLogin } from "../../Reducer/userInfoReducer";
-import { useHistory } from "react-router-dom";
 
 const MyMegaBox = () => {
-  const dispatch = useDispatch();
-  const history = useHistory();
-
-  const goLogin = () => {
-    history.push("/memberlogin");
-  };
-
-  useEffect(() => {
-    console.log("mypage useEffect");
-    dispatch(checkLogin(goLogin));
-  });
-
   return (
     <>
       <Header />

@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 const MovieDetailComment = () => {
   window.scrollTo(0, 520);
   const movie = useSelector((state) => state.Movie.detail);
-  console.log(movie);
+
   return (
     <div>
       <div className="movieCommentWrap">
