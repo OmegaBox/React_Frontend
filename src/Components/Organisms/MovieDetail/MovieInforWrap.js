@@ -9,6 +9,7 @@ import { useHistory, Link } from "react-router-dom";
 
 const MovieInforWrap = () => {
   const movie = useSelector((state) => state.Movie.detail);
+  console.log(movie);
   const [fullStoryState, setfullStoryState] = useState({
     fullStory: false,
   });
@@ -118,7 +119,9 @@ const MovieInforWrap = () => {
       </ul>
       <div className="movieCommentWrap">
         <p className="sTitle">
-          {movie.name_kor}에 대한 <span>5,464</span>개의 이야기가 있어요!
+          {movie.name_kor}에 대한{" "}
+          <span>{movie.ratings && movie.ratings.length}</span>개의 이야기가
+          있어요!
         </p>
         <div className="myComment">
           <div className="profile">
@@ -132,8 +135,7 @@ const MovieInforWrap = () => {
           </div>
           <div className="box">
             <p className="content">
-              <span className="userName">홍길동</span>님{" "}
-              <span className="movieTitle">나의 첫 번째 슈퍼스타</span>재미있게
+              <span className="movieTitle">{movie.name_kor}</span> 재미있게
               보셨나요? 영화의 어떤 점이 좋았는지 이야기해주세요.
             </p>
             <button
