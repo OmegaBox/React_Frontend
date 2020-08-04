@@ -22,11 +22,13 @@ export const refreshValidation = async () => {
       path: "/",
       maxAge: 3500,
       expires,
+      secure: true,
     });
     cookie.save("accessToken", newAccessToken.data.access, {
       path: "/",
       maxAge: 3500,
       expires,
+      secure: true,
     });
 
     return true;
