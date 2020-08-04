@@ -117,15 +117,18 @@ function* loginSaga(action) {
         path: "/",
         maxAge: 3500,
         expires,
+        secure: true,
       });
 
       cookie.save("refreshToken", res.data.refresh, {
         path: "/",
         maxAge: 86300,
+        secure: true,
       });
       cookie.save("id", res.data.id, {
         path: "/",
         maxAge: 86300,
+        secure: true,
       });
 
       yield put({
@@ -167,15 +170,18 @@ const socialLogin = (user, history, signOut) => async (dispatch) => {
         path: "/",
         maxAge: 3500,
         expires,
+        secure: true,
       });
 
       cookie.save("refreshToken", res.data.refresh, {
         path: "/",
         maxAge: 86300,
+        secure: true,
       });
       cookie.save("id", res.data.id, {
         path: "/",
         maxAge: 86300,
+        secure: true,
       });
 
       dispatch({
