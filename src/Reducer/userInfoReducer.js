@@ -110,18 +110,25 @@ function* loginSaga(action) {
     if (res.status === 200) {
       removeCookies();
 
+      const expires = new Date();
+      expires.setDate(Date.now() + 1000 * 60 * 59);
+
       cookie.save("accessToken", res.data.access, {
         path: "/",
-        maxAge: 3600,
+        maxAge: 3500,
+        expires,
+        secure: true,
       });
 
       cookie.save("refreshToken", res.data.refresh, {
         path: "/",
-        maxAge: 86400,
+        maxAge: 86300,
+        secure: true,
       });
       cookie.save("id", res.data.id, {
         path: "/",
-        maxAge: 86400,
+        maxAge: 86300,
+        secure: true,
       });
 
       yield put({
@@ -156,18 +163,25 @@ const socialLogin = (user, history, signOut) => async (dispatch) => {
     if (res.status === 200) {
       removeCookies();
 
+      const expires = new Date();
+      expires.setDate(Date.now() + 1000 * 60 * 59);
+
       cookie.save("accessToken", res.data.access, {
         path: "/",
-        maxAge: 3600,
+        maxAge: 3500,
+        expires,
+        secure: true,
       });
 
       cookie.save("refreshToken", res.data.refresh, {
         path: "/",
-        maxAge: 86400,
+        maxAge: 86300,
+        secure: true,
       });
       cookie.save("id", res.data.id, {
         path: "/",
-        maxAge: 86400,
+        maxAge: 86300,
+        secure: true,
       });
 
       dispatch({

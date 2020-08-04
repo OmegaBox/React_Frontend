@@ -15,11 +15,20 @@ export const refreshValidation = async () => {
       }
     );
 
+    const expires = new Date();
+    expires.setDate(Date.now() + 1000 * 60 * 59);
+
     cookie.remove("accessToken", {
       path: "/",
+      maxAge: 3500,
+      expires,
+      secure: true,
     });
     cookie.save("accessToken", newAccessToken.data.access, {
       path: "/",
+      maxAge: 3500,
+      expires,
+      secure: true,
     });
 
     return true;
