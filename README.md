@@ -1,6 +1,6 @@
 # OMEGABOX 프로젝트
 
-| [![omegabox_image](https://user-images.githubusercontent.com/15887982/89279029-d7ed4d80-d681-11ea-93de-7d3c7bf37cb3.gif)](https://www.youtube.com/watch?v=f1uahgMxjU0) |
+| [![omegabox_image](https://user-images.githubusercontent.com/15887982/89279029-d7ed4d80-d681-11ea-93de-7d3c7bf37cb3.gif)](https://www.youtube.com/watch?v=86waeamae5k) |
 | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
 |                                                                  _이미지 클릭시 YouTube로 연결됩니다_                                                                  |
 
