@@ -1,10 +1,13 @@
-# OMEGABOX 프로젝트
+# OMEGABOX 프로젝트 [![HitCount](http://hits.dwyl.com/OmegaBox/React_Frontend.svg)](http://hits.dwyl.com/OmegaBox/React_Frontend)
 
 | [![omegabox_image](https://user-images.githubusercontent.com/15887982/89279029-d7ed4d80-d681-11ea-93de-7d3c7bf37cb3.gif)](https://www.youtube.com/watch?v=86waeamae5k) |
 | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
 |                                                                  _이미지 클릭시 YouTube로 연결됩니다_                                                                  |
 
-2020년 6월 22일부터 7월 17일까지 진행한 MEGABOX Clone 프로젝트(업데이트 기간 제외)입니다.<br>
+<br>
+
+2020년 6월 22일부터 7월 17일까지(업데이트 기간 제외) 진행한<br>
+MEGABOX Clone 프로젝트입니다.<br>
 www.omegabox.ga 에서 프로젝트를 확인할 수 있습니다.<br>
 
 <br>
