@@ -1,4 +1,4 @@
-# OMEGABOX 프로젝트 [![HitCount](http://hits.dwyl.com/OmegaBox/React_Frontend.svg)](http://hits.dwyl.com/OmegaBox/React_Frontend)
+# OMEGABOX 프로젝트
 
 | [![omegabox_image](https://user-images.githubusercontent.com/15887982/89279029-d7ed4d80-d681-11ea-93de-7d3c7bf37cb3.gif)](https://www.youtube.com/watch?v=86waeamae5k) |
 | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
@@ -64,12 +64,67 @@ $ yarn install<br>
 _Front_
 
 - 유성균 _-PM-_
+  <details> 
+    <summary>작업 내용</summary><br>
+    <div markdown="1">
+
+      - 예매 날짜, 상영관, 영화 선택 기능
+      - JWT를 활용한 일반 로그인, 소셜 로그인 기능
+      - 전체 영화 리스트 페이지의 이미지 Lazy Loading 처리
+      - 가까운 영화관 기능
+      - Bootpay 모듈을 활용한 결제, 예매 취소 기능
+      - Naver Map을 이용한 상영관 지도 표시 기능
+      - S3, CloudFront, Route53, Amazon Certification을 이용한 배포 작업
+      - 전체 프로젝트에서 뭔가 안된다는 기능들 수정 & 업데이트
+
+    </div>
+  </details>
+  <br>
 
 - 김규리
+  <details> 
+    <summary>작업 내용</summary><br>
+    <div markdown="1">
+
+      - 사이트의 전반적인 HTML/CSS 작성
+      - 예매내역 구현
+      - 나의 무비스토리(타임라인, 한줄평, 본영화, 보고싶어 표기) 구현
+      - 이벤트 페이지 구현
+
+    </div>
+  </details>
+  <br>
 
 - 정호영
+  <details> 
+    <summary>작업 내용</summary><br>
+    <div markdown="1">
+
+      - 메인페이지 구현
+      - 전체 영화 페이지 구현
+      - 영화 검색 기능 구현
+      - 영화 상세 페이지 구현
+      - 주요정보 탭의 차트 기능
+      - 한줄평 뷰 구현
+      - 예고편의 영상 재생 기능 구현
+
+    </div>
+  </details>
+  <br>
 
 - 송치원
+  <details> 
+    <summary>작업 내용</summary><br>
+    <div markdown="1">
+
+      - 좌석 선택 기능 구현
+      - 일반 회원가입, 구글 회원가입 기능 구현
+      - 회원 가입 기능에서 올바르지 않는 조건 작성시 회원 가입이 불가능한 기능 구현
+      - 공용 팝업 모듈 제작
+
+    </div>
+  </details>
+  <br>
 
 _Back_
 
