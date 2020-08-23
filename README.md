@@ -79,7 +79,6 @@ _Front_
 
     </div>
   </details>
-  <br>
 
 - 김규리
   <details> 
@@ -93,7 +92,6 @@ _Front_
 
     </div>
   </details>
-  <br>
 
 - 정호영
   <details> 
@@ -110,7 +108,6 @@ _Front_
 
     </div>
   </details>
-  <br>
 
 - 송치원
   <details> 
@@ -124,7 +121,6 @@ _Front_
 
     </div>
   </details>
-  <br>
 
 _Back_
 
