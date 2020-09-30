@@ -150,6 +150,14 @@ MEGABOX 홈페이지 제작을 통해 기존의 홈페이지 기능을 구현, �
 
 ## Bugfix & Refactoring history
 
+2020-09-30 :
+
+- IE 11 지원 패치 (유성균 [개발코드](https://github.com/OmegaBox/React_Frontend/pull/330))
+
+2020-09-29 :
+
+- api 주소 수정 (유성균 [개발코드](https://github.com/OmegaBox/React_Frontend/pull/328))
+
 2020-08-04 :
 
 - 메인 페이지 검색기능 제작 (유성균 [개발코드](https://github.com/OmegaBox/React_Frontend/pull/313))
