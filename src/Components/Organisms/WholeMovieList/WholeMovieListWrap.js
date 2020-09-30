@@ -11,6 +11,7 @@ import {
 import { SEND_FAVORITE } from "../../../Reducer/userInfoReducer";
 import { openModal } from "../../../Reducer/modalReducer";
 import SkeletonWholeMoviePage from "../../Atoms/SkeletonWholeMoviePage";
+import "intersection-observer";
 
 const WholeMovieListWrap = () => {
   const movies = useSelector((state) => state.Movie.movies);
