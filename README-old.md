@@ -57,6 +57,79 @@ $ yarn install<br>
 
 <br>
 
+## Contributors
+
+**TEAM : OMEGA**
+
+_Front_
+
+- 유성균 _-PM-_
+  <details> 
+    <summary>작업 내용</summary><br>
+    <div markdown="1">
+
+      - 예매 날짜, 상영관, 영화 선택 기능
+      - JWT를 활용한 일반 로그인, 소셜 로그인 기능
+      - 전체 영화 리스트 페이지의 이미지 Lazy Loading 처리
+      - 가까운 영화관 기능
+      - Bootpay 모듈을 활용한 결제, 예매 취소 기능
+      - Naver Map을 이용한 상영관 지도 표시 기능
+      - S3, CloudFront, Route53, Amazon Certification을 이용한 배포 작업
+      - 전체 프로젝트에서 뭔가 안된다는 기능들 수정 & 업데이트
+
+    </div>
+  </details>
+
+- 김규리
+  <details> 
+    <summary>작업 내용</summary><br>
+    <div markdown="1">
+
+      - 사이트의 전반적인 HTML/CSS 작성
+      - 예매내역 구현
+      - 나의 무비스토리(타임라인, 한줄평, 본영화, 보고싶어 표기) 구현
+      - 이벤트 페이지 구현
+
+    </div>
+  </details>
+
+- 정호영
+  <details> 
+    <summary>작업 내용</summary><br>
+    <div markdown="1">
+
+      - 메인페이지 구현
+      - 전체 영화 페이지 구현
+      - 영화 검색 기능 구현
+      - 영화 상세 페이지 구현
+      - 주요정보 탭의 차트 기능
+      - 한줄평 뷰 구현
+      - 예고편의 영상 재생 기능 구현
+
+    </div>
+  </details>
+
+- 송치원
+  <details> 
+    <summary>작업 내용</summary><br>
+    <div markdown="1">
+
+      - 좌석 선택 기능 구현
+      - 일반 회원가입, 구글 회원가입 기능 구현
+      - 회원 가입 기능에서 올바르지 않는 조건 작성시 회원 가입이 불가능한 기능 구현
+      - 공용 팝업 모듈 제작
+
+    </div>
+  </details>
+
+_Back_
+
+- 신동현
+
+- 권효진
+
+<br>
+
 ## Development motivation
 
 MEGABOX 홈페이지 제작을 통해 기존의 홈페이지 기능을 구현, 개선하고<br>
@@ -67,27 +140,11 @@ MEGABOX 홈페이지 제작을 통해 기존의 홈페이지 기능을 구현, �
 
 <br>
 
-## Main Feature by Seongkyun
+## Main Feature
 
-- 예매 날짜, 상영관, 영화 선택 기능
-- JWT를 활용한 일반 로그인, 소셜 로그인 기능
-- 전체 영화 리스트 페이지의 이미지 Lazy Loading 처리
-- 가까운 영화관 기능
-- Bootpay 모듈을 활용한 결제, 예매 취소 기능
-- Naver Map을 이용한 상영관 지도 표시 기능
-- S3, CloudFront, Route53, Amazon Certification을 이용한 배포 작업
-- 전체 프로젝트에서 뭔가 안된다는 기능들 수정 & 업데이트
+- FrontEnd : 달력, 좌석 선택 알고리즘, 차트, 영상 재생
 
-<br>
-
-## Improvements to Megabox
-
-- 페이지를 이동할 때마다 로딩창이 뜨지 않도록 상태 관리 처리
-- 좌석 선택 페이지에서 브라우저 상의 뒤로가기 누를 시 선택 옵션이 사라지지 않게 만듦
-- 한 번 검색했던 옵션은 Caching 처리를 통해 api 요청하지 않도록 함
-- 극장 위치 정보 표시
-- 선택 불가능한 날짜는 캘린더에 표시되지 않게 수정
-- 선택 불가능한 날짜는 캘린더에 표시되지 않게 수정
+- BackEnd : 데이터간 복잡한 관계 연결, 상속, 커스터 마이징을 고려한 DB 설계
 
 <br>
 
