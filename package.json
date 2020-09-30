@@ -13,6 +13,7 @@
     "http-proxy-middleware": "^1.0.4",
     "node-sass": "^4.14.1",
     "react": "^16.13.1",
+    "react-app-polyfill": "^1.0.6",
     "react-chartjs-2": "^2.9.0",
     "react-content-loader": "^5.1.0",
     "react-cookies": "^0.1.1",
@@ -48,6 +49,7 @@
       "not op_mini all"
     ],
     "development": [
+      "ie 11",
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
