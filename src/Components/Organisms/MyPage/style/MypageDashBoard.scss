@@ -5,11 +5,20 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  .mypagePersnalInfo, .mypageBookingHistory {width: 100%;}
-  .mypageMovieStoryInfo, .mypagePreferenceInfo {width: 400px;}
-  .mypageBookingHistory, .mypageMovieStoryInfo, .mypagePreferenceInfo {margin-top: 70px;}
+  .mypagePersnalInfo,
+  .mypageBookingHistory {
+    width: 100%;
+  }
+  .mypageMovieStoryInfo,
+  .mypagePreferenceInfo {
+    width: 400px;
+  }
+  .mypageBookingHistory,
+  .mypageMovieStoryInfo,
+  .mypagePreferenceInfo {
+    margin-top: 70px;
+  }
 }
-
 
 /* 개인정보 */
 .mypagePersnalInfo {
@@ -20,10 +29,18 @@
   background-color: $lightBg;
   .grade,
   .point,
-  .likeTheater {padding: 0 24px;}
-  .grade {flex-grow: 1;}
-  .point {flex-grow: 0.7;}
-  .grade {border-right: 1px solid $border;}
+  .likeTheater {
+    padding: 0 24px;
+  }
+  .grade {
+    flex-grow: 1;
+  }
+  .point {
+    flex-grow: 0.7;
+  }
+  .grade {
+    border-right: 1px solid $border;
+  }
   .name {
     margin-top: 4px;
     margin-bottom: 16px;
@@ -145,9 +162,16 @@
 }
 */
 
-.mypageMovieStoryInfo .subTitleWrap, .mypagePreferenceInfo .subTitleWrap {margin-bottom: 16px;}
-.mypageMovieStoryInfo .movieStoryInfoList {display: flex;}
-.mypageMovieStoryInfo li {flex-grow: 1;}
+.mypageMovieStoryInfo .subTitleWrap,
+.mypagePreferenceInfo .subTitleWrap {
+  margin-bottom: 16px;
+}
+.mypageMovieStoryInfo .movieStoryInfoList {
+  display: flex;
+}
+.mypageMovieStoryInfo li {
+  flex-grow: 1;
+}
 .mypageMovieStoryInfo a {
   display: block;
   text-align: center;
@@ -166,21 +190,27 @@
   font-weight: 500;
   color: $colorSub;
 }
-.mypagePreferenceInfo .bullet li::before {top: 14px;}
+.mypagePreferenceInfo .bullet li::before {
+  top: 14px;
+}
 .mypageBookingHistory .btnMore {
   display: flex;
   align-items: center;
 }
 
 /* mypageBookingHistory 무비리스트 */
-.mypageBookingHistory .movieList {border-top: 1px solid $darkBorder;}
+.mypageBookingHistory .movieList {
+  border-top: 1px solid $darkBorder;
+}
 .mypageBookingHistory .movieItem {
   border-bottom: 1px solid $border;
   .poster {
     width: 70px;
     margin-right: 24px;
     flex-shrink: 0;
-    img {width: 100%;}
+    img {
+      width: 100%;
+    }
   }
   h5::after {
     content: ":";
@@ -189,7 +219,9 @@
   }
   .info .paymentDate,
   .info .theater,
-  .info .viewingDate {width: 100%;}
+  .info .viewingDate {
+    width: 100%;
+  }
   .info .paymentDate {
     padding-bottom: 8px;
     font-weight: 500;
