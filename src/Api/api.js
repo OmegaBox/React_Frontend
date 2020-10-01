@@ -8,6 +8,8 @@ import { setTicketNumber } from "../Reducer/bookingReducer";
 export const refreshValidation = async () => {
   try {
     const refreshToken = cookie.load("refreshToken");
+    if (!refreshToken) return false;
+
     const newAccessToken = await axios.post(
       "https://omegabox.xyz/members/token/refresh/",
       {
@@ -40,10 +42,7 @@ export const refreshValidation = async () => {
 export const isLogin = async () => {
   const accessToken = cookie.load("accessToken");
 
-  if (accessToken) {
-    // console.log("isLogin 함수체크시 쿠키 있음");
-    return true;
-  }
+  if (accessToken) return true;
 
   return await refreshValidation();
 };
