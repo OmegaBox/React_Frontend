@@ -12,7 +12,7 @@
     "flatpickr": "^4.6.3",
     "http-proxy-middleware": "^1.0.4",
     "intersection-observer": "^0.11.0",
-    "node-sass": "^4.14.1",
+    "node-sass": "^7.0.0",
     "react": "^16.13.1",
     "react-app-polyfill": "^1.0.6",
     "react-chartjs-2": "^2.9.0",
